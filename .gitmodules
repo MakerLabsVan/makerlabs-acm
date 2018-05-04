@@ -4,3 +4,6 @@
 [submodule "firmware/esp32-network-lib"]
 	path = firmware/esp32-network-lib
 	url = https://github.com/paulreimer/esp32-network-lib
+[submodule "firmware/components/mbedtls"]
+	path = firmware/components/mbedtls
+	url = https://github.com/lws-team/mbedtls.git
