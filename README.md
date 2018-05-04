@@ -71,6 +71,11 @@ Commit and push the updated files in `webcomponents/` and `webcomponents/bower_c
 
 # Google Apps Script Webapp / Frontend
 
+- Login to the Google Apps Script / online UI:
+  ```
+  yarn login
+  ```
+
 - Pull changes from Google Apps Script / online UI:
   ```
   yarn pull

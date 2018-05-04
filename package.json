@@ -10,6 +10,8 @@
     "webcomponents": "cd \"webcomponents\" && bower update",
     "webcomponents-add": "cd \"webcomponents\" && bower install --save",
     "postwebcomponents-add-install": "cd \"webcomponents\" && bower update",
+    "login": "cd \"webapp\" && clasp login",
+    "logout": "cd \"webapp\" && clasp logout",
     "pull": "cd \"webapp\" && clasp pull",
     "push": "cd \"webapp\" && clasp push",
     "deploy": "cd \"webapp\" && clasp deploy",
