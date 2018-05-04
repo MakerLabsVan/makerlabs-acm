@@ -65,17 +65,17 @@ Commit and push the updated files in webcomponents/ and webcomponents/bower_comp
 
 Pull changes from Google Apps Script / online UI
 ```
-yarn webapp-pull
+yarn pull
 ```
 
 - Make desired changes to files in webapp/
 
 Push changes to Google Apps Script
 ```
-yarn webapp-push
+yarn push
 ```
 
 Deploy the latest changes as a webapp
 ```
-yarn webapp-deploy
+yarn deploy
 ```
