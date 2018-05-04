@@ -1,0 +1,47 @@
+menu "MakerLabs ACM Configuration"
+
+config WIFI_SSID
+  string "Wifi SSID"
+  default "myssid"
+  help
+    SSID (network name) for the example to connect to.
+
+config WIFI_PASSWORD
+  string "Wifi Password"
+  default "1234567890"
+  help
+    Wifi password (WPA or WPA2) for the example to use.
+
+    Can be left blank if the network has no security set.
+
+config PERMISSION_COLUMN_LABEL
+  string "Permission Column Label"
+  default "Front Desk"
+  help
+    Label from column header row in Google Apps Spreadsheet
+
+config SPREADSHEET_ID
+  string "Google Apps Spreadsheet ID"
+  default ""
+  help
+    Google Apps Spreadsheet ID
+
+config OAUTH_CLIENT_ID
+  string "OAuth Client ID"
+  default ""
+  help
+    OAuth Client ID from created Webapp
+
+config OAUTH_CLIENT_SECRET
+  string "OAuth Client Secret"
+  default ""
+  help
+    OAuth Client Secret from created Webapp
+
+config OAUTH_REFRESH_TOKEN
+  string "OAuth Refresh Token"
+  default ""
+  help
+    OAuth refresh_token used to obtain fresh access_token's every hour
+
+endmenu

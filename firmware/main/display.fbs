@@ -1,0 +1,78 @@
+/*
+ * Copyright Paul Reimer, 2018
+ *
+ * All rights reserved.
+ *
+ */
+
+namespace Display;
+
+enum Icon : short
+{
+  None,
+  Healthy,
+  Warning,
+  Error
+}
+
+table ClearDisplay
+{
+}
+
+table ShowUserDetails
+{
+  name: string;
+  email: string;
+  makerlabs_id: string;
+  tag_serial: string;
+}
+
+table BeginJobTimer
+{
+}
+
+table UpdateJobTimer
+{
+}
+
+table StopJobTimer
+{
+}
+
+table ShowMessage
+{
+  top_left_icon:Icon;
+  top_left:string;
+  top_left_font_size:byte = 12;
+
+  top_right_icon:Icon;
+  top_right:string;
+  top_right_font_size:byte = 12;
+
+  bottom_left_icon:Icon;
+  bottom_left:string;
+  bottom_left_font_size:byte = 12;
+
+  bottom_right_icon:Icon;
+  bottom_right:string;
+  bottom_right_font_size:byte = 12;
+}
+
+union DisplayAction
+{
+  ClearDisplay,
+  ShowUserDetails,
+  BeginJobTimer,
+  UpdateJobTimer,
+  StopJobTimer,
+  ShowMessage
+}
+
+table DisplayIntent
+{
+  action:DisplayAction;
+}
+
+root_type DisplayIntent;
+file_identifier "Disp";
+file_extension "fb";
