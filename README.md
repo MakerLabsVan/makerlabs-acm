@@ -21,6 +21,7 @@ MakerLabs Access Control Management (ACM) System
   Install dependencies:
   ```
   yarn deps
+  yarn install
   ```
 
 # Electrical
