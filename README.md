@@ -76,7 +76,7 @@ Commit and push the updated files in `webcomponents/` and `webcomponents/bower_c
   yarn pull
   ```
 
-Make desired changes to files in `webapp/`:
+- (Make desired changes to files in `webapp/`)
 
 - Push changes to Google Apps Script
   ```
