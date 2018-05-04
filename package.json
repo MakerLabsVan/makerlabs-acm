@@ -1,0 +1,34 @@
+{
+  "name": "makerlabs-acm",
+  "version": "0.0.1",
+  "description": "MakerLabs Access Control Management (ACM) System",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "which xtensa-esp32-elf-gcc 2>/dev/null || (cd firmware && (ls xtensa-esp32-elf 2>/dev/null || (ls xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz 2>/dev/null || curl -LO https://dl.espressif.com/dl/xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz) || tar -xf xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz) && echo wut && cd - && ln -sf `pwd`/firmware/xtensa-esp32-elf/bin/* node_modules/.bin)",
+    "deps": "brew install yarn bower flatbuffers && pip install pyserial && yarn global add @google/clasp",
+    "firmware": "cd \"firmware\" && ESP_IDF_PATH=esp-idf make",
+    "webcomponents": "cd \"webcomponents\" && bower update",
+    "webcomponents-add": "cd \"webcomponents\" && bower install --save",
+    "postwebcomponents-add-install": "cd \"webcomponents\" && bower update",
+    "webapp-pull": "cd \"webapp\" && clasp pull",
+    "webapp-push": "cd \"webapp\" && clasp push",
+    "webapp-deploy": "cd \"webapp\" && clasp deploy",
+    "precommit": "yarn lint-staged"
+  },
+  "lint-staged": {
+    "webapp/*.js": [
+      "prettier --single-quote --no-semi --write",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "eslint-plugin-prettier": "^2.3.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.1",
+    "eslint-config-prettier": "^2.9.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.3.0",
+    "prettier": "^1.7.4"
+  }
+}
