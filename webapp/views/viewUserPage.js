@@ -9,7 +9,7 @@ function toColumnName(num) {
 function doGet(e) {
   var sheetName = 'Users'
 
-  var appLayoutTemplateFilename = 'AppLayoutTemplate.html'
+  var appLayoutTemplateFilename = 'views/AppLayoutTemplate.html'
   var appTpl = HtmlService.createTemplateFromFile(appLayoutTemplateFilename)
 
   // Pass any provided URL parameters to template
@@ -17,16 +17,16 @@ function doGet(e) {
 
   // Inject (static) custom WebComponent definitions
   var userSearchBarComponent = HtmlService.createHtmlOutputFromFile(
-    'user-search-bar.html'
+    'views/user-search-bar.html'
   )
   var viewUserFormComponent = HtmlService.createHtmlOutputFromFile(
-    'view-user-form.html'
+    'views/view-user-form.html'
   )
   var googleSheetsDatasourceComponent = HtmlService.createHtmlOutputFromFile(
-    'google-sheets-datasource.html'
+    'views/google-sheets-datasource.html'
   )
   var imageFileUploaderComponent = HtmlService.createHtmlOutputFromFile(
-    'image-file-uploader.html'
+    'views/image-file-uploader.html'
   )
 
   appTpl.userSearchBarComponent = userSearchBarComponent.getContent()
