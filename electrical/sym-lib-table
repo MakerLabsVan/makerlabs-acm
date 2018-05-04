@@ -1,0 +1,6 @@
+(sym_lib_table
+  (lib (name ESP32_TTGO)(type Legacy)(uri ${KIPRJMOD}/parts/ESP32_TTGO/ESP32_TTGO.lib)(options "")(descr ""))
+  (lib (name iClass_SE_R10)(type Legacy)(uri ${KIPRJMOD}/parts/iClass_SE_R10/iClass_SE_R10.lib)(options "")(descr ""))
+  (lib (name SMDA15-6)(type Legacy)(uri ${KIPRJMOD}/parts/SMDA15-6/SMDA15-6.lib)(options "")(descr ""))
+  (lib (name TLP2161)(type Legacy)(uri ${KIPRJMOD}/parts/TLP2161/TLP2161.lib)(options "")(descr ""))
+)
