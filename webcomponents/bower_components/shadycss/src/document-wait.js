@@ -8,17 +8,16 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-'use strict'
+'use strict';
 
 /** @type {Promise<void>} */
-let readyPromise = null
+let readyPromise = null;
 
 /** @type {?function(?function())} */
-let whenReady =
-  (window['HTMLImports'] && window['HTMLImports']['whenReady']) || null
+let whenReady = window['HTMLImports'] && window['HTMLImports']['whenReady'] || null;
 
 /** @type {function()} */
-let resolveFn
+let resolveFn;
 
 /**
  * @param {?function()} callback
@@ -29,22 +28,18 @@ export default function documentWait(callback) {
       whenReady(callback)
     } else {
       if (!readyPromise) {
-        readyPromise = new Promise(resolve => {
-          resolveFn = resolve
-        })
+        readyPromise = new Promise((resolve) => {resolveFn = resolve});
         if (document.readyState === 'complete') {
-          resolveFn()
+          resolveFn();
         } else {
           document.addEventListener('readystatechange', () => {
             if (document.readyState === 'complete') {
-              resolveFn()
+              resolveFn();
             }
-          })
+          });
         }
       }
-      readyPromise.then(function() {
-        callback && callback()
-      })
+      readyPromise.then(function(){ callback && callback(); });
     }
-  })
+  });
 }

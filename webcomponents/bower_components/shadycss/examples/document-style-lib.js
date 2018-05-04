@@ -16,45 +16,39 @@ Then, start a MutationObserver for dynamically added styles.
 
 Caveat: ShadyCSS will add a `scope` attribute to styles it controls, so do not add those styles.
 */
-;(function() {
-  'use strict'
+(function() {
+  'use strict';
 
-  const CustomStyleInterface = window.ShadyCSS.CustomStyleInterface
+  const CustomStyleInterface = window.ShadyCSS.CustomStyleInterface;
 
   function shouldAddDocumentStyle(n) {
-    return (
-      n.nodeType === Node.ELEMENT_NODE &&
-      n.localName === 'style' &&
-      !n.hasAttribute('scope')
-    )
+    return n.nodeType === Node.ELEMENT_NODE && n.localName === 'style' && !n.hasAttribute('scope');
   }
 
   function handler(mxns) {
     for (let i = 0; i < mxns.length; i++) {
-      let mxn = mxns[i]
+      let mxn = mxns[i];
       for (let j = 0; j < mxn.addedNodes.length; j++) {
-        let n = mxn.addedNodes[j]
+        let n = mxn.addedNodes[j];
         if (shouldAddDocumentStyle(n)) {
-          CustomStyleInterface.addCustomStyle(n)
+          CustomStyleInterface.addCustomStyle(n);
         }
       }
     }
   }
 
-  const observer = new MutationObserver(handler)
+  const observer = new MutationObserver(handler);
 
   document.addEventListener('DOMContentLoaded', () => {
-    const candidates = document.querySelectorAll('custom-style')
+    const candidates = document.querySelectorAll('custom-style');
     for (let i = 0; i < candidates.length; i++) {
-      const candidate = candidates[i]
+      const candidate = candidates[i];
       if (shouldAddDocumentStyle(candidate)) {
-        CustomStyleInterface.addCustomStyle(candidate)
+        CustomStyleInterface.addCustomStyle(candidate);
       }
     }
-    observer.observe(document, { childList: true, subtree: true })
-  })
+    observer.observe(document, {childList: true, subtree: true});
+  });
 
-  window.documentStyleFlush = () => {
-    handler(observer.takeRecords())
-  }
-})()
+  window.documentStyleFlush = () => {handler(observer.takeRecords())};
+})();

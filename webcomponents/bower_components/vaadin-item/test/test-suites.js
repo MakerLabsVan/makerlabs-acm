@@ -1,1 +1,4 @@
-window.VaadinItemSuites = ['vaadin-item-mixin.html', 'vaadin-item.html']
+window.VaadinItemSuites = [
+  'vaadin-item-mixin.html',
+  'vaadin-item.html'
+];

@@ -12,12 +12,14 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-;(function(scope, testing) {
+(function(scope, testing) {
+
   scope.apply = function(element, property, value) {
-    element.style[scope.propertyName(property)] = value
-  }
+    element.style[scope.propertyName(property)] = value;
+  };
 
   scope.clear = function(element, property) {
-    element.style[scope.propertyName(property)] = ''
-  }
-})(webAnimations1, webAnimationsTesting)
+    element.style[scope.propertyName(property)] = '';
+  };
+
+})(webAnimations1, webAnimationsTesting);

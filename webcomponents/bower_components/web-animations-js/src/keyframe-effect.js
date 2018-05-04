@@ -12,49 +12,46 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-;(function(shared, scope, testing) {
+(function(shared, scope, testing) {
+
   function EffectTime(timing) {
-    var timeFraction = 0
-    var activeDuration = shared.calculateActiveDuration(timing)
+    var timeFraction = 0;
+    var activeDuration = shared.calculateActiveDuration(timing);
     var effectTime = function(localTime) {
-      return shared.calculateIterationProgress(
-        activeDuration,
-        localTime,
-        timing
-      )
-    }
-    effectTime._totalDuration = timing.delay + activeDuration + timing.endDelay
-    return effectTime
+      return shared.calculateIterationProgress(activeDuration, localTime, timing);
+    };
+    effectTime._totalDuration = timing.delay + activeDuration + timing.endDelay;
+    return effectTime;
   }
 
   scope.KeyframeEffect = function(target, effectInput, timingInput, id) {
-    var effectTime = EffectTime(shared.normalizeTimingInput(timingInput))
-    var interpolations = scope.convertEffectInput(effectInput)
-    var timeFraction
+    var effectTime = EffectTime(shared.normalizeTimingInput(timingInput));
+    var interpolations = scope.convertEffectInput(effectInput);
+    var timeFraction;
     var keyframeEffect = function() {
-      WEB_ANIMATIONS_TESTING &&
-        console.assert(typeof timeFraction !== 'undefined')
-      interpolations(target, timeFraction)
-    }
+      WEB_ANIMATIONS_TESTING && console.assert(typeof timeFraction !== 'undefined');
+      interpolations(target, timeFraction);
+    };
     // Returns whether the keyframeEffect is in effect or not after the timing update.
     keyframeEffect._update = function(localTime) {
-      timeFraction = effectTime(localTime)
-      return timeFraction !== null
-    }
+      timeFraction = effectTime(localTime);
+      return timeFraction !== null;
+    };
     keyframeEffect._clear = function() {
-      interpolations(target, null)
-    }
+      interpolations(target, null);
+    };
     keyframeEffect._hasSameTarget = function(otherTarget) {
-      return target === otherTarget
-    }
-    keyframeEffect._target = target
-    keyframeEffect._totalDuration = effectTime._totalDuration
-    keyframeEffect._id = id
-    return keyframeEffect
-  }
+      return target === otherTarget;
+    };
+    keyframeEffect._target = target;
+    keyframeEffect._totalDuration = effectTime._totalDuration;
+    keyframeEffect._id = id;
+    return keyframeEffect;
+  };
 
   if (WEB_ANIMATIONS_TESTING) {
-    testing.webAnimations1KeyframeEffect = scope.KeyframeEffect
-    testing.effectTime = EffectTime
+    testing.webAnimations1KeyframeEffect = scope.KeyframeEffect;
+    testing.effectTime = EffectTime;
   }
-})(webAnimationsShared, webAnimations1, webAnimationsTesting)
+
+})(webAnimationsShared, webAnimations1, webAnimationsTesting);

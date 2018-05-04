@@ -12,90 +12,86 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-;(function(shared, scope, testing) {
-  var originalRequestAnimationFrame = window.requestAnimationFrame
-  var rafCallbacks = []
-  var rafId = 0
+
+(function(shared, scope, testing) {
+  var originalRequestAnimationFrame = window.requestAnimationFrame;
+  var rafCallbacks = [];
+  var rafId = 0;
   window.requestAnimationFrame = function(f) {
-    var id = rafId++
+    var id = rafId++;
     if (rafCallbacks.length == 0 && !WEB_ANIMATIONS_TESTING) {
-      originalRequestAnimationFrame(processRafCallbacks)
+      originalRequestAnimationFrame(processRafCallbacks);
     }
-    rafCallbacks.push([id, f])
-    return id
-  }
+    rafCallbacks.push([id, f]);
+    return id;
+  };
 
   window.cancelAnimationFrame = function(id) {
     rafCallbacks.forEach(function(entry) {
       if (entry[0] == id) {
-        entry[1] = function() {}
+        entry[1] = function() {};
       }
-    })
-  }
+    });
+  };
 
   function processRafCallbacks(t) {
-    var processing = rafCallbacks
-    rafCallbacks = []
-    if (t < timeline.currentTime) t = timeline.currentTime
-    timeline._animations.sort(compareAnimations)
-    timeline._animations = tick(t, true, timeline._animations)[0]
-    processing.forEach(function(entry) {
-      entry[1](t)
-    })
-    applyPendingEffects()
-    _now = undefined
+    var processing = rafCallbacks;
+    rafCallbacks = [];
+    if (t < timeline.currentTime)
+      t = timeline.currentTime;
+    timeline._animations.sort(compareAnimations);
+    timeline._animations = tick(t, true, timeline._animations)[0];
+    processing.forEach(function(entry) { entry[1](t); });
+    applyPendingEffects();
+    _now = undefined;
   }
 
   function compareAnimations(leftAnimation, rightAnimation) {
-    return leftAnimation._sequenceNumber - rightAnimation._sequenceNumber
+    return leftAnimation._sequenceNumber - rightAnimation._sequenceNumber;
   }
 
   function InternalTimeline() {
-    this._animations = []
+    this._animations = [];
     // Android 4.3 browser has window.performance, but not window.performance.now
-    this.currentTime =
-      window.performance && performance.now ? performance.now() : 0
-  }
+    this.currentTime = window.performance && performance.now ? performance.now() : 0;
+  };
 
   InternalTimeline.prototype = {
     _play: function(effect) {
-      effect._timing = shared.normalizeTimingInput(effect.timing)
-      var animation = new scope.Animation(effect)
-      animation._idle = false
-      animation._timeline = this
-      this._animations.push(animation)
-      scope.restart()
-      scope.applyDirtiedAnimation(animation)
-      return animation
+      effect._timing = shared.normalizeTimingInput(effect.timing);
+      var animation = new scope.Animation(effect);
+      animation._idle = false;
+      animation._timeline = this;
+      this._animations.push(animation);
+      scope.restart();
+      scope.applyDirtiedAnimation(animation);
+      return animation;
     }
-  }
+  };
 
-  var _now = undefined
+  var _now = undefined;
 
   if (WEB_ANIMATIONS_TESTING) {
-    var now = function() {
-      return timeline.currentTime
-    }
+    var now = function() { return timeline.currentTime; };
   } else {
     var now = function() {
       if (_now == undefined)
-        _now =
-          window.performance && performance.now ? performance.now() : Date.now()
-      return _now
-    }
+        _now = window.performance && performance.now ? performance.now() : Date.now();
+      return _now;
+    };
   }
 
-  var ticking = false
-  var hasRestartedThisFrame = false
+  var ticking = false;
+  var hasRestartedThisFrame = false;
 
   scope.restart = function() {
     if (!ticking) {
-      ticking = true
-      requestAnimationFrame(function() {})
-      hasRestartedThisFrame = true
+      ticking = true;
+      requestAnimationFrame(function() {});
+      hasRestartedThisFrame = true;
     }
-    return hasRestartedThisFrame
-  }
+    return hasRestartedThisFrame;
+  };
 
   // RAF is supposed to be the last script to occur before frame rendering but not
   // all browsers behave like this. This function is for synchonously updating an
@@ -103,93 +99,83 @@
   // incorrect script execution ordering by the browser.
   scope.applyDirtiedAnimation = function(animation) {
     if (inTick) {
-      return
+      return;
     }
-    animation._markTarget()
-    var animations = animation._targetAnimations()
-    animations.sort(compareAnimations)
-    var inactiveAnimations = tick(
-      scope.timeline.currentTime,
-      false,
-      animations.slice()
-    )[1]
+    animation._markTarget();
+    var animations = animation._targetAnimations();
+    animations.sort(compareAnimations);
+    var inactiveAnimations = tick(scope.timeline.currentTime, false, animations.slice())[1];
     inactiveAnimations.forEach(function(animation) {
-      var index = timeline._animations.indexOf(animation)
+      var index = timeline._animations.indexOf(animation);
       if (index !== -1) {
-        timeline._animations.splice(index, 1)
+        timeline._animations.splice(index, 1);
       }
-    })
-    applyPendingEffects()
-  }
+    });
+    applyPendingEffects();
+  };
 
-  var pendingEffects = []
+  var pendingEffects = [];
   function applyPendingEffects() {
-    pendingEffects.forEach(function(f) {
-      f()
-    })
-    pendingEffects.length = 0
+    pendingEffects.forEach(function(f) { f(); });
+    pendingEffects.length = 0;
   }
 
-  var t60hz = 1000 / 60
+  var t60hz = 1000 / 60;
 
-  var inTick = false
+  var inTick = false;
   function tick(t, isAnimationFrame, updatingAnimations) {
-    inTick = true
-    hasRestartedThisFrame = false
-    var timeline = scope.timeline
+    inTick = true;
+    hasRestartedThisFrame = false;
+    var timeline = scope.timeline;
 
-    timeline.currentTime = t
-    ticking = false
+    timeline.currentTime = t;
+    ticking = false;
 
-    var newPendingClears = []
-    var newPendingEffects = []
-    var activeAnimations = []
-    var inactiveAnimations = []
+    var newPendingClears = [];
+    var newPendingEffects = [];
+    var activeAnimations = [];
+    var inactiveAnimations = [];
     updatingAnimations.forEach(function(animation) {
-      animation._tick(t, isAnimationFrame)
+      animation._tick(t, isAnimationFrame);
 
       if (!animation._inEffect) {
-        newPendingClears.push(animation._effect)
-        animation._unmarkTarget()
+        newPendingClears.push(animation._effect);
+        animation._unmarkTarget();
       } else {
-        newPendingEffects.push(animation._effect)
-        animation._markTarget()
+        newPendingEffects.push(animation._effect);
+        animation._markTarget();
       }
 
-      if (animation._needsTick) ticking = true
+      if (animation._needsTick)
+        ticking = true;
 
-      var alive = animation._inEffect || animation._needsTick
-      animation._inTimeline = alive
+      var alive = animation._inEffect || animation._needsTick;
+      animation._inTimeline = alive;
       if (alive) {
-        activeAnimations.push(animation)
+        activeAnimations.push(animation);
       } else {
-        inactiveAnimations.push(animation)
+        inactiveAnimations.push(animation);
       }
-    })
+    });
 
     // FIXME: Should remove dupliactes from pendingEffects.
-    pendingEffects.push.apply(pendingEffects, newPendingClears)
-    pendingEffects.push.apply(pendingEffects, newPendingEffects)
+    pendingEffects.push.apply(pendingEffects, newPendingClears);
+    pendingEffects.push.apply(pendingEffects, newPendingEffects);
 
-    if (ticking) requestAnimationFrame(function() {})
+    if (ticking)
+      requestAnimationFrame(function() {});
 
-    inTick = false
-    return [activeAnimations, inactiveAnimations]
-  }
+    inTick = false;
+    return [activeAnimations, inactiveAnimations];
+  };
 
   if (WEB_ANIMATIONS_TESTING) {
-    testing.tick = function(t) {
-      timeline.currentTime = t
-      processRafCallbacks(t)
-    }
-    testing.isTicking = function() {
-      return ticking
-    }
-    testing.setTicking = function(newVal) {
-      ticking = newVal
-    }
+    testing.tick = function(t) { timeline.currentTime = t; processRafCallbacks(t); };
+    testing.isTicking = function() { return ticking; };
+    testing.setTicking = function(newVal) { ticking = newVal; };
   }
 
-  var timeline = new InternalTimeline()
-  scope.timeline = timeline
-})(webAnimationsShared, webAnimations1, webAnimationsTesting)
+  var timeline = new InternalTimeline();
+  scope.timeline = timeline;
+
+})(webAnimationsShared, webAnimations1, webAnimationsTesting);

@@ -12,14 +12,12 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-;(function(scope) {
+(function(scope) {
   window.Element.prototype.animate = function(effectInput, options) {
-    var id = ''
+    var id = '';
     if (options && options.id) {
-      id = options.id
+      id = options.id;
     }
-    return scope.timeline._play(
-      scope.KeyframeEffect(this, effectInput, options, id)
-    )
-  }
-})(webAnimations1)
+    return scope.timeline._play(scope.KeyframeEffect(this, effectInput, options, id));
+  };
+})(webAnimations1);

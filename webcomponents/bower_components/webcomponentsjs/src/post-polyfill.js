@@ -8,37 +8,37 @@
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
 
-'use strict'
+'use strict';
 
-let customElements = window['customElements']
-let HTMLImports = window['HTMLImports']
-let Template = window['HTMLTemplateElement']
+let customElements = window['customElements'];
+let HTMLImports = window['HTMLImports'];
+let Template = window['HTMLTemplateElement'];
 
 // global for (1) existence means `WebComponentsReady` will file,
 // (2) WebComponents.ready == true means event has fired.
-window.WebComponents = window.WebComponents || {}
+window.WebComponents = window.WebComponents || {};
 
 if (customElements && customElements['polyfillWrapFlushCallback']) {
   // Here we ensure that the public `HTMLImports.whenReady`
   // always comes *after* custom elements have upgraded.
-  let flushCallback
+  let flushCallback;
   let runAndClearCallback = function runAndClearCallback() {
     if (flushCallback) {
       // make sure to run the HTMLTemplateElement polyfill before custom elements upgrade
       if (Template.bootstrap) {
-        Template.bootstrap(window.document)
+        Template.bootstrap(window.document);
       }
-      let cb = flushCallback
-      flushCallback = null
-      cb()
-      return true
+      let cb = flushCallback;
+      flushCallback = null;
+      cb();
+      return true;
     }
   }
-  let origWhenReady = HTMLImports['whenReady']
+  let origWhenReady = HTMLImports['whenReady'];
   customElements['polyfillWrapFlushCallback'](function(cb) {
-    flushCallback = cb
-    origWhenReady(runAndClearCallback)
-  })
+    flushCallback = cb;
+    origWhenReady(runAndClearCallback);
+  });
 
   HTMLImports['whenReady'] = function(cb) {
     origWhenReady(function() {
@@ -46,19 +46,18 @@ if (customElements && customElements['polyfillWrapFlushCallback']) {
       // to match processing of native custom elements before
       // domContentLoaded, we wait for these imports to resolve first.
       if (runAndClearCallback()) {
-        HTMLImports['whenReady'](cb)
+        HTMLImports['whenReady'](cb);
       } else {
-        cb()
+        cb();
       }
-    })
+    });
   }
+
 }
 
 HTMLImports['whenReady'](function() {
   requestAnimationFrame(function() {
-    window.WebComponents.ready = true
-    document.dispatchEvent(
-      new CustomEvent('WebComponentsReady', { bubbles: true })
-    )
-  })
-})
+    window.WebComponents.ready = true;
+    document.dispatchEvent(new CustomEvent('WebComponentsReady', {bubbles: true}));
+  });
+});

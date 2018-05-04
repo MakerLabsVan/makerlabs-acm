@@ -10,4 +10,4 @@ window.VaadinDatePickerSuites = [
   'keyboard-input.html',
   'late-upgrade.html',
   'wai-aria.html'
-]
+];

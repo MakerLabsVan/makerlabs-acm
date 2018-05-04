@@ -14,6 +14,7 @@
  * the License.
  */
 
+
 /**
  * @fileoverview Basic externs for the Web Animations API (Level 2 / Groups).
  * This is not intended to be exhaustive, and requires the base externs from
@@ -21,13 +22,15 @@
  * @externs
  */
 
+
 /**
  * @interface
  */
-var AnimationEffectReadOnly = function() {}
+var AnimationEffectReadOnly = function() {};
 
 /** @type {!AnimationEffectTiming} */
-AnimationEffectReadOnly.prototype.timing
+AnimationEffectReadOnly.prototype.timing;
+
 
 /**
  * @param {Element} target
@@ -36,21 +39,22 @@ AnimationEffectReadOnly.prototype.timing
  * @constructor
  * @implements {AnimationEffectReadOnly}
  */
-var KeyframeEffect = function(target, frames, opt_options) {}
+var KeyframeEffect = function(target, frames, opt_options) {};
 
 /**
  * @return {!Array<!Object>}
  */
-KeyframeEffect.prototype.getFrames = function() {}
+KeyframeEffect.prototype.getFrames = function() {};
 
 /** @type {!AnimationEffectTiming} */
-KeyframeEffect.prototype.timing
+KeyframeEffect.prototype.timing;
 
 /** @type {Element} */
-KeyframeEffect.prototype.target
+KeyframeEffect.prototype.target;
 
 /** @type {?function(number, !KeyframeEffect, !Animation)} */
-KeyframeEffect.prototype.onsample
+KeyframeEffect.prototype.onsample;
+
 
 /**
  * @param {!Array<!AnimationEffectReadOnly>} children
@@ -58,13 +62,14 @@ KeyframeEffect.prototype.onsample
  * @constructor
  * @implements {AnimationEffectReadOnly}
  */
-var SequenceEffect = function(children, opt_timing) {}
+var SequenceEffect = function(children, opt_timing) {};
 
 /** @type {!AnimationEffectTiming} */
-SequenceEffect.prototype.timing
+SequenceEffect.prototype.timing;
 
 /** @type {!Array<!AnimationEffectReadOnly>} */
-SequenceEffect.prototype.children
+SequenceEffect.prototype.children;
+
 
 /**
  * @param {!Array<!AnimationEffectReadOnly>} children
@@ -72,36 +77,37 @@ SequenceEffect.prototype.children
  * @constructor
  * @implements {AnimationEffectReadOnly}
  */
-var GroupEffect = function(children, opt_timing) {}
+var GroupEffect = function(children, opt_timing) {};
 
 /** @type {!AnimationEffectTiming} */
-GroupEffect.prototype.timing
+GroupEffect.prototype.timing;
 
 /** @type {!Array<!AnimationEffectReadOnly>} */
-GroupEffect.prototype.children
+GroupEffect.prototype.children;
+
 
 /**
  * @interface
  */
-var AnimationTimeline = function() {}
+var AnimationTimeline = function() {};
 
 /** @type {?number} */
-AnimationTimeline.prototype.currentTime
+AnimationTimeline.prototype.currentTime;
 
 /**
  * @param {!AnimationEffectReadOnly} effect
  * @return {!Animation}
  */
-AnimationTimeline.prototype.play = function(effect) {}
+AnimationTimeline.prototype.play = function(effect) {};
 
 /**
  * @interface
  * @extends {AnimationTimeline}
  */
-var DocumentTimeline = function() {}
+var DocumentTimeline = function() {};
 
 /** @type {AnimationEffectReadOnly|undefined} */
-Animation.prototype.effect
+Animation.prototype.effect;
 
 /** @type {!DocumentTimeline} */
-Document.prototype.timeline
+Document.prototype.timeline;

@@ -16,57 +16,57 @@
  * @constructor
  * @extends {DocumentFragment}
  */
-function StampedTemplate() {}
+function StampedTemplate() { }
 /** @type {boolean} */
-StampedTemplate.prototype.__noInsertionPoint
+StampedTemplate.prototype.__noInsertionPoint;
 /** @type {!Array<!Node>} */
-StampedTemplate.prototype.nodeList
+StampedTemplate.prototype.nodeList;
 /** @type {!Object<string, !Element>} */
-StampedTemplate.prototype.$
+StampedTemplate.prototype.$;
 /** @type {!TemplateInfo | undefined} */
-StampedTemplate.prototype.templateInfo
+StampedTemplate.prototype.templateInfo;
 
 /** @interface */
-function NodeInfo() {}
+function NodeInfo() { }
 /** @type {string} */
-NodeInfo.prototype.id
+NodeInfo.prototype.id;
 /** @type {!Array<{name: string, value: string}>}*/
-NodeInfo.prototype.events
+NodeInfo.prototype.events;
 /** @type {boolean} */
-NodeInfo.prototype.hasInsertionPoint
+NodeInfo.prototype.hasInsertionPoint;
 /** @type {!TemplateInfo} */
-NodeInfo.prototype.templateInfo
+NodeInfo.prototype.templateInfo;
 /** @type {!NodeInfo} */
-NodeInfo.prototype.parentInfo
+NodeInfo.prototype.parentInfo;
 /** @type {number} */
-NodeInfo.prototype.parentIndex
+NodeInfo.prototype.parentIndex;
 /** @type {number} */
-NodeInfo.prototype.infoIndex
+NodeInfo.prototype.infoIndex;
 /** @type {!Array<!Binding>} */
-NodeInfo.prototype.bindings
+NodeInfo.prototype.bindings;
 
 /** @interface */
-function TemplateInfo() {}
+function TemplateInfo() { }
 /** @type {!Array<!NodeInfo>} */
-TemplateInfo.prototype.nodeInfoList
+TemplateInfo.prototype.nodeInfoList;
 /** @type {!Array<!Node>} */
-TemplateInfo.prototype.nodeList
+TemplateInfo.prototype.nodeList;
 /** @type {boolean} */
-TemplateInfo.prototype.stripWhitespace
+TemplateInfo.prototype.stripWhitespace;
 /** @type {boolean | undefined} */
-TemplateInfo.prototype.hasInsertionPoint
+TemplateInfo.prototype.hasInsertionPoint;
 /** @type {!Object} */
-TemplateInfo.prototype.hostProps
+TemplateInfo.prototype.hostProps;
 /** @type {!Object} */
-TemplateInfo.prototype.propertyEffects
+TemplateInfo.prototype.propertyEffects;
 /** @type {TemplateInfo | undefined} */
-TemplateInfo.prototype.nextTemplateInfo
+TemplateInfo.prototype.nextTemplateInfo;
 /** @type {TemplateInfo | undefined} */
-TemplateInfo.prototype.previousTemplateInfo
+TemplateInfo.prototype.previousTemplateInfo;
 /** @type {!Array<!Node>} */
-TemplateInfo.prototype.childNodes
+TemplateInfo.prototype.childNodes;
 /** @type {boolean} */
-TemplateInfo.prototype.wasPreBound
+TemplateInfo.prototype.wasPreBound;
 
 /**
  * type for HTMLTemplateElement with `_templateInfo`
@@ -74,9 +74,9 @@ TemplateInfo.prototype.wasPreBound
  * @constructor
  * @extends {HTMLTemplateElement}
  */
-function HTMLTemplateElementWithInfo() {}
+function HTMLTemplateElementWithInfo() { }
 /** @type {TemplateInfo} */
-HTMLTemplateElementWithInfo.prototype._templateInfo
+HTMLTemplateElementWithInfo.prototype._templateInfo;
 
 /**
  * @typedef {{
@@ -84,7 +84,7 @@ HTMLTemplateElementWithInfo.prototype._templateInfo
  * compoundIndex: (number | undefined)
  * }}
  */
-let LiteralBindingPart
+let LiteralBindingPart;
 
 /**
  * @typedef {{
@@ -96,7 +96,7 @@ let LiteralBindingPart
  * wildcard: (boolean | undefined)
  * }}
  */
-let MethodArg
+let MethodArg;
 
 /**
  * @typedef {{
@@ -106,7 +106,7 @@ let MethodArg
  * dynamicFn: (boolean | undefined),
  * }}
  */
-let MethodSignature
+let MethodSignature;
 
 /**
  * @typedef {{
@@ -119,12 +119,12 @@ let MethodSignature
  * event: string
  * }}
  */
-let ExpressionBindingPart
+let ExpressionBindingPart;
 
 /**
  * @typedef {LiteralBindingPart | ExpressionBindingPart}
  */
-let BindingPart
+let BindingPart;
 
 /**
  * @typedef {{
@@ -137,14 +137,14 @@ let BindingPart
  * listenerNegate: (boolean | undefined)
  * }}
  */
-let Binding
+let Binding;
 
 /**
  * @typedef {{
  * path: string
  * }}
  */
-let PathInfo
+let PathInfo;
 
 /**
  * @typedef {{
@@ -155,11 +155,11 @@ let PathInfo
  * parentModel: (boolean | undefined)
  * }}
  */
-let TemplatizeOptions
+let TemplatizeOptions;
 
 /** @record */
-function AsyncInterface() {}
+function AsyncInterface(){}
 /** @type {function(!Function, number=): number} */
-AsyncInterface.prototype.run
+AsyncInterface.prototype.run;
 /** @type {function(number): void} */
-AsyncInterface.prototype.cancel
+AsyncInterface.prototype.cancel;

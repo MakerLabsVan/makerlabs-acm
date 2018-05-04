@@ -8,41 +8,42 @@
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
 
-'use strict'
+'use strict';
 
 /* eslint-env node */
 /* eslint-disable no-console */
 
-const gulp = require('gulp')
-const sourcemaps = require('gulp-sourcemaps')
-const rename = require('gulp-rename')
-const rollup = require('rollup-stream')
-const source = require('vinyl-source-stream')
-const del = require('del')
-const runseq = require('run-sequence')
-const closure = require('google-closure-compiler').gulp()
-const babel = require('rollup-plugin-babel')
+const gulp = require('gulp');
+const sourcemaps = require('gulp-sourcemaps');
+const rename = require('gulp-rename');
+const rollup = require('rollup-stream');
+const source = require('vinyl-source-stream');
+const del = require('del');
+const runseq = require('run-sequence');
+const closure = require('google-closure-compiler').gulp();
+const babel = require('rollup-plugin-babel');
 
 function debugify(sourceName, fileName, extraRollupOptions) {
-  if (!fileName) fileName = sourceName
+  if (!fileName)
+    fileName = sourceName;
 
   const options = {
     entry: `./entrypoints/${sourceName}-index.js`,
     format: 'iife',
     moduleName: 'webcomponentsjs'
-  }
+  };
 
-  Object.assign(options, extraRollupOptions)
+  Object.assign(options, extraRollupOptions);
 
   return rollup(options)
-    .pipe(source(`${sourceName}-index.js`), 'entrypoints')
-    .pipe(rename(fileName + '.js'))
-    .pipe(gulp.dest('./'))
+  .pipe(source(`${sourceName}-index.js`), 'entrypoints')
+  .pipe(rename(fileName + '.js'))
+  .pipe(gulp.dest('./'))
 }
 
 function closurify(sourceName, fileName) {
   if (!fileName) {
-    fileName = sourceName
+    fileName = sourceName;
   }
 
   const closureOptions = {
@@ -66,114 +67,100 @@ function closurify(sourceName, fileName) {
       'node_modules/@webcomponents/shadycss/externs/shadycss-externs.js',
       'node_modules/@webcomponents/shadydom/externs/shadydom.js'
     ]
-  }
+  };
 
-  return gulp
-    .src(
-      [
-        'entrypoints/*.js',
-        'src/*.js',
-        'node_modules/es6-promise/lib/es6-promise/**/*.js',
-        'node_modules/@webcomponents/**/*.js',
-        '!node_modules/@webcomponents/*/externs/*.js',
-        '!node_modules/@webcomponents/*/node_modules/**',
-        '!**/bower_components/**'
-      ],
-      { base: './', follow: true }
-    )
-    .pipe(sourcemaps.init())
-    .pipe(closure(closureOptions))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('.'))
+  return gulp.src([
+      'entrypoints/*.js',
+      'src/*.js',
+      'node_modules/es6-promise/lib/es6-promise/**/*.js',
+      'node_modules/@webcomponents/**/*.js',
+      '!node_modules/@webcomponents/*/externs/*.js',
+      '!node_modules/@webcomponents/*/node_modules/**',
+      '!**/bower_components/**'
+    ], {base: './', follow: true})
+  .pipe(sourcemaps.init())
+  .pipe(closure(closureOptions))
+  .pipe(sourcemaps.write('.'))
+  .pipe(gulp.dest('.'));
 }
 
 gulp.task('debugify-hi', () => {
   return debugify('webcomponents-hi')
-})
+});
 
 gulp.task('debugify-hi-ce', () => {
   return debugify('webcomponents-hi-ce')
-})
+});
 
 gulp.task('debugify-hi-sd-ce', () => {
   return debugify('webcomponents-hi-sd-ce')
-})
+});
 
 gulp.task('debugify-hi-sd-ce-pf', () => {
   // The es6-promise polyfill needs to set the correct context.
   // See https://github.com/rollup/rollup/wiki/Troubleshooting#this-is-undefined
-  const extraOptions = { context: 'window' }
-  return debugify(
-    'webcomponents-hi-sd-ce-pf',
-    'webcomponents-lite',
-    extraOptions
-  )
-})
+  const extraOptions = {context: 'window'};
+  return debugify('webcomponents-hi-sd-ce-pf', 'webcomponents-lite', extraOptions)
+});
 
 gulp.task('debugify-sd-ce', () => {
   return debugify('webcomponents-sd-ce')
-})
+});
 
 gulp.task('debugify-hi-sd', () => {
   return debugify('webcomponents-hi-sd')
-})
+});
 
 gulp.task('closurify-hi', () => {
   return closurify('webcomponents-hi')
-})
+});
 
 gulp.task('closurify-hi-ce', () => {
   return closurify('webcomponents-hi-ce')
-})
+});
 
 gulp.task('closurify-hi-sd-ce', () => {
   return closurify('webcomponents-hi-sd-ce')
-})
+});
 
 gulp.task('closurify-hi-sd-ce-pf', () => {
   return closurify('webcomponents-hi-sd-ce-pf', 'webcomponents-lite')
-})
+});
 
 gulp.task('closurify-sd-ce', () => {
   return closurify('webcomponents-sd-ce')
-})
+});
 
 gulp.task('closurify-hi-sd', () => {
   return closurify('webcomponents-hi-sd')
 })
 
 function singleLicenseComment() {
-  let hasLicense = false
-  return comment => {
+  let hasLicense = false;
+  return (comment) => {
     if (hasLicense) {
-      return false
+      return false;
     }
-    return (hasLicense = /@license/.test(comment))
+    return hasLicense = /@license/.test(comment);
   }
 }
 
 const babelOptions = {
   presets: 'minify',
   shouldPrintComment: singleLicenseComment()
-}
+};
 
 gulp.task('debugify-ce-es5-adapter', () => {
-  return debugify('custom-elements-es5-adapter', '', {
-    plugins: [babel(babelOptions)]
-  })
-})
+  return debugify('custom-elements-es5-adapter', '', {plugins: [babel(babelOptions)]});
+});
 
-gulp.task('default', ['closure'])
+gulp.task('default', ['closure']);
 
 gulp.task('clean-builds', () => {
-  return del([
-    'custom-elements-es5-adapter.js{,.map}',
-    'webcomponents*.js{,.map}',
-    '!webcomponents-loader.js'
-  ])
-})
+  return del(['custom-elements-es5-adapter.js{,.map}', 'webcomponents*.js{,.map}', '!webcomponents-loader.js']);
+});
 
-gulp.task('debug', cb => {
+gulp.task('debug', (cb) => {
   const tasks = [
     'debugify-hi',
     'debugify-hi-ce',
@@ -182,11 +169,11 @@ gulp.task('debug', cb => {
     'debugify-hi-sd-ce-pf',
     'debugify-sd-ce',
     'debugify-ce-es5-adapter'
-  ]
-  runseq('clean-builds', tasks, cb)
-})
+  ];
+  runseq('clean-builds', tasks, cb);
+});
 
-gulp.task('closure', cb => {
+gulp.task('closure', (cb) => {
   const tasks = [
     'closurify-hi',
     'closurify-hi-ce',
@@ -195,6 +182,6 @@ gulp.task('closure', cb => {
     'closurify-hi-sd-ce-pf',
     'closurify-sd-ce',
     'debugify-ce-es5-adapter'
-  ]
-  runseq('clean-builds', ...tasks, cb)
-})
+  ];
+  runseq('clean-builds', ...tasks, cb);
+});

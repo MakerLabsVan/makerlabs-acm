@@ -8,16 +8,13 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-'use strict'
+'use strict';
 
-import CustomStyleInterface from '../src/custom-style-interface.js'
-import {
-  getComputedStyleValue,
-  updateNativeProperties
-} from '../src/common-utils.js'
-import { nativeCssVariables, nativeShadow } from '../src/style-settings.js'
+import CustomStyleInterface from '../src/custom-style-interface.js';
+import {getComputedStyleValue, updateNativeProperties} from '../src/common-utils.js';
+import {nativeCssVariables, nativeShadow} from '../src/style-settings.js';
 
-const customStyleInterface = new CustomStyleInterface()
+const customStyleInterface = new CustomStyleInterface();
 
 if (!window.ShadyCSS) {
   window.ShadyCSS = {
@@ -33,24 +30,23 @@ if (!window.ShadyCSS) {
      * @param {Object=} properties
      */
     styleSubtree(element, properties) {
-      customStyleInterface.processStyles()
-      updateNativeProperties(element, properties)
+      customStyleInterface.processStyles();
+      updateNativeProperties(element, properties);
     },
 
     /**
      * @param {Element} element
      */
-    styleElement(element) {
-      // eslint-disable-line no-unused-vars
-      customStyleInterface.processStyles()
+    styleElement(element) { // eslint-disable-line no-unused-vars
+      customStyleInterface.processStyles();
     },
 
     /**
      * @param {Object=} properties
      */
     styleDocument(properties) {
-      customStyleInterface.processStyles()
-      updateNativeProperties(document.body, properties)
+      customStyleInterface.processStyles();
+      updateNativeProperties(document.body, properties);
     },
 
     /**
@@ -59,11 +55,11 @@ if (!window.ShadyCSS) {
      * @return {string}
      */
     getComputedStyleValue(element, property) {
-      return getComputedStyleValue(element, property)
+      return getComputedStyleValue(element, property);
     },
     nativeCss: nativeCssVariables,
     nativeShadow: nativeShadow
   }
 }
 
-window.ShadyCSS.CustomStyleInterface = customStyleInterface
+window.ShadyCSS.CustomStyleInterface = customStyleInterface;

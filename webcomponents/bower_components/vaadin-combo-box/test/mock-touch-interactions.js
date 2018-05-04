@@ -10,10 +10,12 @@
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
 
-;(function(global) {
-  'use strict'
+(function(global) {
+  'use strict';
 
-  var middleOfNode = global.MockInteractions.middleOfNode
+
+  var middleOfNode = global.MockInteractions.middleOfNode;
+
 
   /**
    * Returns a list of Touch objects that correspond to an array of positions
@@ -24,10 +26,10 @@
    * @param {!HTMLElement} node A target element node.
    */
   function makeTouches(xyList, node) {
-    var id = 0
+    var id = 0;
 
     if (window.ShadowDOMPolyfill && window.ShadowDOMPolyfill.isWrapper(node)) {
-      node = window.ShadowDOMPolyfill.unwrap(node)
+      node = window.ShadowDOMPolyfill.unwrap(node);
     }
 
     return xyList.map(function(xy) {
@@ -36,11 +38,12 @@
         target: node,
         clientX: xy.x,
         clientY: xy.y
-      }
+      };
 
-      return window.Touch ? new window.Touch(touchInit) : touchInit
-    })
+      return window.Touch ? new window.Touch(touchInit) : touchInit;
+    });
   }
+
 
   /**
    * Generates and dispatches a TouchEvent of a given type, at a specified
@@ -53,22 +56,23 @@
    * TouchEvent to be dispatched on.
    */
   function makeSoloTouchEvent(type, xy, node) {
-    xy = xy || middleOfNode(node)
-    var touches = makeTouches([xy], node)
+    xy = xy || middleOfNode(node);
+    var touches = makeTouches([xy], node);
     var touchEventInit = {
       touches: touches,
       targetTouches: touches,
       changedTouches: touches
-    }
-    var event
+    };
+    var event;
 
-    event = new CustomEvent(type, { bubbles: true, cancelable: true })
+    event = new CustomEvent(type, {bubbles: true, cancelable: true});
     for (var property in touchEventInit) {
-      event[property] = touchEventInit[property]
+      event[property] = touchEventInit[property];
     }
 
-    node.dispatchEvent(event)
+    node.dispatchEvent(event);
   }
+
 
   /**
    * Generate a touchstart event on a given node, optionally at a given coordinate.
@@ -77,9 +81,10 @@
    * be fired from.
    */
   function touchstart(node, xy) {
-    xy = xy || middleOfNode(node)
-    makeSoloTouchEvent('touchstart', xy, node)
+    xy = xy || middleOfNode(node);
+    makeSoloTouchEvent('touchstart', xy, node);
   }
+
 
   /**
    * Generate a touchend event on a given node, optionally at a given coordinate.
@@ -88,13 +93,14 @@
    * be fired from.
    */
   function touchend(node, xy) {
-    xy = xy || middleOfNode(node)
-    makeSoloTouchEvent('touchend', xy, node)
+    xy = xy || middleOfNode(node);
+    makeSoloTouchEvent('touchend', xy, node);
   }
+
 
   global.MockTouchInteractions = {
     touchstart: touchstart,
     touchend: touchend,
     makeSoloTouchEvent: makeSoloTouchEvent
-  }
-})(this)
+  };
+})(this);

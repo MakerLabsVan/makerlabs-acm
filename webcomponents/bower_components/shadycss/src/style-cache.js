@@ -7,44 +7,44 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-'use strict'
+'use strict';
 
 export default class StyleCache {
   constructor(typeMax = 100) {
     // map element name -> [{properties, styleElement, scopeSelector}]
-    this.cache = {}
-    this.typeMax = typeMax
+    this.cache = {};
+    this.typeMax = typeMax;
   }
 
   _validate(cacheEntry, properties, ownPropertyNames) {
     for (let idx = 0; idx < ownPropertyNames.length; idx++) {
-      let pn = ownPropertyNames[idx]
+      let pn = ownPropertyNames[idx];
       if (cacheEntry.properties[pn] !== properties[pn]) {
-        return false
+        return false;
       }
     }
-    return true
+    return true;
   }
 
   store(tagname, properties, styleElement, scopeSelector) {
-    let list = this.cache[tagname] || []
-    list.push({ properties, styleElement, scopeSelector })
+    let list = this.cache[tagname] || [];
+    list.push({properties, styleElement, scopeSelector});
     if (list.length > this.typeMax) {
-      list.shift()
+      list.shift();
     }
-    this.cache[tagname] = list
+    this.cache[tagname] = list;
   }
 
   fetch(tagname, properties, ownPropertyNames) {
-    let list = this.cache[tagname]
+    let list = this.cache[tagname];
     if (!list) {
-      return
+      return;
     }
     // reverse list for most-recent lookups
     for (let idx = list.length - 1; idx >= 0; idx--) {
-      let entry = list[idx]
+      let entry = list[idx];
       if (this._validate(entry, properties, ownPropertyNames)) {
-        return entry
+        return entry;
       }
     }
   }

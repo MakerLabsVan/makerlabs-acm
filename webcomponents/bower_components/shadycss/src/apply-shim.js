@@ -69,57 +69,51 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 */
 
-'use strict'
+'use strict';
 
-import {
-  forEachRule,
-  processVariableAndFallback,
-  rulesForStyle,
-  toCssText,
-  gatherStyleText
-} from './style-util.js'
-import { MIXIN_MATCH, VAR_ASSIGN } from './common-regex.js'
-import { detectMixin } from './common-utils.js'
-import { StyleNode } from './css-parse.js' // eslint-disable-line no-unused-vars
+import {forEachRule, processVariableAndFallback, rulesForStyle, toCssText, gatherStyleText} from './style-util.js';
+import {MIXIN_MATCH, VAR_ASSIGN} from './common-regex.js';
+import {detectMixin} from './common-utils.js';
+import {StyleNode} from './css-parse.js'; // eslint-disable-line no-unused-vars
 
-const APPLY_NAME_CLEAN = /;\s*/m
-const INITIAL_INHERIT = /^\s*(initial)|(inherit)\s*$/
-const IMPORTANT = /\s*!important/
+const APPLY_NAME_CLEAN = /;\s*/m;
+const INITIAL_INHERIT = /^\s*(initial)|(inherit)\s*$/;
+const IMPORTANT = /\s*!important/;
 
 // separator used between mixin-name and mixin-property-name when producing properties
 // NOTE: plain '-' may cause collisions in user styles
-const MIXIN_VAR_SEP = '_-_'
+const MIXIN_VAR_SEP = '_-_';
 
 /**
  * @typedef {!Object<string, string>}
  */
-let PropertyEntry // eslint-disable-line no-unused-vars
+let PropertyEntry; // eslint-disable-line no-unused-vars
 
 /**
  * @typedef {!Object<string, boolean>}
  */
-let DependantsEntry // eslint-disable-line no-unused-vars
+let DependantsEntry; // eslint-disable-line no-unused-vars
 
 /** @typedef {{
  *    properties: PropertyEntry,
  *    dependants: DependantsEntry
  * }}
  */
-let MixinMapEntry // eslint-disable-line no-unused-vars
+let MixinMapEntry; // eslint-disable-line no-unused-vars
 
 // map of mixin to property names
 // --foo: {border: 2px} -> {properties: {(--foo, ['border'])}, dependants: {'element-name': proto}}
 class MixinMap {
   constructor() {
     /** @type {!Object<string, !MixinMapEntry>} */
-    this._map = {}
+    this._map = {};
   }
   /**
    * @param {string} name
    * @param {!PropertyEntry} props
    */
   set(name, props) {
-    name = name.trim()
+    name = name.trim();
     this._map[name] = {
       properties: props,
       dependants: {}
@@ -130,8 +124,8 @@ class MixinMap {
    * @return {MixinMapEntry}
    */
   get(name) {
-    name = name.trim()
-    return this._map[name] || null
+    name = name.trim();
+    return this._map[name] || null;
   }
 }
 
@@ -139,16 +133,16 @@ class MixinMap {
  * Callback for when an element is marked invalid
  * @type {?function(string)}
  */
-let invalidCallback = null
+let invalidCallback = null;
 
 /** @unrestricted */
 class ApplyShim {
   constructor() {
     /** @type {?string} */
-    this._currentElement = null
+    this._currentElement = null;
     /** @type {HTMLMetaElement} */
-    this._measureElement = null
-    this._map = new MixinMap()
+    this._measureElement = null;
+    this._map = new MixinMap();
   }
   /**
    * return true if `cssText` contains a mixin definition or consumption
@@ -156,7 +150,7 @@ class ApplyShim {
    * @return {boolean}
    */
   detectMixin(cssText) {
-    return detectMixin(cssText)
+    return detectMixin(cssText);
   }
 
   /**
@@ -165,16 +159,14 @@ class ApplyShim {
    * @return {HTMLStyleElement}
    */
   gatherStyles(template) {
-    const styleText = gatherStyleText(template.content)
+    const styleText = gatherStyleText(template.content);
     if (styleText) {
-      const style = /** @type {!HTMLStyleElement} */ (document.createElement(
-        'style'
-      ))
-      style.textContent = styleText
-      template.content.insertBefore(style, template.content.firstChild)
-      return style
+      const style = /** @type {!HTMLStyleElement} */(document.createElement('style'));
+      style.textContent = styleText;
+      template.content.insertBefore(style, template.content.firstChild);
+      return style;
     }
-    return null
+    return null;
   }
   /**
    * @param {!HTMLTemplateElement} template
@@ -183,11 +175,11 @@ class ApplyShim {
    */
   transformTemplate(template, elementName) {
     if (template._gatheredStyle === undefined) {
-      template._gatheredStyle = this.gatherStyles(template)
+      template._gatheredStyle = this.gatherStyles(template);
     }
     /** @type {HTMLStyleElement} */
-    const style = template._gatheredStyle
-    return style ? this.transformStyle(style, elementName) : null
+    const style = template._gatheredStyle;
+    return style ? this.transformStyle(style, elementName) : null;
   }
   /**
    * @param {!HTMLStyleElement} style
@@ -195,47 +187,47 @@ class ApplyShim {
    * @return {StyleNode}
    */
   transformStyle(style, elementName = '') {
-    let ast = rulesForStyle(style)
-    this.transformRules(ast, elementName)
-    style.textContent = toCssText(ast)
-    return ast
+    let ast = rulesForStyle(style);
+    this.transformRules(ast, elementName);
+    style.textContent = toCssText(ast);
+    return ast;
   }
   /**
    * @param {!HTMLStyleElement} style
    * @return {StyleNode}
    */
   transformCustomStyle(style) {
-    let ast = rulesForStyle(style)
-    forEachRule(ast, rule => {
+    let ast = rulesForStyle(style);
+    forEachRule(ast, (rule) => {
       if (rule['selector'] === ':root') {
-        rule['selector'] = 'html'
+        rule['selector'] = 'html';
       }
-      this.transformRule(rule)
+      this.transformRule(rule);
     })
-    style.textContent = toCssText(ast)
-    return ast
+    style.textContent = toCssText(ast);
+    return ast;
   }
   /**
    * @param {StyleNode} rules
    * @param {string} elementName
    */
   transformRules(rules, elementName) {
-    this._currentElement = elementName
-    forEachRule(rules, r => {
-      this.transformRule(r)
-    })
-    this._currentElement = null
+    this._currentElement = elementName;
+    forEachRule(rules, (r) => {
+      this.transformRule(r);
+    });
+    this._currentElement = null;
   }
   /**
    * @param {!StyleNode} rule
    */
   transformRule(rule) {
-    rule['cssText'] = this.transformCssText(rule['parsedCssText'])
+    rule['cssText'] = this.transformCssText(rule['parsedCssText']);
     // :root was only used for variable assignment in property shim,
     // but generates invalid selectors with real properties.
     // replace with `:host > *`, which serves the same effect
     if (rule['selector'] === ':root') {
-      rule['selector'] = ':host > *'
+      rule['selector'] = ':host > *';
     }
   }
   /**
@@ -244,18 +236,10 @@ class ApplyShim {
    */
   transformCssText(cssText) {
     // produce variables
-    cssText = cssText.replace(
-      VAR_ASSIGN,
-      (matchText, propertyName, valueProperty, valueMixin) =>
-        this._produceCssProperties(
-          matchText,
-          propertyName,
-          valueProperty,
-          valueMixin
-        )
-    )
+    cssText = cssText.replace(VAR_ASSIGN, (matchText, propertyName, valueProperty, valueMixin) =>
+      this._produceCssProperties(matchText, propertyName, valueProperty, valueMixin));
     // consume mixins
-    return this._consumeCssProperties(cssText)
+    return this._consumeCssProperties(cssText);
   }
   /**
    * @param {string} property
@@ -263,16 +247,12 @@ class ApplyShim {
    */
   _getInitialValueForProperty(property) {
     if (!this._measureElement) {
-      this._measureElement = /** @type {HTMLMetaElement} */ (document.createElement(
-        'meta'
-      ))
-      this._measureElement.setAttribute('apply-shim-measure', '')
-      this._measureElement.style.all = 'initial'
-      document.head.appendChild(this._measureElement)
+      this._measureElement = /** @type {HTMLMetaElement} */(document.createElement('meta'));
+      this._measureElement.setAttribute('apply-shim-measure', '');
+      this._measureElement.style.all = 'initial';
+      document.head.appendChild(this._measureElement);
     }
-    return window
-      .getComputedStyle(this._measureElement)
-      .getPropertyValue(property)
+    return window.getComputedStyle(this._measureElement).getPropertyValue(property);
   }
   /**
    * replace mixin consumption with variable consumption
@@ -281,27 +261,27 @@ class ApplyShim {
    */
   _consumeCssProperties(text) {
     /** @type {Array} */
-    let m = null
+    let m = null;
     // loop over text until all mixins with defintions have been applied
-    while ((m = MIXIN_MATCH.exec(text))) {
-      let matchText = m[0]
-      let mixinName = m[1]
-      let idx = m.index
+    while((m = MIXIN_MATCH.exec(text))) {
+      let matchText = m[0];
+      let mixinName = m[1];
+      let idx = m.index;
       // collect properties before apply to be "defaults" if mixin might override them
       // match includes a "prefix", so find the start and end positions of @apply
-      let applyPos = idx + matchText.indexOf('@apply')
-      let afterApplyPos = idx + matchText.length
+      let applyPos = idx + matchText.indexOf('@apply');
+      let afterApplyPos = idx + matchText.length;
       // find props defined before this @apply
-      let textBeforeApply = text.slice(0, applyPos)
-      let textAfterApply = text.slice(afterApplyPos)
-      let defaults = this._cssTextToMap(textBeforeApply)
-      let replacement = this._atApplyToCssProperties(mixinName, defaults)
+      let textBeforeApply = text.slice(0, applyPos);
+      let textAfterApply = text.slice(afterApplyPos);
+      let defaults = this._cssTextToMap(textBeforeApply);
+      let replacement = this._atApplyToCssProperties(mixinName, defaults);
       // use regex match position to replace mixin, keep linear processing time
-      text = `${textBeforeApply}${replacement}${textAfterApply}`
+      text = `${textBeforeApply}${replacement}${textAfterApply}`;
       // move regex search to _after_ replacement
-      MIXIN_MATCH.lastIndex = idx + replacement.length
+      MIXIN_MATCH.lastIndex = idx + replacement.length;
     }
-    return text
+    return text;
   }
   /**
    * produce variable consumption at the site of mixin consumption
@@ -314,35 +294,35 @@ class ApplyShim {
    * @return {string}
    */
   _atApplyToCssProperties(mixinName, fallbacks) {
-    mixinName = mixinName.replace(APPLY_NAME_CLEAN, '')
-    let vars = []
-    let mixinEntry = this._map.get(mixinName)
+    mixinName = mixinName.replace(APPLY_NAME_CLEAN, '');
+    let vars = [];
+    let mixinEntry = this._map.get(mixinName);
     // if we depend on a mixin before it is created
     // make a sentinel entry in the map to add this element as a dependency for when it is defined.
     if (!mixinEntry) {
-      this._map.set(mixinName, {})
-      mixinEntry = this._map.get(mixinName)
+      this._map.set(mixinName, {});
+      mixinEntry = this._map.get(mixinName);
     }
     if (mixinEntry) {
       if (this._currentElement) {
-        mixinEntry.dependants[this._currentElement] = true
+        mixinEntry.dependants[this._currentElement] = true;
       }
-      let p, parts, f
-      const properties = mixinEntry.properties
+      let p, parts, f;
+      const properties = mixinEntry.properties;
       for (p in properties) {
-        f = fallbacks && fallbacks[p]
-        parts = [p, ': var(', mixinName, MIXIN_VAR_SEP, p]
+        f = fallbacks && fallbacks[p];
+        parts = [p, ': var(', mixinName, MIXIN_VAR_SEP, p];
         if (f) {
-          parts.push(',', f.replace(IMPORTANT, ''))
+          parts.push(',', f.replace(IMPORTANT, ''));
         }
-        parts.push(')')
+        parts.push(')');
         if (IMPORTANT.test(properties[p])) {
-          parts.push(' !important')
+          parts.push(' !important');
         }
-        vars.push(parts.join(''))
+        vars.push(parts.join(''));
       }
     }
-    return vars.join('; ')
+    return vars.join('; ');
   }
 
   /**
@@ -351,22 +331,22 @@ class ApplyShim {
    * @return {string}
    */
   _replaceInitialOrInherit(property, value) {
-    let match = INITIAL_INHERIT.exec(value)
+    let match = INITIAL_INHERIT.exec(value);
     if (match) {
       if (match[1]) {
         // initial
         // replace `initial` with the concrete initial value for this property
-        value = this._getInitialValueForProperty(property)
+        value = this._getInitialValueForProperty(property);
       } else {
         // inherit
         // with this purposfully illegal value, the variable will be invalid at
         // compute time (https://www.w3.org/TR/css-variables/#invalid-at-computed-value-time)
         // and for inheriting values, will behave similarly
         // we cannot support the same behavior for non inheriting values like 'border'
-        value = 'apply-shim-inherit'
+        value = 'apply-shim-inherit';
       }
     }
-    return value
+    return value;
   }
 
   /**
@@ -376,23 +356,23 @@ class ApplyShim {
    * @return {!Object<string, string>}
    */
   _cssTextToMap(text) {
-    let props = text.split(';')
-    let property, value
-    let out = {}
+    let props = text.split(';');
+    let property, value;
+    let out = {};
     for (let i = 0, p, sp; i < props.length; i++) {
-      p = props[i]
+      p = props[i];
       if (p) {
-        sp = p.split(':')
+        sp = p.split(':');
         // ignore lines that aren't definitions like @media
         if (sp.length > 1) {
-          property = sp[0].trim()
+          property = sp[0].trim();
           // some properties may have ':' in the value, like data urls
-          value = this._replaceInitialOrInherit(property, sp.slice(1).join(':'))
-          out[property] = value
+          value = this._replaceInitialOrInherit(property, sp.slice(1).join(':'));
+          out[property] = value;
         }
       }
     }
-    return out
+    return out;
   }
 
   /**
@@ -400,11 +380,11 @@ class ApplyShim {
    */
   _invalidateMixinEntry(mixinEntry) {
     if (!invalidCallback) {
-      return
+      return;
     }
     for (let elementName in mixinEntry.dependants) {
       if (elementName !== this._currentElement) {
-        invalidCallback(elementName)
+        invalidCallback(elementName);
       }
     }
   }
@@ -424,44 +404,44 @@ class ApplyShim {
         if (value && this._map.get(value)) {
           valueMixin = `@apply ${value};`
         }
-      })
+      });
     }
     if (!valueMixin) {
-      return matchText
+      return matchText;
     }
-    let mixinAsProperties = this._consumeCssProperties('' + valueMixin)
-    let prefix = matchText.slice(0, matchText.indexOf('--'))
-    let mixinValues = this._cssTextToMap(mixinAsProperties)
-    let combinedProps = mixinValues
-    let mixinEntry = this._map.get(propertyName)
-    let oldProps = mixinEntry && mixinEntry.properties
+    let mixinAsProperties = this._consumeCssProperties('' + valueMixin);
+    let prefix = matchText.slice(0, matchText.indexOf('--'));
+    let mixinValues = this._cssTextToMap(mixinAsProperties);
+    let combinedProps = mixinValues;
+    let mixinEntry = this._map.get(propertyName);
+    let oldProps = mixinEntry && mixinEntry.properties;
     if (oldProps) {
       // NOTE: since we use mixin, the map of properties is updated here
       // and this is what we want.
-      combinedProps = Object.assign(Object.create(oldProps), mixinValues)
+      combinedProps = Object.assign(Object.create(oldProps), mixinValues);
     } else {
-      this._map.set(propertyName, combinedProps)
+      this._map.set(propertyName, combinedProps);
     }
-    let out = []
-    let p, v
+    let out = [];
+    let p, v;
     // set variables defined by current mixin
-    let needToInvalidate = false
+    let needToInvalidate = false;
     for (p in combinedProps) {
-      v = mixinValues[p]
+      v = mixinValues[p];
       // if property not defined by current mixin, set initial
       if (v === undefined) {
-        v = 'initial'
+        v = 'initial';
       }
       if (oldProps && !(p in oldProps)) {
-        needToInvalidate = true
+        needToInvalidate = true;
       }
-      out.push(`${propertyName}${MIXIN_VAR_SEP}${p}: ${v}`)
+      out.push(`${propertyName}${MIXIN_VAR_SEP}${p}: ${v}`);
     }
     if (needToInvalidate) {
-      this._invalidateMixinEntry(mixinEntry)
+      this._invalidateMixinEntry(mixinEntry);
     }
     if (mixinEntry) {
-      mixinEntry.properties = combinedProps
+      mixinEntry.properties = combinedProps;
     }
     // because the mixinMap is global, the mixin might conflict with
     // a different scope's simple variable definition:
@@ -474,30 +454,29 @@ class ApplyShim {
     // --foo: var(--mixin1);
     // In this case, we leave the original variable definition in place.
     if (valueProperty) {
-      prefix = `${matchText};${prefix}`
+      prefix = `${matchText};${prefix}`;
     }
-    return `${prefix}${out.join('; ')};`
+    return `${prefix}${out.join('; ')};`;
   }
 }
 
 /* exports */
-ApplyShim.prototype['detectMixin'] = ApplyShim.prototype.detectMixin
-ApplyShim.prototype['transformStyle'] = ApplyShim.prototype.transformStyle
-ApplyShim.prototype['transformCustomStyle'] =
-  ApplyShim.prototype.transformCustomStyle
-ApplyShim.prototype['transformRules'] = ApplyShim.prototype.transformRules
-ApplyShim.prototype['transformRule'] = ApplyShim.prototype.transformRule
-ApplyShim.prototype['transformTemplate'] = ApplyShim.prototype.transformTemplate
-ApplyShim.prototype['_separator'] = MIXIN_VAR_SEP
+ApplyShim.prototype['detectMixin'] = ApplyShim.prototype.detectMixin;
+ApplyShim.prototype['transformStyle'] = ApplyShim.prototype.transformStyle;
+ApplyShim.prototype['transformCustomStyle'] = ApplyShim.prototype.transformCustomStyle;
+ApplyShim.prototype['transformRules'] = ApplyShim.prototype.transformRules;
+ApplyShim.prototype['transformRule'] = ApplyShim.prototype.transformRule;
+ApplyShim.prototype['transformTemplate'] = ApplyShim.prototype.transformTemplate;
+ApplyShim.prototype['_separator'] = MIXIN_VAR_SEP;
 Object.defineProperty(ApplyShim.prototype, 'invalidCallback', {
   /** @return {?function(string)} */
   get() {
-    return invalidCallback
+    return invalidCallback;
   },
   /** @param {?function(string)} cb */
   set(cb) {
-    invalidCallback = cb
+    invalidCallback = cb;
   }
-})
+});
 
-export default ApplyShim
+export default ApplyShim;

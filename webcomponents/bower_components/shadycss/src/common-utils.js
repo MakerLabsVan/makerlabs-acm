@@ -8,9 +8,9 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-'use strict'
+'use strict';
 
-import { MIXIN_MATCH, VAR_ASSIGN } from './common-regex.js'
+import { MIXIN_MATCH, VAR_ASSIGN } from './common-regex.js';
 
 /**
  * @param {Element} element
@@ -21,9 +21,9 @@ export function updateNativeProperties(element, properties) {
   for (let p in properties) {
     // NOTE: for bc with shim, don't apply null values.
     if (p === null) {
-      element.style.removeProperty(p)
+      element.style.removeProperty(p);
     } else {
-      element.style.setProperty(p, properties[p])
+      element.style.setProperty(p, properties[p]);
     }
   }
 }
@@ -37,11 +37,11 @@ export function getComputedStyleValue(element, property) {
   /**
    * @const {string}
    */
-  const value = window.getComputedStyle(element).getPropertyValue(property)
+  const value = window.getComputedStyle(element).getPropertyValue(property);
   if (!value) {
-    return ''
+    return '';
   } else {
-    return value.trim()
+    return value.trim();
   }
 }
 
@@ -51,9 +51,9 @@ export function getComputedStyleValue(element, property) {
  * @return {boolean}
  */
 export function detectMixin(cssText) {
-  const has = MIXIN_MATCH.test(cssText) || VAR_ASSIGN.test(cssText)
+  const has = MIXIN_MATCH.test(cssText) || VAR_ASSIGN.test(cssText);
   // reset state of the regexes
-  MIXIN_MATCH.lastIndex = 0
-  VAR_ASSIGN.lastIndex = 0
-  return has
+  MIXIN_MATCH.lastIndex = 0;
+  VAR_ASSIGN.lastIndex = 0;
+  return has;
 }

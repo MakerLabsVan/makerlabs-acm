@@ -8,4 +8,4 @@
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
 
-window.externalScriptParsed1 = new Date().getTime()
+window.externalScriptParsed1 = new Date().getTime();

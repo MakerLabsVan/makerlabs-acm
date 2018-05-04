@@ -1,21 +1,18 @@
-var path = require('path')
-var VisualRegressionCompare = require('wdio-visual-regression-service/compare')
+var path = require('path');
+var VisualRegressionCompare = require('wdio-visual-regression-service/compare');
 function getScreenshotName(basePath) {
   return function(context) {
-    var testName = context.test.title
-    var suite = context.test.parent
-    var browserVersion =
-      parseInt(context.browser.version, 10) +
-      (context.browser.userAgent.indexOf('iPhone') >= 0 ? '-iPhone' : '')
-    var browserName = context.browser.name
-    return path.join(
-      basePath,
-      `${suite}/${testName}_${browserName}_v${browserVersion}.png`
-    )
-  }
+    var testName = context.test.title;
+    var suite = context.test.parent;
+    var browserVersion = parseInt(context.browser.version, 10) + (context.browser.userAgent.indexOf('iPhone') >= 0 ? '-iPhone' : '');
+    var browserName = context.browser.name;
+    return path.join(basePath, `${suite}/${testName}_${browserName}_v${browserVersion}.png`);
+  };
 }
 exports.config = {
-  specs: ['test/visual/test.js'],
+  specs: [
+    'test/visual/test.js'
+  ],
   capabilities: [
     // this setup actually works if we want to use it.
     // {
@@ -46,12 +43,14 @@ exports.config = {
       platform: 'macOS 10.12'
     }
   ],
-  services: ['visual-regression', 'static-server', 'sauce'],
+  services: [
+    'visual-regression', 'static-server', 'sauce'
+  ],
 
   staticServerFolders: [
-    { mount: '/', path: './bower_components' },
-    { mount: '/vaadin-themes/material/', path: './material' },
-    { mount: '/vaadin-themes/test', path: './test' }
+    {mount: '/', path: './bower_components'},
+    {mount: '/vaadin-themes/material/', path: './material'},
+    {mount: '/vaadin-themes/test', path: './test'}
   ],
 
   framework: 'mocha',
@@ -63,23 +62,17 @@ exports.config = {
   sauceConnect: true,
   visualRegression: {
     compare: new VisualRegressionCompare.LocalCompare({
-      referenceName: getScreenshotName(
-        path.join(process.cwd(), 'test/visual/screenshots/reference')
-      ),
-      screenshotName: getScreenshotName(
-        path.join(process.cwd(), 'test/visual/screenshots/screen')
-      ),
-      diffName: getScreenshotName(
-        path.join(process.cwd(), 'test/visual/screenshots/diff')
-      ),
-      misMatchTolerance: 0.01
+      referenceName: getScreenshotName(path.join(process.cwd(), 'test/visual/screenshots/reference')),
+      screenshotName: getScreenshotName(path.join(process.cwd(), 'test/visual/screenshots/screen')),
+      diffName: getScreenshotName(path.join(process.cwd(), 'test/visual/screenshots/diff')),
+      misMatchTolerance: 0.01,
     }),
-    orientations: ['portrait']
+    orientations: ['portrait'],
   },
 
   before: function() {
-    var chai = require('chai')
-    global.expect = chai.expect
-    chai.Should()
+    var chai = require('chai');
+    global.expect = chai.expect;
+    chai.Should();
   }
-}
+};

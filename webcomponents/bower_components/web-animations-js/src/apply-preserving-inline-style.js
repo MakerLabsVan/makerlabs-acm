@@ -12,8 +12,9 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-;(function(scope, testing) {
-  var SVG_TRANSFORM_PROP = '_webAnimationsUpdateSvgTransformAttr'
+(function(scope, testing) {
+
+  var SVG_TRANSFORM_PROP = '_webAnimationsUpdateSvgTransformAttr';
 
   /**
    * IE/Edge do not support `transform` styles for SVG elements. Instead,
@@ -26,21 +27,20 @@
    */
   function updateSvgTransformAttr(window, element) {
     if (!element.namespaceURI || element.namespaceURI.indexOf('/svg') == -1) {
-      return false
+      return false;
     }
     if (!(SVG_TRANSFORM_PROP in window)) {
-      window[SVG_TRANSFORM_PROP] = /Trident|MSIE|IEMobile|Edge|Android 4/i.test(
-        window.navigator.userAgent
-      )
+      window[SVG_TRANSFORM_PROP] =
+          /Trident|MSIE|IEMobile|Edge|Android 4/i.test(window.navigator.userAgent);
     }
-    return window[SVG_TRANSFORM_PROP]
+    return window[SVG_TRANSFORM_PROP];
   }
 
   var styleAttributes = {
     cssText: 1,
     length: 1,
-    parentRule: 1
-  }
+    parentRule: 1,
+  };
 
   var styleMethods = {
     getPropertyCSSValue: 1,
@@ -48,77 +48,68 @@
     getPropertyValue: 1,
     item: 1,
     removeProperty: 1,
-    setProperty: 1
-  }
+    setProperty: 1,
+  };
 
   var styleMutatingMethods = {
     removeProperty: 1,
-    setProperty: 1
-  }
+    setProperty: 1,
+  };
 
   function configureProperty(object, property, descriptor) {
-    descriptor.enumerable = true
-    descriptor.configurable = true
-    Object.defineProperty(object, property, descriptor)
+    descriptor.enumerable = true;
+    descriptor.configurable = true;
+    Object.defineProperty(object, property, descriptor);
   }
 
   function AnimatedCSSStyleDeclaration(element) {
-    WEB_ANIMATIONS_TESTING &&
-      console.assert(
-        !(element.style instanceof AnimatedCSSStyleDeclaration),
-        'Element must not already have an animated style attached.'
-      )
+    WEB_ANIMATIONS_TESTING && console.assert(!(element.style instanceof AnimatedCSSStyleDeclaration),
+        'Element must not already have an animated style attached.');
 
-    this._element = element
+    this._element = element;
     // Stores the inline style of the element on its behalf while the
     // polyfill uses the element's inline style to simulate web animations.
     // This is needed to fake regular inline style CSSOM access on the element.
-    this._surrogateStyle = document.createElementNS(
-      'http://www.w3.org/1999/xhtml',
-      'div'
-    ).style
-    this._style = element.style
-    this._length = 0
-    this._isAnimatedProperty = {}
-    this._updateSvgTransformAttr = updateSvgTransformAttr(window, element)
-    this._savedTransformAttr = null
+    this._surrogateStyle = document.createElementNS('http://www.w3.org/1999/xhtml', 'div').style;
+    this._style = element.style;
+    this._length = 0;
+    this._isAnimatedProperty = {};
+    this._updateSvgTransformAttr = updateSvgTransformAttr(window, element);
+    this._savedTransformAttr = null;
 
     // Copy the inline style contents over to the surrogate.
     for (var i = 0; i < this._style.length; i++) {
-      var property = this._style[i]
-      this._surrogateStyle[property] = this._style[property]
+      var property = this._style[i];
+      this._surrogateStyle[property] = this._style[property];
     }
-    this._updateIndices()
+    this._updateIndices();
   }
 
   AnimatedCSSStyleDeclaration.prototype = {
     get cssText() {
-      return this._surrogateStyle.cssText
+      return this._surrogateStyle.cssText;
     },
     set cssText(text) {
-      var isAffectedProperty = {}
+      var isAffectedProperty = {};
       for (var i = 0; i < this._surrogateStyle.length; i++) {
-        isAffectedProperty[this._surrogateStyle[i]] = true
+        isAffectedProperty[this._surrogateStyle[i]] = true;
       }
-      this._surrogateStyle.cssText = text
-      this._updateIndices()
+      this._surrogateStyle.cssText = text;
+      this._updateIndices();
       for (var i = 0; i < this._surrogateStyle.length; i++) {
-        isAffectedProperty[this._surrogateStyle[i]] = true
+        isAffectedProperty[this._surrogateStyle[i]] = true;
       }
       for (var property in isAffectedProperty) {
         if (!this._isAnimatedProperty[property]) {
-          this._style.setProperty(
-            property,
-            this._surrogateStyle.getPropertyValue(property)
-          )
+          this._style.setProperty(property, this._surrogateStyle.getPropertyValue(property));
         }
       }
     },
     get length() {
-      return this._surrogateStyle.length
+      return this._surrogateStyle.length;
     },
     get parentRule() {
-      return this._style.parentRule
+      return this._style.parentRule;
     },
     // Mirror the indexed getters and setters of the surrogate style.
     _updateIndices: function() {
@@ -127,138 +118,122 @@
           configurable: true,
           enumerable: false,
           get: (function(index) {
-            return function() {
-              return this._surrogateStyle[index]
-            }
+            return function() { return this._surrogateStyle[index]; };
           })(this._length)
-        })
-        this._length++
+        });
+        this._length++;
       }
       while (this._length > this._surrogateStyle.length) {
-        this._length--
+        this._length--;
         Object.defineProperty(this, this._length, {
           configurable: true,
           enumerable: false,
           value: undefined
-        })
+        });
       }
     },
     _set: function(property, value) {
-      this._style[property] = value
-      this._isAnimatedProperty[property] = true
-      if (
-        this._updateSvgTransformAttr &&
-        scope.unprefixedPropertyName(property) == 'transform'
-      ) {
+      this._style[property] = value;
+      this._isAnimatedProperty[property] = true;
+      if (this._updateSvgTransformAttr &&
+          scope.unprefixedPropertyName(property) == 'transform') {
         // On IE/Edge, also set SVG element's `transform` attribute to 2d
         // matrix of the transform. The `transform` style does not work, but
         // `transform` attribute can be used instead.
         // Notice, if the platform indeed supports SVG/CSS transforms the CSS
         // declaration is supposed to override the attribute.
         if (this._savedTransformAttr == null) {
-          this._savedTransformAttr = this._element.getAttribute('transform')
+          this._savedTransformAttr = this._element.getAttribute('transform');
         }
-        this._element.setAttribute(
-          'transform',
-          scope.transformToSvgMatrix(value)
-        )
+        this._element.setAttribute('transform', scope.transformToSvgMatrix(value));
       }
     },
     _clear: function(property) {
-      this._style[property] = this._surrogateStyle[property]
-      if (
-        this._updateSvgTransformAttr &&
-        scope.unprefixedPropertyName(property) == 'transform'
-      ) {
+      this._style[property] = this._surrogateStyle[property];
+      if (this._updateSvgTransformAttr &&
+          scope.unprefixedPropertyName(property) == 'transform') {
         if (this._savedTransformAttr) {
-          this._element.setAttribute('transform', this._savedTransformAttr)
+          this._element.setAttribute('transform', this._savedTransformAttr);
         } else {
-          this._element.removeAttribute('transform')
+          this._element.removeAttribute('transform');
         }
-        this._savedTransformAttr = null
+        this._savedTransformAttr = null;
       }
-      delete this._isAnimatedProperty[property]
-    }
-  }
+      delete this._isAnimatedProperty[property];
+    },
+  };
 
   // Wrap the style methods.
   for (var method in styleMethods) {
-    AnimatedCSSStyleDeclaration.prototype[method] = (function(
-      method,
-      modifiesStyle
-    ) {
+    AnimatedCSSStyleDeclaration.prototype[method] = (function(method, modifiesStyle) {
       return function() {
-        var result = this._surrogateStyle[method].apply(
-          this._surrogateStyle,
-          arguments
-        )
+        var result = this._surrogateStyle[method].apply(this._surrogateStyle, arguments);
         if (modifiesStyle) {
           if (!this._isAnimatedProperty[arguments[0]])
-            this._style[method].apply(this._style, arguments)
-          this._updateIndices()
+            this._style[method].apply(this._style, arguments);
+          this._updateIndices();
         }
-        return result
+        return result;
       }
-    })(method, method in styleMutatingMethods)
+    })(method, method in styleMutatingMethods);
   }
 
   // Wrap the style.cssProperty getters and setters.
   for (var property in document.documentElement.style) {
     if (property in styleAttributes || property in styleMethods) {
-      continue
+      continue;
     }
-    ;(function(property) {
+    (function(property) {
       configureProperty(AnimatedCSSStyleDeclaration.prototype, property, {
         get: function() {
-          return this._surrogateStyle[property]
+          return this._surrogateStyle[property];
         },
         set: function(value) {
-          this._surrogateStyle[property] = value
-          this._updateIndices()
-          if (!this._isAnimatedProperty[property]) this._style[property] = value
+          this._surrogateStyle[property] = value;
+          this._updateIndices();
+          if (!this._isAnimatedProperty[property])
+            this._style[property] = value;
         }
-      })
-    })(property)
+      });
+    })(property);
   }
 
   function ensureStyleIsPatched(element) {
-    if (element._webAnimationsPatchedStyle) return
+    if (element._webAnimationsPatchedStyle)
+      return;
 
-    var animatedStyle = new AnimatedCSSStyleDeclaration(element)
+    var animatedStyle = new AnimatedCSSStyleDeclaration(element);
     try {
-      configureProperty(element, 'style', {
-        get: function() {
-          return animatedStyle
-        }
-      })
+      configureProperty(element, 'style', { get: function() { return animatedStyle; } });
     } catch (_) {
       // iOS and older versions of Safari (pre v7) do not support overriding an element's
       // style object. Animations will clobber any inline styles as a result.
       element.style._set = function(property, value) {
-        element.style[property] = value
-      }
+        element.style[property] = value;
+      };
       element.style._clear = function(property) {
-        element.style[property] = ''
-      }
+        element.style[property] = '';
+      };
     }
 
     // We must keep a handle on the patched style to prevent it from getting GC'd.
-    element._webAnimationsPatchedStyle = element.style
+    element._webAnimationsPatchedStyle = element.style;
   }
 
   scope.apply = function(element, property, value) {
-    ensureStyleIsPatched(element)
-    element.style._set(scope.propertyName(property), value)
-  }
+    ensureStyleIsPatched(element);
+    element.style._set(scope.propertyName(property), value);
+  };
 
   scope.clear = function(element, property) {
     if (element._webAnimationsPatchedStyle) {
-      element.style._clear(scope.propertyName(property))
+      element.style._clear(scope.propertyName(property));
     }
-  }
+  };
 
   if (WEB_ANIMATIONS_TESTING) {
-    testing.ensureStyleIsPatched = ensureStyleIsPatched
-    testing.updateSvgTransformAttr = updateSvgTransformAttr
+    testing.ensureStyleIsPatched = ensureStyleIsPatched;
+    testing.updateSvgTransformAttr = updateSvgTransformAttr;
   }
-})(webAnimations1, webAnimationsTesting)
+
+})(webAnimations1, webAnimationsTesting);

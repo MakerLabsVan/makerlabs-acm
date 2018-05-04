@@ -8,23 +8,23 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-'use strict'
+'use strict';
 
-import documentWait from './document-wait.js'
+import documentWait from './document-wait.js';
 
 /**
  * @typedef {HTMLStyleElement | {getStyle: function():HTMLStyleElement}}
  */
-export let CustomStyleProvider
+export let CustomStyleProvider;
 
-const SEEN_MARKER = '__seenByShadyCSS'
-const CACHED_STYLE = '__shadyCSSCachedStyle'
+const SEEN_MARKER = '__seenByShadyCSS';
+const CACHED_STYLE = '__shadyCSSCachedStyle';
 
 /** @type {?function(!HTMLStyleElement)} */
-let transformFn = null
+let transformFn = null;
 
 /** @type {?function()} */
-let validateFn = null
+let validateFn = null;
 
 /**
 This interface is provided to add document-level <style> elements to ShadyCSS for processing.
@@ -43,27 +43,27 @@ An example usage of the document-level styling api can be found in `examples/doc
 export default class CustomStyleInterface {
   constructor() {
     /** @type {!Array<!CustomStyleProvider>} */
-    this['customStyles'] = []
-    this['enqueued'] = false
+    this['customStyles'] = [];
+    this['enqueued'] = false;
   }
   /**
    * Queue a validation for new custom styles to batch style recalculations
    */
   enqueueDocumentValidation() {
     if (this['enqueued'] || !validateFn) {
-      return
+      return;
     }
-    this['enqueued'] = true
-    documentWait(validateFn)
+    this['enqueued'] = true;
+    documentWait(validateFn);
   }
   /**
    * @param {!HTMLStyleElement} style
    */
   addCustomStyle(style) {
     if (!style[SEEN_MARKER]) {
-      style[SEEN_MARKER] = true
-      this['customStyles'].push(style)
-      this.enqueueDocumentValidation()
+      style[SEEN_MARKER] = true;
+      this['customStyles'].push(style);
+      this.enqueueDocumentValidation();
     }
   }
   /**
@@ -72,79 +72,75 @@ export default class CustomStyleInterface {
    */
   getStyleForCustomStyle(customStyle) {
     if (customStyle[CACHED_STYLE]) {
-      return customStyle[CACHED_STYLE]
+      return customStyle[CACHED_STYLE];
     }
-    let style
+    let style;
     if (customStyle['getStyle']) {
-      style = customStyle['getStyle']()
+      style = customStyle['getStyle']();
     } else {
-      style = customStyle
+      style = customStyle;
     }
-    return style
+    return style;
   }
   /**
    * @return {!Array<!CustomStyleProvider>}
    */
   processStyles() {
-    const cs = this['customStyles']
+    const cs = this['customStyles'];
     for (let i = 0; i < cs.length; i++) {
-      const customStyle = cs[i]
+      const customStyle = cs[i];
       if (customStyle[CACHED_STYLE]) {
-        continue
+        continue;
       }
-      const style = this.getStyleForCustomStyle(customStyle)
+      const style = this.getStyleForCustomStyle(customStyle);
       if (style) {
         // HTMLImports polyfill may have cloned the style into the main document,
         // which is referenced with __appliedElement.
-        const styleToTransform =
-          /** @type {!HTMLStyleElement} */ (style['__appliedElement'] || style)
+        const styleToTransform = /** @type {!HTMLStyleElement} */(style['__appliedElement'] || style);
         if (transformFn) {
-          transformFn(styleToTransform)
+          transformFn(styleToTransform);
         }
-        customStyle[CACHED_STYLE] = styleToTransform
+        customStyle[CACHED_STYLE] = styleToTransform;
       }
     }
-    return cs
+    return cs;
   }
 }
 
-CustomStyleInterface.prototype['addCustomStyle'] =
-  CustomStyleInterface.prototype.addCustomStyle
-CustomStyleInterface.prototype['getStyleForCustomStyle'] =
-  CustomStyleInterface.prototype.getStyleForCustomStyle
-CustomStyleInterface.prototype['processStyles'] =
-  CustomStyleInterface.prototype.processStyles
+CustomStyleInterface.prototype['addCustomStyle'] = CustomStyleInterface.prototype.addCustomStyle;
+CustomStyleInterface.prototype['getStyleForCustomStyle'] = CustomStyleInterface.prototype.getStyleForCustomStyle;
+CustomStyleInterface.prototype['processStyles'] = CustomStyleInterface.prototype.processStyles;
 
 Object.defineProperties(CustomStyleInterface.prototype, {
-  transformCallback: {
+  'transformCallback': {
     /** @return {?function(!HTMLStyleElement)} */
     get() {
-      return transformFn
+      return transformFn;
     },
     /** @param {?function(!HTMLStyleElement)} fn */
     set(fn) {
-      transformFn = fn
+      transformFn = fn;
     }
   },
-  validateCallback: {
+  'validateCallback': {
     /** @return {?function()} */
     get() {
-      return validateFn
+      return validateFn;
     },
     /**
      * @param {?function()} fn
      * @this {CustomStyleInterface}
      */
     set(fn) {
-      let needsEnqueue = false
+      let needsEnqueue = false;
       if (!validateFn) {
-        needsEnqueue = true
+        needsEnqueue = true;
       }
-      validateFn = fn
+      validateFn = fn;
       if (needsEnqueue) {
-        this.enqueueDocumentValidation()
+        this.enqueueDocumentValidation();
       }
-    }
+    },
   }
 })
 
@@ -157,4 +153,4 @@ Object.defineProperties(CustomStyleInterface.prototype, {
  * validateCallback: ?function()
  * }}
  */
-export let CustomStyleInterfaceInterface
+export let CustomStyleInterfaceInterface;

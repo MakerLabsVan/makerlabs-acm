@@ -12,38 +12,38 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-;(function(scope, testing) {
+(function(scope, testing) {
+
   function interpolate(from, to, f) {
-    if (typeof from == 'number' && typeof to == 'number') {
-      return from * (1 - f) + to * f
+    if ((typeof from == 'number') && (typeof to == 'number')) {
+      return from * (1 - f) + to * f;
     }
-    if (typeof from == 'boolean' && typeof to == 'boolean') {
-      return f < 0.5 ? from : to
+    if ((typeof from == 'boolean') && (typeof to == 'boolean')) {
+      return f < 0.5 ? from : to;
     }
 
-    WEB_ANIMATIONS_TESTING &&
-      console.assert(
+    WEB_ANIMATIONS_TESTING && console.assert(
         Array.isArray(from) && Array.isArray(to),
-        'If interpolation arguments are not numbers or bools they must be arrays'
-      )
+        'If interpolation arguments are not numbers or bools they must be arrays');
 
     if (from.length == to.length) {
-      var r = []
+      var r = [];
       for (var i = 0; i < from.length; i++) {
-        r.push(interpolate(from[i], to[i], f))
+        r.push(interpolate(from[i], to[i], f));
       }
-      return r
+      return r;
     }
-    throw 'Mismatched interpolation arguments ' + from + ':' + to
+    throw 'Mismatched interpolation arguments ' + from + ':' + to;
   }
 
   scope.Interpolation = function(from, to, convertToString) {
     return function(f) {
-      return convertToString(interpolate(from, to, f))
+      return convertToString(interpolate(from, to, f));
     }
-  }
+  };
 
   if (WEB_ANIMATIONS_TESTING) {
-    testing.interpolate = interpolate
+    testing.interpolate = interpolate;
   }
-})(webAnimations1, webAnimationsTesting)
+
+})(webAnimations1, webAnimationsTesting);

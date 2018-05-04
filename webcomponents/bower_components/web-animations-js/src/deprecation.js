@@ -12,45 +12,36 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-;(function(shared) {
-  var silenced = {}
+(function(shared) {
+
+  var silenced = {};
 
   shared.isDeprecated = function(feature, date, advice, plural) {
     if (WEB_ANIMATIONS_TESTING) {
-      return true
+      return true;
     }
 
-    var auxVerb = plural ? 'are' : 'is'
-    var today = new Date()
-    var expiry = new Date(date)
-    expiry.setMonth(expiry.getMonth() + 3) // 3 months grace period
+    var auxVerb = plural ? 'are' : 'is';
+    var today = new Date();
+    var expiry = new Date(date);
+    expiry.setMonth(expiry.getMonth() + 3); // 3 months grace period
 
     if (today < expiry) {
       if (!(feature in silenced)) {
-        console.warn(
-          'Web Animations: ' +
-            feature +
-            ' ' +
-            auxVerb +
-            ' deprecated and will stop working on ' +
-            expiry.toDateString() +
-            '. ' +
-            advice
-        )
+        console.warn('Web Animations: ' + feature + ' ' + auxVerb + ' deprecated and will stop working on ' + expiry.toDateString() + '. ' + advice);
       }
-      silenced[feature] = true
-      return false
+      silenced[feature] = true;
+      return false;
     } else {
-      return true
+      return true;
     }
-  }
+  };
 
   shared.deprecated = function(feature, date, advice, plural) {
-    var auxVerb = plural ? 'are' : 'is'
+    var auxVerb = plural ? 'are' : 'is';
     if (shared.isDeprecated(feature, date, advice, plural)) {
-      throw new Error(
-        feature + ' ' + auxVerb + ' no longer supported. ' + advice
-      )
+      throw new Error(feature + ' ' + auxVerb + ' no longer supported. ' + advice);
     }
-  }
-})(webAnimationsShared)
+  };
+
+})(webAnimationsShared);

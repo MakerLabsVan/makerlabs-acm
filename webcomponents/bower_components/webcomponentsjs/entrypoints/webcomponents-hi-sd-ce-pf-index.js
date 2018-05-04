@@ -7,20 +7,20 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-'use strict'
+'use strict';
 
 /*
  * Polyfills loaded: HTML Imports, Custom Elements, Shady DOM/Shady CSS, platform polyfills, template
  * Used in: IE 11
  */
 
-import '../node_modules/@webcomponents/webcomponents-platform/webcomponents-platform.js'
-import '../node_modules/@webcomponents/template/template.js'
-import '../src/promise.js'
-import '../node_modules/@webcomponents/html-imports/src/html-imports.js'
-import '../src/pre-polyfill.js'
-import '../node_modules/@webcomponents/shadydom/src/shadydom.js'
-import '../node_modules/@webcomponents/custom-elements/src/custom-elements.js'
-import '../node_modules/@webcomponents/shadycss/entrypoints/scoping-shim.js'
-import '../src/post-polyfill.js'
-import '../src/unresolved.js'
+import '../node_modules/@webcomponents/webcomponents-platform/webcomponents-platform.js';
+import '../node_modules/@webcomponents/template/template.js';
+import '../src/promise.js';
+import '../node_modules/@webcomponents/html-imports/src/html-imports.js';
+import '../src/pre-polyfill.js';
+import '../node_modules/@webcomponents/shadydom/src/shadydom.js';
+import '../node_modules/@webcomponents/custom-elements/src/custom-elements.js';
+import '../node_modules/@webcomponents/shadycss/entrypoints/scoping-shim.js';
+import '../src/post-polyfill.js';
+import '../src/unresolved.js';
