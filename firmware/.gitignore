@@ -2,3 +2,4 @@ build/
 main/secrets/
 sdkconfig*
 !sdkconfig.defaults
+xtensa-esp32-elf*
