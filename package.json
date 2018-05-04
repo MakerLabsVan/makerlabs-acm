@@ -10,9 +10,9 @@
     "webcomponents": "cd \"webcomponents\" && bower update",
     "webcomponents-add": "cd \"webcomponents\" && bower install --save",
     "postwebcomponents-add-install": "cd \"webcomponents\" && bower update",
-    "webapp-pull": "cd \"webapp\" && clasp pull",
-    "webapp-push": "cd \"webapp\" && clasp push",
-    "webapp-deploy": "cd \"webapp\" && clasp deploy",
+    "pull": "cd \"webapp\" && clasp pull",
+    "push": "cd \"webapp\" && clasp push",
+    "deploy": "cd \"webapp\" && clasp deploy",
     "precommit": "yarn lint-staged"
   },
   "lint-staged": {
