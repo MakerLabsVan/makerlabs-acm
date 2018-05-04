@@ -1,0 +1,57 @@
+/*
+ * Copyright Paul Reimer, 2018
+ *
+ * All rights reserved.
+ *
+ */
+
+namespace ACM;
+
+enum ActivityType : byte
+{
+  Signed_In,
+  Signed_Out,
+  CNC_Job,
+}
+
+table Activity
+{
+  machine_id:string;
+  makerlabs_id:string;
+  tag_serial:string;
+  activity_type:ActivityType;
+  time:uint64;
+  usage_seconds:uint32 = 0;
+}
+
+table User
+{
+  name:string;
+  email:string;
+  makerlabs_id:string;
+  tag_serial:string;
+  alerts:string;
+}
+
+enum LogSeverity : byte
+{
+  Fatal,
+  Error,
+  Warn,
+  Notice,
+  Info,
+  Debug,
+  Trace,
+}
+
+table Log
+{
+  machine_id:string;
+  severity:LogSeverity;
+  time:uint64;
+  message:string;
+}
+
+root_type Activity;
+file_identifier "ACM.";
+file_extension "fb";
