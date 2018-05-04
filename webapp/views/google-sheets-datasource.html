@@ -53,7 +53,7 @@
           && gapi.auth2
           && gapi.auth2.getAuthInstance()
         );
-        
+
         if (authInstance)
         {
           var currentUser = (
@@ -61,7 +61,7 @@
             && authInstance.currentUser
             && authInstance.currentUser.get()
           );
-          
+
           if (currentUser) {
             var authResponse = currentUser.getAuthResponse(true);
             if (authResponse) {
@@ -84,7 +84,7 @@
         aware.handleAuthSignOut = this.handleAuthSignOut;
         aware.handleAuthStateChange = this.handleAuthStateChange;
       }
-    
+
       ready() {
         super.ready();
         var intervalId = setInterval(
@@ -95,7 +95,7 @@
                 console.log("Force loaded gapi.client");
                 clients[i]._loadClient();
               }
-              
+
               console.log("trigger initial query here");
               clearInterval(intervalId);
             }
@@ -230,7 +230,7 @@
                   {
                     rowValues['Photo'] = this.defaultPhotoUrl;
                   }
-                  
+
                   if ('Name' in rowValues && rowValues['Name'])
                   {
                     users.push(rowValues);
@@ -246,16 +246,16 @@
           }.bind(this));
         }
       }
-      
+
       handleAuthSignOut(response) {
         console.log("did get sign out");
       }
 
       querySheet(sheetGid, query, numHeaders = 1) {
         var queryString = encodeURIComponent(query);
-      
+
         var loader = this.shadowRoot.querySelector('google-chart-loader');
-      
+
         return loader.query(
           'https://docs.google.com/spreadsheets/d/'
           + this.sheetId
@@ -288,7 +288,7 @@
         console.log("handleQueryResponse data");
         console.log(data);
       }
-      
+
       resetValues() {
         return this.showUser([]);
       }
@@ -301,7 +301,7 @@
           for (var f = 0; f < section.fields.length; ++f) {
             var val = (i < data.length)? data[i++] : null;
             var field = section.fields[f];
-        
+
             if (!val)
             {
               // Reset the previous value, if no new value is set.
@@ -348,7 +348,7 @@
 
               img.src = photoUrl;
             }
-        
+
             else {
               console.log("unknown field name " + field.name);
             }
@@ -358,7 +358,7 @@
 
       handleSubmit() {
         var sheets = document.getElementById('sheets');
-      
+
         var validTextFieldCount = 0;
         var formValues = [];
         for (var s = 0; s < this.fields.length; ++s) {
@@ -407,16 +407,16 @@
                   formValue = el.src;
                 }
               }
-        
+
               else {
                 console.log("unknown field " + field.name);
               }
             }
-            
+
             formValues.push(formValue);
           }
         }
-      
+
         if (
           sheets
           && sheets.api
@@ -441,7 +441,7 @@
             if (validTextFieldCount > 0) {
               console.log("create new user");
               formValues[0] = "=row()";
-  
+
               sheets.api.spreadsheets.values.append({
                 spreadsheetId: this.sheetId,
                 range: this.sheetName,
@@ -460,18 +460,18 @@
         var yesLike = ["☑","Y","y","T","t","Yes","yes","True","true"];
         return (yesLike.indexOf(s) != -1);
       }
-      
+
       isNoLike(s) {
         var noLike = ["☐","N","n","F","f","No","no","False","false"];
         return (noLike.indexOf(s) != -1);
       }
-      
+
       // https://stackoverflow.com/questions/3115982/how-to-check-if-two-arrays-are-equal-with-javascript#answer-16436975
       arraysEqual(a, b) {
         if (a === b) return true;
         if (a == null || b == null) return false;
         if (a.length != b.length) return false;
-      
+
         for (var i = 0; i < a.length; ++i) {
           if (a[i] !== b[i]) return false;
         }
