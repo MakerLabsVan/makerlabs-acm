@@ -1,0 +1,22 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# iClass_SE_R10_Backplate
+#
+DEF iClass_SE_R10_Backplate MNT 0 40 Y Y 1 F N
+F0 "MNT" 0 -1100 79 H V C CNN
+F1 "iClass_SE_R10_Backplate" 0 1100 79 H V C CNN
+F2 "" 0 0 79 H I C CNN
+F3 "" 0 0 79 H I C CNN
+DRAW
+S -500 1000 500 -1000 0 1 0 N
+S -450 -1000 -300 -950 0 1 0 N
+S -350 350 350 -350 0 1 0 N
+S -50 -450 50 -800 0 1 0 N
+S -50 450 50 800 0 1 0 N
+S 450 -1000 300 -950 0 1 0 N
+S 500 -1000 -500 -950 0 1 0 N
+ENDDRAW
+ENDDEF
+#
+#End Library
