@@ -4,4 +4,4 @@ window.VaadinTextFieldSuites = [
   'password-field.html',
   'validation.html',
   'accessibility.html'
-]
+];

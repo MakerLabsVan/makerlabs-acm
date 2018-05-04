@@ -1,1 +1,3 @@
-window.VaadinButtonSuites = ['vaadin-button_test.html']
+window.VaadinButtonSuites = [
+  'vaadin-button_test.html'
+];

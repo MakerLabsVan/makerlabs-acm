@@ -14,4 +14,4 @@ window.VaadinComboBoxSuites = [
   'vaadin-combo-box-light.html',
   'item-template.html',
   'vaadin-combo-box-dropdown.html'
-]
+];

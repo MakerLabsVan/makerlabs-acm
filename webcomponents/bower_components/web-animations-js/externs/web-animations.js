@@ -14,6 +14,7 @@
  * the License.
  */
 
+
 /**
  * @fileoverview Basic externs for the Web Animations API. This is not
  * nessecarily exhaustive. For more information, see the spec-
@@ -21,61 +22,64 @@
  * @externs
  */
 
+
 /**
  * @param {!Array<!Object>} frames
  * @param {(number|AnimationEffectTimingProperties)=} opt_options
  * @return {!Animation}
  */
-Element.prototype.animate = function(frames, opt_options) {}
+Element.prototype.animate = function(frames, opt_options) {};
+
 
 /**
  * @interface
  * @extends {EventTarget}
  */
-var Animation = function() {}
+var Animation = function() {};
 
 /**
  * @return {undefined}
  */
-Animation.prototype.cancel = function() {}
+Animation.prototype.cancel = function() {};
 
 /**
  * @return {undefined}
  */
-Animation.prototype.finish = function() {}
+Animation.prototype.finish = function() {};
 
 /**
  * @return {undefined}
  */
-Animation.prototype.reverse = function() {}
+Animation.prototype.reverse = function() {};
 
 /**
  * @return {undefined}
  */
-Animation.prototype.pause = function() {}
+Animation.prototype.pause = function() {};
 
 /**
  * @return {undefined}
  */
-Animation.prototype.play = function() {}
+Animation.prototype.play = function() {};
 
 /** @type {number} */
-Animation.prototype.startTime
+Animation.prototype.startTime;
 
 /** @type {number} */
-Animation.prototype.currentTime
+Animation.prototype.currentTime;
 
 /** @type {number} */
-Animation.prototype.playbackRate
+Animation.prototype.playbackRate;
 
 /** @type {string} */
-Animation.prototype.playState
+Animation.prototype.playState;
 
 /** @type {?function(!Event)} */
-Animation.prototype.oncancel
+Animation.prototype.oncancel;
 
 /** @type {?function(!Event)} */
-Animation.prototype.onfinish
+Animation.prototype.onfinish;
+
 
 /**
  * @typedef {{
@@ -89,33 +93,34 @@ Animation.prototype.onfinish
  *   easing: (string|undefined)
  * }}
  */
-var AnimationEffectTimingProperties
+var AnimationEffectTimingProperties;
+
 
 /**
  * @interface
  */
-var AnimationEffectTiming = function() {}
+var AnimationEffectTiming = function() {};
 
 /** @type {number} */
-AnimationEffectTiming.prototype.delay
+AnimationEffectTiming.prototype.delay;
 
 /** @type {number} */
-AnimationEffectTiming.prototype.endDelay
+AnimationEffectTiming.prototype.endDelay;
 
 /** @type {string} */
-AnimationEffectTiming.prototype.fillMode
+AnimationEffectTiming.prototype.fillMode;
 
 /** @type {number} */
-AnimationEffectTiming.prototype.iterationStart
+AnimationEffectTiming.prototype.iterationStart;
 
 /** @type {number} */
-AnimationEffectTiming.prototype.iterations
+AnimationEffectTiming.prototype.iterations;
 
 /** @type {number|string} */
-AnimationEffectTiming.prototype.duration
+AnimationEffectTiming.prototype.duration;
 
 /** @type {string} */
-AnimationEffectTiming.prototype.direction
+AnimationEffectTiming.prototype.direction;
 
 /** @type {string} */
-AnimationEffectTiming.prototype.easing
+AnimationEffectTiming.prototype.easing;

@@ -24,58 +24,58 @@
  * observer: (string | function(*,*) | undefined)
  * }}
  */
-let PolymerElementPropertiesMeta
+let PolymerElementPropertiesMeta;
 
 /**
  * @typedef {Object<string, !PolymerElementPropertiesMeta>}
  */
-let PolymerElementProperties
+let PolymerElementProperties;
 
-let PolymerInit = function() {}
+let PolymerInit = function(){};
 /** @type {string} */
-PolymerInit.prototype.is
+PolymerInit.prototype.is;
 /** @type {(string | undefined)} */
-PolymerInit.prototype.extends
+PolymerInit.prototype.extends;
 /** @type {(!PolymerElementProperties | undefined)} */
-PolymerInit.prototype.properties
+PolymerInit.prototype.properties;
 /** @type {(!Array<string> | undefined)} */
-PolymerInit.prototype.observers
+PolymerInit.prototype.observers;
 /** @type {(!HTMLTemplateElement | string | undefined)} */
-PolymerInit.prototype.template
+PolymerInit.prototype.template;
 /** @type {(!Object<string, *> | undefined)} */
-PolymerInit.prototype.hostAttributes
+PolymerInit.prototype.hostAttributes;
 /** @type {(!Object<string, string> | undefined)} */
-PolymerInit.prototype.listeners
+PolymerInit.prototype.listeners;
 
-let PolymerElementConstructor = function() {}
+let PolymerElementConstructor = function (){};
 /** @type {(string | undefined)} */
-PolymerElementConstructor.is
+PolymerElementConstructor.is;
 /** @type {(string | undefined)} */
-PolymerElementConstructor.extends
+PolymerElementConstructor.extends;
 /** @type {(!PolymerElementProperties | undefined)} */
-PolymerElementConstructor.properties
+PolymerElementConstructor.properties;
 /** @type {(!Array<string> | undefined)} */
-PolymerElementConstructor.observers
+PolymerElementConstructor.observers;
 /** @type {(!HTMLTemplateElement | string | undefined)} */
-PolymerElementConstructor.template
+PolymerElementConstructor.template;
 
-let PropertiesMixinConstructor = function() {}
+let PropertiesMixinConstructor = function (){};
 /** @type {(!PolymerElementProperties | undefined)} */
-PropertiesMixinConstructor.properties
+PropertiesMixinConstructor.properties;
 
 /**
  * @param {!PolymerInit} init
  * @return {!function(new:HTMLElement)}
  */
-function Polymer(init) {}
+function Polymer(init){}
 
 /** @type {PolymerElementProperties} */
-Polymer.ElementProperties
+Polymer.ElementProperties;
 
 /**
  * @type {(function(*,string,string,Node):*)|undefined}
  */
-Polymer.sanitizeDOMValue
+Polymer.sanitizeDOMValue;
 
 /**
  * @param {string} string
@@ -85,23 +85,23 @@ Polymer.sanitizeDOMValue
 function JSCompiler_renameProperty(string, obj) {}
 
 /** @record */
-function PolymerTelemetry() {}
+function PolymerTelemetry(){}
 /** @type {number} */
-PolymerTelemetry.instanceCount
+PolymerTelemetry.instanceCount;
 /** @type {Array<HTMLElement>} */
-PolymerTelemetry.registrations
+PolymerTelemetry.registrations;
 /** @type {function(HTMLElement)} */
-PolymerTelemetry._regLog
+PolymerTelemetry._regLog;
 /** @type {function(HTMLElement)} */
-PolymerTelemetry.register
+PolymerTelemetry.register;
 /** @type {function(HTMLElement)} */
-PolymerTelemetry.dumpRegistrations
+PolymerTelemetry.dumpRegistrations;;
 
 /** @type {PolymerTelemetry} */
-Polymer.telemetry
+Polymer.telemetry;
 
 /** @type {string} */
-Polymer.version
+Polymer.version;
 
 // nb. This is explicitly 'var', as Closure Compiler checks that this is the case.
 /**
@@ -109,4 +109,4 @@ Polymer.version
  * @extends {HTMLElement}
  * @implements {Polymer_LegacyElementMixin}
  */
-var PolymerElement = Polymer.LegacyElementMixin()
+var PolymerElement = Polymer.LegacyElementMixin();

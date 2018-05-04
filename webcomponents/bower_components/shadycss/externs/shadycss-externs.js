@@ -11,7 +11,7 @@
  * nativeShadow: boolean,
  * }}
  */
-let ShadyCSSInterface //eslint-disable-line no-unused-vars
+let ShadyCSSInterface; //eslint-disable-line no-unused-vars
 
 /**
  * @typedef {{
@@ -19,7 +19,7 @@ let ShadyCSSInterface //eslint-disable-line no-unused-vars
  * shimshadow: (boolean | undefined)
  * }}
  */
-let ShadyCSSOptions //eslint-disable-line no-unused-vars
+let ShadyCSSOptions; //eslint-disable-line no-unused-vars
 
 /** @type {(ShadyCSSInterface | ShadyCSSOptions | undefined)} */
-window.ShadyCSS
+window.ShadyCSS;

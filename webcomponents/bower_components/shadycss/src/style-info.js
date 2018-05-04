@@ -8,12 +8,12 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-'use strict'
+'use strict';
 
-import { StyleNode } from './css-parse.js' // eslint-disable-line no-unused-vars
+import {StyleNode} from './css-parse.js'; // eslint-disable-line no-unused-vars
 
 /** @const {string} */
-const infoKey = '__styleInfo'
+const infoKey = '__styleInfo';
 
 export default class StyleInfo {
   /**
@@ -22,9 +22,9 @@ export default class StyleInfo {
    */
   static get(node) {
     if (node) {
-      return node[infoKey]
+      return node[infoKey];
     } else {
-      return null
+      return null;
     }
   }
   /**
@@ -33,8 +33,8 @@ export default class StyleInfo {
    * @return {StyleInfo}
    */
   static set(node, styleInfo) {
-    node[infoKey] = styleInfo
-    return styleInfo
+    node[infoKey] = styleInfo;
+    return styleInfo;
   }
   /**
    * @param {StyleNode} ast
@@ -44,38 +44,31 @@ export default class StyleInfo {
    * @param {string=} typeExtension
    * @param {string=} cssBuild
    */
-  constructor(
-    ast,
-    placeholder,
-    ownStylePropertyNames,
-    elementName,
-    typeExtension,
-    cssBuild
-  ) {
+  constructor(ast, placeholder, ownStylePropertyNames, elementName, typeExtension, cssBuild) {
     /** @type {StyleNode} */
-    this.styleRules = ast || null
+    this.styleRules = ast || null;
     /** @type {Node} */
-    this.placeholder = placeholder || null
+    this.placeholder = placeholder || null;
     /** @type {!Array<string>} */
-    this.ownStylePropertyNames = ownStylePropertyNames || []
+    this.ownStylePropertyNames = ownStylePropertyNames || [];
     /** @type {Array<Object>} */
-    this.overrideStyleProperties = null
+    this.overrideStyleProperties = null;
     /** @type {string} */
-    this.elementName = elementName || ''
+    this.elementName = elementName || '';
     /** @type {string} */
-    this.cssBuild = cssBuild || ''
+    this.cssBuild = cssBuild || '';
     /** @type {string} */
-    this.typeExtension = typeExtension || ''
+    this.typeExtension = typeExtension || '';
     /** @type {Object<string, string>} */
-    this.styleProperties = null
+    this.styleProperties = null;
     /** @type {?string} */
-    this.scopeSelector = null
+    this.scopeSelector = null;
     /** @type {HTMLStyleElement} */
-    this.customStyle = null
+    this.customStyle = null;
   }
   _getStyleRules() {
-    return this.styleRules
+    return this.styleRules;
   }
 }
 
-StyleInfo.prototype['_getStyleRules'] = StyleInfo.prototype._getStyleRules
+StyleInfo.prototype['_getStyleRules'] = StyleInfo.prototype._getStyleRules;

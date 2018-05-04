@@ -8,6 +8,6 @@
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
 
-remoteCurrentScriptExecuted = window.remoteCurrentScriptExecuted || 0
-remoteCurrentScriptExecuted++
-assert.ok(document._currentScript)
+remoteCurrentScriptExecuted = window.remoteCurrentScriptExecuted || 0;
+remoteCurrentScriptExecuted++;
+assert.ok(document._currentScript);

@@ -8,19 +8,19 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-'use strict'
+'use strict';
 
-import ScopingShim from '../src/scoping-shim.js'
-import { nativeCssVariables, nativeShadow } from '../src/style-settings.js'
+import ScopingShim from '../src/scoping-shim.js';
+import {nativeCssVariables, nativeShadow} from '../src/style-settings.js';
 
 /** @const {ScopingShim} */
-const scopingShim = new ScopingShim()
+const scopingShim = new ScopingShim();
 
-let ApplyShim, CustomStyleInterface
+let ApplyShim, CustomStyleInterface;
 
 if (window['ShadyCSS']) {
-  ApplyShim = window['ShadyCSS']['ApplyShim']
-  CustomStyleInterface = window['ShadyCSS']['CustomStyleInterface']
+  ApplyShim = window['ShadyCSS']['ApplyShim'];
+  CustomStyleInterface = window['ShadyCSS']['CustomStyleInterface'];
 }
 
 window.ShadyCSS = {
@@ -31,7 +31,7 @@ window.ShadyCSS = {
    * @param {string=} elementExtends
    */
   prepareTemplate(template, elementName, elementExtends) {
-    scopingShim.flushCustomStyles()
+    scopingShim.flushCustomStyles();
     scopingShim.prepareTemplate(template, elementName, elementExtends)
   },
 
@@ -40,24 +40,24 @@ window.ShadyCSS = {
    * @param {Object=} properties
    */
   styleSubtree(element, properties) {
-    scopingShim.flushCustomStyles()
-    scopingShim.styleSubtree(element, properties)
+    scopingShim.flushCustomStyles();
+    scopingShim.styleSubtree(element, properties);
   },
 
   /**
    * @param {!HTMLElement} element
    */
   styleElement(element) {
-    scopingShim.flushCustomStyles()
-    scopingShim.styleElement(element)
+    scopingShim.flushCustomStyles();
+    scopingShim.styleElement(element);
   },
 
   /**
    * @param {Object=} properties
    */
   styleDocument(properties) {
-    scopingShim.flushCustomStyles()
-    scopingShim.styleDocument(properties)
+    scopingShim.flushCustomStyles();
+    scopingShim.styleDocument(properties);
   },
 
   /**
@@ -66,18 +66,18 @@ window.ShadyCSS = {
    * @return {string}
    */
   getComputedStyleValue(element, property) {
-    return scopingShim.getComputedStyleValue(element, property)
+    return scopingShim.getComputedStyleValue(element, property);
   },
 
   nativeCss: nativeCssVariables,
 
   nativeShadow: nativeShadow
-}
+};
 
 if (ApplyShim) {
-  window.ShadyCSS.ApplyShim = ApplyShim
+  window.ShadyCSS.ApplyShim = ApplyShim;
 }
 
 if (CustomStyleInterface) {
-  window.ShadyCSS.CustomStyleInterface = CustomStyleInterface
+  window.ShadyCSS.CustomStyleInterface = CustomStyleInterface;
 }

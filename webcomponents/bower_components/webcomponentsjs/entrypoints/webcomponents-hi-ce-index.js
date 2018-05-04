@@ -7,15 +7,15 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-'use strict'
+'use strict';
 
 /*
  * Polyfills loaded: HTML Imports, Custom Elements
  * Used in: Safari 10, Firefox once SD is shipped
  */
 
-import '../node_modules/@webcomponents/html-imports/src/html-imports.js'
-import '../node_modules/@webcomponents/custom-elements/src/custom-elements.js'
+import '../node_modules/@webcomponents/html-imports/src/html-imports.js';
+import '../node_modules/@webcomponents/custom-elements/src/custom-elements.js';
 
-import '../src/post-polyfill.js'
-import '../src/unresolved.js'
+import '../src/post-polyfill.js';
+import '../src/unresolved.js';

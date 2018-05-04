@@ -12,196 +12,172 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-;(function(shared, scope, testing) {
+(function(shared, scope, testing) {
+
   var disassociate = function(effect) {
-    effect._animation = undefined
-    if (
-      effect instanceof window.SequenceEffect ||
-      effect instanceof window.GroupEffect
-    ) {
+    effect._animation = undefined;
+    if (effect instanceof window.SequenceEffect || effect instanceof window.GroupEffect) {
       for (var i = 0; i < effect.children.length; i++) {
-        disassociate(effect.children[i])
+        disassociate(effect.children[i]);
       }
     }
-  }
+  };
 
   scope.removeMulti = function(effects) {
-    var oldParents = []
+    var oldParents = [];
     for (var i = 0; i < effects.length; i++) {
-      var effect = effects[i]
+      var effect = effects[i];
       if (effect._parent) {
         if (oldParents.indexOf(effect._parent) == -1) {
-          oldParents.push(effect._parent)
+          oldParents.push(effect._parent);
         }
-        effect._parent.children.splice(
-          effect._parent.children.indexOf(effect),
-          1
-        )
-        effect._parent = null
-        disassociate(effect)
-      } else if (effect._animation && effect._animation.effect == effect) {
-        effect._animation.cancel()
-        effect._animation.effect = new KeyframeEffect(null, [])
+        effect._parent.children.splice(effect._parent.children.indexOf(effect), 1);
+        effect._parent = null;
+        disassociate(effect);
+      } else if (effect._animation && (effect._animation.effect == effect)) {
+        effect._animation.cancel();
+        effect._animation.effect = new KeyframeEffect(null, []);
         if (effect._animation._callback) {
-          effect._animation._callback._animation = null
+          effect._animation._callback._animation = null;
         }
-        effect._animation._rebuildUnderlyingAnimation()
-        disassociate(effect)
+        effect._animation._rebuildUnderlyingAnimation();
+        disassociate(effect);
       }
     }
     for (i = 0; i < oldParents.length; i++) {
-      oldParents[i]._rebuild()
+      oldParents[i]._rebuild();
     }
-  }
+  };
 
   function KeyframeList(effectInput) {
-    this._frames = shared.normalizeKeyframes(effectInput)
+    this._frames = shared.normalizeKeyframes(effectInput);
   }
 
   scope.KeyframeEffect = function(target, effectInput, timingInput, id) {
-    this.target = target
-    this._parent = null
+    this.target = target;
+    this._parent = null;
 
-    timingInput = shared.numericTimingToObject(timingInput)
-    this._timingInput = shared.cloneTimingInput(timingInput)
-    this._timing = shared.normalizeTimingInput(timingInput)
+    timingInput = shared.numericTimingToObject(timingInput);
+    this._timingInput = shared.cloneTimingInput(timingInput);
+    this._timing = shared.normalizeTimingInput(timingInput);
 
-    this.timing = shared.makeTiming(timingInput, false, this)
-    this.timing._effect = this
+    this.timing = shared.makeTiming(timingInput, false, this);
+    this.timing._effect = this;
     if (typeof effectInput == 'function') {
-      shared.deprecated(
-        'Custom KeyframeEffect',
-        '2015-06-22',
-        'Use KeyframeEffect.onsample instead.'
-      )
-      this._normalizedKeyframes = effectInput
+      shared.deprecated('Custom KeyframeEffect', '2015-06-22', 'Use KeyframeEffect.onsample instead.');
+      this._normalizedKeyframes = effectInput;
     } else {
-      this._normalizedKeyframes = new KeyframeList(effectInput)
+      this._normalizedKeyframes = new KeyframeList(effectInput);
     }
-    this._keyframes = effectInput
-    this.activeDuration = shared.calculateActiveDuration(this._timing)
-    this._id = id
-    return this
-  }
+    this._keyframes = effectInput;
+    this.activeDuration = shared.calculateActiveDuration(this._timing);
+    this._id = id;
+    return this;
+  };
 
   scope.KeyframeEffect.prototype = {
     getFrames: function() {
       if (typeof this._normalizedKeyframes == 'function')
-        return this._normalizedKeyframes
-      return this._normalizedKeyframes._frames
+        return this._normalizedKeyframes;
+      return this._normalizedKeyframes._frames;
     },
     set onsample(callback) {
       if (typeof this.getFrames() == 'function') {
-        throw new Error(
-          'Setting onsample on custom effect KeyframeEffect is not supported.'
-        )
+        throw new Error('Setting onsample on custom effect KeyframeEffect is not supported.');
       }
-      this._onsample = callback
+      this._onsample = callback;
       if (this._animation) {
-        this._animation._rebuildUnderlyingAnimation()
+        this._animation._rebuildUnderlyingAnimation();
       }
     },
     get parent() {
-      return this._parent
+      return this._parent;
     },
     clone: function() {
       if (typeof this.getFrames() == 'function') {
-        throw new Error('Cloning custom effects is not supported.')
+        throw new Error('Cloning custom effects is not supported.');
       }
-      var clone = new KeyframeEffect(
-        this.target,
-        [],
-        shared.cloneTimingInput(this._timingInput),
-        this._id
-      )
-      clone._normalizedKeyframes = this._normalizedKeyframes
-      clone._keyframes = this._keyframes
-      return clone
+      var clone = new KeyframeEffect(this.target, [], shared.cloneTimingInput(this._timingInput), this._id);
+      clone._normalizedKeyframes = this._normalizedKeyframes;
+      clone._keyframes = this._keyframes;
+      return clone;
     },
     remove: function() {
-      scope.removeMulti([this])
+      scope.removeMulti([this]);
     }
-  }
+  };
 
-  var originalElementAnimate = Element.prototype.animate
+  var originalElementAnimate = Element.prototype.animate;
   Element.prototype.animate = function(effectInput, options) {
-    var id = ''
+    var id = '';
     if (options && options.id) {
-      id = options.id
+      id = options.id;
     }
-    return scope.timeline._play(
-      new scope.KeyframeEffect(this, effectInput, options, id)
-    )
-  }
+    return scope.timeline._play(new scope.KeyframeEffect(this, effectInput, options, id));
+  };
 
-  var nullTarget = document.createElementNS(
-    'http://www.w3.org/1999/xhtml',
-    'div'
-  )
+  var nullTarget = document.createElementNS('http://www.w3.org/1999/xhtml', 'div');
   scope.newUnderlyingAnimationForKeyframeEffect = function(keyframeEffect) {
     if (keyframeEffect) {
-      var target = keyframeEffect.target || nullTarget
-      var keyframes = keyframeEffect._keyframes
+      var target = keyframeEffect.target || nullTarget;
+      var keyframes = keyframeEffect._keyframes;
       if (typeof keyframes == 'function') {
-        keyframes = []
+        keyframes = [];
       }
-      var options = keyframeEffect._timingInput
-      options.id = keyframeEffect._id
+      var options = keyframeEffect._timingInput;
+      options.id = keyframeEffect._id;
     } else {
-      var target = nullTarget
-      var keyframes = []
-      var options = 0
+      var target = nullTarget;
+      var keyframes = [];
+      var options = 0;
     }
-    return originalElementAnimate.apply(target, [keyframes, options])
-  }
+    return originalElementAnimate.apply(target, [keyframes, options]);
+  };
 
   // TODO: Remove this once we remove support for custom KeyframeEffects.
   scope.bindAnimationForKeyframeEffect = function(animation) {
-    if (
-      animation.effect &&
-      typeof animation.effect._normalizedKeyframes == 'function'
-    ) {
-      scope.bindAnimationForCustomEffect(animation)
+    if (animation.effect && typeof animation.effect._normalizedKeyframes == 'function') {
+      scope.bindAnimationForCustomEffect(animation);
     }
-  }
+  };
 
-  var pendingGroups = []
+  var pendingGroups = [];
   scope.awaitStartTime = function(groupAnimation) {
-    if (groupAnimation.startTime !== null || !groupAnimation._isGroup) return
+    if (groupAnimation.startTime !== null || !groupAnimation._isGroup)
+      return;
     if (pendingGroups.length == 0) {
-      requestAnimationFrame(updatePendingGroups)
+      requestAnimationFrame(updatePendingGroups);
     }
-    pendingGroups.push(groupAnimation)
-  }
+    pendingGroups.push(groupAnimation);
+  };
   function updatePendingGroups() {
-    var updated = false
+    var updated = false;
     while (pendingGroups.length) {
-      var group = pendingGroups.shift()
-      group._updateChildren()
-      updated = true
+      var group = pendingGroups.shift();
+      group._updateChildren();
+      updated = true;
     }
-    return updated
+    return updated;
   }
-  var originalGetComputedStyle = window.getComputedStyle
+  var originalGetComputedStyle = window.getComputedStyle;
   Object.defineProperty(window, 'getComputedStyle', {
     configurable: true,
     enumerable: true,
     value: function() {
-      scope.timeline._updateAnimationsPromises()
-      var result = originalGetComputedStyle.apply(this, arguments)
+      scope.timeline._updateAnimationsPromises();
+      var result = originalGetComputedStyle.apply(this, arguments);
       if (updatePendingGroups())
-        result = originalGetComputedStyle.apply(this, arguments)
-      scope.timeline._updateAnimationsPromises()
-      return result
-    }
-  })
+        result = originalGetComputedStyle.apply(this, arguments);
+      scope.timeline._updateAnimationsPromises();
+      return result;
+    },
+  });
 
-  window.KeyframeEffect = scope.KeyframeEffect
+  window.KeyframeEffect = scope.KeyframeEffect;
   window.Element.prototype.getAnimations = function() {
-    return document.timeline.getAnimations().filter(
-      function(animation) {
-        return animation.effect !== null && animation.effect.target == this
-      }.bind(this)
-    )
-  }
-})(webAnimationsShared, webAnimationsNext, webAnimationsTesting)
+    return document.timeline.getAnimations().filter(function(animation) {
+      return animation.effect !== null && animation.effect.target == this;
+    }.bind(this));
+  };
+
+}(webAnimationsShared, webAnimationsNext, webAnimationsTesting));

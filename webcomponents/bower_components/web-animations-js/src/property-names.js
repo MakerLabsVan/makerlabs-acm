@@ -12,27 +12,29 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-;(function(scope, testing) {
-  var prefixed = {}
-  var unprefixed = {}
+(function(scope, testing) {
+
+  var prefixed = {};
+  var unprefixed = {};
 
   function alias(name, aliases) {
     aliases.concat([name]).forEach(function(candidate) {
       if (candidate in document.documentElement.style) {
-        prefixed[name] = candidate
+        prefixed[name] = candidate;
       }
-      unprefixed[candidate] = name
-    })
+      unprefixed[candidate] = name;
+    });
   }
-  alias('transform', ['webkitTransform', 'msTransform'])
-  alias('transformOrigin', ['webkitTransformOrigin'])
-  alias('perspective', ['webkitPerspective'])
-  alias('perspectiveOrigin', ['webkitPerspectiveOrigin'])
+  alias('transform', ['webkitTransform', 'msTransform']);
+  alias('transformOrigin', ['webkitTransformOrigin']);
+  alias('perspective', ['webkitPerspective']);
+  alias('perspectiveOrigin', ['webkitPerspectiveOrigin']);
 
   scope.propertyName = function(property) {
-    return prefixed[property] || property
-  }
+    return prefixed[property] || property;
+  };
   scope.unprefixedPropertyName = function(property) {
-    return unprefixed[property] || property
-  }
-})(webAnimations1, webAnimationsTesting)
+    return unprefixed[property] || property;
+  };
+
+})(webAnimations1, webAnimationsTesting);

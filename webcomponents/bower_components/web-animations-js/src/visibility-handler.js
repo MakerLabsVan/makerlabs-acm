@@ -12,19 +12,18 @@
 //   See the License for the specific language governing permissions and
 // limitations under the License.
 
-;(function(scope, testing) {
+(function(scope, testing) {
+
   function merge(left, right) {
-    if (left != 'visible' && right != 'visible') return
-    return [
-      0,
-      1,
-      function(x) {
-        if (x <= 0) return left
-        if (x >= 1) return right
-        return 'visible'
-      }
-    ]
+    if (left != 'visible' && right != 'visible') return;
+    return [0, 1, function(x) {
+      if (x <= 0) return left;
+      if (x >= 1) return right;
+      return 'visible';
+    }];
   }
 
-  scope.addPropertiesHandler(String, merge, ['visibility'])
-})(webAnimations1)
+  scope.addPropertiesHandler(String, merge, ['visibility']);
+
+})(webAnimations1);
+

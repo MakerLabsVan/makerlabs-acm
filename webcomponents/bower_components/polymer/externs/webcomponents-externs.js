@@ -16,49 +16,49 @@ let HTMLImports = {
   /**
    * @param {function()} callback
    */
-  whenReady(callback) {},
+  whenReady(callback){},
   /**
    * @param {Element} element
    * @returns {Document} document
    */
-  importForElement(element) {}
-}
+  importForElement(element){}
+};
 
-window.HTMLImports = HTMLImports
+window.HTMLImports = HTMLImports;
 
 let ShadyDOM = {
   inUse: false,
-  flush() {},
+  flush(){},
   /**
    * @param {!Node} target
    * @param {function(Array<MutationRecord>, MutationObserver)} callback
    * @return {MutationObserver}
    */
-  observeChildren(target, callback) {},
+  observeChildren(target, callback){},
   /**
    * @param {MutationObserver} observer
    */
-  unobserveChildren(observer) {},
+  unobserveChildren(observer){},
   /**
    * @param {Node} node
    */
-  patch(node) {}
-}
+  patch(node){}
+};
 
-window.ShadyDOM = ShadyDOM
+window.ShadyDOM = ShadyDOM;
 
-let WebComponents = {}
-window.WebComponents = WebComponents
+let WebComponents = {};
+window.WebComponents = WebComponents;
 
 /** @type {Element} */
-HTMLElement.prototype._activeElement
+HTMLElement.prototype._activeElement;
 
 /**
  * @param {HTMLTemplateElement} template
  */
-HTMLTemplateElement.decorate = function(template) {}
+HTMLTemplateElement.decorate = function(template){};
 
 /**
  * @param {function(function())} cb callback
  */
-CustomElementRegistry.prototype.polyfillWrapFlushCallback = function(cb) {}
+CustomElementRegistry.prototype.polyfillWrapFlushCallback = function(cb){};

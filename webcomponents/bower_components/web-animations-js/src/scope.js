@@ -12,8 +12,9 @@
 //     See the License for the specific language governing permissions and
 // limitations under the License.
 
-var webAnimationsShared = {}
-var webAnimations1 = {}
-var webAnimationsNext = {}
+var webAnimationsShared = {};
+var webAnimations1 = {};
+var webAnimationsNext = {};
 
-if (!WEB_ANIMATIONS_TESTING) var webAnimationsTesting = null
+if (!WEB_ANIMATIONS_TESTING)
+  var webAnimationsTesting = null;

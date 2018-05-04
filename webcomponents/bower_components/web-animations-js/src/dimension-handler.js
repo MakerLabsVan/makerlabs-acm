@@ -12,7 +12,8 @@
 //   See the License for the specific language governing permissions and
 // limitations under the License.
 
-;(function(scope, testing) {
+(function(scope, testing) {
+
   // Evaluates a calc expression.
   // https://drafts.csswg.org/css-values-3/#calc-notation
   function calculate(expression) {
@@ -21,199 +22,175 @@
     // Thus any + or - immediately adjacent to . or 0..9 is part of the number,
     // e.g. -1.23e+45
     // This regular expression matches ( ) * / + - and numbers.
-    var tokenRegularExpression = /([\+\-\w\.]+|[\(\)\*\/])/g
-    var currentToken
+    var tokenRegularExpression = /([\+\-\w\.]+|[\(\)\*\/])/g;
+    var currentToken;
     function consume() {
-      var matchResult = tokenRegularExpression.exec(expression)
-      if (matchResult) currentToken = matchResult[0]
-      else currentToken = undefined
+      var matchResult = tokenRegularExpression.exec(expression);
+      if (matchResult)
+        currentToken = matchResult[0];
+      else
+        currentToken = undefined;
     }
-    consume() // Read the initial token.
+    consume(); // Read the initial token.
 
     function calcNumber() {
       // https://drafts.csswg.org/css-values-3/#number-value
-      var result = Number(currentToken)
-      consume()
-      return result
+      var result = Number(currentToken);
+      consume();
+      return result;
     }
 
     function calcValue() {
       // <calc-value> = <number> | <dimension> | <percentage> | ( <calc-sum> )
-      if (currentToken !== '(') return calcNumber()
-      consume()
-      var result = calcSum()
-      if (currentToken !== ')') return NaN
-      consume()
-      return result
+      if (currentToken !== '(')
+        return calcNumber();
+      consume();
+      var result = calcSum();
+      if (currentToken !== ')')
+        return NaN;
+      consume();
+      return result;
     }
 
     function calcProduct() {
       // <calc-product> = <calc-value> [ '*' <calc-value> | '/' <calc-number-value> ]*
-      var left = calcValue()
+      var left = calcValue();
       while (currentToken === '*' || currentToken === '/') {
-        var operator = currentToken
-        consume()
-        var right = calcValue()
-        if (operator === '*') left *= right
-        else left /= right
+        var operator = currentToken;
+        consume();
+        var right = calcValue();
+        if (operator === '*')
+          left *= right;
+        else
+          left /= right;
       }
-      return left
+      return left;
     }
 
     function calcSum() {
       // <calc-sum> = <calc-product> [ [ '+' | '-' ] <calc-product> ]*
-      var left = calcProduct()
+      var left = calcProduct();
       while (currentToken === '+' || currentToken === '-') {
-        var operator = currentToken
-        consume()
-        var right = calcProduct()
-        if (operator === '+') left += right
-        else left -= right
+        var operator = currentToken;
+        consume();
+        var right = calcProduct();
+        if (operator === '+')
+          left += right;
+        else
+          left -= right;
       }
-      return left
+      return left;
     }
 
     // <calc()> = calc( <calc-sum> )
-    return calcSum()
+    return calcSum();
   }
 
   function parseDimension(unitRegExp, string) {
-    string = string.trim().toLowerCase()
+    string = string.trim().toLowerCase();
 
-    if (string == '0' && 'px'.search(unitRegExp) >= 0) return { px: 0 }
+    if (string == '0' && 'px'.search(unitRegExp) >= 0)
+      return {px: 0};
 
     // If we have parenthesis, we're a calc and need to start with 'calc'.
-    if (!/^[^(]*$|^calc/.test(string)) return
-    string = string.replace(/calc\(/g, '(')
+    if (!/^[^(]*$|^calc/.test(string))
+      return;
+    string = string.replace(/calc\(/g, '(');
 
     // We tag units by prefixing them with 'U' (note that we are already
     // lowercase) to prevent problems with types which are substrings of
     // each other (although prefixes may be problematic!)
-    var matchedUnits = {}
+    var matchedUnits = {};
     string = string.replace(unitRegExp, function(match) {
-      matchedUnits[match] = null
-      return 'U' + match
-    })
-    var taggedUnitRegExp = 'U(' + unitRegExp.source + ')'
+      matchedUnits[match] = null;
+      return 'U' + match;
+    });
+    var taggedUnitRegExp = 'U(' + unitRegExp.source + ')';
 
     // Validating input is simply applying as many reductions as we can.
-    var typeCheck = string
-      .replace(/[-+]?(\d*\.)?\d+([Ee][-+]?\d+)?/g, 'N')
-      .replace(new RegExp('N' + taggedUnitRegExp, 'g'), 'D')
-      .replace(/\s[+-]\s/g, 'O')
-      .replace(/\s/g, '')
-    var reductions = [/N\*(D)/g, /(N|D)[*/]N/g, /(N|D)O\1/g, /\((N|D)\)/g]
-    var i = 0
+    var typeCheck = string.replace(/[-+]?(\d*\.)?\d+([Ee][-+]?\d+)?/g, 'N')
+        .replace(new RegExp('N' + taggedUnitRegExp, 'g'), 'D')
+        .replace(/\s[+-]\s/g, 'O')
+        .replace(/\s/g, '');
+    var reductions = [/N\*(D)/g, /(N|D)[*/]N/g, /(N|D)O\1/g, /\((N|D)\)/g];
+    var i = 0;
     while (i < reductions.length) {
       if (reductions[i].test(typeCheck)) {
-        typeCheck = typeCheck.replace(reductions[i], '$1')
-        i = 0
+        typeCheck = typeCheck.replace(reductions[i], '$1');
+        i = 0;
       } else {
-        i++
+        i++;
       }
     }
-    if (typeCheck != 'D') return
+    if (typeCheck != 'D')
+      return;
 
     for (var unit in matchedUnits) {
-      var result = calculate(
-        string
-          .replace(new RegExp('U' + unit, 'g'), '')
-          .replace(new RegExp(taggedUnitRegExp, 'g'), '*0')
-      )
-      if (!isFinite(result)) return
-      matchedUnits[unit] = result
+      var result = calculate(string.replace(new RegExp('U' + unit, 'g'), '').replace(new RegExp(taggedUnitRegExp, 'g'), '*0'));
+      if (!isFinite(result))
+        return;
+      matchedUnits[unit] = result;
     }
-    return matchedUnits
+    return matchedUnits;
   }
 
   function mergeDimensionsNonNegative(left, right) {
-    return mergeDimensions(left, right, true)
+    return mergeDimensions(left, right, true);
   }
 
   function mergeDimensions(left, right, nonNegative) {
-    var units = [],
-      unit
-    for (unit in left) units.push(unit)
+    var units = [], unit;
+    for (unit in left)
+      units.push(unit);
     for (unit in right) {
-      if (units.indexOf(unit) < 0) units.push(unit)
+      if (units.indexOf(unit) < 0)
+        units.push(unit);
     }
 
-    left = units.map(function(unit) {
-      return left[unit] || 0
-    })
-    right = units.map(function(unit) {
-      return right[unit] || 0
-    })
-    return [
-      left,
-      right,
-      function(values) {
-        var result = values
-          .map(function(value, i) {
-            if (values.length == 1 && nonNegative) {
-              value = Math.max(value, 0)
-            }
-            // Scientific notation (e.g. 1e2) is not yet widely supported by browser vendors.
-            return scope.numberToString(value) + units[i]
-          })
-          .join(' + ')
-        return values.length > 1 ? 'calc(' + result + ')' : result
-      }
-    ]
+    left = units.map(function(unit) { return left[unit] || 0; });
+    right = units.map(function(unit) { return right[unit] || 0; });
+    return [left, right, function(values) {
+      var result = values.map(function(value, i) {
+        if (values.length == 1 && nonNegative) {
+          value = Math.max(value, 0);
+        }
+        // Scientific notation (e.g. 1e2) is not yet widely supported by browser vendors.
+        return scope.numberToString(value) + units[i];
+      }).join(' + ');
+      return values.length > 1 ? 'calc(' + result + ')' : result;
+    }];
   }
 
-  var lengthUnits = 'px|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc'
-  var parseLength = parseDimension.bind(null, new RegExp(lengthUnits, 'g'))
-  var parseLengthOrPercent = parseDimension.bind(
-    null,
-    new RegExp(lengthUnits + '|%', 'g')
-  )
-  var parseAngle = parseDimension.bind(null, /deg|rad|grad|turn/g)
+  var lengthUnits = 'px|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc';
+  var parseLength = parseDimension.bind(null, new RegExp(lengthUnits, 'g'));
+  var parseLengthOrPercent = parseDimension.bind(null, new RegExp(lengthUnits + '|%', 'g'));
+  var parseAngle = parseDimension.bind(null, /deg|rad|grad|turn/g);
 
-  scope.parseLength = parseLength
-  scope.parseLengthOrPercent = parseLengthOrPercent
-  scope.consumeLengthOrPercent = scope.consumeParenthesised.bind(
-    null,
-    parseLengthOrPercent
-  )
-  scope.parseAngle = parseAngle
-  scope.mergeDimensions = mergeDimensions
+  scope.parseLength = parseLength;
+  scope.parseLengthOrPercent = parseLengthOrPercent;
+  scope.consumeLengthOrPercent = scope.consumeParenthesised.bind(null, parseLengthOrPercent);
+  scope.parseAngle = parseAngle;
+  scope.mergeDimensions = mergeDimensions;
 
-  var consumeLength = scope.consumeParenthesised.bind(null, parseLength)
-  var consumeSizePair = scope.consumeRepeated.bind(
-    undefined,
-    consumeLength,
-    /^/
-  )
-  var consumeSizePairList = scope.consumeRepeated.bind(
-    undefined,
-    consumeSizePair,
-    /^,/
-  )
-  scope.consumeSizePairList = consumeSizePairList
+  var consumeLength = scope.consumeParenthesised.bind(null, parseLength);
+  var consumeSizePair = scope.consumeRepeated.bind(undefined, consumeLength, /^/);
+  var consumeSizePairList = scope.consumeRepeated.bind(undefined, consumeSizePair, /^,/);
+  scope.consumeSizePairList = consumeSizePairList;
 
   var parseSizePairList = function(input) {
-    var result = consumeSizePairList(input)
+    var result = consumeSizePairList(input);
     if (result && result[1] == '') {
-      return result[0]
+      return result[0];
     }
-  }
+  };
 
-  var mergeNonNegativeSizePair = scope.mergeNestedRepeated.bind(
-    undefined,
-    mergeDimensionsNonNegative,
-    ' '
-  )
-  var mergeNonNegativeSizePairList = scope.mergeNestedRepeated.bind(
-    undefined,
-    mergeNonNegativeSizePair,
-    ','
-  )
-  scope.mergeNonNegativeSizePair = mergeNonNegativeSizePair
+  var mergeNonNegativeSizePair = scope.mergeNestedRepeated.bind(undefined, mergeDimensionsNonNegative, ' ');
+  var mergeNonNegativeSizePairList = scope.mergeNestedRepeated.bind(undefined, mergeNonNegativeSizePair, ',');
+  scope.mergeNonNegativeSizePair = mergeNonNegativeSizePair;
 
   scope.addPropertiesHandler(parseSizePairList, mergeNonNegativeSizePairList, [
     'background-size'
-  ])
+  ]);
 
   scope.addPropertiesHandler(parseLengthOrPercent, mergeDimensionsNonNegative, [
     'border-bottom-width',
@@ -228,8 +205,8 @@
     'max-height',
     'max-width',
     'outline-width',
-    'width'
-  ])
+    'width',
+  ]);
 
   scope.addPropertiesHandler(parseLengthOrPercent, mergeDimensions, [
     'border-bottom-left-radius',
@@ -257,6 +234,7 @@
     'text-indent',
     'top',
     'vertical-align',
-    'word-spacing'
-  ])
-})(webAnimations1, webAnimationsTesting)
+    'word-spacing',
+  ]);
+
+})(webAnimations1, webAnimationsTesting);
