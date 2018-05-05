@@ -22,7 +22,7 @@
         - `http://127.0.0.1/oauth2/code`
         - `http://127.0.0.1/oauth2/token`
 
-### Google Scripts Steps
+### Google Apps Script Steps
 - [ ] Create a Google Apps Script project from inside the Google Drive Spreadsheet
     > Under `Tools -> Script Editor`
     - Select and existing project, or create a new one
