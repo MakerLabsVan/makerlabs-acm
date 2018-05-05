@@ -4,26 +4,27 @@
 
 ### Google APIs Enable Steps
 - [ ] Enable Google Apps Script API for Google Cloud Platform project:
-    - https://console.developers.google.com/flows/enableapi?apiid=script
+    > https://console.developers.google.com/flows/enableapi?apiid=script
 
 - [ ] Enable the Google Apps Script API for your personal Google Apps user:
-    - https://script.google.com/home/usersettings
+    > https://script.google.com/home/usersettings
 
 ### Google OAuth Client Creation Steps
 - [ ] Create a Google Cloud OAuth client:
-    - https://console.developers.google.com/apis/credentials
-    - Use the `Create credentials -> OAuth client ID` button to create a new 'OAuth client ID' with the following settings:
-        - Application Type: `Web Application`
-        - Name: `MakerLabs ACM Offline Access Requests`
-        - Authorized JavaScript origins:
-            -  `http://127.0.0.1`
-        - Authorised redirect URIs:
-          - `http://127.0.0.1/oauth2/code`
-          - `http://127.0.0.1/oauth2/token`
+    > https://console.developers.google.com/apis/credentials
+    
+  Use the `Create credentials -> OAuth client ID` button to create a new 'OAuth client ID' with the following settings:
+    - Application Type: `Web Application`
+    - Name: `MakerLabs ACM Offline Access Requests`
+    - Authorized JavaScript origins:
+        -  `http://127.0.0.1`
+    - Authorised redirect URIs:
+        - `http://127.0.0.1/oauth2/code`
+        - `http://127.0.0.1/oauth2/token`
 
 ### Google Scripts Steps
 - [ ] Create a Google Apps Script project from inside the Google Drive Spreadsheet
-    - Under `Tools -> Script Editor`
+    > Under `Tools -> Script Editor`
     - Select and existing project, or create a new one
     - Ensure the Google Apps Script project has a title set and has been saved
 
@@ -39,7 +40,7 @@
         - `GitHub repo branch`
 
     - From the OAuth client ID credentials:
-      https://console.developers.google.com/apis/credentials
+      > https://console.developers.google.com/apis/credentials
         - `Client ID`
         - `Client secret`
 
