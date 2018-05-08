@@ -7,6 +7,11 @@
 #include <string>
 #include <unordered_map>
 
+using QueryFlatbuffer = flatbuffers::DetachedBuffer;
+using DisplayIntentFlatbuffer = flatbuffers::DetachedBuffer;
+using ActivityFlatbuffer = flatbuffers::DetachedBuffer;
+using LogFlatbuffer = flatbuffers::DetachedBuffer;
+
 struct PrefixedColumnLabel
 {
   std::string prefix = "";
@@ -38,13 +43,13 @@ using ColumnIdMap = std::unordered_map<
 auto generate_user_from_query_results(
   const GViz::Query* query,
   const GViz::Datatable* datatable
-) -> flatbuffers::DetachedBuffer;
+) -> QueryFlatbuffer;
 
 auto generate_activity(
   const std::string& machine_id_str,
   const ACM::ActivityType activity_type,
   const ACM::User* user = nullptr
-) -> flatbuffers::DetachedBuffer;
+) -> ActivityFlatbuffer;
 
 auto activity_to_json(const ACM::Activity* activity)
   -> std::string;
@@ -64,7 +69,7 @@ auto generate_log(
   const std::experimental::string_view machine_id_str,
   const ACM::LogSeverity severity,
   const std::experimental::string_view message_str
-) -> flatbuffers::DetachedBuffer;
+) -> LogFlatbuffer;
 
 auto log_to_json(const ACM::Log* log)
   -> std::string;
@@ -77,4 +82,4 @@ auto generate_log_json(
 
 auto generate_show_user_details_from_user(
   const ACM::User* user
-) -> flatbuffers::DetachedBuffer;
+) -> DisplayIntentFlatbuffer;
