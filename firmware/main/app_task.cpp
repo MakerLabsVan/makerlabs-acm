@@ -62,7 +62,7 @@ auto app_task(void* /* user_data */)
     .beeper_pin = 23
   };
 
-  HIDGlobalReader reader{config};
+  HIDGlobalReader rfid_reader{config};
 /*
   auto x = 2;
   match(x,
@@ -128,7 +128,7 @@ auto app_task(void* /* user_data */)
   }
 
 /*
-  auto reader_actor_pid = spawn(
+  auto rfid_reader_actor_pid = spawn(
     [](const Pid& self, StatePtr& state, const Message& message)
       -> ResultUnion
     {
@@ -195,8 +195,8 @@ auto app_task(void* /* user_data */)
     // Only begin scan activity after initial setup is done
     if (ready_to_run)
     {
-      //const auto scanned_tag = reader.scan_tag();
-      const auto scanned_tag = reader.last_scanned_tag;
+      //const auto scanned_tag = rfid_reader.scan_tag();
+      const auto scanned_tag = rfid_reader.last_scanned_tag;
 
       if (scanned_tag != scanned_tag_prev)
       {
@@ -208,7 +208,7 @@ auto app_task(void* /* user_data */)
             scanned_tag->card_number
           );
 
-          reader.beep(300ms);
+          rfid_reader.beep(300ms);
 
           auto permissions_check_actor_pid = *(whereis("permissions_check"));
           auto tag_id_str = std::to_string(scanned_tag->card_number);
@@ -217,7 +217,7 @@ auto app_task(void* /* user_data */)
         else {
           printf("lost tag\n");
 
-          reader.beep(150ms);
+          rfid_reader.beep(150ms);
 
           auto permissions_check_actor_pid = *(whereis("permissions_check"));
           send(permissions_check_actor_pid, "tag_lost");
