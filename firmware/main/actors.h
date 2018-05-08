@@ -25,3 +25,9 @@ auto google_sheets_actor_behaviour(
   ActorModel::StatePtr& _state,
   const ActorModel::Message& message
 ) -> ActorModel::ResultUnion;
+
+auto rfid_reader_actor_behaviour(
+  const ActorModel::Pid& self,
+  ActorModel::StatePtr& _state,
+  const ActorModel::Message& message
+) -> ActorModel::ResultUnion;

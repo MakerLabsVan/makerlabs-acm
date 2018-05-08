@@ -24,7 +24,7 @@ COMPONENT_EMBED_FILES := \
 
 # Needed for std::to_string
 acm_helpers.o: CXXFLAGS += -D_GLIBCXX_USE_C99=1
-app_task.o: CXXFLAGS += -D_GLIBCXX_USE_C99=1
+rfid_reader_actor.o: CXXFLAGS += -D_GLIBCXX_USE_C99=1
 
 # Flatbuffers/flatc _generated.h file
 app_task.o: $(PROJECT_PATH)/esp32-network-lib/googleapis/src/gen/gviz_generated.h
