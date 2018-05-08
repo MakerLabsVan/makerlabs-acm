@@ -13,7 +13,6 @@
 #include "http_utils.h"
 #include "network.h"
 
-#include "hid_global_reader.h"
 #include "acm_helpers.h"
 
 #include "embedded_files.h"
@@ -53,16 +52,6 @@ auto app_task(void* /* user_data */)
 {
   string machine_id_str = CONFIG_PERMISSION_COLUMN_LABEL;
 
-  WiegandReader::Config config{
-    .data0_pin = 32,
-    .data1_pin = 33,
-    .hold_pin = 22,
-    .red_led_pin = 17,
-    .green_led_pin = 15,
-    .beeper_pin = 23
-  };
-
-  HIDGlobalReader rfid_reader{config};
 /*
   auto x = 2;
   match(x,
@@ -127,14 +116,10 @@ auto app_task(void* /* user_data */)
     register_name("permissions_check", permissions_check_actor_pid);
   }
 
-/*
-  auto rfid_reader_actor_pid = spawn(
-    [](const Pid& self, StatePtr& state, const Message& message)
-      -> ResultUnion
-    {
-      return Ok;
-    }
-  );
+  {
+    auto rfid_reader_actor_pid = spawn(rfid_reader_actor_behaviour);
+    register_name("rfid_reader", rfid_reader_actor_pid);
+  }
 
   auto machine_actor_pid = spawn(
     [](const Pid& self, StatePtr& state, const Message& message)
@@ -143,7 +128,6 @@ auto app_task(void* /* user_data */)
       return Ok;
     }
   );
-*/
 
   // Set CA certs for *.google.com
   send(
@@ -165,8 +149,6 @@ auto app_task(void* /* user_data */)
 
   Timestamp last_reauth_timestamp;
   Timestamp last_network_check_timestamp;
-
-  HIDGlobalReader::MaybeTagId scanned_tag_prev;
 
   for (;;)
   {
@@ -195,39 +177,8 @@ auto app_task(void* /* user_data */)
     // Only begin scan activity after initial setup is done
     if (ready_to_run)
     {
-      //const auto scanned_tag = rfid_reader.scan_tag();
-      const auto scanned_tag = rfid_reader.last_scanned_tag;
-
-      if (scanned_tag != scanned_tag_prev)
-      {
-        if (scanned_tag)
-        {
-          printf(
-            "found tag, facility_code = %i, card_number = %i\n",
-            scanned_tag->facility_code,
-            scanned_tag->card_number
-          );
-
-          rfid_reader.beep(300ms);
-
-          auto permissions_check_actor_pid = *(whereis("permissions_check"));
-          auto tag_id_str = std::to_string(scanned_tag->card_number);
-          send(permissions_check_actor_pid, "tag_seen", tag_id_str);
-        }
-        else {
-          printf("lost tag\n");
-
-          rfid_reader.beep(150ms);
-
-          auto permissions_check_actor_pid = *(whereis("permissions_check"));
-          send(permissions_check_actor_pid, "tag_lost");
-
-          auto display_actor_pid = *(whereis("display"));
-          send(display_actor_pid, "ClearDisplay");
-        }
-
-        scanned_tag_prev = scanned_tag;
-      }
+      auto rfid_reader_actor_pid = *(whereis("rfid_reader"));
+      send(rfid_reader_actor_pid, "scan");
     }
 
     delay(100ms);
