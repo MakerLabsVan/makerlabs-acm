@@ -36,7 +36,7 @@ auto PrefixColumnLabelEqualFunc::operator()(
 auto generate_user_from_query_results(
   const GViz::Query* query,
   const GViz::Datatable* datatable
-) -> flatbuffers::DetachedBuffer
+) -> QueryFlatbuffer
 {
   flatbuffers::FlatBufferBuilder fbb;
 
@@ -69,7 +69,7 @@ auto generate_user_from_query_results(
 
       if (value)
       {
-        const auto& label_str = label->str();
+        const auto& label_str = label->string_view();
         // Only set name if not already set (allow 'Display Name' to override)
         if (label_str == "Name" and name_str.empty())
         {
@@ -151,7 +151,7 @@ auto generate_activity(
   const std::string& machine_id_str,
   const ActivityType activity_type,
   const User* user
-) -> flatbuffers::DetachedBuffer
+) -> ActivityFlatbuffer
 {
   flatbuffers::FlatBufferBuilder fbb;
   auto epoch_seconds = std::chrono::duration_cast<std::chrono::seconds>(
@@ -199,7 +199,7 @@ auto generate_permissions_check_query_string(
   {
     auto* clause = where->GetMutableObject(clause_idx);
     auto* col_label = clause->column()->label();
-    if (col_label->str() == "Tag ID")
+    if (col_label->string_view() == "Tag ID")
     {
       if (tag_id_str.size() <= clause->value()->Length())
       {
@@ -241,7 +241,7 @@ auto generate_log(
   const string_view machine_id_str,
   const LogSeverity severity,
   const string_view message_str
-) -> flatbuffers::DetachedBuffer
+) -> LogFlatbuffer
 {
   flatbuffers::FlatBufferBuilder fbb;
   auto epoch_seconds = std::chrono::duration_cast<std::chrono::seconds>(
@@ -250,10 +250,10 @@ auto generate_log(
 
   auto log_loc = CreateLog(
     fbb,
-    fbb.CreateString(machine_id_str.data(), machine_id_str.size()),
+    fbb.CreateString(machine_id_str),
     severity,
     epoch_seconds,
-    fbb.CreateString(message_str.data(), message_str.size())
+    fbb.CreateString(message_str)
   );
   fbb.Finish(log_loc, ActivityIdentifier());
 
@@ -279,7 +279,7 @@ auto generate_log_json(
 
 auto generate_show_user_details_from_user(
   const ACM::User* user
-) -> flatbuffers::DetachedBuffer
+) -> DisplayIntentFlatbuffer
 {
   flatbuffers::FlatBufferBuilder fbb;
 

@@ -34,6 +34,7 @@ app_task.o: $(COMPONENT_PATH)/src/gen/display_generated.h
 # Generate *.req.fb binary RequestIntent flatbuffer from *.req.json
 $(COMPONENT_PATH)/secrets/gen/%.req.fb: $(COMPONENT_PATH)/secrets/gen/%.req.json
 	flatc --binary -o $(@D) \
+	--force-defaults \
 	$(PROJECT_PATH)/esp32-network-lib/requests/requests.fbs \
 	$^
 
