@@ -20,7 +20,6 @@ using string_view = std::experimental::string_view;
 struct ReauthActorState
 {
   MutableRequestIntentFlatbuffer reauth_request_intent_mutable_buf;
-  RequestIntent* reauth_request_intent = nullptr;
   bool ready_to_run = false;
 };
 
@@ -37,21 +36,26 @@ auto reauth_actor_behaviour(
     auto& state = *(std::static_pointer_cast<ReauthActorState>(_state));
 
     state.reauth_request_intent_mutable_buf = parse_request_intent(
-      embedded_files::reauth_request_intent_req_fb
+      embedded_files::reauth_request_intent_req_fb,
+      self
     );
-    // Extract the RequestIntent root
-    state.reauth_request_intent = GetMutableRequestIntent(
-      state.reauth_request_intent_mutable_buf.data()
-    );
-    // Set the destination Pid for response messages
-    update_uuid(state.reauth_request_intent->mutable_to_pid(), self);
   }
   auto& state = *(std::static_pointer_cast<ReauthActorState>(_state));
 
   auto request_manager_actor_pid = *(whereis("request_manager"));
 
   const Response* response;
-  if (matches(message, "chunk", response))
+  auto reauth_request_intent_id = get_request_intent_id(
+    state.reauth_request_intent_mutable_buf
+  );
+
+  if (matches(message, "chunk"))
+  {
+    printf("did get chunk\n");
+    printf("%s\n", get_uuid_str(reauth_request_intent_id).c_str());
+  }
+
+  if (matches(message, "chunk", response, reauth_request_intent_id))
   {
     printf("received access_token from reauth\n");
 
@@ -74,22 +78,30 @@ auto reauth_actor_behaviour(
       send(permissions_check_actor_pid, "update_columns");
     }
 
+    return Ok;
+  }
+
+  else if (matches(message, "chunk", response, reauth_request_intent_id))
+  {
     if (response->code() < 400)
     {
-      ESP_LOGI(TAG, "got chunk (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+      ESP_LOGI(TAG, "got unknown chunk (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
     }
     else {
-      ESP_LOGE(TAG, "got chunk (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+      ESP_LOGE(TAG, "got unknown chunk (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
     }
+
+    return Ok;
   }
 
-  else if (matches(message, "complete", response))
+  else if (matches(message, "complete", response, reauth_request_intent_id))
   {
-
     ESP_LOGI(TAG, "got body (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+
+    return Ok;
   }
 
-  else if (matches(message, "error", response))
+  else if (matches(message, "error", response, reauth_request_intent_id))
   {
     if (response->code() < 0)
     {
@@ -97,9 +109,11 @@ auto reauth_actor_behaviour(
       throw std::runtime_error("Fatal error");
     }
     ESP_LOGE(TAG, "got error (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+
+    return Ok;
   }
 
-  else if (message.type()->string_view() == "reauth")
+  else if (matches(message, "reauth"))
   {
     printf("send reauth request here\n");
 
@@ -109,7 +123,9 @@ auto reauth_actor_behaviour(
       "request",
       state.reauth_request_intent_mutable_buf
     );
+
+    return Ok;
   }
 
-  return Ok;
+  return Unhandled;
 }
