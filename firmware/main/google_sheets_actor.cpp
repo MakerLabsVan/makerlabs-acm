@@ -41,58 +41,97 @@ auto google_sheets_actor_behaviour(
 
     auto& state = *(std::static_pointer_cast<GoogleSheetsActorState>(_state));
 
-    {
-      // Parse (& copy) the permission check request intent flatbuffer
-      state.activity_request_intent_mutable_buf = parse_request_intent(
-        embedded_files::activity_request_intent_req_fb
-      );
-      // Extract the RequestIntent root
-      auto activity_request_intent = GetMutableRequestIntent(
-        state.activity_request_intent_mutable_buf.data()
-      );
-      // Set the destination Pid for response messages
-      update_uuid(activity_request_intent->mutable_to_pid(), self);
-    }
+    // Parse (& copy) the permission check request intent flatbuffer
+    state.activity_request_intent_mutable_buf = parse_request_intent(
+      embedded_files::activity_request_intent_req_fb,
+      self
+    );
 
-    {
-      // Parse (& copy) the permission check request intent flatbuffer
-      state.log_request_intent_mutable_buf = parse_request_intent(
-        embedded_files::log_request_intent_req_fb
-      );
-      // Extract the RequestIntent root
-      auto log_request_intent = GetMutableRequestIntent(
-        state.log_request_intent_mutable_buf.data()
-      );
-      // Set the destination Pid for response messages
-      update_uuid(log_request_intent->mutable_to_pid(), self);
-    }
+    // Parse (& copy) the permission check request intent flatbuffer
+    state.log_request_intent_mutable_buf = parse_request_intent(
+      embedded_files::log_request_intent_req_fb,
+      self
+    );
   }
   auto& state = *(std::static_pointer_cast<GoogleSheetsActorState>(_state));
 
   const Response* response;
-  if (matches(message, "chunk", response))
+  auto activity_request_intent_id = get_request_intent_id(
+    state.activity_request_intent_mutable_buf
+  );
+  auto log_request_intent_id = get_request_intent_id(
+    state.log_request_intent_mutable_buf
+  );
+
+  if (matches(message, "chunk", response, activity_request_intent_id))
   {
-    printf("received chunk\n");
+    printf("received chunk for activity\n");
+
+    return Ok;
   }
 
-  else if (matches(message, "complete", response))
+  else if (matches(message, "chunk", response, log_request_intent_id))
+  {
+    printf("received chunk for log\n");
+
+    return Ok;
+  }
+
+  else if (matches(message, "complete", response, activity_request_intent_id))
   {
     printf("did post activity\n");
 
     ESP_LOGI(TAG, "got body (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+
+    return Ok;
   }
 
-  else if (matches(message, "error", response))
+  else if (matches(message, "complete", response, log_request_intent_id))
+  {
+    printf("did post log\n");
+
+    ESP_LOGI(TAG, "got body (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+
+    return Ok;
+  }
+
+  else if (matches(message, "error", response, activity_request_intent_id))
   {
     if (response->code() < 0)
     {
-      ESP_LOGE(TAG, "Fatal error (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
-      throw std::runtime_error("Fatal error");
+      ESP_LOGE(TAG, "Fatal error (%d), resending: '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+      auto request_manager_actor_pid = *(whereis("request_manager"));
+      send(
+        request_manager_actor_pid,
+        "request",
+        state.activity_request_intent_mutable_buf
+      );
+      //throw std::runtime_error("Fatal error");
     }
     ESP_LOGE(TAG, "got error (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+
+    return Ok;
   }
 
-  else if (message.type()->string_view() == "reauth")
+  else if (matches(message, "error", response, log_request_intent_id))
+  {
+    if (response->code() < 0)
+    {
+      ESP_LOGE(TAG, "Fatal error (%d), resending: '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+      auto request_manager_actor_pid = *(whereis("request_manager"));
+      send(
+        request_manager_actor_pid,
+        "request",
+        state.log_request_intent_mutable_buf
+      );
+      //throw std::runtime_error("Fatal error");
+    }
+    ESP_LOGE(TAG, "got error (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+
+    return Ok;
+  }
+
+  else if (matches(message, "reauth"))
   {
     printf("google sheets actor reauth\n");
     const auto access_token_str = string_view{
@@ -137,7 +176,9 @@ auto google_sheets_actor_behaviour(
 
       state.did_notify_reboot = true;
     }
+
+    return Ok;
   }
 
-  return Ok;
+  return Unhandled;
 }

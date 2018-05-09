@@ -20,7 +20,6 @@ struct DisplayActorState
     u8g2_esp32_hal.scl = pin_scl;
     u8g2_esp32_hal.reset = pin_reset;
     u8g2_esp32_hal_init(u8g2_esp32_hal);
-    printf("sda = %d, scl = %d, reset = %d\n", pin_sda, pin_scl, pin_reset);
 
     // init u8g2 structure
     u8g2_Setup_ssd1306_128x32_univision_f(
@@ -63,7 +62,7 @@ auto display_actor_behaviour(
   auto& state = *(std::static_pointer_cast<DisplayActorState>(_state));
   auto& u8g2 = state.u8g2;
 
-  if (message.type()->string_view() == "ClearDisplay")
+  if (matches(message, "ClearDisplay"))
   {
     // Clear the buffer
     u8g2_ClearBuffer(&u8g2);
@@ -111,6 +110,9 @@ auto display_actor_behaviour(
       default:
         break;
     }
+
+    return Ok;
   }
-  return Ok;
+
+  return Unhandled;
 }

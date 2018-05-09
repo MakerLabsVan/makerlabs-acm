@@ -34,10 +34,9 @@ struct PermissionsCheckActorState
   MutableRequestIntentFlatbuffer permissions_check_query_mutable_buf;
   GViz::Query* permissions_check_query = nullptr;
   UserFlatbuffer current_user_flatbuf;
+  MutableRequestIntentFlatbuffer permissions_columns_request_intent_mutable_buf;
   MutableRequestIntentFlatbuffer permissions_check_request_intent_mutable_buf;
-  RequestIntent* permissions_check_request_intent = nullptr;
   MutableRequestIntentFlatbuffer activity_request_intent_mutable_buf;
-  RequestIntent* activity_request_intent = nullptr;
   string machine_id_str = CONFIG_PERMISSION_COLUMN_LABEL;
 };
 
@@ -53,28 +52,24 @@ auto permissions_check_actor_behaviour(
 
     auto& state = *(std::static_pointer_cast<PermissionsCheckActorState>(_state));
 
-    // Parse (& copy) the permission check request intent flatbuffer
-    state.permissions_check_request_intent_mutable_buf = parse_request_intent(
-      embedded_files::permissions_check_request_intent_req_fb
+    // Parse (& copy) the permission columns request intent flatbuffer
+    state.permissions_columns_request_intent_mutable_buf = parse_request_intent(
+      embedded_files::permissions_check_request_intent_req_fb,
+      self
     );
-    // Extract the RequestIntent root
-    state.permissions_check_request_intent = GetMutableRequestIntent(
-      state.permissions_check_request_intent_mutable_buf.data()
-    );
-    // Set the destination Pid for response messages
-    update_uuid(state.permissions_check_request_intent->mutable_to_pid(), self);
 
     // Parse (& copy) the permission check request intent flatbuffer
-    state.activity_request_intent_mutable_buf = parse_request_intent(
-      embedded_files::activity_request_intent_req_fb
+    state.permissions_check_request_intent_mutable_buf = parse_request_intent(
+      embedded_files::permissions_check_request_intent_req_fb,
+      self
     );
-    // Extract the RequestIntent root
-    state.activity_request_intent = GetMutableRequestIntent(
-      state.activity_request_intent_mutable_buf.data()
-    );
-    // Set the destination Pid for response messages
+
     auto google_sheets_actor_pid = *(whereis("google_sheets"));
-    update_uuid(state.activity_request_intent->mutable_to_pid(), google_sheets_actor_pid);
+    // Parse (& copy) the permission check request intent flatbuffer
+    state.activity_request_intent_mutable_buf = parse_request_intent(
+      embedded_files::activity_request_intent_req_fb,
+      google_sheets_actor_pid
+    );
 
     state.permissions_check_query_mutable_buf.assign(
       embedded_files::permissions_check_query_gviz_fb.begin(),
@@ -90,11 +85,19 @@ auto permissions_check_actor_behaviour(
   auto display_actor_pid = *(whereis("display"));
 
   const Response* response;
-  if (matches(message, "chunk", response))
+  auto permissions_columns_id = get_request_intent_id(
+    state.permissions_columns_request_intent_mutable_buf
+  );
+  auto permissions_check_id = get_request_intent_id(
+    state.permissions_check_request_intent_mutable_buf
+  );
+  auto activity_id = get_request_intent_id(
+    state.activity_request_intent_mutable_buf
+  );
+  if (matches(message, "chunk", response, permissions_columns_id))
   {
-    printf("received chunk\n");
+    printf("received chunk for columns\n");
 
-    printf("received chunk from gviz\n");
     const Datatable* datatable = flatbuffers::GetRoot<Datatable>(
       response->body()->data()
     );
@@ -114,6 +117,17 @@ auto permissions_check_actor_behaviour(
       }
     }
 
+    return Ok;
+  }
+
+  else if (matches(message, "chunk", response, permissions_check_id))
+  {
+    printf("received chunk for check\n");
+
+    const Datatable* datatable = flatbuffers::GetRoot<Datatable>(
+      response->body()->data()
+    );
+
     if (
       state.ready_to_run
       and datatable
@@ -129,16 +143,10 @@ auto permissions_check_actor_behaviour(
       printf("Updated logged in user\n");
     }
 
-    if (response->code() < 400)
-    {
-      ESP_LOGI(TAG, "got chunk (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
-    }
-    else {
-      ESP_LOGE(TAG, "got chunk (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
-    }
+    return Ok;
   }
 
-  else if (matches(message, "complete", response))
+  else if (matches(message, "complete", response, permissions_check_id))
   {
     printf("permissions check complete\n");
     if (state.ready_to_run)
@@ -185,10 +193,10 @@ auto permissions_check_actor_behaviour(
       //throw std::runtime_error("Not all columns updated before generating Activity request");
     }
 
-    ESP_LOGI(TAG, "got body (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+    return Ok;
   }
 
-  else if (matches(message, "error", response))
+  else if (matches(message, "error", response, permissions_columns_id))
   {
     if (response->code() == 401)
     {
@@ -196,25 +204,77 @@ auto permissions_check_actor_behaviour(
       send(reauth_actor_pid, "reauth");
     }
 
-    if (response->code() < 0)
+    else if (response->code() < 0)
     {
-      ESP_LOGE(TAG, "Fatal error (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
-      throw std::runtime_error("Fatal error");
+      ESP_LOGE(TAG, "Fatal error, resending (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+      //throw std::runtime_error("Fatal error");
+      // Send the request intent message to the request manager actor
+      send(
+        request_manager_actor_pid,
+        "request",
+        state.permissions_columns_request_intent_mutable_buf
+      );
     }
-    ESP_LOGE(TAG, "got error (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+
+    return Ok;
   }
 
-  else if (message.type()->string_view() == "update_columns")
+  else if (matches(message, "error", response, permissions_check_id))
+  {
+    if (response->code() == 401)
+    {
+      auto reauth_actor_pid = *(whereis("reauth"));
+      send(reauth_actor_pid, "reauth");
+    }
+
+    else if (response->code() < 0)
+    {
+      ESP_LOGE(TAG, "Fatal error, resending (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+      send(
+        request_manager_actor_pid,
+        "request",
+        state.permissions_check_request_intent_mutable_buf
+      );
+    }
+
+    return Ok;
+  }
+
+  else if (matches(message, "error", response, activity_id))
+  {
+    if (response->code() == 401)
+    {
+      auto reauth_actor_pid = *(whereis("reauth"));
+      send(reauth_actor_pid, "reauth");
+    }
+
+    else if (response->code() < 0)
+    {
+      ESP_LOGE(TAG, "Fatal error, resending (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+      send(
+        request_manager_actor_pid,
+        "request",
+        state.activity_request_intent_mutable_buf
+      );
+    }
+    ESP_LOGE(TAG, "got error (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+
+    return Ok;
+  }
+
+  else if (matches(message, "update_columns"))
   {
     // Send the request intent message to the request manager actor
     send(
       request_manager_actor_pid,
       "request",
-      state.permissions_check_request_intent_mutable_buf
+      state.permissions_columns_request_intent_mutable_buf
     );
+
+    return Ok;
   }
 
-  else if (message.type()->string_view() == "tag_seen")
+  else if (matches(message, "tag_seen"))
   {
     const auto tag_id_str = string_view{
       reinterpret_cast<const char*>(message.payload()->data()),
@@ -238,9 +298,11 @@ auto permissions_check_actor_behaviour(
       "request",
       state.permissions_check_request_intent_mutable_buf
     );
+
+    return Ok;
   }
 
-  else if (message.type()->string_view() == "tag_lost")
+  else if (matches(message, "tag_lost"))
   {
     // Clear the 'tq' query arg
     // Do not allow (possible, future) bugs to affect this user
@@ -276,9 +338,11 @@ auto permissions_check_actor_behaviour(
         state.activity_request_intent_mutable_buf
       );
     }
+
+    return Ok;
   }
 
-  else if (message.type()->string_view() == "reauth")
+  else if (matches(message, "reauth"))
   {
     const auto access_token_str = string_view{
       reinterpret_cast<const char*>(message.payload()->data()),
@@ -287,11 +351,26 @@ auto permissions_check_actor_behaviour(
 
     // Use access_token to auth spreadsheet Users query request
     set_query_arg(
+      state.permissions_columns_request_intent_mutable_buf,
+      "access_token",
+      access_token_str
+    );
+
+    set_query_arg(
       state.permissions_check_request_intent_mutable_buf,
       "access_token",
       access_token_str
     );
+
+    // Use access_token to auth spreadsheet Activity insert request
+    set_header(
+      state.activity_request_intent_mutable_buf,
+      "Authorization",
+      string{"Bearer "} + string{access_token_str}
+    );
+
+    return Ok;
   }
 
-  return Ok;
+  return Unhandled;
 }

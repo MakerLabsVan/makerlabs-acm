@@ -5,15 +5,10 @@
 #include "esp_log.h"
 
 #include <chrono>
-#include <string>
-#include <experimental/string_view>
 
 using namespace ActorModel;
 
 using namespace std::chrono_literals;
-
-using string = std::string;
-using string_view = std::experimental::string_view;
 
 constexpr char TAG[] = "rfid_reader_actor";
 
@@ -48,7 +43,7 @@ auto rfid_reader_actor_behaviour(
   }
   auto& state = *(std::static_pointer_cast<RFIDReaderActorState>(_state));
 
-  if (message.type()->string_view() == "scan")
+  if (matches(message, "scan"))
   {
     const auto scanned_tag = state.rfid_reader.last_scanned_tag;
 
@@ -82,7 +77,9 @@ auto rfid_reader_actor_behaviour(
 
       state.scanned_tag_prev = scanned_tag;
     }
+
+    return Ok;
   }
 
-  return Ok;
+  return Unhandled;
 }
