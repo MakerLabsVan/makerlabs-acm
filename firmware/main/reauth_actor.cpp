@@ -20,7 +20,6 @@ using string_view = std::experimental::string_view;
 struct ReauthActorState
 {
   MutableRequestIntentFlatbuffer reauth_request_intent_mutable_buf;
-  bool ready_to_run = false;
 };
 
 auto reauth_actor_behaviour(
@@ -57,38 +56,22 @@ auto reauth_actor_behaviour(
 
   if (matches(message, "chunk", response, reauth_request_intent_id))
   {
-    printf("received access_token from reauth\n");
-
-    auto access_token_str = string_view{
-      response->body()->data(),
-      response->body()->size()
-    };
-    auto permissions_check_actor_pid = *(whereis("permissions_check"));
-    send(permissions_check_actor_pid, "reauth", access_token_str);
-
-    //auto firmware_update_actor_pid = *(whereis("firmware_update"));
-    //send(firmware_update_actor_pid, "reauth", access_token_str);
-
-    auto google_sheets_actor_pid = *(whereis("google_sheets"));
-    send(google_sheets_actor_pid, "reauth", access_token_str);
-
-    if (not state.ready_to_run)
-    {
-      auto permissions_check_actor_pid = *(whereis("permissions_check"));
-      send(permissions_check_actor_pid, "update_columns");
-    }
-
-    return Ok;
-  }
-
-  else if (matches(message, "chunk", response, reauth_request_intent_id))
-  {
     if (response->code() < 400)
     {
-      ESP_LOGI(TAG, "got unknown chunk (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+      printf("received access_token from reauth\n");
+
+      auto access_token_str = string_view{
+        response->body()->data(),
+        response->body()->size()
+      };
+      auto permissions_check_actor_pid = *(whereis("permissions_check"));
+      send(permissions_check_actor_pid, "reauth", access_token_str);
+
+      auto google_sheets_actor_pid = *(whereis("google_sheets"));
+      send(google_sheets_actor_pid, "reauth", access_token_str);
     }
     else {
-      ESP_LOGE(TAG, "got unknown chunk (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+      ESP_LOGE(TAG, "got error chunk (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
     }
 
     return Ok;

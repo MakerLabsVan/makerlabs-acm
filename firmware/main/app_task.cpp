@@ -9,6 +9,8 @@
 #include "requests.h"
 #include "actor_model.h"
 
+#include "display_generated.h"
+
 #include "delay.h"
 #include "http_utils.h"
 #include "network.h"
@@ -33,6 +35,7 @@ using namespace ActorModel;
 using namespace Requests;
 
 using namespace ACM;
+using namespace Display;
 
 using namespace std::chrono_literals;
 
@@ -78,54 +81,55 @@ auto app_task(void* /* user_data */)
     // Spawn the RequestManager actor using the generated execution config
     request_manager_actor_pid = spawn(
       request_manager_behaviour,
-      // Override the default execution config settings to increase task size
+      // Override the default execution config settings
       [](ActorExecutionConfigBuilder& builder)
       {
         builder.add_task_stack_size(REQUESTS_REQUEST_MANAGER_TASK_STACK_SIZE);
+        builder.add_mailbox_size(REQUESTS_REQUEST_MANAGER_MAILBOX_SIZE);
       }
     );
 
     register_name("request_manager", request_manager_actor_pid);
   }
 
-  // Parse requests from flatbuffers stored in ROM
-  {
-    auto display_actor_pid = spawn(display_actor_behaviour);
-    register_name("display", display_actor_pid);
-  }
-
+  // ReauthActor
   {
     auto reauth_actor_pid = spawn(reauth_actor_behaviour);
     register_name("reauth", reauth_actor_pid);
   }
 
+  // GoogleSheetsActor
   {
     auto google_sheets_actor_pid = spawn(google_sheets_actor_behaviour);
     register_name("google_sheets", google_sheets_actor_pid);
   }
 
+  // PermissionsCheckActor
   {
     auto permissions_check_actor_pid = spawn(
       permissions_check_actor_behaviour,
       // Override the default execution config settings to increase mailbox size
       [](ActorExecutionConfigBuilder& builder)
       {
+        builder.add_task_stack_size(4096);
         builder.add_mailbox_size(8192);
       }
     );
     register_name("permissions_check", permissions_check_actor_pid);
   }
 
+  // RFIDReaderActor
   {
     auto rfid_reader_actor_pid = spawn(rfid_reader_actor_behaviour);
     register_name("rfid_reader", rfid_reader_actor_pid);
   }
 
+  // MachineActor
   auto machine_actor_pid = spawn(
     [](const Pid& self, StatePtr& state, const Message& message)
       -> ResultUnion
     {
-      return Ok;
+      return Unhandled;
     }
   );
 
@@ -146,9 +150,11 @@ auto app_task(void* /* user_data */)
   // Main loop:
   auto reauth_interval = 20min;
   auto network_check_interval = 10min;
+  auto rfid_scan_interval = 100ms;
 
   Timestamp last_reauth_timestamp;
   Timestamp last_network_check_timestamp;
+  Timestamp last_rfid_scan_timestamp;
 
   for (;;)
   {
@@ -171,17 +177,24 @@ auto app_task(void* /* user_data */)
     {
       printf("trigger network check here\n");
       // TODO: trigger network check
+
       last_network_check_timestamp = now;
     }
 
     // Only begin scan activity after initial setup is done
     if (ready_to_run)
     {
-      auto rfid_reader_actor_pid = *(whereis("rfid_reader"));
-      send(rfid_reader_actor_pid, "scan");
+      if ((now - last_rfid_scan_timestamp) > rfid_scan_interval)
+      {
+        auto rfid_reader_actor_pid = *(whereis("rfid_reader"));
+        send(rfid_reader_actor_pid, "scan");
+
+        last_rfid_scan_timestamp = now;
+      }
     }
 
-    delay(100ms);
+    // Run the loop at approx. half the shortest interval
+    delay(50ms);
   }
 
   ESP_LOGI(TAG, "Complete, deleting task.");
