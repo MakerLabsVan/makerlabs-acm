@@ -14,6 +14,7 @@
 #include "delay.h"
 #include "http_utils.h"
 #include "network.h"
+#include "firmware_update_actor.h"
 
 #include "acm_helpers.h"
 
@@ -33,6 +34,7 @@
 
 using namespace ActorModel;
 using namespace Requests;
+using namespace FirmwareUpdate;
 
 using namespace ACM;
 using namespace Display;
@@ -53,6 +55,7 @@ using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 auto app_task(void* /* user_data */)
   -> void
 {
+  printf("S/W Version Number: %d\n", CONFIG_FIRMWARE_UPDATE_CURRENT_VERSION_NUMBER);
   string machine_id_str = CONFIG_PERMISSION_COLUMN_LABEL;
 
 /*
@@ -67,6 +70,42 @@ auto app_task(void* /* user_data */)
 */
   heap_check("app_task");
   //fmt::print("Don't {}\n", "panic");
+
+  // DisplayActor
+  {
+    auto display_actor_pid = spawn(display_actor_behaviour);
+    register_name("display", display_actor_pid);
+
+    // Show version details on OLED display
+    flatbuffers::FlatBufferBuilder fbb;
+
+    auto version_str = string(
+      "v" + std::to_string(CONFIG_FIRMWARE_UPDATE_CURRENT_VERSION_NUMBER)
+    );
+
+    auto action_loc = CreateShowUserDetailsDirect(
+      fbb,
+      "MakerLabs ACM",
+      version_str.c_str(),
+      version_str.c_str(),
+      version_str.c_str()
+    );
+
+    fbb.Finish(
+      CreateDisplayIntent(
+        fbb,
+        DisplayAction::ShowUserDetails,
+        action_loc.Union()
+      ),
+      DisplayIntentIdentifier()
+    );
+
+    send(
+      display_actor_pid,
+      "ShowUserDetails",
+      fbb.Release()
+    );
+  }
 
   // Wait for valid network connection before making the connection
   wait_for_network(
@@ -90,6 +129,20 @@ auto app_task(void* /* user_data */)
     );
 
     register_name("request_manager", request_manager_actor_pid);
+  }
+
+  // FirmwareUpdateActor
+  {
+    auto firmware_update_actor_pid = spawn(
+      firmware_update_behaviour,
+      // Override the default execution config settings
+      [](ActorExecutionConfigBuilder& builder)
+      {
+        builder.add_task_stack_size(FIRMWARE_UPDATE_ACTOR_TASK_STACK_SIZE);
+        builder.add_mailbox_size(FIRMWARE_UPDATE_ACTOR_MAILBOX_SIZE);
+      }
+    );
+    register_name("firmware_update", firmware_update_actor_pid);
   }
 
   // ReauthActor
@@ -148,11 +201,16 @@ auto app_task(void* /* user_data */)
   );
 
   // Main loop:
+  auto firmware_update_check_interval = std::chrono::seconds(
+    CONFIG_FIRMWARE_UPDATE_CHECK_INTERVAL_SECONDS
+  );
+
   auto reauth_interval = 20min;
   auto network_check_interval = 10min;
   auto rfid_scan_interval = 100ms;
 
   Timestamp last_reauth_timestamp;
+  Timestamp last_firmware_update_check_timestamp;
   Timestamp last_network_check_timestamp;
   Timestamp last_rfid_scan_timestamp;
 
@@ -163,12 +221,22 @@ auto app_task(void* /* user_data */)
     // Periodic polling loop, send interval-based messages here
     auto now = std::chrono::system_clock::now();
 
+    // Trigger firmware update check if interval has elapsed
+    if ((now - last_firmware_update_check_timestamp) > firmware_update_check_interval)
+    {
+      auto reauth_actor_pid = *(whereis("firmware_update"));
+      send(reauth_actor_pid, "check");
+
+      last_firmware_update_check_timestamp = now;
+    }
+
     // Trigger reauth if interval has elapsed
     if ((now - last_reauth_timestamp) > reauth_interval)
     {
       // Send the request intent message to the request manager actor
       auto reauth_actor_pid = *(whereis("reauth"));
       send(reauth_actor_pid, "reauth");
+
       last_reauth_timestamp = now;
     }
 

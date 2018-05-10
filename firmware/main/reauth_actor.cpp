@@ -69,6 +69,9 @@ auto reauth_actor_behaviour(
 
       auto google_sheets_actor_pid = *(whereis("google_sheets"));
       send(google_sheets_actor_pid, "reauth", access_token_str);
+
+      auto firmware_update_actor_pid = *(whereis("firmware_update"));
+      send(firmware_update_actor_pid, "reauth", access_token_str);
     }
     else {
       ESP_LOGE(TAG, "got error chunk (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());

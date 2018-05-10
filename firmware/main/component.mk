@@ -21,6 +21,7 @@ COMPONENT_EMBED_TXTFILES := \
 	assets/WILDCARD_googleapis_com_root_cacert.der
 
 COMPONENT_EMBED_FILES := \
+	secrets/gen/firmware_update_check_request_intent.req.fb \
 	secrets/gen/permissions_check_query.gviz.fb \
 	secrets/gen/permissions_check_request_intent.req.fb \
 	secrets/gen/activity_request_intent.req.fb \
@@ -59,6 +60,11 @@ $(COMPONENT_PATH)/assets/%.der: $(COMPONENT_PATH)/assets/%.pem
 	openssl x509 -outform der -in $^ -out $@
 
 # Generate secret *.json files from *.json.tpl, via menuconfig values
+$(COMPONENT_PATH)/secrets/gen/firmware_update_check_request_intent.req.json: $(COMPONENT_PATH)/templates/firmware_update_check_request_intent.req.json.tpl
+	sed \
+		-e 's#@CONFIG_FIRMWARE_UPDATE_CHECK_URL@#$(call dequote,$(CONFIG_FIRMWARE_UPDATE_CHECK_URL))#' \
+		$^ > $@
+
 $(COMPONENT_PATH)/secrets/gen/activity_request_intent.req.json: $(COMPONENT_PATH)/templates/activity_request_intent.req.json.tpl
 	sed \
 		-e 's#@CONFIG_SPREADSHEET_ID@#$(call dequote,$(CONFIG_SPREADSHEET_ID))#' \
