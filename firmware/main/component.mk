@@ -38,9 +38,6 @@ acm_helpers.o: $(COMPONENT_PATH)/src/gen/acm_generated.h
 acm_helpers.o: $(COMPONENT_PATH)/src/gen/display_generated.h
 app_task.o: $(COMPONENT_PATH)/src/gen/display_generated.h
 display_actor.o: $(COMPONENT_PATH)/src/gen/display_generated.h
-google_sheets_actor.o: $(COMPONENT_PATH)/src/gen/requests_generated.h
-permissions_check_actor.o: $(COMPONENT_PATH)/src/gen/requests_generated.h
-reauth_actor.o: $(COMPONENT_PATH)/src/gen/requests_generated.h
 
 # Generate *.req.fb binary RequestIntent flatbuffer from *.req.json
 $(COMPONENT_PATH)/secrets/gen/%.req.fb: $(COMPONENT_PATH)/secrets/gen/%.req.json
