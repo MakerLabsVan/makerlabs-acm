@@ -3,6 +3,11 @@
 #
 # (Uses default behaviour of compiling all source files in directory, adding 'include' to include path.)
 
+COMPONENT_DEPENDS := \
+	actor_model \
+	googleapis \
+	requests
+
 COMPONENT_ADD_INCLUDEDIRS := \
 	. \
 	src/gen
@@ -24,12 +29,17 @@ COMPONENT_EMBED_FILES := \
 
 # Needed for std::to_string
 acm_helpers.o: CXXFLAGS += -D_GLIBCXX_USE_C99=1
+app_task.o: CXXFLAGS += -D_GLIBCXX_USE_C99=1
 rfid_reader_actor.o: CXXFLAGS += -D_GLIBCXX_USE_C99=1
 
 # Flatbuffers/flatc _generated.h file
-app_task.o: $(PROJECT_PATH)/esp32-network-lib/googleapis/src/gen/gviz_generated.h
-app_task.o: $(COMPONENT_PATH)/src/gen/acm_generated.h
+acm_helpers.o: $(COMPONENT_PATH)/src/gen/acm_generated.h
+acm_helpers.o: $(COMPONENT_PATH)/src/gen/display_generated.h
 app_task.o: $(COMPONENT_PATH)/src/gen/display_generated.h
+display_actor.o: $(COMPONENT_PATH)/src/gen/display_generated.h
+google_sheets_actor.o: $(COMPONENT_PATH)/src/gen/requests_generated.h
+permissions_check_actor.o: $(COMPONENT_PATH)/src/gen/requests_generated.h
+reauth_actor.o: $(COMPONENT_PATH)/src/gen/requests_generated.h
 
 # Generate *.req.fb binary RequestIntent flatbuffer from *.req.json
 $(COMPONENT_PATH)/secrets/gen/%.req.fb: $(COMPONENT_PATH)/secrets/gen/%.req.json
