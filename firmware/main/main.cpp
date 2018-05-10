@@ -33,7 +33,16 @@ app_main()
   ++boot_count;
 
   // Initialize the NVS
-  ESP_ERROR_CHECK(nvs_flash_init());
+  esp_err_t err = nvs_flash_init();
+
+  // Check if NVS cached size is invalid/resized
+  if (err == ESP_ERR_NVS_NO_FREE_PAGES)
+  {
+    // Wipe and re-initialize NVS partition
+    ESP_ERROR_CHECK(nvs_flash_erase());
+    err = nvs_flash_init();
+  }
+  ESP_ERROR_CHECK(err);
 
   // Create the shared network status event group
   network_event_group = xEventGroupCreate();
