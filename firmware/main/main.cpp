@@ -38,6 +38,7 @@ app_main()
   // Check if NVS cached size is invalid/resized
   if (err == ESP_ERR_NVS_NO_FREE_PAGES)
   {
+    ESP_LOGW(TAG, "Invalid NVS size encountered, wiping and re-initializing");
     // Wipe and re-initialize NVS partition
     ESP_ERROR_CHECK(nvs_flash_erase());
     err = nvs_flash_init();
