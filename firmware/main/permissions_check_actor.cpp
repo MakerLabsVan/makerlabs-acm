@@ -30,7 +30,7 @@ constexpr char TAG[] = "permissions_check_actor";
 
 struct PermissionsCheckActorState
 {
-  bool ready_to_run = false;
+  bool has_column_ids = false;
   MutableRequestIntentFlatbuffer permissions_check_query_mutable_buf;
   GViz::Query* permissions_check_query = nullptr;
   UserFlatbuffer current_user_flatbuf;
@@ -102,7 +102,7 @@ auto permissions_check_actor_behaviour(
       response->body()->data()
     );
 
-    if (not state.ready_to_run)
+    if (not state.has_column_ids)
     {
       auto did_update_all_ids = update_query_columns(
         datatable->cols(),
@@ -110,7 +110,7 @@ auto permissions_check_actor_behaviour(
       );
       if (did_update_all_ids)
       {
-        state.ready_to_run = true;
+        state.has_column_ids = true;
       }
       else {
         ESP_LOGE(TAG, "Could not update all column IDs for query");
@@ -129,7 +129,7 @@ auto permissions_check_actor_behaviour(
     );
 
     if (
-      state.ready_to_run
+      state.has_column_ids
       and datatable
       and datatable->rows()
       and (datatable->rows()->Length() > 0)
@@ -149,7 +149,7 @@ auto permissions_check_actor_behaviour(
   else if (matches(message, "complete", response, permissions_check_id))
   {
     printf("permissions check complete\n");
-    if (state.ready_to_run)
+    if (state.has_column_ids)
     {
       if (state.current_user_flatbuf.size() > 0)
       {
@@ -286,7 +286,7 @@ auto permissions_check_actor_behaviour(
     );
 
     // Set the 'tq' query arg
-    set_query_arg(
+    set_request_query_arg(
       state.permissions_check_request_intent_mutable_buf,
       "tq",
       query_str
@@ -306,7 +306,7 @@ auto permissions_check_actor_behaviour(
   {
     // Clear the 'tq' query arg
     // Do not allow (possible, future) bugs to affect this user
-    set_query_arg(
+    set_request_query_arg(
       state.permissions_check_request_intent_mutable_buf,
       "tq",
       ""
@@ -350,24 +350,29 @@ auto permissions_check_actor_behaviour(
     };
 
     // Use access_token to auth spreadsheet Users query request
-    set_query_arg(
+    set_request_query_arg(
       state.permissions_columns_request_intent_mutable_buf,
       "access_token",
       access_token_str
     );
 
-    set_query_arg(
+    set_request_query_arg(
       state.permissions_check_request_intent_mutable_buf,
       "access_token",
       access_token_str
     );
 
     // Use access_token to auth spreadsheet Activity insert request
-    set_header(
+    set_request_header(
       state.activity_request_intent_mutable_buf,
       "Authorization",
       string{"Bearer "} + string{access_token_str}
     );
+
+    if (not state.has_column_ids)
+    {
+      send(self, "update_columns");
+    }
 
     return Ok;
   }

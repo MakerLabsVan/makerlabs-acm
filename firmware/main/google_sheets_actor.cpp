@@ -8,8 +8,8 @@
 
 #include "esp_log.h"
 
-#include <string>
 #include <experimental/string_view>
+#include <string>
 
 using namespace ActorModel;
 using namespace Requests;
@@ -141,14 +141,14 @@ auto google_sheets_actor_behaviour(
     printf("access_token_str = '%.*s'\n", access_token_str.size(), access_token_str.data());
 
     // Use access_token to auth spreadsheet Activity insert request
-    set_header(
+    set_request_header(
       state.activity_request_intent_mutable_buf,
       "Authorization",
       string{"Bearer "} + string{access_token_str}
     );
 
     // Use access_token to auth spreadsheet Log insert request
-    set_header(
+    set_request_header(
       state.log_request_intent_mutable_buf,
       "Authorization",
       string{"Bearer "} + string{access_token_str}

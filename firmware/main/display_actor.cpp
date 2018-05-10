@@ -81,24 +81,23 @@ auto display_actor_behaviour(
         const auto* show_user_details_action = (
           display_intent->action_as_ShowUserDetails()
         );
-        const auto& name = show_user_details_action->name();
-        const auto& email = show_user_details_action->email();
-        const auto& makerlabs_id = show_user_details_action->makerlabs_id();
+        const auto& line1 = show_user_details_action->name();
+        const auto& line2 = show_user_details_action->makerlabs_id();
 
         // Draw line1: Full Name
-        if (name)
+        if (line1)
         {
           u8g2_SetFont(&u8g2, u8g2_font_helvR10_tr);
-          u8g2_DrawStr(&u8g2, 0, 13, name->str().c_str());
+          u8g2_DrawStr(&u8g2, 0, 13, line1->c_str());
         }
 
         // Draw line2: 1.2s
-        if (email)
+        if (line2)
         {
           u8g2_SetFont(&u8g2, u8g2_font_helvB14_tr);
           //u8g2_DrawStr(&u8g2, 0, 31, duration_str);
           //u8g2_DrawStr(&u8g2, 0, 31, email->c_str());
-          u8g2_DrawStr(&u8g2, 0, 31, makerlabs_id->c_str());
+          u8g2_DrawStr(&u8g2, 0, 31, line2->c_str());
         }
 
         // Send the buffer to the display
