@@ -81,16 +81,12 @@ auto google_sheets_actor_behaviour(
   {
     printf("did post activity\n");
 
-    ESP_LOGI(TAG, "got body (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
-
     return Ok;
   }
 
   else if (matches(message, "complete", response, log_request_intent_id))
   {
     printf("did post log\n");
-
-    ESP_LOGI(TAG, "got body (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
 
     return Ok;
   }
@@ -133,12 +129,10 @@ auto google_sheets_actor_behaviour(
 
   else if (matches(message, "reauth"))
   {
-    printf("google sheets actor reauth\n");
     const auto access_token_str = string_view{
       reinterpret_cast<const char*>(message.payload()->data()),
       message.payload()->size()
     };
-    printf("access_token_str = '%.*s'\n", access_token_str.size(), access_token_str.data());
 
     // Use access_token to auth spreadsheet Activity insert request
     set_request_header(
@@ -156,7 +150,6 @@ auto google_sheets_actor_behaviour(
 
     if (not state.did_notify_reboot)
     {
-      printf("about to do notify reboot?\n");
       // Send Log request
       set_request_body(
         state.log_request_intent_mutable_buf,

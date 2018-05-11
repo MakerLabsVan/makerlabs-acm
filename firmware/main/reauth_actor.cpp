@@ -48,18 +48,10 @@ auto reauth_actor_behaviour(
     state.reauth_request_intent_mutable_buf
   );
 
-  if (matches(message, "chunk"))
-  {
-    printf("did get chunk\n");
-    printf("%s\n", get_uuid_str(reauth_request_intent_id).c_str());
-  }
-
   if (matches(message, "chunk", response, reauth_request_intent_id))
   {
     if (response->code() < 400)
     {
-      printf("received access_token from reauth\n");
-
       auto access_token_str = string_view{
         response->body()->data(),
         response->body()->size()
@@ -82,8 +74,7 @@ auto reauth_actor_behaviour(
 
   else if (matches(message, "complete", response, reauth_request_intent_id))
   {
-    ESP_LOGI(TAG, "got body (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
-
+    // Already processed access_token(s) via chunk messages
     return Ok;
   }
 
