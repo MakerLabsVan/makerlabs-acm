@@ -1,8 +1,10 @@
 #include "hid_global_tag_id.h"
 
+IRAM_ATTR
 HIDGlobalTagID::HIDGlobalTagID() noexcept
 {}
 
+IRAM_ATTR
 HIDGlobalTagID::HIDGlobalTagID(const std::bitset<26>& bits) noexcept
 {
   // Get the tag ID that was provided as a 32-bit integer

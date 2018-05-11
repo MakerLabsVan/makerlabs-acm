@@ -24,10 +24,10 @@ public:
   auto scan_tag()
     -> MaybeTagId;
 
-  auto beep(std::chrono::milliseconds duration)
+  auto beep(TimeDuration duration)
     -> void;
 
-  auto scanning_fsm()
+  auto IRAM_ATTR scanning_fsm()
     -> void;
 
   //std::atomic<HIDGlobalTagID> last_scanned_tag;
