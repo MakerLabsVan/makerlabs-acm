@@ -102,7 +102,12 @@ auto permissions_check_actor_behaviour(
       response->body()->data()
     );
 
-    if (not state.has_column_ids)
+    if (
+      not state.has_column_ids
+      and datatable
+      and datatable->cols()
+      and (datatable->cols()->Length() > 0)
+    )
     {
       auto did_update_all_ids = update_query_columns(
         datatable->cols(),
