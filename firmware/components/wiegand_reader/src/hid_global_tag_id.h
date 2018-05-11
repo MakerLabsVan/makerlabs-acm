@@ -4,6 +4,8 @@
 
 #include <cinttypes>
 
+#include "esp_attr.h"
+
 struct HIDGlobalTagID
 {
   struct TagFormatView
@@ -20,8 +22,8 @@ struct HIDGlobalTagID
     uint64_t trailing_bits : 13;
   };
 
-  HIDGlobalTagID() noexcept;
-  explicit HIDGlobalTagID(const std::bitset<26>& bits) noexcept;
+  IRAM_ATTR HIDGlobalTagID() noexcept;
+  explicit IRAM_ATTR HIDGlobalTagID(const std::bitset<26>& bits) noexcept;
 
   bool valid = false;
 

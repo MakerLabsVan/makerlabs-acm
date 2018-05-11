@@ -1,9 +1,11 @@
 #include "wiegand_reader.h"
 
-//#include "freertos/FreeRTOS.h"
 #include "driver/gpio.h"
 
 #include "esp_log.h"
+#include "esp_timer.h"
+
+#include <chrono>
 
 using namespace std::chrono_literals;
 
@@ -20,12 +22,12 @@ wiegand_gpio_isr_handler(void* arg)
     auto& state = callback_info->state;
     auto& bit = state.current_bit;
     auto& tag_bits = state.current_tag_bits;
-    auto& last_timestamp = state.last_bit_timestamp;
+    auto& last_bit_timestamp = state.last_bit_timestamp;
 
-    auto now = std::chrono::system_clock::now();
+    auto now = get_elapsed_microseconds();
 
     // Reset the count if this is a new tag read
-    if ((now - last_timestamp) > max_bit_interval)
+    if ((now - last_bit_timestamp) > max_bit_interval)
     {
       tag_bits.reset();
       bit = 0;
@@ -53,7 +55,7 @@ wiegand_gpio_isr_handler(void* arg)
     }
 
     // Update last bit timestamp
-    last_timestamp = now;
+    last_bit_timestamp = now;
   }
 }
 
@@ -117,48 +119,67 @@ WiegandReader::WiegandReader(const WiegandReader::Config& _config)
   );
 }
 
-bool
+bool IRAM_ATTR
 WiegandReader::set_hold(bool enabled)
 {
   return _set_output(config.hold_pin, enabled);
 }
 
-bool
+bool IRAM_ATTR
 WiegandReader::set_red_led(bool enabled)
 {
   return _set_output(config.red_led_pin, enabled);
 }
 
-bool
+bool IRAM_ATTR
 WiegandReader::set_green_led(bool enabled)
 {
   return _set_output(config.green_led_pin, enabled);
 }
 
-bool
+bool IRAM_ATTR
 WiegandReader::set_beeper(bool enabled)
 {
   return _set_output(config.beeper_pin, enabled);
 }
 
-bool
+bool IRAM_ATTR
 WiegandReader::_set_output(int pin, bool enabled)
 {
   if (pin > 0)
   {
-    auto ret = gpio_set_level(static_cast<gpio_num_t>(pin), enabled? 0 : 1);
-    return (ret == ESP_OK);
+    auto gpio_num = static_cast<gpio_num_t>(pin);
+    // Invert logic (pull-down)
+    auto level = enabled? 0 : 1;
+
+    // gpio_set_level
+    if (level)
+    {
+      if (gpio_num < 32)
+        GPIO.out_w1ts = (1 << gpio_num);
+      else
+        GPIO.out1_w1ts.data = (1 << (gpio_num - 32));
+    }
+    else {
+      if (gpio_num < 32)
+        GPIO.out_w1tc = (1 << gpio_num);
+      else
+        GPIO.out1_w1tc.data = (1 << (gpio_num - 32));
+    }
+
+    return true;
   }
 
   return false;
 }
 
-WiegandReader::TagReadEvent
+WiegandReader::TagReadEvent IRAM_ATTR
 WiegandReader::get_current_tag()
 {
   WiegandReader::TagReadEvent current_tag_read;
 
-  auto now = std::chrono::system_clock::now();
+  auto now = get_elapsed_microseconds();
+
   if ((now - state.last_bit_timestamp) > max_tag_active_interval)
   {
     // Reset the current bit num to begin a new read

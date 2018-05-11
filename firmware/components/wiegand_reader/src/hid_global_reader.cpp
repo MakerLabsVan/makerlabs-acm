@@ -9,8 +9,6 @@
 
 #include <unordered_map>
 
-using namespace std::chrono_literals;
-
 typedef void (*TimerCallbackFunction)(void*);
 
 //  Hardware timer clock divider
@@ -18,8 +16,8 @@ static constexpr auto TIMER_DIVIDER = 16;
 static constexpr timer_idx_t BEEP_TIMER_IDX = static_cast<timer_idx_t>(0);
 static constexpr timer_idx_t HOLD_TIMER_IDX = static_cast<timer_idx_t>(1);
 
-void IRAM_ATTR beep_timer_isr(void* userdata);
-void IRAM_ATTR hold_timer_isr(void* userdata);
+void beep_timer_isr(void* userdata) IRAM_ATTR;
+void hold_timer_isr(void* userdata) IRAM_ATTR;
 
 HIDGlobalReader::HIDGlobalReader(const WiegandReader::Config& config) noexcept
 : WiegandReader(config)
@@ -62,14 +60,17 @@ HIDGlobalReader::HIDGlobalReader(const WiegandReader::Config& config) noexcept
     );
   }
 
+  // Set the initial hold timer to expire immediately
+  timer_set_alarm_value(TIMER_GROUP_0, HOLD_TIMER_IDX, 1ULL);
+
   // Start the hold timer loop
   timer_start(TIMER_GROUP_0, HOLD_TIMER_IDX);
 }
 
-auto HIDGlobalReader::scanning_fsm()
+auto IRAM_ATTR HIDGlobalReader::scanning_fsm()
   -> void
 {
-  TickType_t alarm_value = 0;
+  uint64_t alarm_value = 0;
 
   switch (scan_state)
   {
@@ -109,12 +110,16 @@ auto HIDGlobalReader::scanning_fsm()
   if (alarm_value)
   {
     // Reset the timer
-    timer_set_alarm_value(TIMER_GROUP_0, HOLD_TIMER_IDX, alarm_value);
-    timer_start(TIMER_GROUP_0, HOLD_TIMER_IDX);
+    // timer_set_alarm_value
+    TIMERG0.hw_timer[HOLD_TIMER_IDX].alarm_high = (uint32_t)(alarm_value >> 32);
+    TIMERG0.hw_timer[HOLD_TIMER_IDX].alarm_low = (uint32_t)(alarm_value);
+
+    // timer_start
+    TIMERG0.hw_timer[HOLD_TIMER_IDX].config.enable = 1;
   }
 }
 
-auto HIDGlobalReader::scan_tag()
+auto IRAM_ATTR HIDGlobalReader::scan_tag()
   -> MaybeTagId
 {
   auto current_tag = get_current_tag();
@@ -131,22 +136,26 @@ auto HIDGlobalReader::scan_tag()
   return std::experimental::nullopt;
 }
 
-auto HIDGlobalReader::beep(std::chrono::milliseconds duration)
+auto HIDGlobalReader::beep(TimeDuration duration)
   -> void
 {
   // Reset the timer
   uint64_t beep_duration = (
-    std::chrono::milliseconds(duration).count()
+    get_interval_microseconds(duration)
     * TIMER_BASE_CLK / TIMER_DIVIDER
-    / 1000
+    / (1000 * 1000)
   );
-  timer_set_alarm_value(TIMER_GROUP_0, BEEP_TIMER_IDX, beep_duration);
+
+  // timer_set_alarm_value
+  TIMERG0.hw_timer[BEEP_TIMER_IDX].alarm_high = (uint32_t) (beep_duration >> 32);
+  TIMERG0.hw_timer[BEEP_TIMER_IDX].alarm_low = (uint32_t) beep_duration;
 
   // Start beeping now
   set_beeper(1);
 
   // Start the timer, which will stop beeping when fired
-  timer_start(TIMER_GROUP_0, BEEP_TIMER_IDX);
+  // timer_start
+  TIMERG0.hw_timer[BEEP_TIMER_IDX].config.enable = 1;
 }
 
 void IRAM_ATTR beep_timer_isr(void* userdata)
