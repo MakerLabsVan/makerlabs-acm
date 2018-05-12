@@ -6,21 +6,17 @@
 
 #include "actors.h"
 
-#include "requests.h"
 #include "actor_model.h"
+#include "delay.h"
+#include "firmware_update.h"
+#include "firmware_update_actor.h"
+#include "network.h"
+#include "request_manager_actor.h"
+#include "requests.h"
 
 #include "display_generated.h"
 
-#include "delay.h"
-#include "http_utils.h"
-#include "network.h"
-#include "firmware_update_actor.h"
-
-#include "acm_helpers.h"
-
 #include "embedded_files.h"
-
-#include "request_manager_actor.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -28,21 +24,26 @@
 
 #include "trace.h"
 
-#include "simple_match/simple_match.hpp"
+// ActorModel types:
+using ActorModel::ActorExecutionConfigBuilder;
+using ActorModel::Message;
+using ActorModel::Ok;
+using ActorModel::Pid;
+using ActorModel::ResultUnion;
+using ActorModel::StatePtr;
+using ActorModel::Unhandled;
+// ActorModel methods:
+using ActorModel::register_name;
+using ActorModel::send;
+using ActorModel::spawn;
+using ActorModel::whereis;
+// ActorModel behaviours:
+using Requests::request_manager_behaviour;
+using FirmwareUpdate::firmware_update_behaviour;
 
-#include <experimental/optional>
-
-using namespace ActorModel;
-using namespace Requests;
-using namespace FirmwareUpdate;
-
-using namespace ACM;
 using namespace Display;
 
 using namespace std::chrono_literals;
-
-using namespace simple_match;
-using namespace simple_match::placeholders;
 
 constexpr char TAG[] = "app_task";
 
@@ -51,25 +52,34 @@ using string = std::string;
 
 using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 
+using FirmwareUpdate::get_current_firmware_version;
 
 auto app_task(void* /* user_data */)
   -> void
 {
-  printf("S/W Version Number: %d\n", CONFIG_FIRMWARE_UPDATE_CURRENT_VERSION_NUMBER);
+  printf("S/W Version Number: %lld\n", get_current_firmware_version());
   string machine_id_str = CONFIG_PERMISSION_COLUMN_LABEL;
-
 /*
-  auto x = 2;
-  match(x,
-    1, []() {printf("The answer is one\n"); },
-    2, []() {printf("The answer is two\n"); },
-    _x < 10, [](auto&& a) {printf("The answer %d is less than 10\n", a); },
-    10 < _x < 20,  [](auto&& a) {printf("The answer %d is between 10 and 20 exclusive\n", a); },
-    _, []() {printf("Did not match\n"); }
-  );
+  // Check boot state of GPIO5 (pull-down -> reset to factory immediately)
+  uint32_t strapping_pins = REG_READ(GPIO_STRAP_REG);
+  bool factory_reset_requested = ((strapping_pins & 1) == 0);
+  if (factory_reset_requested)
+  {
+    // Check if we are already running from factory partition
+    auto current_partition = get_current_partition();
+    auto factory_partition = get_factory_partition();
+
+    if (not compare_partitions(current_partition, factory_partition))
+    {
+      ESP_LOGW(TAG, "Trigger factory reset");
+      factory_reset();
+    }
+    else {
+      ESP_LOGW(TAG, "Factory reset request ignored, already running factory!");
+    }
+  }
 */
   heap_check("app_task");
-  //fmt::print("Don't {}\n", "panic");
 
   // DisplayActor
   {
@@ -80,7 +90,7 @@ auto app_task(void* /* user_data */)
     flatbuffers::FlatBufferBuilder fbb;
 
     auto version_str = string(
-      "v" + std::to_string(CONFIG_FIRMWARE_UPDATE_CURRENT_VERSION_NUMBER)
+      "v" + std::to_string(get_current_firmware_version())
     );
 
     auto action_loc = CreateShowUserDetailsDirect(
@@ -208,11 +218,17 @@ auto app_task(void* /* user_data */)
   auto reauth_interval = 20min;
   auto network_check_interval = 10min;
   auto rfid_scan_interval = 100ms;
+  auto reset_button_check_interval = 1s;
 
-  Timestamp last_reauth_timestamp;
+  Timestamp last_reset_button_check_timestamp;
   Timestamp last_firmware_update_check_timestamp;
+  Timestamp last_reauth_timestamp;
   Timestamp last_network_check_timestamp;
   Timestamp last_rfid_scan_timestamp;
+  Timestamp last_reset_button_trigger_timestamp;
+
+  auto reset_button_pin = static_cast<gpio_num_t>(0);
+  gpio_set_direction(reset_button_pin, GPIO_MODE_INPUT);
 
   for (;;)
   {
@@ -221,11 +237,25 @@ auto app_task(void* /* user_data */)
     // Periodic polling loop, send interval-based messages here
     auto now = std::chrono::system_clock::now();
 
+    // Progress reset count, eventually trigger a factory reset after 5s
+    if ((now - last_reset_button_check_timestamp) > reset_button_check_interval)
+    {
+      // Invert logic on reset button (pull-down for 5s triggers factory reset)
+      auto reset_button_pressed = (gpio_get_level(reset_button_pin) == 0);
+      if (reset_button_pressed)
+      {
+        auto firmware_update_actor_pid = *(whereis("firmware_update"));
+        send(firmware_update_actor_pid, "reset_pressed");
+      }
+
+      last_reset_button_check_timestamp = now;
+    }
+
     // Trigger firmware update check if interval has elapsed
     if ((now - last_firmware_update_check_timestamp) > firmware_update_check_interval)
     {
-      auto reauth_actor_pid = *(whereis("firmware_update"));
-      send(reauth_actor_pid, "check");
+      auto firmware_update_actor_pid = *(whereis("firmware_update"));
+      send(firmware_update_actor_pid, "check");
 
       last_firmware_update_check_timestamp = now;
     }
