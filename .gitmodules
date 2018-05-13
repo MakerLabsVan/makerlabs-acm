@@ -1,9 +1,12 @@
 [submodule "firmware/esp-idf"]
 	path = firmware/esp-idf
 	url = https://github.com/espressif/esp-idf.git
+	branch = master
 [submodule "firmware/esp32-network-lib"]
 	path = firmware/esp32-network-lib
 	url = https://github.com/paulreimer/esp32-network-lib
+	branch = master
 [submodule "firmware/components/mbedtls"]
 	path = firmware/components/mbedtls
 	url = https://github.com/lws-team/mbedtls.git
+	branch = esp32
