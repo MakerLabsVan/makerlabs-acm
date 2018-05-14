@@ -172,7 +172,8 @@ uint8_t u8g2_esp32_msg_i2c_cb(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *
 
       ESP_ERROR_CHECK(i2c_master_stop(cmd));
 //      ESP_LOGI(TAG, "i2c_master_cmd_begin %d", I2C_MASTER_NUM);
-      ESP_ERROR_CHECK(i2c_master_cmd_begin(I2C_MASTER_NUM, cmd, 1000 / portTICK_RATE_MS));
+      //ESP_ERROR_CHECK(i2c_master_cmd_begin(I2C_MASTER_NUM, cmd, 1000 / portTICK_RATE_MS));
+      i2c_master_cmd_begin(I2C_MASTER_NUM, cmd, 1000 / portTICK_RATE_MS);
       i2c_cmd_link_delete(cmd);
       break;
     }
