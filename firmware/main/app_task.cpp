@@ -280,7 +280,7 @@ auto app_task(void* /* user_data */)
     }
 
     // Only begin scan activity after initial setup is done
-    if (ready_to_run)
+    //if (ready_to_run)
     {
       if ((now - last_rfid_scan_timestamp) > rfid_scan_interval)
       {
