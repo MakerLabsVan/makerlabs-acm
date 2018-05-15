@@ -5,6 +5,7 @@
 
 COMPONENT_DEPENDS := \
 	actor_model \
+	firmware_update \
 	googleapis \
 	requests
 
@@ -38,29 +39,6 @@ acm_helpers.o: $(COMPONENT_PATH)/src/gen/acm_generated.h
 acm_helpers.o: $(COMPONENT_PATH)/src/gen/display_generated.h
 app_task.o: $(COMPONENT_PATH)/src/gen/display_generated.h
 display_actor.o: $(COMPONENT_PATH)/src/gen/display_generated.h
-
-# Generate *.req.fb binary RequestIntent flatbuffer from *.req.json
-$(COMPONENT_PATH)/secrets/gen/%.req.fb: $(COMPONENT_PATH)/secrets/gen/%.req.json
-	flatc --binary -o $(@D) \
-	--force-defaults \
-	$(PROJECT_PATH)/esp32-network-lib/requests/requests.fbs \
-	$^
-
-# Generate *.gviz.fb binary Query flatbuffer from *.gviz.json
-$(COMPONENT_PATH)/secrets/gen/%.gviz.fb: $(COMPONENT_PATH)/secrets/gen/%.gviz.json
-	flatc --binary -o $(@D) \
-	$(PROJECT_PATH)/esp32-network-lib/googleapis/gviz.fbs \
-	$^
-
-# Generate binary *.der from text *.pem via OpenSSL
-$(COMPONENT_PATH)/assets/%.der: $(COMPONENT_PATH)/assets/%.pem
-	openssl x509 -outform der -in $^ -out $@
-
-# Generate secret *.json files from *.json.tpl, via menuconfig values
-$(COMPONENT_PATH)/secrets/gen/firmware_update_check_request_intent.req.json: $(COMPONENT_PATH)/templates/firmware_update_check_request_intent.req.json.tpl
-	sed \
-		-e 's#@CONFIG_FIRMWARE_UPDATE_CHECK_URL@#$(call dequote,$(CONFIG_FIRMWARE_UPDATE_CHECK_URL))#' \
-		$^ > $@
 
 $(COMPONENT_PATH)/secrets/gen/activity_request_intent.req.json: $(COMPONENT_PATH)/templates/activity_request_intent.req.json.tpl
 	sed \
