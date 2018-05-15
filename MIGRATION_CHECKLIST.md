@@ -42,6 +42,8 @@
 ### Google Drive OTA Firmware Folder Creation Steps
 - [ ] Create or re-use a Google Drive folder within the organization's Drive to hold the firmware files  
     (e.g A new folder named "MakerLabs ACM Firmware")
+- [ ] Open the `firmware/build` directory from this repo:
+    - `open firmware/build`
 - [ ] Upload two (empty) files from within the `firmware/build/` directory to the Drive folder used above:
     - `firmware/build/latest.fw.fb`
     - `firmware/build/makerlabs-acm-reader-lock.bin`
