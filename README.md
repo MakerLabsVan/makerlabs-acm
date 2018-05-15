@@ -76,6 +76,9 @@ Commit and push the updated files in `webcomponents/` and `webcomponents/bower_c
   yarn login
   ```
 
+  Enable the Google Apps Script API for your personal Google Apps user:
+  https://script.google.com/home/usersettings
+
 - Pull changes from Google Apps Script / online UI:
   ```
   yarn pull
