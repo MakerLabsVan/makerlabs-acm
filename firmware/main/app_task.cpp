@@ -40,19 +40,18 @@ using ActorModel::whereis;
 // ActorModel behaviours:
 using Requests::request_manager_behaviour;
 using FirmwareUpdate::firmware_update_behaviour;
-
-using namespace Display;
-
-using namespace std::chrono_literals;
-
-constexpr char TAG[] = "app_task";
+using FirmwareUpdate::get_current_firmware_version;
 
 using string_view = std::experimental::string_view;
 using string = std::string;
 
 using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 
-using FirmwareUpdate::get_current_firmware_version;
+using namespace Display;
+
+using namespace std::chrono_literals;
+
+constexpr char TAG[] = "app_task";
 
 auto app_task(void* /* user_data */)
   -> void
