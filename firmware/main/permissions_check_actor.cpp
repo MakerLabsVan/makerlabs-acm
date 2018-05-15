@@ -97,28 +97,32 @@ auto permissions_check_actor_behaviour(
   if (matches(message, "chunk", response, permissions_columns_id))
   {
     printf("received chunk for columns\n");
-
-    const Datatable* datatable = flatbuffers::GetRoot<Datatable>(
-      response->body()->data()
-    );
-
-    if (
-      not state.has_column_ids
-      and datatable
-      and datatable->cols()
-      and (datatable->cols()->Length() > 0)
-    )
+    if (not response->body()->string_view().empty())
     {
-      auto did_update_all_ids = update_query_columns(
-        datatable->cols(),
-        state.permissions_check_query
+      printf("'%.*s'\n", response->body()->string_view().size(), response->body()->string_view().data());
+
+      const Datatable* datatable = flatbuffers::GetRoot<Datatable>(
+        response->body()->data()
       );
-      if (did_update_all_ids)
+
+      if (
+        not state.has_column_ids
+        and datatable
+        and datatable->cols()
+        and (datatable->cols()->Length() > 0)
+      )
       {
-        state.has_column_ids = true;
-      }
-      else {
-        ESP_LOGE(TAG, "Could not update all column IDs for query");
+        auto did_update_all_ids = update_query_columns(
+          datatable->cols(),
+          state.permissions_check_query
+        );
+        if (did_update_all_ids)
+        {
+          state.has_column_ids = true;
+        }
+        else {
+          ESP_LOGE(TAG, "Could not update all column IDs for query");
+        }
       }
     }
 
