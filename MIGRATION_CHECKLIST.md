@@ -66,7 +66,7 @@
       - Drive `id` of `makerlabs-acm-reader-lock.bin` file
 
 ## Configure the firmware with the information above:
-### The following settings are modified in the text GUI available via running `yarn firmware menuconfig`
+> The following settings are modified in the text GUI available via running `yarn firmware menuconfig`
 - [ ] Update the Wifi info where it is used:
     - `MakerLabs ACM Configuration -> Wifi SSID`
     - `MakerLabs ACM Configuration -> Wifi Password`
