@@ -229,6 +229,7 @@ auto app_task(void* /* user_data */)
 
   auto reset_button_pin = static_cast<gpio_num_t>(0);
   gpio_set_direction(reset_button_pin, GPIO_MODE_INPUT);
+  auto sent_firmware_request_payload = false;
 
   for (;;)
   {
@@ -255,7 +256,19 @@ auto app_task(void* /* user_data */)
     if ((now - last_firmware_update_check_timestamp) > firmware_update_check_interval)
     {
       auto firmware_update_actor_pid = *(whereis("firmware_update"));
-      send(firmware_update_actor_pid, "check");
+      if (sent_firmware_request_payload)
+      {
+        // Trigger a firmware update check with a previously configured request intent
+        send(firmware_update_actor_pid, "check");
+      }
+      else {
+        // Send the full firmware update check request intent
+        send(
+          firmware_update_actor_pid,
+          "check",
+          embedded_files::firmware_update_check_request_intent_req_fb
+        );
+      }
 
       last_firmware_update_check_timestamp = now;
     }
