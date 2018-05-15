@@ -66,30 +66,27 @@
       - Drive `id` of `makerlabs-acm-reader-lock.bin` file
 
 ## Configure the firmware with the information above:
+### The following settings are modified in the text GUI available via running `yarn firmware menuconfig`
 - [ ] Update the Wifi info where it is used:
-    - `yarn firmware menuconfig`
-        - `MakerLabs ACM Configuration -> Wifi SSID`
-        - `MakerLabs ACM Configuration -> Wifi Password`
+    - `MakerLabs ACM Configuration -> Wifi SSID`
+    - `MakerLabs ACM Configuration -> Wifi Password`
 
 - [ ] Update the Google Sheets info where it is used:
-    - `yarn firmware menuconfig`
-        - `MakerLabs ACM Configuration -> Permission Column Label`
-        - `MakerLabs ACM Configuration -> Google Apps Spreadsheet ID`
+    - `MakerLabs ACM Configuration -> Permission Column Label`
+    - `MakerLabs ACM Configuration -> Google Apps Spreadsheet ID`
 
 - [ ] Update the Google Drive OTA firmware info where it is used:
-    - `yarn firmware menuconfig`
-        - `Firmware Update / OTA Configuration -> Firmware Update Latest Version URL`  
-          The full HTTPS download URL to the Google Drive file `id` for `latest.fw.fb`
-          found as: `https://www.googleapis.com/drive/v3/files/<id>?alt=media`
-        - `Firmware Update / OTA Configuration -> Firmware Update Check URL`  
-          The full HTTPS download URL to the Google Drive file `id` for `makerlabs-acm-reader-lock.bin`
-          found as: `https://www.googleapis.com/drive/v3/files/<id>?alt=media`
+    - `Firmware Update / OTA Configuration -> Firmware Update Latest Version URL`  
+      The full HTTPS download URL to the Google Drive file `id` for `latest.fw.fb`
+      found as: `https://www.googleapis.com/drive/v3/files/<id>?alt=media`
+    - `Firmware Update / OTA Configuration -> Firmware Update Check URL`  
+      The full HTTPS download URL to the Google Drive file `id` for `makerlabs-acm-reader-lock.bin`
+      found as: `https://www.googleapis.com/drive/v3/files/<id>?alt=media`
 
 - [ ] Update the Google Sheets info where it is used:
-    - `yarn firmware menuconfig`
-        - `MakerLabs ACM Configuration -> Permission Column Label`
-        - `MakerLabs ACM Configuration -> OAuth Client Secret`
-        - `MakerLabs ACM Configuration -> OAuth Refresh Token`
+    - `MakerLabs ACM Configuration -> Permission Column Label`
+    - `MakerLabs ACM Configuration -> OAuth Client Secret`
+    - `MakerLabs ACM Configuration -> OAuth Refresh Token`
 
 ## Configure the webapp with the information above:
 - [ ] Update the GitHub repo info where it is used:
