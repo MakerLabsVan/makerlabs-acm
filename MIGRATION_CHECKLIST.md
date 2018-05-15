@@ -15,7 +15,7 @@
 ### Google OAuth Client Creation Steps
 - [ ] Create a Google Cloud OAuth client:
     > https://console.developers.google.com/apis/credentials
-
+  
   Use the `Create credentials -> OAuth client ID` button to create a new 'OAuth client ID' with the following settings:
     - Application Type: `Web Application`
     - Name: `MakerLabs ACM Offline Access Requests`
@@ -24,6 +24,15 @@
     - Authorised redirect URIs:
         - `http://127.0.0.1/oauth2/code`
         - `http://127.0.0.1/oauth2/token`
+
+- [ ] Obtain a refresh token (for the user whose Google Drive credentials will be used by the firmware)
+  - Run the local script:
+    > `./scripts/oauth_server.sh`
+  - When prompted, provide the `OAuth Client ID` and `OAuth Client Secret` from the credentials created above.
+  - A browser window will popup, and the correct Google user should be selected here, logging in/out as necessary.
+  - Grant 'Sheets' / 'Drive' permission to the OAuth app when requested.
+  - Ignore the `404 Not Found` message, and return to the terminal where the `oauth_server.sh` script is running.
+  - Copy the selected line (must contain a valid `token=` near the end of the line) into a new tab in your browsers URL bar
 
 ### Google Drive OTA Firmware Folder Creation Steps
 - [ ] Create or re-use a Google Drive folder within the organization's Drive to hold the firmware files  
@@ -84,8 +93,8 @@
       The full HTTPS download URL to the Google Drive file `id` for `makerlabs-acm-reader-lock.bin`
       found as: `https://www.googleapis.com/drive/v3/files/<id>?alt=media`
 
-- [ ] Update the Google Sheets info where it is used:
-    - `MakerLabs ACM Configuration -> Permission Column Label`
+- [ ] Update the Google OAuth client info where it is used:
+    - `MakerLabs ACM Configuration -> OAuth Client ID`
     - `MakerLabs ACM Configuration -> OAuth Client Secret`
     - `MakerLabs ACM Configuration -> OAuth Refresh Token`
 
