@@ -3,7 +3,6 @@
   (guide) https://developers.google.com/apps-script/api/how-tos/enable#using_the_apps_script_api_in_your_app
   (direct link) https://console.developers.google.com/flows/enableapi?apiid=script
 
-
 # When the GitHub repo name changes:
 - The following line in `webapp/views/AppLayoutTemplate.html` should be changed
   to reflect the new GitHub org., repo name, and branch:
@@ -41,6 +40,8 @@
 # When the Google Drive Spreadsheet 'Users' sheet columns change:
 
 # When the Google Drive OAuth "client_id" or "client_secret" expires or changes:
+- Update the `client-id=` property with the 'Client ID' value from Google Apps API OAuth credentials
+  (after the `<google-signin` element)
 
 # When the Google Drive OAuth "refresh_token" expires or changes:
 
