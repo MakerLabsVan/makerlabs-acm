@@ -1,5 +1,5 @@
 # Google Sheets, Drive, Cloud Integration Setup Steps
-- [ ] Be logged in with the target Google Apps user, and logged out of all other users.
+- [ ] Be logged in with the target Google Apps user, and logged out of all other users.  
       A Chrome incognito window works best.
 
 ### Google APIs Enable Steps
@@ -26,15 +26,15 @@
         - `http://127.0.0.1/oauth2/token`
 
 ### Google Drive OTA Firmware Folder Creation Steps
-- [ ] Create or re-use a Google Drive folder within the organization's Drive to hold the firmware files
-    E.g A new folder named "MakerLabs ACM Firmware"
+- [ ] Create or re-use a Google Drive folder within the organization's Drive to hold the firmware files  
+    (e.g A new folder named "MakerLabs ACM Firmware")
 - [ ] Upload two (empty) files from within the `firmware/build/` directory to the Drive folder used above:
     - `firmware/build/latest.fw.fb`
     - `firmware/build/makerlabs-acm-reader-lock.bin`
 
 ### Google Apps Script Steps
-- [ ] Create a Google Apps Script project from inside the Google Drive Spreadsheet
-    > Under `Tools -> Script Editor`
+- [ ] Create a Google Apps Script project
+    > From inside the Google Drive Spreadsheet, under `Tools -> Script Editor`
     - Select and existing project, or create a new one
     - Ensure the Google Apps Script project has a title set, and has been saved
 
@@ -77,10 +77,10 @@
 
 - [ ] Update the Google Drive OTA firmware info where it is used:
     - `yarn firmware menuconfig`
-        - `Firmware Update / OTA Configuration -> Firmware Update Latest Version URL`
+        - `Firmware Update / OTA Configuration -> Firmware Update Latest Version URL`  
           The full HTTPS download URL to the Google Drive file `id` for `latest.fw.fb`
           found as: `https://www.googleapis.com/drive/v3/files/<id>?alt=media`
-        - `Firmware Update / OTA Configuration -> Firmware Update Check URL`
+        - `Firmware Update / OTA Configuration -> Firmware Update Check URL`  
           The full HTTPS download URL to the Google Drive file `id` for `makerlabs-acm-reader-lock.bin`
           found as: `https://www.googleapis.com/drive/v3/files/<id>?alt=media`
 
@@ -91,7 +91,7 @@
         - `MakerLabs ACM Configuration -> OAuth Refresh Token`
 
 - [ ] Update the GitHub repo info where it is used:
-    - `webapp/views/AppLayoutTemplate.html`
+    - `webapp/views/AppLayoutTemplate.html`  
       ```
       <base href="https://cdn.rawgit.com/<GITHUB_ORG>/<REPO_NAME>/<BRANCH_NAME>/webcomponents/bower_components/">
       ```
