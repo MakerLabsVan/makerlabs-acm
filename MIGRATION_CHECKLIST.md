@@ -92,6 +92,11 @@
     - `MakerLabs ACM Configuration -> Permission Column Label`
     - `MakerLabs ACM Configuration -> Google Apps Spreadsheet ID`
 
+- [ ] Update the Google OAuth client info where it is used:
+    - `MakerLabs ACM Configuration -> OAuth Client ID`
+    - `MakerLabs ACM Configuration -> OAuth Client Secret`
+    - `MakerLabs ACM Configuration -> OAuth Refresh Token`
+
 - [ ] Update the Google Drive OTA firmware info where it is used:
     - `Firmware Update / OTA Configuration -> Firmware Update Latest Version URL`  
       The full HTTPS download URL to the Google Drive file `id` for `latest.fw.fb`
@@ -99,11 +104,6 @@
     - `Firmware Update / OTA Configuration -> Firmware Update Check URL`  
       The full HTTPS download URL to the Google Drive file `id` for `makerlabs-acm-reader-lock.bin`
       found as: `https://www.googleapis.com/drive/v3/files/<id>?alt=media`
-
-- [ ] Update the Google OAuth client info where it is used:
-    - `MakerLabs ACM Configuration -> OAuth Client ID`
-    - `MakerLabs ACM Configuration -> OAuth Client Secret`
-    - `MakerLabs ACM Configuration -> OAuth Refresh Token`
 
 ## Configure the webapp with the information above:
 - [ ] Update the GitHub repo info where it is used:
