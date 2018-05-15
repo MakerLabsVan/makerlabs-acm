@@ -39,32 +39,33 @@
     - Ensure the Google Apps Script project has a title set, and has been saved
 
 # Configuration Steps
-- [ ] Obtain the following pieces of information:
-    - From the MakerLabs wifi network:
-        - `Wifi SSID` (2.4GHz-only)
-        - `Wifi Password`
+## Obtain the following pieces of information:
+- [ ] From the MakerLabs wifi network:
+      - `Wifi SSID` (2.4GHz-only)
+      - `Wifi Password`
 
-    - From the GitHub repo:
-        - `GitHub organization/user name`
-        - `GitHub repo name`
-        - `GitHub repo branch`
+- [ ] From the GitHub repo:
+      - `GitHub organization/user name`
+      - `GitHub repo name`
+      - `GitHub repo branch`
 
-    - From the OAuth client ID credentials:
-      > https://console.developers.google.com/apis/credentials
-        - `Client ID`
-        - `Client secret`
+- [ ] From the OAuth client ID credentials:
+    > https://console.developers.google.com/apis/credentials
+      - `Client ID`
+      - `Client secret`
 
-    - From the Google Drive Spreadsheet:
-        - `Spreadsheet ID`
-        - `Permissions column name`
+- [ ] From the Google Drive Spreadsheet:
+      - `Spreadsheet ID`
+      - `Permissions column name`
 
-    - From the Google Apps Script project:
-        - `Script ID` (from `File -> Project Properties -> Script ID`)
+- [ ] From the Google Apps Script project:
+      - `Script ID` (from `File -> Project Properties -> Script ID`)
 
-    - From the Google Drive firmware folder:
-        - Drive `id` of `latest.fw.fb` file (In Google Drive, right-click the file -> `Get Sharable Link`. copy the portion *after* "https://drive.google.com/open?id=")
-        - Drive `id` of `makerlabs-acm-reader-lock.bin` file
+- [ ] From the Google Drive firmware folder:
+      - Drive `id` of `latest.fw.fb` file (In Google Drive, right-click the file -> `Get Sharable Link`. copy the portion *after* "https://drive.google.com/open?id=")
+      - Drive `id` of `makerlabs-acm-reader-lock.bin` file
 
+## Configure the firmware with the information above:
 - [ ] Update the Wifi info where it is used:
     - `yarn firmware menuconfig`
         - `MakerLabs ACM Configuration -> Wifi SSID`
@@ -90,6 +91,7 @@
         - `MakerLabs ACM Configuration -> OAuth Client Secret`
         - `MakerLabs ACM Configuration -> OAuth Refresh Token`
 
+## Configure the webapp with the information above:
 - [ ] Update the GitHub repo info where it is used:
     - `webapp/views/AppLayoutTemplate.html`  
       ```
