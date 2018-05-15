@@ -47,6 +47,8 @@
 - [ ] Upload two (empty) files from within the `firmware/build/` directory to the Drive folder used above:
     - `firmware/build/latest.fw.fb`
     - `firmware/build/makerlabs-acm-reader-lock.bin`
+- [ ] Right-click each file uploaded above, select 'Get Shareable Link`, and click the toggle to enable sharing that file.  
+      Click the 'Sharing settings' link and make sure the permissions are set appropriately (e.g. Organization-only viewing)
 
 ### Google Apps Script Steps
 - [ ] Create a Google Apps Script project
