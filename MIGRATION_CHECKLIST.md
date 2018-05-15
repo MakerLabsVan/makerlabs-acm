@@ -2,6 +2,9 @@
 - [ ] Be logged in with the target Google Apps user, and logged out of all other users.  
       A Chrome incognito window works best.
 
+# Developer / Workstation Setup Steps
+- [ ] Make sure you have followed the steps in the README.md, at the minimum installing `brew`, `yarn`, and running `make deps`.
+
 ### Google APIs Enable Steps
 - [ ] Enable Google Apps Script API for Google Cloud Platform project:
     > https://console.developers.google.com/flows/enableapi?apiid=script
@@ -32,7 +35,8 @@
   - A browser window will popup, and the correct Google user should be selected here, logging in/out as necessary.
   - Grant 'Sheets' / 'Drive' permission to the OAuth app when requested.
   - Ignore the `404 Not Found` message, and return to the terminal where the `oauth_server.sh` script is running.
-  - Copy the selected line (must contain a valid `token=` near the end of the line) into a new terminal window, and run it.
+  - Copy the selected line (must contain a valid `token=` near the end of the line) into a new terminal window, and run it.  
+    (_note: if multiple lines are printed, only the first line with a token should be used_)
   - The output from running the above command is the `OAuth Refresh Token`.
 
 ### Google Drive OTA Firmware Folder Creation Steps
