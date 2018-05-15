@@ -58,7 +58,9 @@ cd makerlabs-acm
 - Build binaries for OTA firmware updates, upload them to Google Drive:
   (*note: increment the number in the `firmware/VERSION` file to allow clients to download it*)
   ```
-  yarn firmware all_binaries && gdrive update <firmware_image_id> build/makerlabs-acm-reader-lock.bin && gdrive update <firmware_update_id> build/latest.fw.fb
+  yarn firmware all_binaries && \
+    gdrive update <firmware_image_id> firmware/build/makerlabs-acm-reader-lock.bin && \
+    gdrive update <firmware_update_id> firmware/build/latest.fw.fb
   ```
 
 # WebComponents
