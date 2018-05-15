@@ -32,7 +32,8 @@
   - A browser window will popup, and the correct Google user should be selected here, logging in/out as necessary.
   - Grant 'Sheets' / 'Drive' permission to the OAuth app when requested.
   - Ignore the `404 Not Found` message, and return to the terminal where the `oauth_server.sh` script is running.
-  - Copy the selected line (must contain a valid `token=` near the end of the line) into a new tab in your browsers URL bar
+  - Copy the selected line (must contain a valid `token=` near the end of the line) into a new terminal window, and run it.
+  - The output from running the above command is the `OAuth Refresh Token`.
 
 ### Google Drive OTA Firmware Folder Creation Steps
 - [ ] Create or re-use a Google Drive folder within the organization's Drive to hold the firmware files  
