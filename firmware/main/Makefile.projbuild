@@ -1,0 +1,3 @@
+# Enable support for JSON -> flatbuffers parsing in requests component
+CXXFLAGS += \
+	-DREQUESTS_SUPPORT_JSON=1
