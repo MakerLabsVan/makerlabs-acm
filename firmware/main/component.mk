@@ -38,6 +38,7 @@ rfid_reader_actor.o: CXXFLAGS += -D_GLIBCXX_USE_C99=1
 acm_helpers.o: $(COMPONENT_PATH)/src/gen/acm_generated.h
 acm_helpers.o: $(COMPONENT_PATH)/src/gen/display_generated.h
 app_task.o: $(COMPONENT_PATH)/src/gen/display_generated.h
+app_task.o: $(PROJECT_PATH)/esp32-network-lib/firmware_update/src/gen/firmware_update_generated.h
 display_actor.o: $(COMPONENT_PATH)/src/gen/display_generated.h
 
 $(COMPONENT_PATH)/secrets/gen/activity_request_intent.req.json: $(COMPONENT_PATH)/templates/activity_request_intent.req.json.tpl
