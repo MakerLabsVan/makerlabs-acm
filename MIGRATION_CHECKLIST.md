@@ -114,3 +114,8 @@
       <base href="https://cdn.rawgit.com/<GITHUB_ORG>/<REPO_NAME>/<BRANCH_NAME>/webcomponents/bower_components/">
       ```
     - `git add webapp/views/AppLayoutTemplate.html && git commit`
+
+## Build and upload the firmware
+- [ ] Build the firmware with the above configuration applied:
+    > yarn make erash_flash flash monitor
+- [ ] Replace the uploaded firmware files in Google Drive
