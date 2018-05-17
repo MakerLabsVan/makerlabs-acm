@@ -191,7 +191,7 @@ auto app_task(void* /* user_data */)
     [](const Pid& self, StatePtr& state, const Message& message)
       -> ResultUnion
     {
-      return Unhandled;
+      return {ActorModel::Result::Unhandled};
     }
   );
 

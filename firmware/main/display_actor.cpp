@@ -120,8 +120,8 @@ auto display_actor_behaviour(
         break;
     }
 
-    return Ok;
+    return {Result::Ok};
   }
 
-  return Unhandled;
+  return {Result::Unhandled};
 }

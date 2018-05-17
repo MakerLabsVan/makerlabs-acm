@@ -67,28 +67,28 @@ auto google_sheets_actor_behaviour(
   {
     printf("received chunk for activity\n");
 
-    return Ok;
+    return {Result::Ok};
   }
 
   else if (matches(message, "chunk", response, log_request_intent_id))
   {
     printf("received chunk for log\n");
 
-    return Ok;
+    return {Result::Ok};
   }
 
   else if (matches(message, "complete", response, activity_request_intent_id))
   {
     printf("did post activity\n");
 
-    return Ok;
+    return {Result::Ok};
   }
 
   else if (matches(message, "complete", response, log_request_intent_id))
   {
     printf("did post log\n");
 
-    return Ok;
+    return {Result::Ok};
   }
 
   else if (matches(message, "error", response, activity_request_intent_id))
@@ -106,7 +106,7 @@ auto google_sheets_actor_behaviour(
     }
     ESP_LOGE(TAG, "got error (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
 
-    return Ok;
+    return {Result::Ok};
   }
 
   else if (matches(message, "error", response, log_request_intent_id))
@@ -124,10 +124,10 @@ auto google_sheets_actor_behaviour(
     }
     ESP_LOGE(TAG, "got error (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
 
-    return Ok;
+    return {Result::Ok};
   }
 
-  else if (matches(message, "reauth"))
+  else if (matches(message, "access_token"))
   {
     const auto access_token_str = string_view{
       reinterpret_cast<const char*>(message.payload()->data()),
@@ -170,8 +170,8 @@ auto google_sheets_actor_behaviour(
       state.did_notify_reboot = true;
     }
 
-    return Ok;
+    return {Result::Ok};
   }
 
-  return Unhandled;
+  return {Result::Unhandled};
 }
