@@ -57,25 +57,25 @@ auto reauth_actor_behaviour(
         response->body()->size()
       };
       auto permissions_check_actor_pid = *(whereis("permissions_check"));
-      send(permissions_check_actor_pid, "reauth", access_token_str);
+      send(permissions_check_actor_pid, "access_token", access_token_str);
 
       auto google_sheets_actor_pid = *(whereis("google_sheets"));
-      send(google_sheets_actor_pid, "reauth", access_token_str);
+      send(google_sheets_actor_pid, "access_token", access_token_str);
 
       auto firmware_update_actor_pid = *(whereis("firmware_update"));
-      send(firmware_update_actor_pid, "reauth", access_token_str);
+      send(firmware_update_actor_pid, "access_token", access_token_str);
     }
     else {
       ESP_LOGE(TAG, "got error chunk (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
     }
 
-    return Ok;
+    return {Result::Ok};
   }
 
   else if (matches(message, "complete", response, reauth_request_intent_id))
   {
     // Already processed access_token(s) via chunk messages
-    return Ok;
+    return {Result::Ok};
   }
 
   else if (matches(message, "error", response, reauth_request_intent_id))
@@ -87,7 +87,7 @@ auto reauth_actor_behaviour(
     }
     ESP_LOGE(TAG, "got error (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
 
-    return Ok;
+    return {Result::Ok};
   }
 
   else if (matches(message, "reauth"))
@@ -101,8 +101,8 @@ auto reauth_actor_behaviour(
       state.reauth_request_intent_mutable_buf
     );
 
-    return Ok;
+    return {Result::Ok};
   }
 
-  return Unhandled;
+  return {Result::Unhandled};
 }

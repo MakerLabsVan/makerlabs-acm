@@ -78,8 +78,8 @@ auto rfid_reader_actor_behaviour(
       state.scanned_tag_prev = scanned_tag;
     }
 
-    return Ok;
+    return {Result::Ok};
   }
 
-  return Unhandled;
+  return {Result::Unhandled};
 }

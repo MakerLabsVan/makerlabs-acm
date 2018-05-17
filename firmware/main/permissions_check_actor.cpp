@@ -126,7 +126,7 @@ auto permissions_check_actor_behaviour(
       }
     }
 
-    return Ok;
+    return {Result::Ok};
   }
 
   else if (matches(message, "chunk", response, permissions_check_id))
@@ -152,7 +152,7 @@ auto permissions_check_actor_behaviour(
       printf("Updated logged in user\n");
     }
 
-    return Ok;
+    return {Result::Ok};
   }
 
   else if (matches(message, "complete", response, permissions_check_id))
@@ -202,7 +202,7 @@ auto permissions_check_actor_behaviour(
       //throw std::runtime_error("Not all columns updated before generating Activity request");
     }
 
-    return Ok;
+    return {Result::Ok};
   }
 
   else if (matches(message, "error", response, permissions_columns_id))
@@ -225,7 +225,7 @@ auto permissions_check_actor_behaviour(
       );
     }
 
-    return Ok;
+    return {Result::Ok};
   }
 
   else if (matches(message, "error", response, permissions_check_id))
@@ -246,7 +246,7 @@ auto permissions_check_actor_behaviour(
       );
     }
 
-    return Ok;
+    return {Result::Ok};
   }
 
   else if (matches(message, "error", response, activity_id))
@@ -268,7 +268,7 @@ auto permissions_check_actor_behaviour(
     }
     ESP_LOGE(TAG, "got error (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
 
-    return Ok;
+    return {Result::Ok};
   }
 
   else if (matches(message, "update_columns"))
@@ -280,7 +280,7 @@ auto permissions_check_actor_behaviour(
       state.permissions_columns_request_intent_mutable_buf
     );
 
-    return Ok;
+    return {Result::Ok};
   }
 
   else if (matches(message, "tag_seen"))
@@ -308,7 +308,7 @@ auto permissions_check_actor_behaviour(
       state.permissions_check_request_intent_mutable_buf
     );
 
-    return Ok;
+    return {Result::Ok};
   }
 
   else if (matches(message, "tag_lost"))
@@ -348,10 +348,10 @@ auto permissions_check_actor_behaviour(
       );
     }
 
-    return Ok;
+    return {Result::Ok};
   }
 
-  else if (matches(message, "reauth"))
+  else if (matches(message, "access_token"))
   {
     const auto access_token_str = string_view{
       reinterpret_cast<const char*>(message.payload()->data()),
@@ -383,8 +383,8 @@ auto permissions_check_actor_behaviour(
       send(self, "update_columns");
     }
 
-    return Ok;
+    return {Result::Ok};
   }
 
-  return Unhandled;
+  return {Result::Unhandled};
 }
