@@ -383,7 +383,7 @@ auto permissions_check_actor_behaviour(
       send(self, "update_columns");
     }
 
-    return {Result::Ok};
+    return {Result::Ok, EventTerminationAction::ContinueProcessing};
   }
 
   return {Result::Unhandled};
