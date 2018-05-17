@@ -170,7 +170,7 @@ auto google_sheets_actor_behaviour(
       state.did_notify_reboot = true;
     }
 
-    return {Result::Ok};
+    return {Result::Ok, EventTerminationAction::ContinueProcessing};
   }
 
   return {Result::Unhandled};
