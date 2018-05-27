@@ -21,10 +21,10 @@ table ClearDisplay
 
 table ShowUserDetails
 {
-  name: string;
-  email: string;
-  makerlabs_id: string;
-  tag_serial: string;
+  name:string;
+  email:string;
+  makerlabs_id:string;
+  tag_id:string;
 }
 
 table BeginJobTimer

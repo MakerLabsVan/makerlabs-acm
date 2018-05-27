@@ -26,6 +26,30 @@ config SPREADSHEET_ID
   help
     Google Apps Spreadsheet ID
 
+config SPREADSHEET_USERS_SHEET_GID
+  string "Google Apps 'Users' Sheet ID (GID)"
+  default ""
+  help
+    Google Apps 'Users' Sheet ID (GID)
+
+config SPREADSHEET_USERS_SHEET_NAME
+  string "Google Apps 'Users' Sheet Name"
+  default "Users"
+  help
+    Google Apps 'Users' Sheet Name
+
+config SPREADSHEET_ACTIVITY_SHEET_NAME
+  string "Google Apps 'Activity' Sheet Name"
+  default "Activity"
+  help
+    Google Apps 'Activity' Sheet Name
+
+config SPREADSHEET_LOGS_SHEET_NAME
+  string "Google Apps 'Logs' Sheet Name"
+  default "Logs"
+  help
+    Google Apps 'Logs' Sheet Name
+
 config OAUTH_CLIENT_ID
   string "OAuth Client ID"
   default ""

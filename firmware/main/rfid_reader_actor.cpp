@@ -14,8 +14,15 @@ constexpr char TAG[] = "rfid_reader_actor";
 
 struct RFIDReaderActorState
 {
-  RFIDReaderActorState(const WiegandReader::Config& config)
-  : rfid_reader(config)
+  RFIDReaderActorState()
+  : rfid_reader({
+    .data0_pin = 32,
+    .data1_pin = 33,
+    .hold_pin = 22,
+    .red_led_pin = 17,
+    .green_led_pin = 15,
+    .beeper_pin = 23
+  })
   {}
 
   HIDGlobalReader rfid_reader;
@@ -30,55 +37,48 @@ auto rfid_reader_actor_behaviour(
 {
   if (not _state)
   {
-    auto pins_config = WiegandReader::Config{
-      .data0_pin = 32,
-      .data1_pin = 33,
-      .hold_pin = 22,
-      .red_led_pin = 17,
-      .green_led_pin = 15,
-      .beeper_pin = 23
-    };
-
-    _state = std::make_shared<RFIDReaderActorState>(pins_config);
+    _state = std::make_shared<RFIDReaderActorState>();
   }
   auto& state = *(std::static_pointer_cast<RFIDReaderActorState>(_state));
 
-  if (matches(message, "scan"))
   {
-    const auto scanned_tag = state.rfid_reader.last_scanned_tag;
-
-    if (scanned_tag != state.scanned_tag_prev)
+    if (matches(message, "scan"))
     {
-      if (scanned_tag)
+      const auto scanned_tag = state.rfid_reader.last_scanned_tag;
+
+      if (scanned_tag != state.scanned_tag_prev)
       {
-        printf(
-          "found tag, facility_code = %i, card_number = %i\n",
-          scanned_tag->facility_code,
-          scanned_tag->card_number
-        );
+        if (scanned_tag)
+        {
+          printf(
+            "found tag, facility_code = %i, card_number = %i\n",
+            scanned_tag->facility_code,
+            scanned_tag->card_number
+          );
 
-        state.rfid_reader.beep(300ms);
+          state.rfid_reader.beep(300ms);
 
-        auto permissions_check_actor_pid = *(whereis("permissions_check"));
-        auto tag_id_str = std::to_string(scanned_tag->card_number);
-        send(permissions_check_actor_pid, "tag_seen", tag_id_str);
+          auto tag_id_str = std::to_string(scanned_tag->card_number);
+
+          auto main_actor_pid = *(whereis("app"));
+          send(main_actor_pid, "tag_found", tag_id_str);
+        }
+        else {
+          printf("lost tag\n");
+
+          state.rfid_reader.beep(150ms);
+
+          auto tag_id_str = std::to_string(state.scanned_tag_prev->card_number);
+
+          auto main_actor_pid = *(whereis("app"));
+          send(main_actor_pid, "tag_lost", tag_id_str);
+        }
+
+        state.scanned_tag_prev = scanned_tag;
       }
-      else {
-        printf("lost tag\n");
 
-        state.rfid_reader.beep(150ms);
-
-        auto permissions_check_actor_pid = *(whereis("permissions_check"));
-        send(permissions_check_actor_pid, "tag_lost");
-
-        auto display_actor_pid = *(whereis("display"));
-        send(display_actor_pid, "ClearDisplay");
-      }
-
-      state.scanned_tag_prev = scanned_tag;
+      return {Result::Ok};
     }
-
-    return {Result::Ok};
   }
 
   return {Result::Unhandled};

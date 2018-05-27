@@ -13,6 +13,8 @@
 #include "network.h"
 #include "request_manager_actor.h"
 #include "requests.h"
+#include "spreadsheet_insert_row_actor.h"
+#include "visualization_query_actor.h"
 
 #include "display_generated.h"
 
@@ -24,23 +26,12 @@
 
 #include "trace.h"
 
-// ActorModel types:
-using ActorModel::ActorExecutionConfigBuilder;
-using ActorModel::Message;
-using ActorModel::Ok;
-using ActorModel::Pid;
-using ActorModel::ResultUnion;
-using ActorModel::StatePtr;
-using ActorModel::Unhandled;
-// ActorModel methods:
-using ActorModel::register_name;
-using ActorModel::send;
-using ActorModel::spawn;
-using ActorModel::whereis;
+using namespace ActorModel;
 // ActorModel behaviours:
 using Requests::request_manager_behaviour;
 using FirmwareUpdate::firmware_update_behaviour;
 using FirmwareUpdate::get_current_firmware_version;
+using googleapis::Visualization::visualization_query_actor_behaviour;
 
 using string_view = std::experimental::string_view;
 using string = std::string;
@@ -48,6 +39,7 @@ using string = std::string;
 using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 
 using namespace Display;
+using namespace googleapis::Sheets;
 
 using namespace std::chrono_literals;
 
@@ -92,12 +84,12 @@ auto app_task(void* /* user_data */)
       "v" + std::to_string(get_current_firmware_version())
     );
 
-    auto action_loc = CreateShowUserDetailsDirect(
+    auto action_loc = CreateShowUserDetails(
       fbb,
-      "MakerLabs ACM",
-      version_str.c_str(),
-      version_str.c_str(),
-      version_str.c_str()
+      fbb.CreateString("MakerLabs ACM"),
+      fbb.CreateString(version_str),
+      fbb.CreateString(version_str),
+      fbb.CreateString(version_str)
     );
 
     fbb.Finish(
@@ -154,22 +146,14 @@ auto app_task(void* /* user_data */)
     register_name("firmware_update", firmware_update_actor_pid);
   }
 
-  // ReauthActor
+  // {Auth, Sheets, Visualization, PermissionsCheck}Actor
   {
-    auto reauth_actor_pid = spawn(reauth_actor_behaviour);
-    register_name("reauth", reauth_actor_pid);
-  }
-
-  // GoogleSheetsActor
-  {
-    auto google_sheets_actor_pid = spawn(google_sheets_actor_behaviour);
-    register_name("google_sheets", google_sheets_actor_pid);
-  }
-
-  // PermissionsCheckActor
-  {
-    auto permissions_check_actor_pid = spawn(
-      permissions_check_actor_behaviour,
+    auto combined_actor_pid = spawn(
+      {
+        auth_actor_behaviour,
+        spreadsheet_insert_row_actor_behaviour,
+        visualization_query_actor_behaviour,
+      },
       // Override the default execution config settings to increase mailbox size
       [](ActorExecutionConfigBuilder& builder)
       {
@@ -177,7 +161,9 @@ auto app_task(void* /* user_data */)
         builder.add_mailbox_size(8192);
       }
     );
-    register_name("permissions_check", permissions_check_actor_pid);
+    register_name("reauth", combined_actor_pid);
+    register_name("sheets", combined_actor_pid);
+    register_name("gviz", combined_actor_pid);
   }
 
   // RFIDReaderActor
@@ -186,14 +172,18 @@ auto app_task(void* /* user_data */)
     register_name("rfid_reader", rfid_reader_actor_pid);
   }
 
-  // MachineActor
-  auto machine_actor_pid = spawn(
-    [](const Pid& self, StatePtr& state, const Message& message)
-      -> ResultUnion
-    {
-      return {ActorModel::Result::Unhandled};
-    }
-  );
+  // AppActor
+  {
+    auto app_actor_pid = spawn(
+      app_actor_behaviour,
+      // Override the default execution config settings to increase mailbox size
+      [](ActorExecutionConfigBuilder& builder)
+      {
+        builder.add_task_stack_size(4096);
+      }
+    );
+    register_name("app", app_actor_pid);
+  }
 
   // Set CA certs for *.google.com
   send(

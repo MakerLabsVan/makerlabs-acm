@@ -9,8 +9,7 @@
 
 using namespace ACM;
 using namespace Display;
-using namespace GViz;
-using namespace googleapis;
+using namespace googleapis::Visualization;
 
 using string = std::string;
 using string_view = std::experimental::string_view;
@@ -33,28 +32,29 @@ auto PrefixColumnLabelEqualFunc::operator()(
   );
 }
 
-auto generate_user_from_query_results(
-  const GViz::Query* query,
-  const GViz::Datatable* datatable
-) -> QueryFlatbuffer
+auto generate_user_from_query_intent_with_results(
+  const googleapis::Visualization::QueryIntent* query_intent,
+  const googleapis::Visualization::Datatable* datatable
+) -> QueryStringFlatbuffer
 {
   flatbuffers::FlatBufferBuilder fbb;
 
   string_view name_str;
   string_view email_str;
   string_view makerlabs_id_str;
-  string_view tag_serial_str;
+  string_view tag_id_str;
   string_view alerts_str;
 
   if (
-    query
-    and query->select()
+    query_intent
+    and query_intent->query()
+    and query_intent->query()->select()
     and datatable
     and datatable->rows()
     and datatable->rows()->Length() >= 1
   )
   {
-    const auto* select_cols = query->select();
+    const auto* select_cols = query_intent->query()->select();
     const auto* rows = datatable->rows();
 
     // Use the first row, ignore the rest
@@ -89,7 +89,7 @@ auto generate_user_from_query_results(
         }
         else if (label_str == "Tag ID")
         {
-          tag_serial_str = value->c_str();
+          tag_id_str = value->c_str();
         }
         else if (label_str == "Alerts")
         {
@@ -105,13 +105,13 @@ auto generate_user_from_query_results(
     }
   }
 
-  auto user_loc = CreateUserDirect(
+  auto user_loc = CreateUser(
     fbb,
-    name_str.data(),
-    email_str.data(),
-    makerlabs_id_str.data(),
-    tag_serial_str.data(),
-    alerts_str.data()
+    fbb.CreateString(name_str),
+    fbb.CreateString(email_str),
+    fbb.CreateString(makerlabs_id_str),
+    fbb.CreateString(tag_id_str),
+    fbb.CreateString(alerts_str)
   );
   fbb.Finish(user_loc, ActivityIdentifier());
 
@@ -123,24 +123,19 @@ auto activity_to_json(const Activity* activity)
 {
   string activity_json = (
     string{"{\"values\": [["}
+    + std::to_string(activity->time()) + ","
     + "\"" + (
       activity->machine_id()
       ? activity->machine_id()->str()
       : "" )
     + "\","
-    + "\"" + (
-      activity->makerlabs_id()
-      ? activity->makerlabs_id()->str()
-      : "" )
-    + "\","
-    + "\"" + (
-      activity->tag_serial()
-      ? activity->tag_serial()->str()
-      : "" )
-    + "\","
     + "\"" + EnumNameActivityType(activity->activity_type()) + "\","
-    + std::to_string(activity->time()) + ","
-    + std::to_string(activity->usage_seconds())
+    + std::to_string(activity->usage_seconds()) + ","
+    + "\"" + (
+      activity->tag_id()
+      ? activity->tag_id()->str()
+      : "" )
+    + "\""
     + "]]}"
   );
 
@@ -148,9 +143,9 @@ auto activity_to_json(const Activity* activity)
 }
 
 auto generate_activity(
-  const std::string& machine_id_str,
+  const string_view machine_id_str,
   const ActivityType activity_type,
-  const User* user
+  const string_view tag_id_str
 ) -> ActivityFlatbuffer
 {
   flatbuffers::FlatBufferBuilder fbb;
@@ -158,13 +153,13 @@ auto generate_activity(
     std::chrono::system_clock::now().time_since_epoch()
   ).count();
 
-  auto activity_loc = CreateActivityDirect(
+  auto activity_loc = CreateActivity(
     fbb,
-    machine_id_str.c_str(),
-    user and user->makerlabs_id()? user->makerlabs_id()->c_str() : nullptr,
-    user and user->tag_serial()? user->tag_serial()->c_str() : nullptr,
+    epoch_seconds,
+    fbb.CreateString(machine_id_str),
     activity_type,
-    epoch_seconds
+    0, // usage_seconds?
+    fbb.CreateString(tag_id_str)
   );
   fbb.Finish(activity_loc, ActivityIdentifier());
 
@@ -172,50 +167,68 @@ auto generate_activity(
 }
 
 auto generate_activity_json(
-  const std::string& machine_id_str,
+  const string_view machine_id_str,
   const ActivityType activity_type,
-  const User* user
-) -> std::string
+  const string_view tag_id_str
+) -> string
 {
   const auto activity_flatbuf = generate_activity(
     machine_id_str,
     activity_type,
-    user
+    tag_id_str
   );
-  const Activity* activity = flatbuffers::GetRoot<Activity>(
+  const auto* activity = flatbuffers::GetRoot<Activity>(
     activity_flatbuf.data()
   );
   return activity_to_json(activity);
 }
 
-auto generate_permissions_check_query_string(
-  Query* query,
+auto update_permissions_check_query_intent(
+  MutableQueryIntentFlatbuffer& query_intent_mutable_buf,
   const string_view tag_id_str
-) -> std::string
+) -> bool
 {
-  // Mutate tag id to match latest scanned tag
-  auto* where = query->mutable_where();
-  for (auto clause_idx = 0; clause_idx < where->size(); ++clause_idx)
+  auto* query_intent = flatbuffers::GetMutableRoot<QueryIntent>(
+    query_intent_mutable_buf.data()
+  );
+
+  if (query_intent)
   {
-    auto* clause = where->GetMutableObject(clause_idx);
-    auto* col_label = clause->column()->label();
-    if (col_label->string_view() == "Tag ID")
+    auto* query = query_intent->mutable_query();
+    if (query)
     {
-      if (tag_id_str.size() <= clause->value()->Length())
+      // Mutate tag id to match latest scanned tag
+      auto* where = query->mutable_where();
+      if (where)
       {
-        mutate_value(tag_id_str, clause->mutable_value());
-      }
-      else {
-        printf(
-          "New Tag ID '%.*s' too long to mutate existing Tag ID '%s'\n",
-          tag_id_str.size(), tag_id_str.data(),
-          clause->value()->c_str()
-        );
+        for (auto clause_idx = 0; clause_idx < where->size(); ++clause_idx)
+        {
+          auto* clause = where->GetMutableObject(clause_idx);
+          auto* col_label = clause->column()->label();
+          if (clause and col_label)
+          {
+            if (col_label->string_view() == "Tag ID")
+            {
+              if (tag_id_str.size() <= clause->value()->Length())
+              {
+                mutate_value(tag_id_str, clause->mutable_value());
+                return true;
+              }
+              else {
+                printf(
+                  "New Tag ID '%.*s' too long to mutate existing Tag ID '%s'\n",
+                  tag_id_str.size(), tag_id_str.data(),
+                  clause->value()->c_str()
+                );
+              }
+            }
+          }
+        }
       }
     }
   }
 
-  return build_query(query);
+  return false;
 }
 
 auto log_to_json(const Log* log)
@@ -264,14 +277,14 @@ auto generate_log_json(
   const string_view machine_id_str,
   const ACM::LogSeverity severity,
   const string_view message_str
-) -> std::string
+) -> string
 {
   const auto log_flatbuf = generate_log(
     machine_id_str,
     severity,
     message_str
   );
-  const Log* log = flatbuffers::GetRoot<Log>(
+  const auto* log = flatbuffers::GetRoot<Log>(
     log_flatbuf.data()
   );
   return log_to_json(log);
@@ -288,7 +301,7 @@ auto generate_show_user_details_from_user(
     user && user->name()? user->name()->c_str() : nullptr,
     user && user->email()? user->email()->c_str() : nullptr,
     user && user->makerlabs_id()? user->makerlabs_id()->c_str() : nullptr,
-    user && user->tag_serial()? user->tag_serial()->c_str() : nullptr
+    user && user->tag_id()? user->tag_id()->c_str() : nullptr
   );
 
   auto display_intent_loc = CreateDisplayIntent(
