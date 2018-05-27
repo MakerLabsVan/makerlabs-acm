@@ -65,62 +65,64 @@ auto display_actor_behaviour(
   {
     _state = std::make_shared<DisplayActorState>();
   }
-
   auto& state = *(std::static_pointer_cast<DisplayActorState>(_state));
-  auto& u8g2 = state.u8g2;
 
-  if (matches(message, "ClearDisplay"))
   {
-    // Clear the buffer
-    u8g2_ClearBuffer(&u8g2);
+    if (matches(message, "ClearDisplay"))
+    {
+      // Clear the buffer
+      u8g2_ClearBuffer(&state.u8g2);
 
-    // Send the buffer to the display
-    u8g2_SendBuffer(&u8g2);
+      // Send the buffer to the display
+      u8g2_SendBuffer(&state.u8g2);
+    }
   }
 
-  const DisplayIntent* display_intent;
-  if (matches(message, "ShowUserDetails", display_intent))
   {
-    switch (display_intent->action_type())
+    const DisplayIntent* display_intent;
+    if (matches(message, "ShowUserDetails", display_intent))
     {
-      case DisplayAction::ShowUserDetails:
+      switch (display_intent->action_type())
       {
-        const auto* show_user_details_action = (
-          display_intent->action_as_ShowUserDetails()
-        );
-        const auto& line1 = show_user_details_action->name();
-        const auto& line2 = show_user_details_action->makerlabs_id();
-
-        // Clear the buffer
-        u8g2_ClearBuffer(&u8g2);
-
-        // Draw line1: Full Name
-        if (line1)
+        case DisplayAction::ShowUserDetails:
         {
-          printf("%s\n", line1->c_str());
-          u8g2_SetFont(&u8g2, u8g2_font_helvR10_tr);
-          u8g2_DrawStr(&u8g2, 0, 13, line1->c_str());
+          const auto* show_user_details_action = (
+            display_intent->action_as_ShowUserDetails()
+          );
+          const auto& line1 = show_user_details_action->name();
+          const auto& line2 = show_user_details_action->makerlabs_id();
+
+          // Clear the buffer
+          u8g2_ClearBuffer(&state.u8g2);
+
+          // Draw line1: Full Name
+          if (line1)
+          {
+            printf("%s\n", line1->c_str());
+            u8g2_SetFont(&state.u8g2, u8g2_font_helvR10_tr);
+            u8g2_DrawStr(&state.u8g2, 0, 13, line1->c_str());
+          }
+
+          // Draw line2: 1.2s
+          if (line2)
+          {
+            printf("%s\n", line2->c_str());
+            u8g2_SetFont(&state.u8g2, u8g2_font_helvB14_tr);
+            u8g2_DrawStr(&state.u8g2, 0, 31, line2->c_str());
+          }
+
+          // Send the buffer to the display
+          u8g2_SendBuffer(&state.u8g2);
+
+          break;
         }
 
-        // Draw line2: 1.2s
-        if (line2)
-        {
-          printf("%s\n", line2->c_str());
-          u8g2_SetFont(&u8g2, u8g2_font_helvB14_tr);
-          u8g2_DrawStr(&u8g2, 0, 31, line2->c_str());
-        }
-
-        // Send the buffer to the display
-        u8g2_SendBuffer(&u8g2);
-
-        break;
+        default:
+          break;
       }
 
-      default:
-        break;
+      return {Result::Ok};
     }
-
-    return {Result::Ok};
   }
 
   return {Result::Unhandled};

@@ -16,12 +16,11 @@ enum ActivityType : byte
 
 table Activity
 {
-  machine_id:string;
-  makerlabs_id:string;
-  tag_serial:string;
-  activity_type:ActivityType;
   time:uint64;
+  machine_id:string;
+  activity_type:ActivityType;
   usage_seconds:uint32 = 0;
+  tag_id:string;
 }
 
 table User
@@ -29,7 +28,7 @@ table User
   name:string;
   email:string;
   makerlabs_id:string;
-  tag_serial:string;
+  tag_id:string;
   alerts:string;
 }
 

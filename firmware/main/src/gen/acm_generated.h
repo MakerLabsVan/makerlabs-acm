@@ -104,30 +104,23 @@ struct Activity FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     return "ACM.Activity";
   }
   enum {
-    VT_MACHINE_ID = 4,
-    VT_MAKERLABS_ID = 6,
-    VT_TAG_SERIAL = 8,
-    VT_ACTIVITY_TYPE = 10,
-    VT_TIME = 12,
-    VT_USAGE_SECONDS = 14
+    VT_TIME = 4,
+    VT_MACHINE_ID = 6,
+    VT_ACTIVITY_TYPE = 8,
+    VT_USAGE_SECONDS = 10,
+    VT_TAG_ID = 12
   };
+  uint64_t time() const {
+    return GetField<uint64_t>(VT_TIME, 0);
+  }
+  bool mutate_time(uint64_t _time) {
+    return SetField<uint64_t>(VT_TIME, _time, 0);
+  }
   const flatbuffers::String *machine_id() const {
     return GetPointer<const flatbuffers::String *>(VT_MACHINE_ID);
   }
   flatbuffers::String *mutable_machine_id() {
     return GetPointer<flatbuffers::String *>(VT_MACHINE_ID);
-  }
-  const flatbuffers::String *makerlabs_id() const {
-    return GetPointer<const flatbuffers::String *>(VT_MAKERLABS_ID);
-  }
-  flatbuffers::String *mutable_makerlabs_id() {
-    return GetPointer<flatbuffers::String *>(VT_MAKERLABS_ID);
-  }
-  const flatbuffers::String *tag_serial() const {
-    return GetPointer<const flatbuffers::String *>(VT_TAG_SERIAL);
-  }
-  flatbuffers::String *mutable_tag_serial() {
-    return GetPointer<flatbuffers::String *>(VT_TAG_SERIAL);
   }
   ActivityType activity_type() const {
     return static_cast<ActivityType>(GetField<int8_t>(VT_ACTIVITY_TYPE, 0));
@@ -135,29 +128,27 @@ struct Activity FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   bool mutate_activity_type(ActivityType _activity_type) {
     return SetField<int8_t>(VT_ACTIVITY_TYPE, static_cast<int8_t>(_activity_type), 0);
   }
-  uint64_t time() const {
-    return GetField<uint64_t>(VT_TIME, 0);
-  }
-  bool mutate_time(uint64_t _time) {
-    return SetField<uint64_t>(VT_TIME, _time, 0);
-  }
   uint32_t usage_seconds() const {
     return GetField<uint32_t>(VT_USAGE_SECONDS, 0);
   }
   bool mutate_usage_seconds(uint32_t _usage_seconds) {
     return SetField<uint32_t>(VT_USAGE_SECONDS, _usage_seconds, 0);
   }
+  const flatbuffers::String *tag_id() const {
+    return GetPointer<const flatbuffers::String *>(VT_TAG_ID);
+  }
+  flatbuffers::String *mutable_tag_id() {
+    return GetPointer<flatbuffers::String *>(VT_TAG_ID);
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
+           VerifyField<uint64_t>(verifier, VT_TIME) &&
            VerifyOffset(verifier, VT_MACHINE_ID) &&
            verifier.Verify(machine_id()) &&
-           VerifyOffset(verifier, VT_MAKERLABS_ID) &&
-           verifier.Verify(makerlabs_id()) &&
-           VerifyOffset(verifier, VT_TAG_SERIAL) &&
-           verifier.Verify(tag_serial()) &&
            VerifyField<int8_t>(verifier, VT_ACTIVITY_TYPE) &&
-           VerifyField<uint64_t>(verifier, VT_TIME) &&
            VerifyField<uint32_t>(verifier, VT_USAGE_SECONDS) &&
+           VerifyOffset(verifier, VT_TAG_ID) &&
+           verifier.Verify(tag_id()) &&
            verifier.EndTable();
   }
 };
@@ -165,23 +156,20 @@ struct Activity FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 struct ActivityBuilder {
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
+  void add_time(uint64_t time) {
+    fbb_.AddElement<uint64_t>(Activity::VT_TIME, time, 0);
+  }
   void add_machine_id(flatbuffers::Offset<flatbuffers::String> machine_id) {
     fbb_.AddOffset(Activity::VT_MACHINE_ID, machine_id);
-  }
-  void add_makerlabs_id(flatbuffers::Offset<flatbuffers::String> makerlabs_id) {
-    fbb_.AddOffset(Activity::VT_MAKERLABS_ID, makerlabs_id);
-  }
-  void add_tag_serial(flatbuffers::Offset<flatbuffers::String> tag_serial) {
-    fbb_.AddOffset(Activity::VT_TAG_SERIAL, tag_serial);
   }
   void add_activity_type(ActivityType activity_type) {
     fbb_.AddElement<int8_t>(Activity::VT_ACTIVITY_TYPE, static_cast<int8_t>(activity_type), 0);
   }
-  void add_time(uint64_t time) {
-    fbb_.AddElement<uint64_t>(Activity::VT_TIME, time, 0);
-  }
   void add_usage_seconds(uint32_t usage_seconds) {
     fbb_.AddElement<uint32_t>(Activity::VT_USAGE_SECONDS, usage_seconds, 0);
+  }
+  void add_tag_id(flatbuffers::Offset<flatbuffers::String> tag_id) {
+    fbb_.AddOffset(Activity::VT_TAG_ID, tag_id);
   }
   explicit ActivityBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -197,17 +185,15 @@ struct ActivityBuilder {
 
 inline flatbuffers::Offset<Activity> CreateActivity(
     flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> machine_id = 0,
-    flatbuffers::Offset<flatbuffers::String> makerlabs_id = 0,
-    flatbuffers::Offset<flatbuffers::String> tag_serial = 0,
-    ActivityType activity_type = ActivityType::Signed_In,
     uint64_t time = 0,
-    uint32_t usage_seconds = 0) {
+    flatbuffers::Offset<flatbuffers::String> machine_id = 0,
+    ActivityType activity_type = ActivityType::Signed_In,
+    uint32_t usage_seconds = 0,
+    flatbuffers::Offset<flatbuffers::String> tag_id = 0) {
   ActivityBuilder builder_(_fbb);
   builder_.add_time(time);
+  builder_.add_tag_id(tag_id);
   builder_.add_usage_seconds(usage_seconds);
-  builder_.add_tag_serial(tag_serial);
-  builder_.add_makerlabs_id(makerlabs_id);
   builder_.add_machine_id(machine_id);
   builder_.add_activity_type(activity_type);
   return builder_.Finish();
@@ -215,20 +201,18 @@ inline flatbuffers::Offset<Activity> CreateActivity(
 
 inline flatbuffers::Offset<Activity> CreateActivityDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
-    const char *machine_id = nullptr,
-    const char *makerlabs_id = nullptr,
-    const char *tag_serial = nullptr,
-    ActivityType activity_type = ActivityType::Signed_In,
     uint64_t time = 0,
-    uint32_t usage_seconds = 0) {
+    const char *machine_id = nullptr,
+    ActivityType activity_type = ActivityType::Signed_In,
+    uint32_t usage_seconds = 0,
+    const char *tag_id = nullptr) {
   return ACM::CreateActivity(
       _fbb,
-      machine_id ? _fbb.CreateString(machine_id) : 0,
-      makerlabs_id ? _fbb.CreateString(makerlabs_id) : 0,
-      tag_serial ? _fbb.CreateString(tag_serial) : 0,
-      activity_type,
       time,
-      usage_seconds);
+      machine_id ? _fbb.CreateString(machine_id) : 0,
+      activity_type,
+      usage_seconds,
+      tag_id ? _fbb.CreateString(tag_id) : 0);
 }
 
 struct User FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -242,7 +226,7 @@ struct User FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_NAME = 4,
     VT_EMAIL = 6,
     VT_MAKERLABS_ID = 8,
-    VT_TAG_SERIAL = 10,
+    VT_TAG_ID = 10,
     VT_ALERTS = 12
   };
   const flatbuffers::String *name() const {
@@ -263,11 +247,11 @@ struct User FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   flatbuffers::String *mutable_makerlabs_id() {
     return GetPointer<flatbuffers::String *>(VT_MAKERLABS_ID);
   }
-  const flatbuffers::String *tag_serial() const {
-    return GetPointer<const flatbuffers::String *>(VT_TAG_SERIAL);
+  const flatbuffers::String *tag_id() const {
+    return GetPointer<const flatbuffers::String *>(VT_TAG_ID);
   }
-  flatbuffers::String *mutable_tag_serial() {
-    return GetPointer<flatbuffers::String *>(VT_TAG_SERIAL);
+  flatbuffers::String *mutable_tag_id() {
+    return GetPointer<flatbuffers::String *>(VT_TAG_ID);
   }
   const flatbuffers::String *alerts() const {
     return GetPointer<const flatbuffers::String *>(VT_ALERTS);
@@ -283,8 +267,8 @@ struct User FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.Verify(email()) &&
            VerifyOffset(verifier, VT_MAKERLABS_ID) &&
            verifier.Verify(makerlabs_id()) &&
-           VerifyOffset(verifier, VT_TAG_SERIAL) &&
-           verifier.Verify(tag_serial()) &&
+           VerifyOffset(verifier, VT_TAG_ID) &&
+           verifier.Verify(tag_id()) &&
            VerifyOffset(verifier, VT_ALERTS) &&
            verifier.Verify(alerts()) &&
            verifier.EndTable();
@@ -303,8 +287,8 @@ struct UserBuilder {
   void add_makerlabs_id(flatbuffers::Offset<flatbuffers::String> makerlabs_id) {
     fbb_.AddOffset(User::VT_MAKERLABS_ID, makerlabs_id);
   }
-  void add_tag_serial(flatbuffers::Offset<flatbuffers::String> tag_serial) {
-    fbb_.AddOffset(User::VT_TAG_SERIAL, tag_serial);
+  void add_tag_id(flatbuffers::Offset<flatbuffers::String> tag_id) {
+    fbb_.AddOffset(User::VT_TAG_ID, tag_id);
   }
   void add_alerts(flatbuffers::Offset<flatbuffers::String> alerts) {
     fbb_.AddOffset(User::VT_ALERTS, alerts);
@@ -326,11 +310,11 @@ inline flatbuffers::Offset<User> CreateUser(
     flatbuffers::Offset<flatbuffers::String> name = 0,
     flatbuffers::Offset<flatbuffers::String> email = 0,
     flatbuffers::Offset<flatbuffers::String> makerlabs_id = 0,
-    flatbuffers::Offset<flatbuffers::String> tag_serial = 0,
+    flatbuffers::Offset<flatbuffers::String> tag_id = 0,
     flatbuffers::Offset<flatbuffers::String> alerts = 0) {
   UserBuilder builder_(_fbb);
   builder_.add_alerts(alerts);
-  builder_.add_tag_serial(tag_serial);
+  builder_.add_tag_id(tag_id);
   builder_.add_makerlabs_id(makerlabs_id);
   builder_.add_email(email);
   builder_.add_name(name);
@@ -342,14 +326,14 @@ inline flatbuffers::Offset<User> CreateUserDirect(
     const char *name = nullptr,
     const char *email = nullptr,
     const char *makerlabs_id = nullptr,
-    const char *tag_serial = nullptr,
+    const char *tag_id = nullptr,
     const char *alerts = nullptr) {
   return ACM::CreateUser(
       _fbb,
       name ? _fbb.CreateString(name) : 0,
       email ? _fbb.CreateString(email) : 0,
       makerlabs_id ? _fbb.CreateString(makerlabs_id) : 0,
-      tag_serial ? _fbb.CreateString(tag_serial) : 0,
+      tag_id ? _fbb.CreateString(tag_id) : 0,
       alerts ? _fbb.CreateString(alerts) : 0);
 }
 
@@ -507,26 +491,24 @@ inline const flatbuffers::TypeTable *LogSeverityTypeTable() {
 
 inline const flatbuffers::TypeTable *ActivityTypeTable() {
   static const flatbuffers::TypeCode type_codes[] = {
-    { flatbuffers::ET_STRING, 0, -1 },
-    { flatbuffers::ET_STRING, 0, -1 },
+    { flatbuffers::ET_ULONG, 0, -1 },
     { flatbuffers::ET_STRING, 0, -1 },
     { flatbuffers::ET_CHAR, 0, 0 },
-    { flatbuffers::ET_ULONG, 0, -1 },
-    { flatbuffers::ET_UINT, 0, -1 }
+    { flatbuffers::ET_UINT, 0, -1 },
+    { flatbuffers::ET_STRING, 0, -1 }
   };
   static const flatbuffers::TypeFunction type_refs[] = {
     ActivityTypeTypeTable
   };
   static const char * const names[] = {
-    "machine_id",
-    "makerlabs_id",
-    "tag_serial",
-    "activity_type",
     "time",
-    "usage_seconds"
+    "machine_id",
+    "activity_type",
+    "usage_seconds",
+    "tag_id"
   };
   static const flatbuffers::TypeTable tt = {
-    flatbuffers::ST_TABLE, 6, type_codes, type_refs, nullptr, names
+    flatbuffers::ST_TABLE, 5, type_codes, type_refs, nullptr, names
   };
   return &tt;
 }
@@ -543,7 +525,7 @@ inline const flatbuffers::TypeTable *UserTypeTable() {
     "name",
     "email",
     "makerlabs_id",
-    "tag_serial",
+    "tag_id",
     "alerts"
   };
   static const flatbuffers::TypeTable tt = {

@@ -2,31 +2,31 @@
 
 #include "actor_model.h"
 
+auto app_actor_behaviour(
+  const ActorModel::Pid& self,
+  ActorModel::StatePtr& _state,
+  const ActorModel::Message& message
+) -> ActorModel::ResultUnion;
+
 auto display_actor_behaviour(
   const ActorModel::Pid& self,
   ActorModel::StatePtr& _state,
   const ActorModel::Message& message
 ) -> ActorModel::ResultUnion;
 
-auto reauth_actor_behaviour(
-  const ActorModel::Pid& self,
-  ActorModel::StatePtr& _state,
-  const ActorModel::Message& message
-) -> ActorModel::ResultUnion;
-
-auto permissions_check_actor_behaviour(
-  const ActorModel::Pid& self,
-  ActorModel::StatePtr& _state,
-  const ActorModel::Message& message
-) -> ActorModel::ResultUnion;
-
-auto google_sheets_actor_behaviour(
+auto auth_actor_behaviour(
   const ActorModel::Pid& self,
   ActorModel::StatePtr& _state,
   const ActorModel::Message& message
 ) -> ActorModel::ResultUnion;
 
 auto rfid_reader_actor_behaviour(
+  const ActorModel::Pid& self,
+  ActorModel::StatePtr& _state,
+  const ActorModel::Message& message
+) -> ActorModel::ResultUnion;
+
+auto machine_actor_behaviour(
   const ActorModel::Pid& self,
   ActorModel::StatePtr& _state,
   const ActorModel::Message& message

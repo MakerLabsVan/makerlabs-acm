@@ -1,16 +1,22 @@
 #pragma once
 
 #include "acm_generated.h"
-#include "gviz_generated.h"
+#include "googleapis.h"
 
 #include <experimental/string_view>
 #include <string>
 #include <unordered_map>
 
+using namespace googleapis::Sheets;
+using namespace googleapis::Visualization;
+
 using QueryFlatbuffer = flatbuffers::DetachedBuffer;
+using QueryStringFlatbuffer = flatbuffers::DetachedBuffer;
 using DisplayIntentFlatbuffer = flatbuffers::DetachedBuffer;
 using ActivityFlatbuffer = flatbuffers::DetachedBuffer;
 using LogFlatbuffer = flatbuffers::DetachedBuffer;
+using UserFlatbuffer = flatbuffers::DetachedBuffer;
+using InsertRowFlatbuffer = flatbuffers::DetachedBuffer;
 
 struct PrefixedColumnLabel
 {
@@ -40,30 +46,30 @@ using ColumnIdMap = std::unordered_map<
   PrefixColumnLabelEqualFunc
 >;
 
-auto generate_user_from_query_results(
-  const GViz::Query* query,
-  const GViz::Datatable* datatable
-) -> QueryFlatbuffer;
+auto generate_user_from_query_intent_with_results(
+  const googleapis::Visualization::QueryIntent* query_intent,
+  const googleapis::Visualization::Datatable* datatable
+) -> UserFlatbuffer;
 
 auto generate_activity(
-  const std::string& machine_id_str,
+  const std::experimental::string_view machine_id_str,
   const ACM::ActivityType activity_type,
-  const ACM::User* user = nullptr
+  const std::experimental::string_view tag_id_str
 ) -> ActivityFlatbuffer;
 
 auto activity_to_json(const ACM::Activity* activity)
   -> std::string;
 
 auto generate_activity_json(
-  const std::string& machine_id_str,
+  const std::experimental::string_view machine_id_str,
   const ACM::ActivityType activity_type,
-  const ACM::User* user = nullptr
-) -> std::string;
-
-auto generate_permissions_check_query_string(
-  GViz::Query* query,
   const std::experimental::string_view tag_id_str
 ) -> std::string;
+
+auto update_permissions_check_query_intent(
+  MutableQueryIntentFlatbuffer& query_intent_mutable_buf,
+  const std::experimental::string_view tag_id_str
+) -> bool;
 
 auto generate_log(
   const std::experimental::string_view machine_id_str,

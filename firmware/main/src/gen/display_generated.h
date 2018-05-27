@@ -191,7 +191,7 @@ struct ShowUserDetails FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_NAME = 4,
     VT_EMAIL = 6,
     VT_MAKERLABS_ID = 8,
-    VT_TAG_SERIAL = 10
+    VT_TAG_ID = 10
   };
   const flatbuffers::String *name() const {
     return GetPointer<const flatbuffers::String *>(VT_NAME);
@@ -211,11 +211,11 @@ struct ShowUserDetails FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   flatbuffers::String *mutable_makerlabs_id() {
     return GetPointer<flatbuffers::String *>(VT_MAKERLABS_ID);
   }
-  const flatbuffers::String *tag_serial() const {
-    return GetPointer<const flatbuffers::String *>(VT_TAG_SERIAL);
+  const flatbuffers::String *tag_id() const {
+    return GetPointer<const flatbuffers::String *>(VT_TAG_ID);
   }
-  flatbuffers::String *mutable_tag_serial() {
-    return GetPointer<flatbuffers::String *>(VT_TAG_SERIAL);
+  flatbuffers::String *mutable_tag_id() {
+    return GetPointer<flatbuffers::String *>(VT_TAG_ID);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -225,8 +225,8 @@ struct ShowUserDetails FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.Verify(email()) &&
            VerifyOffset(verifier, VT_MAKERLABS_ID) &&
            verifier.Verify(makerlabs_id()) &&
-           VerifyOffset(verifier, VT_TAG_SERIAL) &&
-           verifier.Verify(tag_serial()) &&
+           VerifyOffset(verifier, VT_TAG_ID) &&
+           verifier.Verify(tag_id()) &&
            verifier.EndTable();
   }
 };
@@ -243,8 +243,8 @@ struct ShowUserDetailsBuilder {
   void add_makerlabs_id(flatbuffers::Offset<flatbuffers::String> makerlabs_id) {
     fbb_.AddOffset(ShowUserDetails::VT_MAKERLABS_ID, makerlabs_id);
   }
-  void add_tag_serial(flatbuffers::Offset<flatbuffers::String> tag_serial) {
-    fbb_.AddOffset(ShowUserDetails::VT_TAG_SERIAL, tag_serial);
+  void add_tag_id(flatbuffers::Offset<flatbuffers::String> tag_id) {
+    fbb_.AddOffset(ShowUserDetails::VT_TAG_ID, tag_id);
   }
   explicit ShowUserDetailsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -263,9 +263,9 @@ inline flatbuffers::Offset<ShowUserDetails> CreateShowUserDetails(
     flatbuffers::Offset<flatbuffers::String> name = 0,
     flatbuffers::Offset<flatbuffers::String> email = 0,
     flatbuffers::Offset<flatbuffers::String> makerlabs_id = 0,
-    flatbuffers::Offset<flatbuffers::String> tag_serial = 0) {
+    flatbuffers::Offset<flatbuffers::String> tag_id = 0) {
   ShowUserDetailsBuilder builder_(_fbb);
-  builder_.add_tag_serial(tag_serial);
+  builder_.add_tag_id(tag_id);
   builder_.add_makerlabs_id(makerlabs_id);
   builder_.add_email(email);
   builder_.add_name(name);
@@ -277,13 +277,13 @@ inline flatbuffers::Offset<ShowUserDetails> CreateShowUserDetailsDirect(
     const char *name = nullptr,
     const char *email = nullptr,
     const char *makerlabs_id = nullptr,
-    const char *tag_serial = nullptr) {
+    const char *tag_id = nullptr) {
   return Display::CreateShowUserDetails(
       _fbb,
       name ? _fbb.CreateString(name) : 0,
       email ? _fbb.CreateString(email) : 0,
       makerlabs_id ? _fbb.CreateString(makerlabs_id) : 0,
-      tag_serial ? _fbb.CreateString(tag_serial) : 0);
+      tag_id ? _fbb.CreateString(tag_id) : 0);
 }
 
 struct BeginJobTimer FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -838,7 +838,7 @@ inline const flatbuffers::TypeTable *ShowUserDetailsTypeTable() {
     "name",
     "email",
     "makerlabs_id",
-    "tag_serial"
+    "tag_id"
   };
   static const flatbuffers::TypeTable tt = {
     flatbuffers::ST_TABLE, 4, type_codes, nullptr, nullptr, names

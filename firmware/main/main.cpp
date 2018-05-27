@@ -20,7 +20,7 @@ extern "C" {
 RTC_DATA_ATTR static int boot_count = 0;
 }
 
-constexpr char TAG[] = "app_main";
+constexpr char TAG[] = "main";
 
 #ifdef __cplusplus
 extern "C"
