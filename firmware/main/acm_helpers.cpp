@@ -9,6 +9,7 @@
 
 using namespace ACM;
 using namespace Display;
+using namespace googleapis::Sheets;
 using namespace googleapis::Visualization;
 
 using string = std::string;
@@ -296,7 +297,7 @@ auto generate_show_user_details_from_user(
 {
   flatbuffers::FlatBufferBuilder fbb;
 
-  auto action_loc = CreateShowUserDetailsDirect(
+  auto display_loc = CreateShowUserDetailsDirect(
     fbb,
     user && user->name()? user->name()->c_str() : nullptr,
     user && user->email()? user->email()->c_str() : nullptr,
@@ -307,7 +308,33 @@ auto generate_show_user_details_from_user(
   auto display_intent_loc = CreateDisplayIntent(
     fbb,
     DisplayAction::ShowUserDetails,
-    action_loc.Union()
+    display_loc.Union()
+  );
+
+  fbb.Finish(display_intent_loc, DisplayIntentIdentifier());
+
+  return fbb.Release();
+}
+
+auto generate_progress_bar(
+  const std::experimental::string_view message,
+  const uint32_t progress,
+  const Icon icon
+) -> DisplayIntentFlatbuffer
+{
+  flatbuffers::FlatBufferBuilder fbb;
+
+  auto display_loc = CreateProgressBar(
+    fbb,
+    fbb.CreateString(message),
+    progress,
+    icon
+  );
+
+  auto display_intent_loc = CreateDisplayIntent(
+    fbb,
+    DisplayAction::ProgressBar,
+    display_loc.Union()
   );
 
   fbb.Finish(display_intent_loc, DisplayIntentIdentifier());
