@@ -20,6 +20,8 @@ struct StopJobTimer;
 
 struct ShowMessage;
 
+struct ProgressBar;
+
 struct DisplayIntent;
 
 inline const flatbuffers::TypeTable *ClearDisplayTypeTable();
@@ -34,6 +36,8 @@ inline const flatbuffers::TypeTable *StopJobTimerTypeTable();
 
 inline const flatbuffers::TypeTable *ShowMessageTypeTable();
 
+inline const flatbuffers::TypeTable *ProgressBarTypeTable();
+
 inline const flatbuffers::TypeTable *DisplayIntentTypeTable();
 
 enum class Icon : int16_t {
@@ -41,34 +45,20 @@ enum class Icon : int16_t {
   Healthy = 1,
   Warning = 2,
   Error = 3,
+  HeavyCheckmark = 10004,
   MIN = None,
-  MAX = Error
+  MAX = HeavyCheckmark
 };
 
-inline const Icon (&EnumValuesIcon())[4] {
+inline const Icon (&EnumValuesIcon())[5] {
   static const Icon values[] = {
     Icon::None,
     Icon::Healthy,
     Icon::Warning,
-    Icon::Error
+    Icon::Error,
+    Icon::HeavyCheckmark
   };
   return values;
-}
-
-inline const char * const *EnumNamesIcon() {
-  static const char * const names[] = {
-    "None",
-    "Healthy",
-    "Warning",
-    "Error",
-    nullptr
-  };
-  return names;
-}
-
-inline const char *EnumNameIcon(Icon e) {
-  const size_t index = static_cast<int>(e);
-  return EnumNamesIcon()[index];
 }
 
 enum class DisplayAction : uint8_t {
@@ -79,11 +69,12 @@ enum class DisplayAction : uint8_t {
   UpdateJobTimer = 4,
   StopJobTimer = 5,
   ShowMessage = 6,
+  ProgressBar = 7,
   MIN = NONE,
-  MAX = ShowMessage
+  MAX = ProgressBar
 };
 
-inline const DisplayAction (&EnumValuesDisplayAction())[7] {
+inline const DisplayAction (&EnumValuesDisplayAction())[8] {
   static const DisplayAction values[] = {
     DisplayAction::NONE,
     DisplayAction::ClearDisplay,
@@ -91,7 +82,8 @@ inline const DisplayAction (&EnumValuesDisplayAction())[7] {
     DisplayAction::BeginJobTimer,
     DisplayAction::UpdateJobTimer,
     DisplayAction::StopJobTimer,
-    DisplayAction::ShowMessage
+    DisplayAction::ShowMessage,
+    DisplayAction::ProgressBar
   };
   return values;
 }
@@ -105,6 +97,7 @@ inline const char * const *EnumNamesDisplayAction() {
     "UpdateJobTimer",
     "StopJobTimer",
     "ShowMessage",
+    "ProgressBar",
     nullptr
   };
   return names;
@@ -141,6 +134,10 @@ template<> struct DisplayActionTraits<StopJobTimer> {
 
 template<> struct DisplayActionTraits<ShowMessage> {
   static const DisplayAction enum_value = DisplayAction::ShowMessage;
+};
+
+template<> struct DisplayActionTraits<ProgressBar> {
+  static const DisplayAction enum_value = DisplayAction::ProgressBar;
 };
 
 bool VerifyDisplayAction(flatbuffers::Verifier &verifier, const void *obj, DisplayAction type);
@@ -614,6 +611,94 @@ inline flatbuffers::Offset<ShowMessage> CreateShowMessageDirect(
       bottom_right_font_size);
 }
 
+struct ProgressBar FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  static const flatbuffers::TypeTable *MiniReflectTypeTable() {
+    return ProgressBarTypeTable();
+  }
+  static FLATBUFFERS_CONSTEXPR const char *GetFullyQualifiedName() {
+    return "Display.ProgressBar";
+  }
+  enum {
+    VT_MESSAGE = 4,
+    VT_PROGRESS = 6,
+    VT_ICON = 8
+  };
+  const flatbuffers::String *message() const {
+    return GetPointer<const flatbuffers::String *>(VT_MESSAGE);
+  }
+  flatbuffers::String *mutable_message() {
+    return GetPointer<flatbuffers::String *>(VT_MESSAGE);
+  }
+  uint32_t progress() const {
+    return GetField<uint32_t>(VT_PROGRESS, 0);
+  }
+  bool mutate_progress(uint32_t _progress) {
+    return SetField<uint32_t>(VT_PROGRESS, _progress, 0);
+  }
+  Icon icon() const {
+    return static_cast<Icon>(GetField<int16_t>(VT_ICON, 0));
+  }
+  bool mutate_icon(Icon _icon) {
+    return SetField<int16_t>(VT_ICON, static_cast<int16_t>(_icon), 0);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_MESSAGE) &&
+           verifier.Verify(message()) &&
+           VerifyField<uint32_t>(verifier, VT_PROGRESS) &&
+           VerifyField<int16_t>(verifier, VT_ICON) &&
+           verifier.EndTable();
+  }
+};
+
+struct ProgressBarBuilder {
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_message(flatbuffers::Offset<flatbuffers::String> message) {
+    fbb_.AddOffset(ProgressBar::VT_MESSAGE, message);
+  }
+  void add_progress(uint32_t progress) {
+    fbb_.AddElement<uint32_t>(ProgressBar::VT_PROGRESS, progress, 0);
+  }
+  void add_icon(Icon icon) {
+    fbb_.AddElement<int16_t>(ProgressBar::VT_ICON, static_cast<int16_t>(icon), 0);
+  }
+  explicit ProgressBarBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  ProgressBarBuilder &operator=(const ProgressBarBuilder &);
+  flatbuffers::Offset<ProgressBar> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<ProgressBar>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<ProgressBar> CreateProgressBar(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Offset<flatbuffers::String> message = 0,
+    uint32_t progress = 0,
+    Icon icon = Icon::None) {
+  ProgressBarBuilder builder_(_fbb);
+  builder_.add_progress(progress);
+  builder_.add_message(message);
+  builder_.add_icon(icon);
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<ProgressBar> CreateProgressBarDirect(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    const char *message = nullptr,
+    uint32_t progress = 0,
+    Icon icon = Icon::None) {
+  return Display::CreateProgressBar(
+      _fbb,
+      message ? _fbb.CreateString(message) : 0,
+      progress,
+      icon);
+}
+
 struct DisplayIntent FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   static const flatbuffers::TypeTable *MiniReflectTypeTable() {
     return DisplayIntentTypeTable();
@@ -622,81 +707,88 @@ struct DisplayIntent FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     return "Display.DisplayIntent";
   }
   enum {
-    VT_ACTION_TYPE = 4,
-    VT_ACTION = 6
+    VT_DISPLAY_TYPE = 4,
+    VT_DISPLAY = 6
   };
-  DisplayAction action_type() const {
-    return static_cast<DisplayAction>(GetField<uint8_t>(VT_ACTION_TYPE, 0));
+  DisplayAction display_type() const {
+    return static_cast<DisplayAction>(GetField<uint8_t>(VT_DISPLAY_TYPE, 0));
   }
-  bool mutate_action_type(DisplayAction _action_type) {
-    return SetField<uint8_t>(VT_ACTION_TYPE, static_cast<uint8_t>(_action_type), 0);
+  bool mutate_display_type(DisplayAction _display_type) {
+    return SetField<uint8_t>(VT_DISPLAY_TYPE, static_cast<uint8_t>(_display_type), 0);
   }
-  const void *action() const {
-    return GetPointer<const void *>(VT_ACTION);
+  const void *display() const {
+    return GetPointer<const void *>(VT_DISPLAY);
   }
-  template<typename T> const T *action_as() const;
-  const ClearDisplay *action_as_ClearDisplay() const {
-    return action_type() == DisplayAction::ClearDisplay ? static_cast<const ClearDisplay *>(action()) : nullptr;
+  template<typename T> const T *display_as() const;
+  const ClearDisplay *display_as_ClearDisplay() const {
+    return display_type() == DisplayAction::ClearDisplay ? static_cast<const ClearDisplay *>(display()) : nullptr;
   }
-  const ShowUserDetails *action_as_ShowUserDetails() const {
-    return action_type() == DisplayAction::ShowUserDetails ? static_cast<const ShowUserDetails *>(action()) : nullptr;
+  const ShowUserDetails *display_as_ShowUserDetails() const {
+    return display_type() == DisplayAction::ShowUserDetails ? static_cast<const ShowUserDetails *>(display()) : nullptr;
   }
-  const BeginJobTimer *action_as_BeginJobTimer() const {
-    return action_type() == DisplayAction::BeginJobTimer ? static_cast<const BeginJobTimer *>(action()) : nullptr;
+  const BeginJobTimer *display_as_BeginJobTimer() const {
+    return display_type() == DisplayAction::BeginJobTimer ? static_cast<const BeginJobTimer *>(display()) : nullptr;
   }
-  const UpdateJobTimer *action_as_UpdateJobTimer() const {
-    return action_type() == DisplayAction::UpdateJobTimer ? static_cast<const UpdateJobTimer *>(action()) : nullptr;
+  const UpdateJobTimer *display_as_UpdateJobTimer() const {
+    return display_type() == DisplayAction::UpdateJobTimer ? static_cast<const UpdateJobTimer *>(display()) : nullptr;
   }
-  const StopJobTimer *action_as_StopJobTimer() const {
-    return action_type() == DisplayAction::StopJobTimer ? static_cast<const StopJobTimer *>(action()) : nullptr;
+  const StopJobTimer *display_as_StopJobTimer() const {
+    return display_type() == DisplayAction::StopJobTimer ? static_cast<const StopJobTimer *>(display()) : nullptr;
   }
-  const ShowMessage *action_as_ShowMessage() const {
-    return action_type() == DisplayAction::ShowMessage ? static_cast<const ShowMessage *>(action()) : nullptr;
+  const ShowMessage *display_as_ShowMessage() const {
+    return display_type() == DisplayAction::ShowMessage ? static_cast<const ShowMessage *>(display()) : nullptr;
   }
-  void *mutable_action() {
-    return GetPointer<void *>(VT_ACTION);
+  const ProgressBar *display_as_ProgressBar() const {
+    return display_type() == DisplayAction::ProgressBar ? static_cast<const ProgressBar *>(display()) : nullptr;
+  }
+  void *mutable_display() {
+    return GetPointer<void *>(VT_DISPLAY);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint8_t>(verifier, VT_ACTION_TYPE) &&
-           VerifyOffset(verifier, VT_ACTION) &&
-           VerifyDisplayAction(verifier, action(), action_type()) &&
+           VerifyField<uint8_t>(verifier, VT_DISPLAY_TYPE) &&
+           VerifyOffset(verifier, VT_DISPLAY) &&
+           VerifyDisplayAction(verifier, display(), display_type()) &&
            verifier.EndTable();
   }
 };
 
-template<> inline const ClearDisplay *DisplayIntent::action_as<ClearDisplay>() const {
-  return action_as_ClearDisplay();
+template<> inline const ClearDisplay *DisplayIntent::display_as<ClearDisplay>() const {
+  return display_as_ClearDisplay();
 }
 
-template<> inline const ShowUserDetails *DisplayIntent::action_as<ShowUserDetails>() const {
-  return action_as_ShowUserDetails();
+template<> inline const ShowUserDetails *DisplayIntent::display_as<ShowUserDetails>() const {
+  return display_as_ShowUserDetails();
 }
 
-template<> inline const BeginJobTimer *DisplayIntent::action_as<BeginJobTimer>() const {
-  return action_as_BeginJobTimer();
+template<> inline const BeginJobTimer *DisplayIntent::display_as<BeginJobTimer>() const {
+  return display_as_BeginJobTimer();
 }
 
-template<> inline const UpdateJobTimer *DisplayIntent::action_as<UpdateJobTimer>() const {
-  return action_as_UpdateJobTimer();
+template<> inline const UpdateJobTimer *DisplayIntent::display_as<UpdateJobTimer>() const {
+  return display_as_UpdateJobTimer();
 }
 
-template<> inline const StopJobTimer *DisplayIntent::action_as<StopJobTimer>() const {
-  return action_as_StopJobTimer();
+template<> inline const StopJobTimer *DisplayIntent::display_as<StopJobTimer>() const {
+  return display_as_StopJobTimer();
 }
 
-template<> inline const ShowMessage *DisplayIntent::action_as<ShowMessage>() const {
-  return action_as_ShowMessage();
+template<> inline const ShowMessage *DisplayIntent::display_as<ShowMessage>() const {
+  return display_as_ShowMessage();
+}
+
+template<> inline const ProgressBar *DisplayIntent::display_as<ProgressBar>() const {
+  return display_as_ProgressBar();
 }
 
 struct DisplayIntentBuilder {
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_action_type(DisplayAction action_type) {
-    fbb_.AddElement<uint8_t>(DisplayIntent::VT_ACTION_TYPE, static_cast<uint8_t>(action_type), 0);
+  void add_display_type(DisplayAction display_type) {
+    fbb_.AddElement<uint8_t>(DisplayIntent::VT_DISPLAY_TYPE, static_cast<uint8_t>(display_type), 0);
   }
-  void add_action(flatbuffers::Offset<void> action) {
-    fbb_.AddOffset(DisplayIntent::VT_ACTION, action);
+  void add_display(flatbuffers::Offset<void> display) {
+    fbb_.AddOffset(DisplayIntent::VT_DISPLAY, display);
   }
   explicit DisplayIntentBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -712,11 +804,11 @@ struct DisplayIntentBuilder {
 
 inline flatbuffers::Offset<DisplayIntent> CreateDisplayIntent(
     flatbuffers::FlatBufferBuilder &_fbb,
-    DisplayAction action_type = DisplayAction::NONE,
-    flatbuffers::Offset<void> action = 0) {
+    DisplayAction display_type = DisplayAction::NONE,
+    flatbuffers::Offset<void> display = 0) {
   DisplayIntentBuilder builder_(_fbb);
-  builder_.add_action(action);
-  builder_.add_action_type(action_type);
+  builder_.add_display(display);
+  builder_.add_display_type(display_type);
   return builder_.Finish();
 }
 
@@ -749,6 +841,10 @@ inline bool VerifyDisplayAction(flatbuffers::Verifier &verifier, const void *obj
       auto ptr = reinterpret_cast<const ShowMessage *>(obj);
       return verifier.VerifyTable(ptr);
     }
+    case DisplayAction::ProgressBar: {
+      auto ptr = reinterpret_cast<const ProgressBar *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
     default: return false;
   }
 }
@@ -770,19 +866,22 @@ inline const flatbuffers::TypeTable *IconTypeTable() {
     { flatbuffers::ET_SHORT, 0, 0 },
     { flatbuffers::ET_SHORT, 0, 0 },
     { flatbuffers::ET_SHORT, 0, 0 },
+    { flatbuffers::ET_SHORT, 0, 0 },
     { flatbuffers::ET_SHORT, 0, 0 }
   };
   static const flatbuffers::TypeFunction type_refs[] = {
     IconTypeTable
   };
+  static const int32_t values[] = { 0, 1, 2, 3, 10004 };
   static const char * const names[] = {
     "None",
     "Healthy",
     "Warning",
-    "Error"
+    "Error",
+    "HeavyCheckmark"
   };
   static const flatbuffers::TypeTable tt = {
-    flatbuffers::ST_ENUM, 4, type_codes, type_refs, nullptr, names
+    flatbuffers::ST_ENUM, 5, type_codes, type_refs, values, names
   };
   return &tt;
 }
@@ -795,7 +894,8 @@ inline const flatbuffers::TypeTable *DisplayActionTypeTable() {
     { flatbuffers::ET_SEQUENCE, 0, 2 },
     { flatbuffers::ET_SEQUENCE, 0, 3 },
     { flatbuffers::ET_SEQUENCE, 0, 4 },
-    { flatbuffers::ET_SEQUENCE, 0, 5 }
+    { flatbuffers::ET_SEQUENCE, 0, 5 },
+    { flatbuffers::ET_SEQUENCE, 0, 6 }
   };
   static const flatbuffers::TypeFunction type_refs[] = {
     ClearDisplayTypeTable,
@@ -803,7 +903,8 @@ inline const flatbuffers::TypeTable *DisplayActionTypeTable() {
     BeginJobTimerTypeTable,
     UpdateJobTimerTypeTable,
     StopJobTimerTypeTable,
-    ShowMessageTypeTable
+    ShowMessageTypeTable,
+    ProgressBarTypeTable
   };
   static const char * const names[] = {
     "NONE",
@@ -812,10 +913,11 @@ inline const flatbuffers::TypeTable *DisplayActionTypeTable() {
     "BeginJobTimer",
     "UpdateJobTimer",
     "StopJobTimer",
-    "ShowMessage"
+    "ShowMessage",
+    "ProgressBar"
   };
   static const flatbuffers::TypeTable tt = {
-    flatbuffers::ST_UNION, 7, type_codes, type_refs, nullptr, names
+    flatbuffers::ST_UNION, 8, type_codes, type_refs, nullptr, names
   };
   return &tt;
 }
@@ -905,6 +1007,26 @@ inline const flatbuffers::TypeTable *ShowMessageTypeTable() {
   return &tt;
 }
 
+inline const flatbuffers::TypeTable *ProgressBarTypeTable() {
+  static const flatbuffers::TypeCode type_codes[] = {
+    { flatbuffers::ET_STRING, 0, -1 },
+    { flatbuffers::ET_UINT, 0, -1 },
+    { flatbuffers::ET_SHORT, 0, 0 }
+  };
+  static const flatbuffers::TypeFunction type_refs[] = {
+    IconTypeTable
+  };
+  static const char * const names[] = {
+    "message",
+    "progress",
+    "icon"
+  };
+  static const flatbuffers::TypeTable tt = {
+    flatbuffers::ST_TABLE, 3, type_codes, type_refs, nullptr, names
+  };
+  return &tt;
+}
+
 inline const flatbuffers::TypeTable *DisplayIntentTypeTable() {
   static const flatbuffers::TypeCode type_codes[] = {
     { flatbuffers::ET_UTYPE, 0, 0 },
@@ -914,8 +1036,8 @@ inline const flatbuffers::TypeTable *DisplayIntentTypeTable() {
     DisplayActionTypeTable
   };
   static const char * const names[] = {
-    "action_type",
-    "action"
+    "display_type",
+    "display"
   };
   static const flatbuffers::TypeTable tt = {
     flatbuffers::ST_TABLE, 2, type_codes, type_refs, nullptr, names

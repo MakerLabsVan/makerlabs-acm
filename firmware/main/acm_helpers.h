@@ -1,14 +1,12 @@
 #pragma once
 
 #include "acm_generated.h"
+#include "display_generated.h"
 #include "googleapis.h"
 
 #include <experimental/string_view>
 #include <string>
 #include <unordered_map>
-
-using namespace googleapis::Sheets;
-using namespace googleapis::Visualization;
 
 using QueryFlatbuffer = flatbuffers::DetachedBuffer;
 using QueryStringFlatbuffer = flatbuffers::DetachedBuffer;
@@ -67,7 +65,7 @@ auto generate_activity_json(
 ) -> std::string;
 
 auto update_permissions_check_query_intent(
-  MutableQueryIntentFlatbuffer& query_intent_mutable_buf,
+  googleapis::Visualization::MutableQueryIntentFlatbuffer& query_intent_mutable_buf,
   const std::experimental::string_view tag_id_str
 ) -> bool;
 
@@ -88,4 +86,10 @@ auto generate_log_json(
 
 auto generate_show_user_details_from_user(
   const ACM::User* user
+) -> DisplayIntentFlatbuffer;
+
+auto generate_progress_bar(
+  const std::experimental::string_view message,
+  const uint32_t progress,
+  const Display::Icon icon = Display::Icon::None
 ) -> DisplayIntentFlatbuffer;

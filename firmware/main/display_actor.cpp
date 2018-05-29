@@ -82,15 +82,16 @@ auto display_actor_behaviour(
     const DisplayIntent* display_intent;
     if (matches(message, "ShowUserDetails", display_intent))
     {
-      switch (display_intent->action_type())
+      if (display_intent->display_type() == DisplayAction::ShowUserDetails)
       {
-        case DisplayAction::ShowUserDetails:
+        const auto* user_details = (
+          display_intent->display_as_ShowUserDetails()
+        );
+
+        if (user_details)
         {
-          const auto* show_user_details_action = (
-            display_intent->action_as_ShowUserDetails()
-          );
-          const auto& line1 = show_user_details_action->name();
-          const auto& line2 = show_user_details_action->makerlabs_id();
+          const auto& line1 = user_details->name();
+          const auto& line2 = user_details->makerlabs_id();
 
           // Clear the buffer
           u8g2_ClearBuffer(&state.u8g2);
@@ -113,15 +114,81 @@ auto display_actor_behaviour(
 
           // Send the buffer to the display
           u8g2_SendBuffer(&state.u8g2);
-
-          break;
         }
 
-        default:
-          break;
+        return {Result::Ok};
       }
+    }
+  }
 
-      return {Result::Ok};
+  {
+    const DisplayIntent* display_intent;
+    if (matches(message, "ProgressBar", display_intent))
+    {
+      if (display_intent->display_type() == DisplayAction::ProgressBar)
+      {
+        const auto* progress_bar = (
+          display_intent->display_as_ProgressBar()
+        );
+
+        if (progress_bar)
+        {
+          const auto& message = progress_bar->message();
+          auto progress = progress_bar->progress();
+          auto icon = progress_bar->icon();
+
+          // Draw status line
+          if (message and message->size() > 0)
+          {
+            // Clear the buffer
+            u8g2_ClearBuffer(&state.u8g2);
+
+            printf("%s: %d%%\n", message->c_str(), progress);
+
+            u8g2_SetFont(&state.u8g2, u8g2_font_helvR10_tr);
+            u8g2_DrawStr(&state.u8g2, 0, 13, message->c_str());
+          }
+
+
+          // Draw progress bar
+          auto w = u8g2_GetDisplayWidth(&state.u8g2);
+          auto h = u8g2_GetDisplayHeight(&state.u8g2);
+          auto pad = 3;
+          auto bar_w = (w - (2*pad)) * progress / 100;
+
+          u8g2_DrawFrame(&state.u8g2, 0, (h/2) + 1, w, (h/2) - 2);
+          u8g2_DrawBox(&state.u8g2, pad, (h/2) + pad, bar_w, (h/2) - (2*pad));
+
+          // Draw an icon at the bottom right of the progress bar
+          if (icon != Icon::None)
+          {
+            auto icon = static_cast<std::underlying_type<Icon>::type>(
+              Icon::HeavyCheckmark
+            );
+
+            // Use the symbols font
+            u8g2_SetFont(&state.u8g2, u8g2_font_unifont_t_symbols);
+
+            // If the (white) progress bar will be covering 50% of the icon
+            if (bar_w > (w - 10))
+            {
+              // Set draw color to black
+              u8g2_SetDrawColor(&state.u8g2, 0);
+            }
+
+            // Draw glyph in bottom-right corner of progress bar
+            u8g2_DrawGlyph(&state.u8g2, w - 20, h - pad, icon);
+
+            // Restore draw color to white
+            u8g2_SetDrawColor(&state.u8g2, 1);
+          }
+
+          // Send the buffer to the display
+          u8g2_SendBuffer(&state.u8g2);
+        }
+
+        return {Result::Ok};
+      }
     }
   }
 

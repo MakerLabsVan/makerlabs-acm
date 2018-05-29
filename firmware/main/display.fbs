@@ -12,7 +12,8 @@ enum Icon : short
   None,
   Healthy,
   Warning,
-  Error
+  Error,
+  HeavyCheckmark = 0x2714,
 }
 
 table ClearDisplay
@@ -58,6 +59,13 @@ table ShowMessage
   bottom_right_font_size:byte = 12;
 }
 
+table ProgressBar
+{
+  message:string;
+  progress:uint = 0;
+  icon:Icon;
+}
+
 union DisplayAction
 {
   ClearDisplay,
@@ -65,12 +73,13 @@ union DisplayAction
   BeginJobTimer,
   UpdateJobTimer,
   StopJobTimer,
-  ShowMessage
+  ShowMessage,
+  ProgressBar,
 }
 
 table DisplayIntent
 {
-  action:DisplayAction;
+  display:DisplayAction;
 }
 
 root_type DisplayIntent;
