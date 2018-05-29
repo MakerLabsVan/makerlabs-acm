@@ -1,10 +1,10 @@
 #include "actors.h"
 
-#include "requests.h"
-
 #include "acm_helpers.h"
 
 #include "googleapis.h"
+#include "requests.h"
+#include "uuid.h"
 
 #include "embedded_files.h"
 
@@ -19,11 +19,13 @@ using namespace Requests;
 
 using namespace ACM;
 using namespace googleapis::Visualization;
+using namespace googleapis::Sheets;
 
 using string = std::string;
 using string_view = std::experimental::string_view;
 
 using UserFlatbuffer = flatbuffers::DetachedBuffer;
+using UUID::uuidgen;
 
 constexpr char TAG[] = "app_actor";
 
@@ -37,9 +39,20 @@ struct AppActorState
     );
   }
 
+  auto make_progress(bool complete = false)
+    -> void
+  {
+    auto limit = complete? 100U : 95U;
+    progress = std::min(progress+1, limit);
+  }
+
   MutableDatatableFlatbuffer permissions_check_query_intent_mutable_buf;
   UserFlatbuffer current_user_flatbuf;
   string machine_id_str = CONFIG_PERMISSION_COLUMN_LABEL;
+  bool logged_in = false;
+  bool first_request = true;
+
+  uint32_t progress = 0;
 };
 
 auto app_actor_behaviour(
@@ -57,13 +70,24 @@ auto app_actor_behaviour(
   auto display_actor_pid = *(whereis("display"));
 
   {
-    string_view tag_id_str;
+    string tag_id_str;
     if (matches(message, "tag_found", tag_id_str))
     {
-      auto did_update_query = update_permissions_check_query_intent(
-        state.permissions_check_query_intent_mutable_buf,
-        tag_id_str
-      );
+      // Update progress bar to 0%
+      state.progress = 0;
+      auto message = "Tag " + tag_id_str + " search";
+
+      // For first request, override progress bar title
+      if (state.first_request)
+      {
+        state.first_request = false;
+        message = "First-time setup";
+      }
+
+      // Send the updated progress bar to the display
+      auto progress_bar = generate_progress_bar(message, state.progress);
+      auto display_actor_pid = *(whereis("display"));
+      send(display_actor_pid, "ProgressBar", progress_bar);
 
       // Add a Signed_In activity:
       {
@@ -73,10 +97,14 @@ auto app_actor_behaviour(
           tag_id_str
         );
 
+        auto insert_row_intent_id = uuidgen();
+
         flatbuffers::FlatBufferBuilder fbb;
         fbb.Finish(
           CreateInsertRowIntentDirect(
             fbb,
+            &insert_row_intent_id,
+            &self,
             CONFIG_SPREADSHEET_ID,
             CONFIG_SPREADSHEET_ACTIVITY_SHEET_NAME,
             values_json.c_str()
@@ -88,7 +116,13 @@ auto app_actor_behaviour(
         send(sheets_actor_pid, "insert_row", fbb.Release());
       }
 
+      // Update the tag ID column in the permissions check query
+      auto did_update_query = update_permissions_check_query_intent(
+        state.permissions_check_query_intent_mutable_buf,
+        tag_id_str
+      );
 
+      // If the query was updated successfully, then send the query
       if (did_update_query)
       {
         auto* query_intent = flatbuffers::GetMutableRoot<QueryIntent>(
@@ -117,15 +151,18 @@ auto app_actor_behaviour(
   }
 
   {
-    string_view tag_id_str;
+    string tag_id_str;
     if (matches(message, "tag_lost", tag_id_str))
     {
+      // Update progress bar to 0%
+      auto message = "Tag " + tag_id_str + " removed";
+      state.progress = 0;
+      auto progress_bar = generate_progress_bar(message, state.progress);
+      auto display_actor_pid = *(whereis("display"));
+      send(display_actor_pid, "ProgressBar", progress_bar);
+
       // Reset stored current_user
       state.current_user_flatbuf = UserFlatbuffer{};
-
-      // Blank the display
-      auto display_actor_pid = *(whereis("display"));
-      send(display_actor_pid, "ClearDisplay");
 
       // Add a Signed_Out activity:
       {
@@ -135,10 +172,14 @@ auto app_actor_behaviour(
           tag_id_str
         );
 
+        auto insert_row_intent_id = uuidgen();
+
         flatbuffers::FlatBufferBuilder fbb;
         fbb.Finish(
           CreateInsertRowIntentDirect(
             fbb,
+            &insert_row_intent_id,
+            &self,
             CONFIG_SPREADSHEET_ID,
             CONFIG_SPREADSHEET_ACTIVITY_SHEET_NAME,
             values_json.c_str()
@@ -158,6 +199,8 @@ auto app_actor_behaviour(
     const Datatable* query_results;
     if (matches(message, "query_results", query_results))
     {
+      auto valid_user = false;
+
       const auto* query = flatbuffers::GetRoot<QueryIntent>(
         state.permissions_check_query_intent_mutable_buf.data()
       );
@@ -178,6 +221,8 @@ auto app_actor_behaviour(
 
         if (current_user)
         {
+          valid_user = true;
+
           // Show user details on OLED display
           auto show_user_details_display_intent_flatbuf = (
             generate_show_user_details_from_user(current_user)
@@ -189,10 +234,38 @@ auto app_actor_behaviour(
             show_user_details_display_intent_flatbuf
           );
         }
-        else {
-          ESP_LOGW(TAG, "Missing user before updating display");
-        }
       }
+
+      if (not valid_user)
+      {
+        ESP_LOGW(TAG, "Missing user before updating display");
+        // Update progress bar to 100%
+        state.progress = 100;
+        auto progress_bar = generate_progress_bar(
+          "Access Denied",
+          state.progress,
+          Display::Icon::HeavyCheckmark
+        );
+        auto display_actor_pid = *(whereis("display"));
+        send(display_actor_pid, "ProgressBar", progress_bar);
+      }
+
+      return {Result::Ok};
+    }
+  }
+
+  {
+    if (matches(message, "inserted_row"))
+    {
+      // Update progress bar to 100%
+      state.progress = 100;
+      auto progress_bar = generate_progress_bar(
+        "",
+        state.progress,
+        Display::Icon::HeavyCheckmark
+      );
+      auto display_actor_pid = *(whereis("display"));
+      send(display_actor_pid, "ProgressBar", progress_bar);
     }
   }
 
@@ -200,6 +273,16 @@ auto app_actor_behaviour(
     string_view access_token_str;
     if (matches(message, "access_token", access_token_str))
     {
+      if (not state.logged_in)
+      {
+        state.logged_in = true;
+
+        // Update progress bar
+        auto progress_bar = generate_progress_bar("Logged in", state.progress);
+        auto display_actor_pid = *(whereis("display"));
+        send(display_actor_pid, "ProgressBar", progress_bar);
+      }
+
       // Distribute access_token to other actors
       auto spreadsheet_insert_row_actor_pid = *(whereis("sheets"));
       send(spreadsheet_insert_row_actor_pid, "access_token", access_token_str);
@@ -215,6 +298,20 @@ auto app_actor_behaviour(
       //send(rfid_reader_actor_pid, "scan");
 
       return {Result::Ok, EventTerminationAction::ContinueProcessing};
+    }
+  }
+
+  {
+    if (matches(message, "progress"))
+    {
+      if (state.current_user_flatbuf.size() == 0)
+      {
+        // Update progress bar
+        state.make_progress();
+        auto progress_bar = generate_progress_bar("", state.progress);
+        auto display_actor_pid = *(whereis("display"));
+        send(display_actor_pid, "ProgressBar", progress_bar);
+      }
     }
   }
 
