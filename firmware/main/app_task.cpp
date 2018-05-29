@@ -6,6 +6,7 @@
 
 #include "actors.h"
 
+#include "acm_helpers.h"
 #include "actor_model.h"
 #include "delay.h"
 #include "firmware_update.h"
@@ -84,7 +85,7 @@ auto app_task(void* /* user_data */)
       "v" + std::to_string(get_current_firmware_version())
     );
 
-    auto action_loc = CreateShowUserDetails(
+    auto display_loc = CreateShowUserDetails(
       fbb,
       fbb.CreateString("MakerLabs ACM"),
       fbb.CreateString(version_str),
@@ -96,7 +97,7 @@ auto app_task(void* /* user_data */)
       CreateDisplayIntent(
         fbb,
         DisplayAction::ShowUserDetails,
-        action_loc.Union()
+        display_loc.Union()
       ),
       DisplayIntentIdentifier()
     );
@@ -220,6 +221,9 @@ auto app_task(void* /* user_data */)
   gpio_set_direction(reset_button_pin, GPIO_MODE_INPUT);
   auto sent_firmware_request_payload = false;
 
+  uint32_t progress = 0;
+  auto reset_count = 0;
+
   for (;;)
   {
     //heap_check("app_task loop");
@@ -234,8 +238,17 @@ auto app_task(void* /* user_data */)
       auto reset_button_pressed = (gpio_get_level(reset_button_pin) == 0);
       if (reset_button_pressed)
       {
+        // Update progress bar by 20%
+        reset_count++;
+        auto progress_bar = generate_progress_bar("Reset...", reset_count * 20);
+        auto display_actor_pid = *(whereis("display"));
+        send(display_actor_pid, "ProgressBar", progress_bar);
+
         auto firmware_update_actor_pid = *(whereis("firmware_update"));
         send(firmware_update_actor_pid, "reset_pressed");
+      }
+      else {
+        reset_count = 0;
       }
 
       last_reset_button_check_timestamp = now;
