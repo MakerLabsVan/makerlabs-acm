@@ -8,5 +8,5 @@
 	branch = master
 [submodule "firmware/components/mbedtls"]
 	path = firmware/components/mbedtls
-	url = https://github.com/lws-team/mbedtls.git
-	branch = esp32
+	url = https://github.com/paulreimer/mbedtls.git
+	branch = new-esp-idf
