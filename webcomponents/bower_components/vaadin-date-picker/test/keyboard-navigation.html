@@ -33,6 +33,7 @@
 
         var target;
         var overlay;
+        var overlayContent;
 
         function arrowDown() {
           MockInteractions.keyDownOn(target, 40);
@@ -87,7 +88,7 @@
 
           beforeEach(() => {
             datepicker = fixture('datepicker');
-            overlayContent = datepicker.$.overlay.shadowRoot.querySelector('#overlay-content');
+            overlayContent = datepicker.$.overlay.content.querySelector('#overlay-content');
             overlayContent.$.monthScroller.bufferSize = 0;
             overlayContent.$.yearScroller.bufferSize = 0;
             overlay = datepicker.$.overlay;
@@ -213,7 +214,7 @@
 
           it('should scroll to focused month', done => {
             overlay.addEventListener('scroll-animation-finished', e => {
-              expect(e.detail.position).to.eql(e.detail.oldPosition - 1);
+              expect(e.detail.position).to.be.closeTo(e.detail.oldPosition - 1, 1);
               done();
             });
 
@@ -289,7 +290,7 @@
 
           it('should scroll up when focus goes invisible', done => {
             overlay.addEventListener('scroll-animation-finished', e => {
-              expect(e.detail.position).to.eql(e.detail.oldPosition - 12);
+              expect(e.detail.position).to.be.closeTo(e.detail.oldPosition - 12, 1);
               done();
             });
 

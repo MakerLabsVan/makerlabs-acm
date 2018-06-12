@@ -13,7 +13,10 @@
     "date",
     "picker"
   ],
-  "main": "vaadin-date-picker.html",
+  "main": [
+    "vaadin-date-picker.html",
+    "vaadin-date-picker-light.html"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/vaadin/vaadin-date-picker"
@@ -37,7 +40,7 @@
     "vaadin-text-field": "^2.0.0",
     "vaadin-themable-mixin": "^1.1.0",
     "vaadin-control-state-mixin": "^2.0.0",
-    "vaadin-overlay": "^2.0.0",
+    "vaadin-overlay": "^3.0.0",
     "vaadin-lumo-styles": "vaadin/vaadin-lumo-styles#^1.0.0",
     "vaadin-element-mixin": "vaadin/vaadin-element-mixin#^1.0.1"
   },
@@ -55,14 +58,14 @@
     "web-component-tester": "^6.1.5",
     "vaadin-demo-helpers": "^1.0.0"
   },
-  "version": "3.0.0-beta5",
-  "_release": "3.0.0-beta5",
+  "version": "3.1.1",
+  "_release": "3.1.1",
   "_resolution": {
     "type": "version",
-    "tag": "v3.0.0-beta5",
-    "commit": "0b167ca22c5be26c9a59e743bfd550f4c0c6a376"
+    "tag": "v3.1.1",
+    "commit": "6994aa7dbac91a64cd8d18637bff002bdd17028c"
   },
-  "_source": "git://github.com/vaadin/vaadin-date-picker.git",
-  "_target": "v3.0.0-beta5",
-  "_originalSource": "git://github.com/vaadin/vaadin-date-picker"
+  "_source": "https://github.com/vaadin/vaadin-date-picker.git",
+  "_target": "^3.1.1",
+  "_originalSource": "vaadin/vaadin-date-picker"
 }

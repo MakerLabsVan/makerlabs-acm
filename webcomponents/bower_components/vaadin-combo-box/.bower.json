@@ -33,7 +33,7 @@
     "iron-resizable-behavior": "^2.0.0",
     "polymer": "^2.0.0",
     "vaadin-control-state-mixin": "^2.0.0",
-    "vaadin-overlay": "^2.0.0",
+    "vaadin-overlay": "^3.0.0",
     "vaadin-text-field": "^2.0.0",
     "vaadin-themable-mixin": "^1.1.0",
     "vaadin-lumo-styles": "vaadin/vaadin-lumo-styles#^1.0.0",
@@ -59,14 +59,14 @@
     "web-component-tester": "^6.1.5",
     "vaadin-demo-helpers": "^1.0.0"
   },
-  "version": "4.0.0-beta5",
-  "_release": "4.0.0-beta5",
+  "version": "4.0.1",
+  "_release": "4.0.1",
   "_resolution": {
     "type": "version",
-    "tag": "v4.0.0-beta5",
-    "commit": "8d4f9916a2dc1407d6eff36e9f6d2de6c010f696"
+    "tag": "v4.0.1",
+    "commit": "02eb1a9c8f43921f76e57cb3620d70775118b14a"
   },
-  "_source": "git://github.com/vaadin/vaadin-combo-box.git",
-  "_target": "v4.0.0-beta5",
-  "_originalSource": "git://github.com/vaadin/vaadin-combo-box"
+  "_source": "https://github.com/vaadin/vaadin-combo-box.git",
+  "_target": "^4.0.0",
+  "_originalSource": "vaadin/vaadin-combo-box"
 }

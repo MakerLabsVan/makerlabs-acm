@@ -13,6 +13,20 @@ This program is available under Apache License Version 2.0, available at https:/
 
 <dom-module id="vaadin-combo-box-dropdown-wrapper">
   <template>
+    <style>
+      #scroller {
+        overflow: auto;
+
+        /* Fixes item background from getting on top of scrollbars on Safari */
+        transform: translate3d(0, 0, 0);
+
+        /* Enable momentum scrolling on iOS (iron-list v1.2+ no longer does it for us) */
+        -webkit-overflow-scrolling: touch;
+
+        /* Fixes scrollbar disappearing when "Show scroll bars: Always" enabled in Safari */
+        box-shadow: 0 0 0 white;
+      }
+    </style>
     <vaadin-combo-box-dropdown id="dropdown"
         opened="{{opened}}"
         hidden="[[_hidden(_items.*, loading)]]"
@@ -20,25 +34,6 @@ This program is available under Apache License Version 2.0, available at https:/
         on-template-changed="_templateChanged"
         on-position-changed="_setOverlayHeight">
       <template>
-        <style>
-          :host([opened][loading]) {
-            display: block !important;
-            height: 58px;
-          }
-
-          #scroller {
-            overflow: auto;
-
-            /* Fixes item background from getting on top of scrollbars on Safari */
-            transform: translate3d(0, 0, 0);
-
-            /* Enable momentum scrolling on iOS (iron-list v1.2+ no longer does it for us) */
-            -webkit-overflow-scrolling: touch;
-
-            /* Fixes scrollbar disappearing when "Show scroll bars: Always" enabled in Safari */
-            box-shadow: 0 0 0 white;
-          }
-        </style>
         <div id="scroller" on-click="_stopPropagation" hidden$="[[loading]]">
           <iron-list id="selector" role="listbox" items="[[_items]]" scroll-target="[[_scroller]]">
             <template>
@@ -150,6 +145,12 @@ This program is available under Apache License Version 2.0, available at https:/
         return ['_selectorChanged(_selector)', '_loadingChanged(loading)'];
       }
 
+      _fireTouchAction(sourceEvent) {
+        this.dispatchEvent(new CustomEvent('vaadin-overlay-touch-action', {
+          detail: {sourceEvent: sourceEvent}
+        }));
+      }
+
       ready() {
         super.ready();
         // IE11: when scrolling with mouse, the focus goes to the scroller.
@@ -159,18 +160,16 @@ This program is available under Apache License Version 2.0, available at https:/
           this._scroller.setAttribute('unselectable', 'on');
         }
 
-        this.$.dropdown.$.overlay.addEventListener('touchstart', sourceEvent => {
-          const evt = new CustomEvent('vaadin-overlay-touch-start', {detail: {sourceEvent: sourceEvent}});
-          this.dispatchEvent(evt);
-        });
+        this.$.dropdown.$.overlay.addEventListener('touchend', e => this._fireTouchAction(e));
+        this.$.dropdown.$.overlay.addEventListener('touchmove', e => this._fireTouchAction(e));
 
         // Prevent blurring the input when clicking inside the overlay.
         this.$.dropdown.$.overlay.addEventListener('mousedown', e => e.preventDefault());
       }
 
       _templateChanged(e) {
-        this._selector = this.$.dropdown.$.overlay.$.content.querySelector('#selector');
-        this._scroller = this.$.dropdown.$.overlay.$.content.querySelector('#scroller');
+        this._selector = this.$.dropdown.$.overlay.content.querySelector('#selector');
+        this._scroller = this.$.dropdown.$.overlay.content.querySelector('#scroller');
       }
 
       _loadingChanged(loading) {
