@@ -68,5 +68,5 @@
   },
   "_source": "https://github.com/vaadin/vaadin-combo-box.git",
   "_target": "^4.0.0",
-  "_originalSource": "vaadin/vaadin-combo-box"
+  "_originalSource": "@vaadin/vaadin-combo-box"
 }

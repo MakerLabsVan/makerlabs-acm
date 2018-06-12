@@ -57,7 +57,7 @@
     "tag": "v2.0.0",
     "commit": "6a3182651e531f221abc0a8341c8fd0246acd08f"
   },
-  "_source": "https://github.com/GoogleWebComponents/google-signin.git",
+  "_source": "https://github.com/addyosmani/google-signin.git",
   "_target": "^2.0.0",
-  "_originalSource": "GoogleWebComponents/google-signin"
+  "_originalSource": "@GoogleWebComponents/google-signin"
 }

@@ -52,5 +52,5 @@
   },
   "_source": "https://github.com/GoogleWebComponents/google-apis.git",
   "_target": "^2.0.1",
-  "_originalSource": "GoogleWebComponents/google-apis"
+  "_originalSource": "@GoogleWebComponents/google-apis"
 }
