@@ -55,7 +55,7 @@ HIDGlobalReader::HIDGlobalReader(const WiegandReader::Config& config) noexcept
       timer_idx,
       timer_isr,
       this,
-      ESP_INTR_FLAG_IRAM,
+      0,
       nullptr
     );
   }
