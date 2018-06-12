@@ -2,6 +2,7 @@
 
 #include "acm_helpers.h"
 
+#include "filesystem.h"
 #include "googleapis.h"
 #include "requests.h"
 #include "uuid.h"
@@ -10,6 +11,7 @@
 
 #include "esp_log.h"
 
+#include <chrono>
 #include <queue>
 #include <string>
 #include <experimental/string_view>
@@ -20,6 +22,8 @@ using namespace Requests;
 using namespace ACM;
 using namespace googleapis::Visualization;
 using namespace googleapis::Sheets;
+
+using namespace std::chrono_literals;
 
 using string = std::string;
 using string_view = std::experimental::string_view;
@@ -33,17 +37,9 @@ struct AppActorState
 {
   AppActorState()
   {
-    permissions_check_query_intent_mutable_buf.assign(
-      embedded_files::permissions_check_query_gviz_fb.begin(),
-      embedded_files::permissions_check_query_gviz_fb.end()
+    permissions_check_query_intent_mutable_buf = filesystem_read(
+      "/spiflash/permissions_check_query.gviz.fb"
     );
-  }
-
-  auto make_progress(bool complete = false)
-    -> void
-  {
-    auto limit = complete? 100U : 95U;
-    progress = std::min(progress+1, limit);
   }
 
   MutableDatatableFlatbuffer permissions_check_query_intent_mutable_buf;
@@ -51,8 +47,8 @@ struct AppActorState
   string machine_id_str = CONFIG_PERMISSION_COLUMN_LABEL;
   bool logged_in = false;
   bool first_request = true;
-
-  uint32_t progress = 0;
+  TRef progress_tref = NullTRef;
+  bool rfid_scanning = false;
 };
 
 auto app_actor_behaviour(
@@ -74,7 +70,7 @@ auto app_actor_behaviour(
     if (matches(message, "tag_found", tag_id_str))
     {
       // Update progress bar to 0%
-      state.progress = 0;
+      auto progress = 0;
       auto message = "Tag " + tag_id_str + " search";
 
       // For first request, override progress bar title
@@ -85,35 +81,17 @@ auto app_actor_behaviour(
       }
 
       // Send the updated progress bar to the display
-      auto progress_bar = generate_progress_bar(message, state.progress);
+      auto progress_bar = generate_progress_bar(message, progress);
       auto display_actor_pid = *(whereis("display"));
       send(display_actor_pid, "ProgressBar", progress_bar);
 
-      // Add a Signed_In activity:
+      if (not state.progress_tref)
       {
-        auto values_json = generate_activity_json(
-          state.machine_id_str,
-          ActivityType::Signed_In,
-          tag_id_str
+        state.progress_tref = send_interval(
+          200ms,
+          display_actor_pid,
+          "progress"
         );
-
-        auto insert_row_intent_id = uuidgen();
-
-        flatbuffers::FlatBufferBuilder fbb;
-        fbb.Finish(
-          CreateInsertRowIntentDirect(
-            fbb,
-            &insert_row_intent_id,
-            &self,
-            CONFIG_SPREADSHEET_ID,
-            CONFIG_SPREADSHEET_ACTIVITY_SHEET_NAME,
-            values_json.c_str()
-          )
-        );
-
-        // Send the row to the sheets actor
-        auto sheets_actor_pid = *(whereis("sheets"));
-        send(sheets_actor_pid, "insert_row", fbb.Release());
       }
 
       // Update the tag ID column in the permissions check query
@@ -140,13 +118,41 @@ auto app_actor_behaviour(
           const auto& query_buf = state.permissions_check_query_intent_mutable_buf;
           auto visualization_query_actor_pid = *(whereis("gviz"));
           send(visualization_query_actor_pid, "query", query_buf);
-
-          return {Result::Ok, EventTerminationAction::ContinueProcessing};
         }
       }
       else {
-        return {Result::Error};
+        //return {Result::Error};
       }
+
+      // Add a Signed_In activity:
+      {
+        auto values_json = generate_activity_json(
+          state.machine_id_str,
+          ActivityType::Signed_In,
+          tag_id_str
+        );
+
+        auto insert_row_intent_id = uuidgen();
+
+        flatbuffers::FlatBufferBuilder fbb;
+        fbb.Finish(
+          CreateInsertRowIntentDirect(
+            fbb,
+            &insert_row_intent_id,
+            &self,
+            CONFIG_SPREADSHEET_ID,
+            CONFIG_SPREADSHEET_ACTIVITY_SHEET_NAME,
+            values_json.c_str()
+          )
+        );
+
+        // Send the row to the sheets actor
+        auto sheets_actor_pid = *(whereis("sheets"));
+        auto insert_row = fbb.Release();
+        send(sheets_actor_pid, "insert_row", insert_row);
+      }
+
+      return {Result::Ok};
     }
   }
 
@@ -156,10 +162,19 @@ auto app_actor_behaviour(
     {
       // Update progress bar to 0%
       auto message = "Tag " + tag_id_str + " removed";
-      state.progress = 0;
-      auto progress_bar = generate_progress_bar(message, state.progress);
+      auto progress = 0;
+      auto progress_bar = generate_progress_bar(message, progress);
       auto display_actor_pid = *(whereis("display"));
       send(display_actor_pid, "ProgressBar", progress_bar);
+
+      if (not state.progress_tref)
+      {
+        state.progress_tref = send_interval(
+          50ms,
+          display_actor_pid,
+          "progress"
+        );
+      }
 
       // Reset stored current_user
       state.current_user_flatbuf = UserFlatbuffer{};
@@ -191,7 +206,7 @@ auto app_actor_behaviour(
         send(sheets_actor_pid, "insert_row", fbb.Release());
       }
 
-      return {Result::Ok, EventTerminationAction::ContinueProcessing};
+      return {Result::Ok};
     }
   }
 
@@ -240,14 +255,21 @@ auto app_actor_behaviour(
       {
         ESP_LOGW(TAG, "Missing user before updating display");
         // Update progress bar to 100%
-        state.progress = 100;
+        auto progress = 100;
         auto progress_bar = generate_progress_bar(
           "Access Denied",
-          state.progress,
+          progress,
           Display::Icon::HeavyCheckmark
         );
+
         auto display_actor_pid = *(whereis("display"));
         send(display_actor_pid, "ProgressBar", progress_bar);
+      }
+
+      if (state.progress_tref)
+      {
+        cancel(state.progress_tref);
+        state.progress_tref = NullTRef;
       }
 
       return {Result::Ok};
@@ -258,12 +280,19 @@ auto app_actor_behaviour(
     if (matches(message, "inserted_row"))
     {
       // Update progress bar to 100%
-      state.progress = 100;
+      auto progress = 100;
       auto progress_bar = generate_progress_bar(
         "",
-        state.progress,
+        progress,
         Display::Icon::HeavyCheckmark
       );
+
+      if (state.progress_tref)
+      {
+        cancel(state.progress_tref);
+        state.progress_tref = NullTRef;
+      }
+
       auto display_actor_pid = *(whereis("display"));
       send(display_actor_pid, "ProgressBar", progress_bar);
     }
@@ -275,43 +304,44 @@ auto app_actor_behaviour(
     {
       if (not state.logged_in)
       {
+        auto progress = 100;
         state.logged_in = true;
 
         // Update progress bar
-        auto progress_bar = generate_progress_bar("Logged in", state.progress);
+        auto progress_bar = generate_progress_bar("Logged in", progress);
         auto display_actor_pid = *(whereis("display"));
         send(display_actor_pid, "ProgressBar", progress_bar);
       }
 
       // Distribute access_token to other actors
       auto spreadsheet_insert_row_actor_pid = *(whereis("sheets"));
-      send(spreadsheet_insert_row_actor_pid, "access_token", access_token_str);
+      if (not compare_uuids(self, spreadsheet_insert_row_actor_pid))
+      {
+        send(spreadsheet_insert_row_actor_pid, "access_token", access_token_str);
+      }
 
       auto visualization_query_actor_pid = *(whereis("gviz"));
-      send(visualization_query_actor_pid, "access_token", access_token_str);
+      if (not compare_uuids(self, visualization_query_actor_pid))
+      {
+        send(visualization_query_actor_pid, "access_token", access_token_str);
+      }
 
       auto firmware_update_actor_pid = *(whereis("firmware_update"));
-      send(firmware_update_actor_pid, "access_token", access_token_str);
+      if (not compare_uuids(self, firmware_update_actor_pid))
+      {
+        send(firmware_update_actor_pid, "access_token", access_token_str);
+      }
 
       // Ready to RFID scan!
-      //auto rfid_reader_actor_pid = *(whereis("rfid_reader"));
-      //send(rfid_reader_actor_pid, "scan");
+      if (not state.rfid_scanning)
+      {
+        auto rfid_scan_interval = 500ms;
+        auto rfid_reader_actor_pid = *(whereis("rfid_reader"));
+        send_interval(rfid_scan_interval, rfid_reader_actor_pid, "scan");
+        state.rfid_scanning = true;
+      }
 
       return {Result::Ok, EventTerminationAction::ContinueProcessing};
-    }
-  }
-
-  {
-    if (matches(message, "progress"))
-    {
-      if (state.current_user_flatbuf.size() == 0)
-      {
-        // Update progress bar
-        state.make_progress();
-        auto progress_bar = generate_progress_bar("", state.progress);
-        auto display_actor_pid = *(whereis("display"));
-        send(display_actor_pid, "ProgressBar", progress_bar);
-      }
     }
   }
 

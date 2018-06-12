@@ -189,38 +189,41 @@ auto update_permissions_check_query_intent(
   const string_view tag_id_str
 ) -> bool
 {
-  auto* query_intent = flatbuffers::GetMutableRoot<QueryIntent>(
-    query_intent_mutable_buf.data()
-  );
-
-  if (query_intent)
+  if (not query_intent_mutable_buf.empty())
   {
-    auto* query = query_intent->mutable_query();
-    if (query)
+    auto* query_intent = flatbuffers::GetMutableRoot<QueryIntent>(
+      query_intent_mutable_buf.data()
+    );
+
+    if (query_intent)
     {
-      // Mutate tag id to match latest scanned tag
-      auto* where = query->mutable_where();
-      if (where)
+      auto* query = query_intent->mutable_query();
+      if (query)
       {
-        for (auto clause_idx = 0; clause_idx < where->size(); ++clause_idx)
+        // Mutate tag id to match latest scanned tag
+        auto* where = query->mutable_where();
+        if (where)
         {
-          auto* clause = where->GetMutableObject(clause_idx);
-          auto* col_label = clause->column()->label();
-          if (clause and col_label)
+          for (auto clause_idx = 0; clause_idx < where->size(); ++clause_idx)
           {
-            if (col_label->string_view() == "Tag ID")
+            auto* clause = where->GetMutableObject(clause_idx);
+            auto* col_label = clause->column()->label();
+            if (clause and col_label)
             {
-              if (tag_id_str.size() <= clause->value()->Length())
+              if (col_label->string_view() == "Tag ID")
               {
-                mutate_value(tag_id_str, clause->mutable_value());
-                return true;
-              }
-              else {
-                printf(
-                  "New Tag ID '%.*s' too long to mutate existing Tag ID '%s'\n",
-                  tag_id_str.size(), tag_id_str.data(),
-                  clause->value()->c_str()
-                );
+                if (tag_id_str.size() <= clause->value()->Length())
+                {
+                  mutate_value(tag_id_str, clause->mutable_value());
+                  return true;
+                }
+                else {
+                  printf(
+                    "New Tag ID '%.*s' too long to mutate existing Tag ID '%s'\n",
+                    tag_id_str.size(), tag_id_str.data(),
+                    clause->value()->c_str()
+                  );
+                }
               }
             }
           }
