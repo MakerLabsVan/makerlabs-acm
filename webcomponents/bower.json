@@ -43,6 +43,6 @@
     "google-apis": "@GoogleWebComponents/google-apis#^2.0.1"
   },
   "main": [
-    "app-layout-template.html"
+    "view-user-page.html"
   ]
 }
