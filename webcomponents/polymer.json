@@ -19,11 +19,11 @@
   "builds": [
     {
       "preset": "es5-bundled",
-      "basePath": "https://cdn.rawgit.com/MakerLabsVan/makerlabs-acm/polymer2/webcomponents/"
+      "basePath": "https://cdn.rawgit.com/MakerLabsVan/makerlabs-acm/polymer2/webcomponents/build/es5-bundled/"
     },
     {
       "preset": "es6-unbundled",
-      "basePath": "https://cdn.rawgit.com/MakerLabsVan/makerlabs-acm/polymer2/webcomponents/"
+      "basePath": "https://cdn.rawgit.com/MakerLabsVan/makerlabs-acm/polymer2/webcomponents/build/es6-unbundled/"
     }
   ]
 }
