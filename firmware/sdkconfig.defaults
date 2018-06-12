@@ -58,3 +58,7 @@ CONFIG_MBEDTLS_HARDWARE_SHA=y
 
 # Allow for an entire UUID string + null byte in task name strings
 CONFIG_FREERTOS_MAX_TASK_NAME_LEN=37
+
+# FATFS Partition Image Configuration
+CONFIG_FATFS_BASE_ADDR=0x604000
+CONFIG_FATFS_SIZE=131072
