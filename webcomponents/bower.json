@@ -40,6 +40,6 @@
     "google-apis": "GoogleWebComponents/google-apis#^2.0.1"
   },
   "main": [
-    "../webapp/views/AppLayoutTemplate.html"
+    "app-layout-template.html"
   ]
 }
