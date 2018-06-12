@@ -40,6 +40,28 @@
       "basePath": "https://cdn.rawgit.com/MakerLabsVan/makerlabs-acm/polymer2/webcomponents/build/es5-bundled/"
     },
     {
+      "name": "es6-bundled",
+      "browserCapabilities": [
+        "es2015"
+      ],
+      "js": {
+        "minify": true,
+        "compile": "es2015",
+        "transformModulesToAmd": true
+      },
+      "css": {
+        "minify": true
+      },
+      "html": {
+        "minify": true
+      },
+      "bundle": true,
+      "addServiceWorker": true,
+      "addPushManifest": false,
+      "preset": "es6-bundled",
+      "basePath": "https://cdn.rawgit.com/MakerLabsVan/makerlabs-acm/polymer2/webcomponents/build/es6-bundled/"
+    },
+    {
       "name": "es6-unbundled",
       "browserCapabilities": [
         "es2015",
