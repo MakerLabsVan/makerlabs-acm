@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["index.html","9ac4f12ab4dcf9218301488bc4543df3"],["src/app-shell.html","b0ab1aaded977d5ab8aaba19aceb9670"],["src/image-file-uploader.html","b6c72e9473ad7ea00f9e65b26d36002a"],["src/user-search-bar.html","e4c6858bdcc07ec235e32f3752a2f51f"],["src/view-user-form.html","1391167665d481628cbb4564854f976a"]];
+var precacheConfig = [["src/app-shell.html","b0ab1aaded977d5ab8aaba19aceb9670"],["src/image-file-uploader.html","b6c72e9473ad7ea00f9e65b26d36002a"],["src/user-search-bar.html","e4c6858bdcc07ec235e32f3752a2f51f"],["src/view-user-form.html","1391167665d481628cbb4564854f976a"],["view-user-page.html","82fbac8dea2629493cdfabaf37865ad1"]];
 var cacheName = 'sw-precache-v3--' + (self.registration ? self.registration.scope : '');
 
 
@@ -229,7 +229,7 @@ self.addEventListener('fetch', function(event) {
 
     // If shouldRespond is still false, check to see if this is a navigation
     // request, and if so, whether the URL matches navigateFallbackWhitelist.
-    var navigateFallback = 'index.html';
+    var navigateFallback = 'view-user-page.html';
     if (!shouldRespond &&
         navigateFallback &&
         (event.request.mode === 'navigate') &&
