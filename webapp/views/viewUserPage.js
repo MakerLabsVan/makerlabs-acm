@@ -9,7 +9,7 @@ function toColumnName(num) {
 function doGet(e) {
   var sheetName = 'Users'
 
-  var appTemplateFilename = 'views/index.html'
+  var appTemplateFilename = 'views/view-user-page.html'
   var appTpl = HtmlService.createTemplateFromFile(appTemplateFilename)
 
   // Pass any provided URL parameters to template
