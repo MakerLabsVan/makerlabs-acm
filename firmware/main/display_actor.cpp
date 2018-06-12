@@ -48,6 +48,17 @@ struct DisplayActorState
     u8g2_SendBuffer(&u8g2);
   }
 
+  auto make_progress(bool complete = false)
+    -> bool
+  {
+    auto limit = complete? 100U : 80U;
+    progress = std::min(progress+1, limit);
+    return (progress < limit);
+  }
+
+  uint32_t progress = 0;
+  DisplayAction last_display_action = DisplayAction::NONE;
+
   u8g2_esp32_hal_t u8g2_esp32_hal;
   gpio_num_t pin_sda = static_cast<gpio_num_t>(4);
   gpio_num_t pin_scl = static_cast<gpio_num_t>(15);
@@ -84,6 +95,8 @@ auto display_actor_behaviour(
     {
       if (display_intent->display_type() == DisplayAction::ShowUserDetails)
       {
+        state.last_display_action = display_intent->display_type();
+
         const auto* user_details = (
           display_intent->display_as_ShowUserDetails()
         );
@@ -127,6 +140,8 @@ auto display_actor_behaviour(
     {
       if (display_intent->display_type() == DisplayAction::ProgressBar)
       {
+        state.last_display_action = display_intent->display_type();
+
         const auto* progress_bar = (
           display_intent->display_as_ProgressBar()
         );
@@ -134,7 +149,7 @@ auto display_actor_behaviour(
         if (progress_bar)
         {
           const auto& message = progress_bar->message();
-          auto progress = progress_bar->progress();
+          state.progress = progress_bar->progress();
           auto icon = progress_bar->icon();
 
           // Draw status line
@@ -143,7 +158,7 @@ auto display_actor_behaviour(
             // Clear the buffer
             u8g2_ClearBuffer(&state.u8g2);
 
-            printf("%s: %d%%\n", message->c_str(), progress);
+            printf("%s: %d%%\n", message->c_str(), state.progress);
 
             u8g2_SetFont(&state.u8g2, u8g2_font_helvR10_tr);
             u8g2_DrawStr(&state.u8g2, 0, 13, message->c_str());
@@ -154,7 +169,7 @@ auto display_actor_behaviour(
           auto w = u8g2_GetDisplayWidth(&state.u8g2);
           auto h = u8g2_GetDisplayHeight(&state.u8g2);
           auto pad = 3;
-          auto bar_w = (w - (2*pad)) * progress / 100;
+          auto bar_w = (w - (2*pad)) * state.progress / 100;
 
           u8g2_DrawFrame(&state.u8g2, 0, (h/2) + 1, w, (h/2) - 2);
           u8g2_DrawBox(&state.u8g2, pad, (h/2) + pad, bar_w, (h/2) - (2*pad));
@@ -189,6 +204,31 @@ auto display_actor_behaviour(
 
         return {Result::Ok};
       }
+    }
+  }
+
+  {
+    if (matches(message, "progress"))
+    {
+      // Increment a counter, update progress bar if it has not hit the limit
+      if (
+        state.make_progress()
+        and state.last_display_action == DisplayAction::ProgressBar
+      )
+      {
+        // Draw progress bar
+        auto w = u8g2_GetDisplayWidth(&state.u8g2);
+        auto h = u8g2_GetDisplayHeight(&state.u8g2);
+        auto pad = 3;
+        auto bar_w = (w - (2*pad)) * state.progress / 100;
+
+        u8g2_DrawBox(&state.u8g2, pad, (h/2) + pad, bar_w, (h/2) - (2*pad));
+
+        // Send the buffer to the display
+        u8g2_SendBuffer(&state.u8g2);
+      }
+
+      return {Result::Ok};
     }
   }
 

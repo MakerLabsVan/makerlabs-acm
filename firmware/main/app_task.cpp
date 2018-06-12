@@ -9,6 +9,7 @@
 #include "acm_helpers.h"
 #include "actor_model.h"
 #include "delay.h"
+#include "filesystem.h"
 #include "firmware_update.h"
 #include "firmware_update_actor.h"
 #include "network.h"
@@ -75,7 +76,14 @@ auto app_task(void* /* user_data */)
 
   // DisplayActor
   {
-    auto display_actor_pid = spawn(display_actor_behaviour);
+    auto display_actor_pid = spawn(
+      display_actor_behaviour,
+      // Override the default execution config settings
+      [](ActorExecutionConfigBuilder& builder)
+      {
+        builder.add_task_stack_size(4096);
+      }
+    );
     register_name("display", display_actor_pid);
 
     // Show version details on OLED display
@@ -154,22 +162,33 @@ auto app_task(void* /* user_data */)
         auth_actor_behaviour,
         spreadsheet_insert_row_actor_behaviour,
         visualization_query_actor_behaviour,
+        rfid_reader_actor_behaviour,
+        app_actor_behaviour,
       },
       // Override the default execution config settings to increase mailbox size
       [](ActorExecutionConfigBuilder& builder)
       {
-        builder.add_task_stack_size(4096);
+        builder.add_task_stack_size(8192);
         builder.add_mailbox_size(8192);
       }
     );
     register_name("reauth", combined_actor_pid);
     register_name("sheets", combined_actor_pid);
     register_name("gviz", combined_actor_pid);
+    register_name("rfid_reader", combined_actor_pid);
+    register_name("app", combined_actor_pid);
   }
-
+/*
   // RFIDReaderActor
   {
-    auto rfid_reader_actor_pid = spawn(rfid_reader_actor_behaviour);
+    auto rfid_reader_actor_pid = spawn(
+      rfid_reader_actor_behaviour,
+      // Override the default execution config settings to increase stack size
+      [](ActorExecutionConfigBuilder& builder)
+      {
+        builder.add_task_stack_size(4096);
+      }
+    );
     register_name("rfid_reader", rfid_reader_actor_pid);
   }
 
@@ -177,10 +196,10 @@ auto app_task(void* /* user_data */)
   {
     auto app_actor_pid = spawn(
       app_actor_behaviour,
-      // Override the default execution config settings to increase mailbox size
+      // Override the default execution config settings to increase stack size
       [](ActorExecutionConfigBuilder& builder)
       {
-        builder.add_task_stack_size(4096);
+        builder.add_task_stack_size(16384);
       }
     );
     register_name("app", app_actor_pid);
@@ -207,22 +226,52 @@ auto app_task(void* /* user_data */)
 
   auto reauth_interval = 20min;
   auto network_check_interval = 10min;
-  auto rfid_scan_interval = 100ms;
   auto reset_button_check_interval = 1s;
 
   Timestamp last_reset_button_check_timestamp;
-  Timestamp last_firmware_update_check_timestamp;
-  Timestamp last_reauth_timestamp;
   Timestamp last_network_check_timestamp;
-  Timestamp last_rfid_scan_timestamp;
-  Timestamp last_reset_button_trigger_timestamp;
 
   auto reset_button_pin = static_cast<gpio_num_t>(0);
   gpio_set_direction(reset_button_pin, GPIO_MODE_INPUT);
-  auto sent_firmware_request_payload = false;
 
   uint32_t progress = 0;
   auto reset_count = 0;
+
+  // Send periodic reauth message
+  {
+    auto reauth_request_intent_req_fb = filesystem_read(
+      "/spiflash/reauth_request_intent.req.fb"
+    );
+
+    auto reauth_actor_pid = *(whereis("reauth"));
+
+    // Send an initial full reauth request intent
+    send(reauth_actor_pid, "reauth", reauth_request_intent_req_fb);
+    // Schedule periodic reauth requests (re-using previous metadata)
+    send_interval(reauth_interval, reauth_actor_pid, "reauth");
+  }
+
+  {
+    auto firmware_update_check_request_intent_req_fb = filesystem_read(
+      "/spiflash/firmware_update_check_request_intent.req.fb"
+    );
+
+    auto firmware_update_actor_pid = *(whereis("firmware_update"));
+
+    // Send an initial full firmware update check request intent
+    send(
+      firmware_update_actor_pid,
+      "check",
+      firmware_update_check_request_intent_req_fb
+    );
+
+    // Schedule periodic firmware update checks (re-using previous metadata)
+    send_interval(
+      firmware_update_check_interval,
+      firmware_update_actor_pid,
+      "check"
+    );
+  }
 
   for (;;)
   {
@@ -254,37 +303,6 @@ auto app_task(void* /* user_data */)
       last_reset_button_check_timestamp = now;
     }
 
-    // Trigger firmware update check if interval has elapsed
-    if ((now - last_firmware_update_check_timestamp) > firmware_update_check_interval)
-    {
-      auto firmware_update_actor_pid = *(whereis("firmware_update"));
-      if (sent_firmware_request_payload)
-      {
-        // Trigger a firmware update check with a previously configured request intent
-        send(firmware_update_actor_pid, "check");
-      }
-      else {
-        // Send the full firmware update check request intent
-        send(
-          firmware_update_actor_pid,
-          "check",
-          embedded_files::firmware_update_check_request_intent_req_fb
-        );
-      }
-
-      last_firmware_update_check_timestamp = now;
-    }
-
-    // Trigger reauth if interval has elapsed
-    if ((now - last_reauth_timestamp) > reauth_interval)
-    {
-      // Send the request intent message to the request manager actor
-      auto reauth_actor_pid = *(whereis("reauth"));
-      send(reauth_actor_pid, "reauth");
-
-      last_reauth_timestamp = now;
-    }
-
     // Trigger network check if interval has elapsed
     if ((now - last_network_check_timestamp) > network_check_interval)
     {
@@ -294,20 +312,8 @@ auto app_task(void* /* user_data */)
       last_network_check_timestamp = now;
     }
 
-    // Only begin scan activity after initial setup is done
-    //if (ready_to_run)
-    {
-      if ((now - last_rfid_scan_timestamp) > rfid_scan_interval)
-      {
-        auto rfid_reader_actor_pid = *(whereis("rfid_reader"));
-        send(rfid_reader_actor_pid, "scan");
-
-        last_rfid_scan_timestamp = now;
-      }
-    }
-
     // Run the loop at approx. half the shortest interval
-    delay(50ms);
+    delay(500ms);
   }
 
   ESP_LOGI(TAG, "Complete, deleting task.");

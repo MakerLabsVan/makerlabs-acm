@@ -5,6 +5,8 @@
 
 #include "esp_log.h"
 #include "nvs_flash.h"
+#include "esp_vfs.h"
+#include "esp_vfs_fat.h"
 
 //#include "module_task.h"
 #include "wifi_task.h"
@@ -19,6 +21,9 @@ extern EventGroupHandle_t network_event_group;
 extern "C" {
 RTC_DATA_ATTR static int boot_count = 0;
 }
+
+// Handle of the wear levelling library instance
+static wl_handle_t s_wl_handle = WL_INVALID_HANDLE;
 
 constexpr char TAG[] = "main";
 
@@ -44,6 +49,26 @@ app_main()
     err = nvs_flash_init();
   }
   ESP_ERROR_CHECK(err);
+
+  ESP_LOGI(TAG, "Mounting FAT filesystem");
+  const esp_vfs_fat_mount_config_t mount_config = {
+    format_if_mount_failed: true,
+    max_files: 4,
+    allocation_unit_size: CONFIG_WL_SECTOR_SIZE,
+  };
+  auto ret = esp_vfs_fat_spiflash_mount(
+    "/spiflash",
+    "storage",
+    &mount_config,
+    &s_wl_handle
+  );
+  if (err == ESP_OK)
+  {
+    ESP_LOGI(TAG, "Successfully mounted FAT filesystem");
+  }
+  else {
+    ESP_LOGE(TAG, "Failed to mount FAT filesystem (%s)", esp_err_to_name(err));
+  }
 
   // Create the shared network status event group
   network_event_group = xEventGroupCreate();
