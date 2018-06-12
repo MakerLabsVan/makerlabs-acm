@@ -1,5 +1,6 @@
 {
-  "name": "@MakerLabsVan/makerlabs-acm-webapp",
+  "name": "makerlabs-acm-webapp",
+  "version": "0.0.1",
   "authors": [
     "Paul Reimer <paul@p-rimes.net>"
   ],
