@@ -9,30 +9,11 @@ function toColumnName(num) {
 function doGet(e) {
   var sheetName = 'Users'
 
-  var appLayoutTemplateFilename = 'views/AppLayoutTemplate.html'
-  var appTpl = HtmlService.createTemplateFromFile(appLayoutTemplateFilename)
+  var appTemplateFilename = 'views/index.html'
+  var appTpl = HtmlService.createTemplateFromFile(appTemplateFilename)
 
   // Pass any provided URL parameters to template
   appTpl.initialQuery = JSON.stringify(e.parameters)
-
-  // Inject (static) custom WebComponent definitions
-  var userSearchBarComponent = HtmlService.createHtmlOutputFromFile(
-    'views/user-search-bar.html'
-  )
-  var viewUserFormComponent = HtmlService.createHtmlOutputFromFile(
-    'views/view-user-form.html'
-  )
-  var googleSheetsDatasourceComponent = HtmlService.createHtmlOutputFromFile(
-    'views/google-sheets-datasource.html'
-  )
-  var imageFileUploaderComponent = HtmlService.createHtmlOutputFromFile(
-    'views/image-file-uploader.html'
-  )
-
-  appTpl.userSearchBarComponent = userSearchBarComponent.getContent()
-  appTpl.viewUserFormComponent = viewUserFormComponent.getContent()
-  appTpl.googleSheetsDatasourceComponent = googleSheetsDatasourceComponent.getContent()
-  appTpl.imageFileUploaderComponent = imageFileUploaderComponent.getContent()
 
   // Populate list of fields
   var sectionHeadersRange = getNamedRange(sheetName, 'user_section_headers')
