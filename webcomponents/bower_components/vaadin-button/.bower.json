@@ -38,12 +38,12 @@
     "vaadin-lumo-styles": "vaadin/vaadin-lumo-styles#^1.0.0",
     "vaadin-element-mixin": "vaadin/vaadin-element-mixin#^1.0.1"
   },
-  "version": "2.0.0",
-  "_release": "2.0.0",
+  "version": "2.0.1",
+  "_release": "2.0.1",
   "_resolution": {
     "type": "version",
-    "tag": "v2.0.0",
-    "commit": "221d1eae7d1046261f6fe58dbba51e25b8b1d697"
+    "tag": "v2.0.1",
+    "commit": "423f0a7a595e7a5ec9feffa85ce3cb4cead7397b"
   },
   "_source": "https://github.com/vaadin/vaadin-button.git",
   "_target": "^2.0.0",

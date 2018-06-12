@@ -42,6 +42,7 @@
     "vaadin-combo-box": "master",
     "vaadin-context-menu": "master",
     "vaadin-date-picker": "master",
+    "vaadin-dialog": "master",
     "vaadin-dropdown-menu": "master",
     "vaadin-item": "master",
     "vaadin-list-box": "master",
@@ -50,14 +51,14 @@
   "resolutions": {
     "vaadin-item": "master"
   },
-  "version": "2.1.1",
-  "_release": "2.1.1",
+  "version": "3.0.3",
+  "_release": "3.0.3",
   "_resolution": {
     "type": "version",
-    "tag": "v2.1.1",
-    "commit": "8c4d451ed6328b3664a59ab70516f9ef91f76e83"
+    "tag": "v3.0.3",
+    "commit": "3a65aa5479ae6895944a8db37e7dfa6312423d86"
   },
   "_source": "https://github.com/vaadin/vaadin-overlay.git",
-  "_target": "^2.0.0",
+  "_target": "^3.0.0",
   "_originalSource": "vaadin-overlay"
 }
