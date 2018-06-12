@@ -1,8 +1,9 @@
 {
-  "name": "makerlabs-acm-webapp",
+  "name": "@MakerLabsVan/makerlabs-acm-webapp",
   "authors": [
     "Paul Reimer <paul@p-rimes.net>"
   ],
+  "license": "MIT",
   "private": true,
   "ignore": [
     "**/.*",
@@ -37,5 +38,8 @@
     "google-chart": "GoogleWebComponents/google-chart#^2.0.0",
     "google-signin": "GoogleWebComponents/google-signin#^2.0.0",
     "google-apis": "GoogleWebComponents/google-apis#^2.0.1"
-  }
+  },
+  "main": [
+    "../webapp/views/AppLayoutTemplate.html"
+  ]
 }
