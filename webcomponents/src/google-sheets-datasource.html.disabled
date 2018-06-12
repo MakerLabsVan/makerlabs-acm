@@ -1,8 +1,10 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
 <dom-module id="view-user-form">
   <!-- Google Sign-In, Sheets, Charts, ... -->
-  <link rel="import" href="google-signin/google-signin.html">
-  <link rel="import" href="google-apis/google-apis.html">
-  <link rel="import" href="google-chart/google-chart-loader.html">
+  <link rel="import" href="../bower_components/google-signin/google-signin.html">
+  <link rel="import" href="../bower_components/google-apis/google-apis.html">
+  <link rel="import" href="../bower_components/google-chart/google-chart-loader.html">
 
   <template>
     <!-- Google Data, APIs, and Auth -->
