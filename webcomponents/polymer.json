@@ -1,5 +1,5 @@
 {
-  "entrypoint": "index.html",
+  "entrypoint": "view-user-page.html",
   "shell": "src/app-shell.html",
   "fragments": [
     "src/image-file-uploader.html",
