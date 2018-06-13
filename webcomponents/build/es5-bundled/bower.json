@@ -1,5 +1,6 @@
 {
   "name": "makerlabs-acm-webapp",
+  "version": "0.0.1",
   "authors": [
     "Paul Reimer <paul@p-rimes.net>"
   ],
@@ -33,13 +34,13 @@
     "paper-fab": "PolymerElements/paper-fab#^2.1.0",
     "paper-tooltip": "PolymerElements/paper-tooltip#^2.1.1",
 
-    "vaadin-combo-box": "vaadin/vaadin-combo-box#^4.0.0",
-    "vaadin-date-picker": "vaadin/vaadin-date-picker#^3.1.1",
-    "vaadin-material-styles": "vaadin/vaadin-material-styles#b62ae6f",
+    "vaadin-combo-box": "@vaadin/vaadin-combo-box#^4.0.0",
+    "vaadin-date-picker": "@vaadin/vaadin-date-picker#^3.1.1",
+    "vaadin-material-styles": "@vaadin/vaadin-material-styles#b62ae6f",
 
-    "google-chart": "GoogleWebComponents/google-chart#^2.0.0",
-    "google-signin": "GoogleWebComponents/google-signin#^2.0.0",
-    "google-apis": "GoogleWebComponents/google-apis#^2.0.1"
+    "google-chart": "@GoogleWebComponents/google-chart#^2.0.0",
+    "google-signin": "@GoogleWebComponents/google-signin#^2.0.0",
+    "google-apis": "@GoogleWebComponents/google-apis#^2.0.1"
   },
   "main": [
     "app-layout-template.html"

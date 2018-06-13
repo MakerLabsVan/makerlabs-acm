@@ -1,0 +1,33 @@
+{
+  "entrypoint": "view-user-page.html",
+  "shell": "src/app-shell.html",
+  "fragments": [
+    "src/image-file-uploader.html",
+    "src/user-search-bar.html",
+    "src/view-user-form.html"
+  ],
+  "sources": [
+   "src/**/*",
+   "bower.json"
+  ],
+  "extraDependencies": [
+    "bower_components/webcomponentsjs/webcomponents-lite.js"
+  ],
+  "lint": {
+    "rules": ["polymer-2-hybrid"]
+  },
+  "builds": [
+    {
+      "preset": "es5-bundled",
+      "basePath": "https://cdn.rawgit.com/MakerLabsVan/makerlabs-acm/polymer2/webcomponents/build/es5-bundled/"
+    },
+    {
+      "preset": "es6-bundled",
+      "basePath": "https://cdn.rawgit.com/MakerLabsVan/makerlabs-acm/polymer2/webcomponents/build/es6-bundled/"
+    },
+    {
+      "preset": "es6-unbundled",
+      "basePath": "https://cdn.rawgit.com/MakerLabsVan/makerlabs-acm/polymer2/webcomponents/build/es6-unbundled/"
+    }
+  ]
+}
