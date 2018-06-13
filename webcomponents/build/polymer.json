@@ -1,0 +1,49 @@
+{
+  "entrypoint": "view-user-page.html",
+  "shell": "src/app-shell.js",
+  "fragments": [
+    "src/image-file-uploader.js",
+    "src/user-search-bar.js",
+    "src/view-user-form.js"
+  ],
+  "sources": [
+    "src/**/*",
+    "package.json",
+    "view-user-page.html",
+    "src/app-shell.js",
+    "src/image-file-uploader.js",
+    "src/user-search-bar.js",
+    "src/view-user-form.js"
+  ],
+  "extraDependencies": [
+    "bower_components/webcomponentsjs/*.js",
+    "node_modules/@webcomponents/webcomponentsjs/**"
+  ],
+  "builds": [
+    {
+      "name": "es6-bundled",
+      "browserCapabilities": [
+        "es2015"
+      ],
+      "js": {
+        "minify": true,
+        "compile": "es2015",
+        "transformModulesToAmd": true
+      },
+      "css": {
+        "minify": true
+      },
+      "html": {
+        "minify": true
+      },
+      "bundle": true,
+      "addServiceWorker": true,
+      "addPushManifest": false,
+      "preset": "es6-bundled",
+      "basePath": "https://cdn.rawgit.com/MakerLabsVan/makerlabs-acm/polymer3/webcomponents/build/es6-bundled/"
+    }
+  ],
+  "npm": true,
+  "componentDir": "node_modules/",
+  "moduleResolution": "node"
+}
