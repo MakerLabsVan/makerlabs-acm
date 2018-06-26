@@ -16,7 +16,7 @@ enum ActivityType : byte
 
 table Activity
 {
-  time:uint64;
+  time:float64;
   machine_id:string;
   activity_type:ActivityType;
   usage_seconds:uint32 = 0;

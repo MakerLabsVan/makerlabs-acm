@@ -110,11 +110,11 @@ struct Activity FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_USAGE_SECONDS = 10,
     VT_TAG_ID = 12
   };
-  uint64_t time() const {
-    return GetField<uint64_t>(VT_TIME, 0);
+  double time() const {
+    return GetField<double>(VT_TIME, 0.0);
   }
-  bool mutate_time(uint64_t _time) {
-    return SetField<uint64_t>(VT_TIME, _time, 0);
+  bool mutate_time(double _time) {
+    return SetField<double>(VT_TIME, _time, 0.0);
   }
   const flatbuffers::String *machine_id() const {
     return GetPointer<const flatbuffers::String *>(VT_MACHINE_ID);
@@ -142,7 +142,7 @@ struct Activity FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint64_t>(verifier, VT_TIME) &&
+           VerifyField<double>(verifier, VT_TIME) &&
            VerifyOffset(verifier, VT_MACHINE_ID) &&
            verifier.Verify(machine_id()) &&
            VerifyField<int8_t>(verifier, VT_ACTIVITY_TYPE) &&
@@ -156,8 +156,8 @@ struct Activity FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 struct ActivityBuilder {
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_time(uint64_t time) {
-    fbb_.AddElement<uint64_t>(Activity::VT_TIME, time, 0);
+  void add_time(double time) {
+    fbb_.AddElement<double>(Activity::VT_TIME, time, 0.0);
   }
   void add_machine_id(flatbuffers::Offset<flatbuffers::String> machine_id) {
     fbb_.AddOffset(Activity::VT_MACHINE_ID, machine_id);
@@ -185,7 +185,7 @@ struct ActivityBuilder {
 
 inline flatbuffers::Offset<Activity> CreateActivity(
     flatbuffers::FlatBufferBuilder &_fbb,
-    uint64_t time = 0,
+    double time = 0.0,
     flatbuffers::Offset<flatbuffers::String> machine_id = 0,
     ActivityType activity_type = ActivityType::Signed_In,
     uint32_t usage_seconds = 0,
@@ -201,7 +201,7 @@ inline flatbuffers::Offset<Activity> CreateActivity(
 
 inline flatbuffers::Offset<Activity> CreateActivityDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
-    uint64_t time = 0,
+    double time = 0.0,
     const char *machine_id = nullptr,
     ActivityType activity_type = ActivityType::Signed_In,
     uint32_t usage_seconds = 0,
@@ -491,7 +491,7 @@ inline const flatbuffers::TypeTable *LogSeverityTypeTable() {
 
 inline const flatbuffers::TypeTable *ActivityTypeTable() {
   static const flatbuffers::TypeCode type_codes[] = {
-    { flatbuffers::ET_ULONG, 0, -1 },
+    { flatbuffers::ET_DOUBLE, 0, -1 },
     { flatbuffers::ET_STRING, 0, -1 },
     { flatbuffers::ET_CHAR, 0, 0 },
     { flatbuffers::ET_UINT, 0, -1 },
