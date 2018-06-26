@@ -30,6 +30,7 @@ table User
   makerlabs_id:string;
   tag_id:string;
   alerts:string;
+  permissions:[string];
 }
 
 enum LogSeverity : byte

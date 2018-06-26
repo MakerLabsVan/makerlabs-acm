@@ -227,7 +227,8 @@ struct User FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_EMAIL = 6,
     VT_MAKERLABS_ID = 8,
     VT_TAG_ID = 10,
-    VT_ALERTS = 12
+    VT_ALERTS = 12,
+    VT_PERMISSIONS = 14
   };
   const flatbuffers::String *name() const {
     return GetPointer<const flatbuffers::String *>(VT_NAME);
@@ -259,6 +260,12 @@ struct User FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   flatbuffers::String *mutable_alerts() {
     return GetPointer<flatbuffers::String *>(VT_ALERTS);
   }
+  const flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> *permissions() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> *>(VT_PERMISSIONS);
+  }
+  flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> *mutable_permissions() {
+    return GetPointer<flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> *>(VT_PERMISSIONS);
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_NAME) &&
@@ -271,6 +278,9 @@ struct User FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.Verify(tag_id()) &&
            VerifyOffset(verifier, VT_ALERTS) &&
            verifier.Verify(alerts()) &&
+           VerifyOffset(verifier, VT_PERMISSIONS) &&
+           verifier.Verify(permissions()) &&
+           verifier.VerifyVectorOfStrings(permissions()) &&
            verifier.EndTable();
   }
 };
@@ -293,6 +303,9 @@ struct UserBuilder {
   void add_alerts(flatbuffers::Offset<flatbuffers::String> alerts) {
     fbb_.AddOffset(User::VT_ALERTS, alerts);
   }
+  void add_permissions(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>>> permissions) {
+    fbb_.AddOffset(User::VT_PERMISSIONS, permissions);
+  }
   explicit UserBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -311,8 +324,10 @@ inline flatbuffers::Offset<User> CreateUser(
     flatbuffers::Offset<flatbuffers::String> email = 0,
     flatbuffers::Offset<flatbuffers::String> makerlabs_id = 0,
     flatbuffers::Offset<flatbuffers::String> tag_id = 0,
-    flatbuffers::Offset<flatbuffers::String> alerts = 0) {
+    flatbuffers::Offset<flatbuffers::String> alerts = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>>> permissions = 0) {
   UserBuilder builder_(_fbb);
+  builder_.add_permissions(permissions);
   builder_.add_alerts(alerts);
   builder_.add_tag_id(tag_id);
   builder_.add_makerlabs_id(makerlabs_id);
@@ -327,14 +342,16 @@ inline flatbuffers::Offset<User> CreateUserDirect(
     const char *email = nullptr,
     const char *makerlabs_id = nullptr,
     const char *tag_id = nullptr,
-    const char *alerts = nullptr) {
+    const char *alerts = nullptr,
+    const std::vector<flatbuffers::Offset<flatbuffers::String>> *permissions = nullptr) {
   return ACM::CreateUser(
       _fbb,
       name ? _fbb.CreateString(name) : 0,
       email ? _fbb.CreateString(email) : 0,
       makerlabs_id ? _fbb.CreateString(makerlabs_id) : 0,
       tag_id ? _fbb.CreateString(tag_id) : 0,
-      alerts ? _fbb.CreateString(alerts) : 0);
+      alerts ? _fbb.CreateString(alerts) : 0,
+      permissions ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*permissions) : 0);
 }
 
 struct Log FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -519,17 +536,19 @@ inline const flatbuffers::TypeTable *UserTypeTable() {
     { flatbuffers::ET_STRING, 0, -1 },
     { flatbuffers::ET_STRING, 0, -1 },
     { flatbuffers::ET_STRING, 0, -1 },
-    { flatbuffers::ET_STRING, 0, -1 }
+    { flatbuffers::ET_STRING, 0, -1 },
+    { flatbuffers::ET_STRING, 1, -1 }
   };
   static const char * const names[] = {
     "name",
     "email",
     "makerlabs_id",
     "tag_id",
-    "alerts"
+    "alerts",
+    "permissions"
   };
   static const flatbuffers::TypeTable tt = {
-    flatbuffers::ST_TABLE, 5, type_codes, nullptr, nullptr, names
+    flatbuffers::ST_TABLE, 6, type_codes, nullptr, nullptr, names
   };
   return &tt;
 }
