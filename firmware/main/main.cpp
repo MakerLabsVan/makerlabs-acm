@@ -1,18 +1,16 @@
+#include "network_manager.h"
+
 #include "freertos/FreeRTOS.h"
 #include "freertos/event_groups.h"
 #include "freertos/queue.h"
 #include "freertos/task.h"
 
+#include "esp_event_loop.h"
 #include "esp_log.h"
-#include "nvs_flash.h"
 #include "esp_vfs.h"
 #include "esp_vfs_fat.h"
-
-//#include "module_task.h"
-#include "wifi_task.h"
-//#include "network_check_task.h"
-#include "ntp_task.h"
-//#include "firmware_update_task.h"
+#include "nvs_flash.h"
+#include "tcpip_adapter.h"
 
 #include "app_task.h"
 
@@ -70,13 +68,18 @@ app_main()
     ESP_LOGE(TAG, "Failed to mount FAT filesystem (%s)", esp_err_to_name(err));
   }
 
+  // Setup the TCP/IP adapter
+  tcpip_adapter_init();
+
   // Create the shared network status event group
   network_event_group = xEventGroupCreate();
 
-  // Create the initial tasks
-  xTaskCreate(&wifi_task, "wifi_task", 4096, nullptr, 5, nullptr);
-  //xTaskCreate(&network_check_task, "network_check_task", 4096, nullptr, 5, nullptr);
-  xTaskCreate(&ntp_task, "ntp_task", 4096, nullptr, 5, nullptr);
+  // Create the event loop
+  ret = esp_event_loop_init(NetworkManager::event_handler, nullptr);
+  if (ret != ESP_OK)
+  {
+    ESP_LOGE(TAG, "Could not set event loop callback");
+  }
 
   xTaskCreate(&app_task, "app_task", 4096, nullptr, 5, nullptr);
 

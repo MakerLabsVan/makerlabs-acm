@@ -5,22 +5,34 @@
 #include <string>
 
 #include "actors.h"
-
 #include "acm_helpers.h"
+#include "display_generated.h"
+#include "embedded_files.h"
+
+// actor_model
 #include "actor_model.h"
+
+// utils
 #include "delay.h"
 #include "filesystem.h"
+
+// firmware_update
 #include "firmware_update.h"
 #include "firmware_update_actor.h"
-#include "network.h"
-#include "request_manager_actor.h"
+
+// network_manager
+#include "network_manager.h"
+#include "ntp.h"
+#include "ntp_actor.h"
+#include "wifi_actor.h"
+
+// requests
 #include "requests.h"
+#include "request_manager_actor.h"
+
+// googleapis
 #include "spreadsheet_insert_row_actor.h"
 #include "visualization_query_actor.h"
-
-#include "display_generated.h"
-
-#include "embedded_files.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -30,8 +42,10 @@
 
 using namespace ActorModel;
 // ActorModel behaviours:
-using Requests::request_manager_behaviour;
-using FirmwareUpdate::firmware_update_behaviour;
+using NetworkManager::ntp_actor_behaviour;
+using NetworkManager::wifi_actor_behaviour;
+using Requests::request_manager_actor_behaviour;
+using FirmwareUpdate::firmware_update_actor_behaviour;
 using FirmwareUpdate::get_current_firmware_version;
 using googleapis::Visualization::visualization_query_actor_behaviour;
 
@@ -41,6 +55,7 @@ using string = std::string;
 using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 
 using namespace Display;
+using namespace NetworkManager;
 using namespace googleapis::Sheets;
 
 using namespace std::chrono_literals;
@@ -117,9 +132,48 @@ auto app_task(void* /* user_data */)
     );
   }
 
+  // NetworkManagerActor
+  {
+    auto network_manager_actor_pid = spawn(
+      {
+        ntp_actor_behaviour,
+        wifi_actor_behaviour,
+        network_check_actor_behaviour,
+        //
+        mdns_actor_behaviour,
+        http_server_actor_behaviour,
+      },
+      // Override the default execution config settings to increase mailbox size
+      [](ActorExecutionConfigBuilder& builder)
+      {
+        builder.add_task_stack_size(4096);
+        //builder.add_mailbox_size(8192);
+      }
+    );
+
+    // Create WifiConfiguration with STA credentials object here
+    send(network_manager_actor_pid, "connect_wifi_sta");
+
+    // Wait for valid network connection before starting NTP
+    NetworkManager::wait_for_network(
+      NetworkManager::NETWORK_IS_CONNECTED,
+      portMAX_DELAY
+    );
+
+    // Fetch time via NTP
+    {
+      flatbuffers::FlatBufferBuilder fbb;
+      fbb.Finish(
+        CreateNTPConfigurationDirect(fbb, "pool.ntp.org")//,
+        //DisplayIntentIdentifier()
+      );
+      send(network_manager_actor_pid, "ntpdate", fbb.Release());
+    }
+  }
+
   // Wait for valid network connection before making the connection
-  wait_for_network(
-    (NETWORK_IS_CONNECTED | NETWORK_TIME_AVAILABLE),
+  NetworkManager::wait_for_network(
+    (NetworkManager::NETWORK_IS_CONNECTED | NetworkManager::NETWORK_TIME_AVAILABLE),
     portMAX_DELAY
   );
   ESP_LOGI(TAG, "Network online");
@@ -129,7 +183,7 @@ auto app_task(void* /* user_data */)
   {
     // Spawn the RequestManager actor using the generated execution config
     request_manager_actor_pid = spawn(
-      request_manager_behaviour,
+      request_manager_actor_behaviour,
       // Override the default execution config settings
       [](ActorExecutionConfigBuilder& builder)
       {
@@ -137,14 +191,13 @@ auto app_task(void* /* user_data */)
         builder.add_mailbox_size(REQUESTS_REQUEST_MANAGER_MAILBOX_SIZE);
       }
     );
-
     register_name("request_manager", request_manager_actor_pid);
   }
 
   // FirmwareUpdateActor
   {
     auto firmware_update_actor_pid = spawn(
-      firmware_update_behaviour,
+      firmware_update_actor_behaviour,
       // Override the default execution config settings
       [](ActorExecutionConfigBuilder& builder)
       {

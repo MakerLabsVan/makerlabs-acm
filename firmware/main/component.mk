@@ -60,8 +60,8 @@ $(PROJECT_PATH)/fs/firmware_update_check_request_intent.req.fb: $(COMPONENT_PATH
 $(PROJECT_PATH)/fs/reauth_request_intent.req.fb: $(COMPONENT_PATH)/secrets/gen/reauth_request_intent.req.fb
 	cp $^ $@
 
-#$(PROJECT_PATH)/fs/permissions_check_query.gviz.fb: $(COMPONENT_PATH)/secrets/gen/permissions_check_query.gviz.fb
-#	cp $^ $@
+$(PROJECT_PATH)/fs/permissions_check_query.gviz.fb: $(COMPONENT_PATH)/secrets/gen/permissions_check_query.gviz.fb
+	cp $^ $@
 
 $(COMPONENT_PATH)/secrets/gen/permissions_check_query.gviz.json: $(COMPONENT_PATH)/templates/permissions_check_query.gviz.json.tpl
 	sed \
