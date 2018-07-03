@@ -42,7 +42,10 @@
         combobox.addEventListener('change', function(e) {
           if (combobox.value) {
             var form = document.querySelector('view-user-form');
+            console.log("form from search");
+            console.log(form);
             form.queryUsers("where C = '" + combobox.value + "'").then(function(q) {
+              console.log("before query");
               q.send(function(res) {
                 var values = this.getFirstRowValuesFromResponse(res);
                 if (values && values.length) {
