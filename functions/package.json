@@ -1,0 +1,34 @@
+{
+  "name": "makerlabs_acm_functions",
+  "version": "0.0.1",
+  "license": "CC-BY-NC-SA-4.0",
+  "main": "index.js",
+  "devDependencies": {
+    "@google-cloud/functions-emulator": "^1.0.0-beta.4",
+    "serverless": "^1.27.3",
+    "serverless-google-cloudfunctions": "^1.1.1"
+  },
+  "scripts": {
+    "start": "functions-emulator start",
+    "stop": "functions-emulator stop",
+
+    "pub": "pub get",
+
+    "prebuild": "yarn run pub",
+    "watch": "pub run build_runner watch --output=build/",
+
+    "prebuild": "yarn run pub",
+    "build": "pub run build_runner build --output=build/",
+
+    "predeploy": "yarn run build",
+    "deploy": "sls deploy"
+  },
+  "dependencies": {
+    "@google-cloud/debug-agent": "^2.6.0",
+    "@google-cloud/profiler": "^0.1.14",
+    "@google-cloud/trace-agent": "^2.10.1",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "serverless-http": "^1.6.0"
+  }
+}

@@ -1,0 +1,22 @@
+# Files and directories created by pub
+.dart_tool/
+.packages
+.pub/
+build/
+
+# Dependency directory
+# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
+node_modules
+
+# Directory created by dartdoc
+doc/api/
+
+# Serverless
+.serverless
+
+# IDE
+**/.idea
+
+# OS
+.DS_Store
+.tmp

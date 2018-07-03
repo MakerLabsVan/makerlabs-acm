@@ -1,0 +1,92 @@
+service: makerlabs-acm
+
+################################################################################
+provider:
+  runtime: nodejs6.10
+
+# Google Cloud Functions
+  name: google
+  project: p-rimes-net
+  credentials: ~/.gcloud/keyfile.json
+  timeout: 60s
+  region: us-central1
+# AWS Lambda
+#  name: aws
+#  stage: dev
+#  region: us-west-2
+#  timeout: 60
+
+################################################################################
+functions:
+  permissions_check:
+    memorySize: 512
+
+# Google Cloud Functions
+    handler: permissions_check
+    #timeout: 15s
+    timeout: 10s
+    events:
+      - http: path
+# AWS Lambda
+#    handler: index-aws.permissions_check
+#    timeout: 15
+#    events:
+#      - http:
+#          path: /
+#          method: post
+
+################################################################################
+plugins:
+  # Add support for Google Cloud Functions
+  - serverless-google-cloudfunctions
+
+################################################################################
+package:
+  # Layout generated from Dart -> JS (using build_node_compilers/node_interop):
+  # From running: `pub run build_runner watch --output=build/`
+  exclude:
+    - '*.*'
+    # No git files
+    - .git/**
+    # No hidden files
+    - .*
+    - .DS_Store
+    # No dart tool cache/config files
+    - .dart_tool/**
+    - analysis_options.yaml
+    - build.yaml
+    - pubspec.*
+    # No local javascript dependencies
+    #- node_modules/**
+    - yarn.lock
+    # No Dart -> JS build cache files
+    - build/**
+    # No Dart source files
+    - example/**
+    - node/**
+    - lib/**
+    - web/**
+  include:
+    # Always include a Google Cloud Functions index file
+    - index.js
+
+    # Include package.json to indicate package dependencies
+    - package.json
+
+    # Include Dart -> JS generated release build files
+    - build/node/*.js
+    # Include Dart -> JS generated debugging files
+    - build/node/*.js.map
+
+    # Include Dart -> JS SDK
+    - build/node/packages/$sdk/dev_compiler/common/dart_sdk.js
+
+    # Include Dart -> JS generated packages
+    - build/node/packages/**/*.ddc.js
+    - build/node/packages/**/*.ddc.js.map
+
+# Google Cloud Functions
+    - function.js
+# AWS Lambda
+    # Include an AWS Lambda wrapper for Google Cloud Function handler
+    - index-aws.js

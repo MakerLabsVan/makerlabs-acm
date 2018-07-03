@@ -1,0 +1,22 @@
+name: makerlabs_acm_functions
+description: ACM Serverless Functions with a Flatbuffers API and connecting to Google APIs
+version: 0.0.1
+author: Paul Reimer <paul@p-rimes.net>
+
+environment:
+  sdk: '>=2.0.0-dev.55.0 <2.0.0'
+
+dependencies:
+  googleapis: ^0.51.0
+  googleapis_auth: ^0.2.5
+  flat_buffers: ^1.9.0
+  node_http: ^1.0.0-dev.6.0
+  node_interop: ^1.0.0-dev.8.0
+
+dev_dependencies:
+  test: ^0.12.30
+  build_node_compilers: ^0.1.8
+  build_runner: any
+  build_test: any
+  logging_handlers: ^0.8.0
+  shelf: ^0.7.3+1
