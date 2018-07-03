@@ -429,7 +429,7 @@
           var makerLabsIdPrev = "";
           window.setInterval(function () {
             //TODO: not hard-coded
-            this.queryActivity("select B where D = 'Signed_In' and A = 'Laser Lab 101' order by E desc limit 1").then(function(q) {
+            this.queryActivity("select F where C = 'Signed_In' and B = 'Laser Lab 101' order by A desc limit 1").then(function(q) {
               q.send(function(res) {
                 var items = [];
                 var values = this.getValuesFromResponse(res);
