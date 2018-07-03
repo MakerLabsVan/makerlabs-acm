@@ -1,4 +1,4 @@
-function triggerProvideNewActivityRowDefaultsOnEdit(e) {
+function triggerActivityProvideNewRowDefaultsOnEdit(e) {
   var sheetName = 'Activity'
 
   // Only consider events that provide a range
@@ -20,20 +20,20 @@ function triggerProvideNewActivityRowDefaultsOnEdit(e) {
       Number(newActivityRange.getNumRows()) + firstEditedRow - 1
     var numEditedRows = Number(newActivityRange.getNumRows())
 
-    var provideNewActivityRowDefaultsRange = sheet.getRange(
+    var provideNewRowDefaultsRange = sheet.getRange(
       firstEditedRow,
       firstColumn,
       numEditedRows,
       numColumns
     )
 
-    if (provideNewActivityRowDefaultsRange) {
-      provideNewFormulaDefaultsInRange(provideNewActivityRowDefaultsRange)
+    if (provideNewRowDefaultsRange) {
+      provideNewFormulaDefaultsInRange(provideNewRowDefaultsRange)
     }
   }
 }
 
-function triggerProvideNewActivityRowDefaultsOnChange(e) {
+function triggerActivityProvideNewRowDefaultsOnChange(e) {
   var sheetName = 'Activity'
 
   if (e && e.changeType && e.changeType == 'INSERT_ROW') {
@@ -44,4 +44,12 @@ function triggerProvideNewActivityRowDefaultsOnChange(e) {
       provideNewFormulaDefaultsInRange(activityDataRowsRange)
     }
   }
+}
+
+function triggersForActivitySheetOnEdit(e) {
+  triggerActivityProvideNewRowDefaultsOnEdit(e);
+}
+
+function triggersForActivitySheetOnChange(e) {
+  triggerActivityProvideNewRowDefaultsOnChange(e);
 }

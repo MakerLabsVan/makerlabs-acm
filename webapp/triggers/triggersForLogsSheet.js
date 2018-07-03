@@ -1,4 +1,4 @@
-function triggerProvideNewLogRowDefaultsOnChange(e) {
+function triggerLogsProvideNewRowDefaultsOnChange(e) {
   var sheetName = 'Logs'
 
   if (e && e.changeType && e.changeType == 'INSERT_ROW') {
@@ -9,4 +9,8 @@ function triggerProvideNewLogRowDefaultsOnChange(e) {
       provideNewFormulaDefaultsInRange(logsDataRowsRange)
     }
   }
+}
+
+function triggersForLogsSheetOnChange(e) {
+  triggerLogsProvideNewRowDefaultsOnChange(e);
 }

@@ -4,28 +4,22 @@ function getNextMakerLabsId(previousMakerLabsId) {
 
   if (!previousMakerLabsId) {
     var sheetName = 'Users'
-    var targetRangeName = 'makerlabs_id'
+    var targetRangeName = 'activity_makerlabs_id'
 
-    var spreadsheet = SpreadsheetApp.getActiveSpreadsheet()
-    var sheet = spreadsheet.getSheetByName(sheetName)
-    var namedRanges = sheet.getNamedRanges()
+    var makerLabsIdColumnRange = getNamedRange(sheetName, targetRangeName)
 
-    // Search the list of all possible NamedRanges for the target name
-    for (var r in namedRanges) {
-      if (namedRanges[r].getName() == targetRangeName) {
-        var makerLabsIdColumnRange = namedRanges[r].getRange()
-        var makerLabsIdsArray = makerLabsIdColumnRange.getValues()
+    if (makerLabsIdColumnRange) {
+      var makerLabsIdsArray = makerLabsIdColumnRange.getValues()
 
-        for (var i in makerLabsIdsArray) {
-          var makerLabsId = makerLabsIdsArray[i][0]
-          var validMakerLabsId = makerLabsId.indexOf(makerLabsIdPrefix) == 0
-          if (validMakerLabsId) {
-            var makerLabsIdNum = Number(
-              makerLabsId.substr(makerLabsIdPrefix.length)
-            )
-            if (makerLabsIdNum > maxMakerLabsIdNum) {
-              maxMakerLabsIdNum = makerLabsIdNum
-            }
+      for (var i in makerLabsIdsArray) {
+        var makerLabsId = makerLabsIdsArray[i][0]
+        var validMakerLabsId = makerLabsId.indexOf(makerLabsIdPrefix) == 0
+        if (validMakerLabsId) {
+          var makerLabsIdNum = Number(
+            makerLabsId.substr(makerLabsIdPrefix.length)
+          )
+          if (makerLabsIdNum > maxMakerLabsIdNum) {
+            maxMakerLabsIdNum = makerLabsIdNum
           }
         }
       }

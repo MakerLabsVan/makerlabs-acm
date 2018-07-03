@@ -11,3 +11,7 @@ function triggerPopupOnUnsafeChangesOnChange(e) {
     return popupOnUnsafeChanges()
   }
 }
+
+function triggersForAllSheetsOnChange(e) {
+  triggerPopupOnUnsafeChangesOnChange(e);
+}

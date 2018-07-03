@@ -2,7 +2,7 @@
 // Convert it to a formula, "=IMAGE(...)"
 // Optionally select a valid low-res image if an Instagram link is detected
 // Store the user-provider text in a (hidden) column to the right of this one
-function triggerConvertUrlsToImagesOnEdit(e) {
+function triggerUsersConvertUrlsToImagesOnEdit(e) {
   var sheetName = 'Users'
 
   // Only run on edit events which provide a range
@@ -21,7 +21,7 @@ function triggerConvertUrlsToImagesOnEdit(e) {
   }
 }
 
-function triggerResizeUserRowsHeightOnChange(e) {
+function triggerUsersResizeRowsHeightOnChange(e) {
   var sheetName = 'Users'
 
   // Only run on change events of type "OTHER" (e.g. column resize)
@@ -36,7 +36,7 @@ function triggerResizeUserRowsHeightOnChange(e) {
   }
 }
 
-function triggerEnforceFormattingOnEdit(e) {
+function triggerUsersEnforceFormattingOnEdit(e) {
   var sheetName = 'Users'
 
   // Only run on edit events which provide a range
@@ -51,7 +51,7 @@ function triggerEnforceFormattingOnEdit(e) {
   }
 }
 
-function triggerEnforceFormattingOnChange(e) {
+function triggerUsersEnforceFormattingOnChange(e) {
   var sheetName = 'Users'
 
   // Only run on change events of type "FORMAT" (e.g. clear conditional formatting)
@@ -67,7 +67,7 @@ function triggerEnforceFormattingOnChange(e) {
   }
 }
 
-function triggerEnforceCheckboxValidationsOnEdit(e) {
+function triggerUsersEnforceCheckboxValidationsOnEdit(e) {
   var sheetName = 'Users'
 
   // Only run on edit events which provide a range
@@ -82,7 +82,7 @@ function triggerEnforceCheckboxValidationsOnEdit(e) {
   }
 }
 
-function triggerEnforceCheckboxValidationsOnChange(e) {
+function triggerUsersEnforceCheckboxValidationsOnChange(e) {
   var sheetName = 'Users'
 
   // Only run on change events of type "OTHER" (e.g. data validation removal)
@@ -96,4 +96,15 @@ function triggerEnforceCheckboxValidationsOnChange(e) {
       enforceCheckboxValidationsInRange(dataRowsRange)
     }
   }
+}
+
+function triggersForUsersSheetOnEdit(e) {
+  triggerUsersConvertUrlsToImagesOnEdit(e)
+  triggerUsersEnforceFormattingOnEdit(e)
+}
+
+function triggersForUsersSheetOnChange(e) {
+  //triggerUsersResizeRowsHeightOnChange(e)
+  triggerUsersEnforceFormattingOnChange(e)
+  triggerUsersEnforceCheckboxValidationsOnChange(e)
 }

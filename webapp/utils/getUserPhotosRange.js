@@ -2,7 +2,7 @@ function getUserPhotosRange() {
   var userPhotosRange = null
 
   var sheetName = 'Users'
-  var namedRangeName = 'photo'
+  var namedRangeName = 'users_photo_column'
 
   var userPhotoColumnRange = getNamedRange(sheetName, namedRangeName)
 
