@@ -90,7 +90,7 @@ auto display_actor_behaviour(
   }
 
   {
-    const DisplayIntent* display_intent;
+    const DisplayIntent* display_intent = nullptr;
     if (matches(message, "ShowUserDetails", display_intent))
     {
       if (display_intent->display_type() == DisplayAction::ShowUserDetails)
@@ -135,7 +135,7 @@ auto display_actor_behaviour(
   }
 
   {
-    const DisplayIntent* display_intent;
+    const DisplayIntent* display_intent = nullptr;
     if (matches(message, "ProgressBar", display_intent))
     {
       if (display_intent->display_type() == DisplayAction::ProgressBar)

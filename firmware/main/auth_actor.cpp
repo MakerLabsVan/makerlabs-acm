@@ -21,7 +21,7 @@ struct AuthActorState
   {
   }
 
-  MutableRequestIntentFlatbuffer reauth_request_intent_mutable_buf;
+  MutableRequestIntentFlatbuffer auth_request_intent_mutable_buf;
 };
 
 auto auth_actor_behaviour(
@@ -37,16 +37,16 @@ auto auth_actor_behaviour(
   auto& state = *(std::static_pointer_cast<AuthActorState>(_state));
 
   {
-    const Response* response;
-    auto reauth_request_intent_id = get_request_intent_id(
-      state.reauth_request_intent_mutable_buf
+    const Response* response = nullptr;
+    auto auth_request_intent_id = get_request_intent_id(
+      state.auth_request_intent_mutable_buf
     );
-    if (matches(message, "response_chunk", response, reauth_request_intent_id))
+    if (matches(message, "response_chunk", response, auth_request_intent_id))
     {
       if (response->code() < 400)
       {
         auto access_token_str = string_view{
-          response->body()->data(),
+          reinterpret_cast<const char*>(response->body()->data()),
           response->body()->size()
         };
 
@@ -62,11 +62,11 @@ auto auth_actor_behaviour(
   }
 
   {
-    const Response* response;
-    auto reauth_request_intent_id = get_request_intent_id(
-      state.reauth_request_intent_mutable_buf
+    const Response* response = nullptr;
+    auto auth_request_intent_id = get_request_intent_id(
+      state.auth_request_intent_mutable_buf
     );
-    if (matches(message, "response_finished", response, reauth_request_intent_id))
+    if (matches(message, "response_finished", response, auth_request_intent_id))
     {
       // Already processed access_token(s) via chunk messages
       // Check for internal error and re-send request immediately in that case
@@ -79,7 +79,7 @@ auto auth_actor_behaviour(
         send(
           request_manager_actor_pid,
           "request",
-          state.reauth_request_intent_mutable_buf
+          state.auth_request_intent_mutable_buf
         );
       }
       return {Result::Ok};
@@ -87,11 +87,11 @@ auto auth_actor_behaviour(
   }
 
   {
-    const Response* response;
-    auto reauth_request_intent_id = get_request_intent_id(
-      state.reauth_request_intent_mutable_buf
+    const Response* response = nullptr;
+    auto auth_request_intent_id = get_request_intent_id(
+      state.auth_request_intent_mutable_buf
     );
-    if (matches(message, "response_error", response, reauth_request_intent_id))
+    if (matches(message, "response_error", response, auth_request_intent_id))
     {
       ESP_LOGE(TAG, "got error (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
 
@@ -100,26 +100,29 @@ auto auth_actor_behaviour(
   }
 
   {
-    string_view reauth_request_intent;
-    if (matches(message, "reauth", reauth_request_intent))
+    if (matches(message, "auth"))
     {
-      if (not reauth_request_intent.empty())
+      const auto auth_request_intent = string_view(
+        reinterpret_cast<const char*>(message.payload()->data()),
+        message.payload()->size()
+      );
+      if (not auth_request_intent.empty())
       {
         // Parse (& copy) the firmware update check request intent flatbuffer
-        state.reauth_request_intent_mutable_buf = parse_request_intent(
-          reauth_request_intent,
+        state.auth_request_intent_mutable_buf = parse_request_intent(
+          auth_request_intent,
           self
         );
       }
 
-      if (not state.reauth_request_intent_mutable_buf.empty())
+      if (not state.auth_request_intent_mutable_buf.empty())
       {
         // Send the request intent message to the request manager actor
         auto request_manager_actor_pid = *(whereis("request_manager"));
         send(
           request_manager_actor_pid,
           "request",
-          state.reauth_request_intent_mutable_buf
+          state.auth_request_intent_mutable_buf
         );
       }
 

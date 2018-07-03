@@ -1,71 +1,90 @@
 menu "MakerLabs ACM Configuration"
 
-config WIFI_SSID
-  string "Wifi SSID"
-  default "myssid"
-  help
-    SSID (network name) for the example to connect to.
+#config SPREADSHEET_ID
+#  string "Google Apps Spreadsheet ID"
+#  default ""
+#  help
+#    Google Apps Spreadsheet ID
+#
+#config SPREADSHEET_USERS_SHEET_GID
+#  string "Google Apps 'Users' Sheet ID (GID)"
+#  default ""
+#  help
+#    Google Apps 'Users' Sheet ID (GID)
+#
+#config SPREADSHEET_USERS_SHEET_NAME
+#  string "Google Apps 'Users' Sheet Name"
+#  default "Users"
+#  help
+#    Google Apps 'Users' Sheet Name
+#
+#config SPREADSHEET_ACTIVITY_SHEET_NAME
+#  string "Google Apps 'Activity' Sheet Name"
+#  default "Activity"
+#  help
+#    Google Apps 'Activity' Sheet Name
+#
+#config SPREADSHEET_LOGS_SHEET_NAME
+#  string "Google Apps 'Logs' Sheet Name"
+#  default "Logs"
+#  help
+#    Google Apps 'Logs' Sheet Name
 
-config WIFI_PASSWORD
-  string "Wifi Password"
-  default "1234567890"
-  help
-    Wifi password (WPA or WPA2) for the example to use.
-
-    Can be left blank if the network has no security set.
-
-config PERMISSION_COLUMN_LABEL
-  string "Permission Column Label"
-  default "Front Desk"
-  help
-    Label from column header row in Google Apps Spreadsheet
-
-config SPREADSHEET_ID
-  string "Google Apps Spreadsheet ID"
-  default ""
-  help
-    Google Apps Spreadsheet ID
-
-config SPREADSHEET_USERS_SHEET_GID
-  string "Google Apps 'Users' Sheet ID (GID)"
-  default ""
-  help
-    Google Apps 'Users' Sheet ID (GID)
-
-config SPREADSHEET_USERS_SHEET_NAME
-  string "Google Apps 'Users' Sheet Name"
-  default "Users"
-  help
-    Google Apps 'Users' Sheet Name
-
-config SPREADSHEET_ACTIVITY_SHEET_NAME
-  string "Google Apps 'Activity' Sheet Name"
-  default "Activity"
-  help
-    Google Apps 'Activity' Sheet Name
-
-config SPREADSHEET_LOGS_SHEET_NAME
-  string "Google Apps 'Logs' Sheet Name"
-  default "Logs"
-  help
-    Google Apps 'Logs' Sheet Name
-
-config OAUTH_CLIENT_ID
+config ACM_OAUTH_CLIENT_ID
   string "OAuth Client ID"
   default ""
   help
     OAuth Client ID from created Webapp
 
-config OAUTH_CLIENT_SECRET
+config ACM_OAUTH_CLIENT_SECRET
   string "OAuth Client Secret"
   default ""
   help
     OAuth Client Secret from created Webapp
 
-config OAUTH_REFRESH_TOKEN
+config ACM_OAUTH_REFRESH_TOKEN
   string "OAuth Refresh Token"
   default ""
   help
     OAuth refresh_token used to obtain fresh access_token's every hour
+
+config ACM_ENABLE_SIGNED_IN_ACTIVITY
+  prompt "Send Sign_In events to spreadsheet"
+  bool
+  default y
+  help
+    Send Sign_In events to Activity sheet when an RFID tag is first detected.
+    Display User details from spreadsheet if found.
+
+config ACM_ENABLE_SIGNED_OUT_ACTIVITY
+  prompt "Send Sign_Out events to spreadsheet"
+  bool
+  default y
+  help
+    Send Sign_Out events to Activity sheet when an RFID tag is no longer detected.
+    Clear the current User details if present.
+
+config ACM_ENABLE_CNC_JOB_ACTIVITY
+  prompt "Send CNC_Job events to spreadsheet"
+  bool
+  default y
+  help
+    Send CNC_Job events to Activity sheet after some activity has been detected.
+    Sends one event at the beginning of the activity, and one event at the end
+    which includes a time interval of how long the activity has lasted.
+
+config ACM_ENABLE_PERMISSIONS_REQUIRED
+  prompt "Require a User to have permission to access connected equipment"
+  bool
+  default y
+  help
+    Require a User to have a checkbox in a specific column in the spreadsheet,
+    in order to enable the connected equipment.
+
+config ACM_PERMISSION_COLUMN_LABEL
+  string "Permission Column Label"
+  default "Front Desk"
+  help
+    Label from column header row in Google Apps Spreadsheet
 
 endmenu

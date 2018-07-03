@@ -3,7 +3,6 @@
 #include "acm_helpers.h"
 
 #include "filesystem.h"
-#include "googleapis.h"
 #include "requests.h"
 #include "uuid.h"
 
@@ -14,14 +13,13 @@
 #include <chrono>
 #include <queue>
 #include <string>
+#include <unordered_map>
 #include <experimental/string_view>
 
 using namespace ActorModel;
 using namespace Requests;
 
 using namespace ACM;
-using namespace googleapis::Visualization;
-using namespace googleapis::Sheets;
 
 using namespace std::chrono_literals;
 
@@ -29,24 +27,124 @@ using string = std::string;
 using string_view = std::experimental::string_view;
 
 using UserFlatbuffer = flatbuffers::DetachedBuffer;
+using MutableUserFlatbuffer = std::vector<uint8_t>;
+using MutableActivityFlatbuffer = std::vector<uint8_t>;
 using UUID::uuidgen;
 
 constexpr char TAG[] = "app_actor";
 
 struct AppActorState
 {
+  using ActivityMap = std::unordered_map<
+    UUID::UUID,
+    MutableActivityFlatbuffer,
+    UUID::UUIDHashFunc,
+    UUID::UUIDEqualFunc
+  >;
+
   AppActorState()
   {
-    permissions_check_query_intent_mutable_buf = filesystem_read(
-      "/spiflash/permissions_check_query.gviz.fb"
+    permissions_check_request_intent_mutable_buf = filesystem_read(
+      "/spiflash/permissions_check_request_intent.req.fb"
     );
   }
 
-  MutableDatatableFlatbuffer permissions_check_query_intent_mutable_buf;
-  UserFlatbuffer current_user_flatbuf;
-  string machine_id_str = CONFIG_PERMISSION_COLUMN_LABEL;
+  auto send_activity_request(
+    //ActivityFlatbuffer&& activity_flatbuf,
+    const MutableActivityFlatbuffer& activity_mutable_buf,
+    const Pid& self
+  ) -> UUID::UUID
+  {
+    if (not activity_mutable_buf.empty())
+    {
+      const auto* request_intent = flatbuffers::GetRoot<RequestIntent>(
+        permissions_check_request_intent_mutable_buf.data()
+      );
+
+      if (
+        request_intent
+        and not permissions_check_request_intent_mutable_buf.empty()
+      )
+      {
+        // Generate a random request intent id, and send responses back to us
+        update_request_intent_ids(
+          permissions_check_request_intent_mutable_buf,
+          self
+        );
+
+        // Send the binary Activity flatbuffer as the body of the request
+        set_request_body(
+          permissions_check_request_intent_mutable_buf,
+          string_view{
+            reinterpret_cast<const char*>(activity_mutable_buf.data()),
+            activity_mutable_buf.size()
+          }
+        );
+
+        // Update the flatbuffer after mutating it
+        request_intent = flatbuffers::GetRoot<RequestIntent>(
+          permissions_check_request_intent_mutable_buf.data()
+        );
+
+        // Extract the generated request id
+        const auto& request_id = *(request_intent->id());
+
+        // Send the request
+        auto request_manager_actor_pid = *(whereis("request_manager"));
+        send(
+          request_manager_actor_pid,
+          "request",
+          permissions_check_request_intent_mutable_buf
+        );
+
+        // Enqueue the Activity that was sent and the request id for it
+        pending_activity.emplace(request_id, activity_mutable_buf);
+
+        // Update the progress bar on a timer
+        if (not progress_tref)
+        {
+          auto display_actor_pid = *(whereis("display"));
+          progress_tref = send_interval(50ms, display_actor_pid, "progress");
+        }
+
+        return request_id;
+      }
+    }
+
+    return UUID::NullUUID;
+  }
+
+  auto send_progress_bar(const DisplayIntentFlatbuffer& display_intent_flatbuf)
+    -> bool
+  {
+    auto display_actor_pid = *(whereis("display"));
+    send(display_actor_pid, "ProgressBar", display_intent_flatbuf);
+    return true;
+  }
+
+  auto cancel_progress_timer()
+    -> bool
+  {
+    if (progress_tref)
+    {
+      cancel(progress_tref);
+      progress_tref = NullTRef;
+      return true;
+    }
+
+    return false;
+  }
+
+  MutableRequestIntentFlatbuffer permissions_check_request_intent_mutable_buf;
+
+  ActivityMap pending_activity;
+
+  MutableUserFlatbuffer current_user_flatbuf;
+
+  string access_token;
+
+  string machine_id_str = CONFIG_ACM_PERMISSION_COLUMN_LABEL;
   bool logged_in = false;
-  bool first_request = true;
   TRef progress_tref = NullTRef;
   bool rfid_scanning = false;
 };
@@ -63,8 +161,6 @@ auto app_actor_behaviour(
   }
   auto& state = *(std::static_pointer_cast<AppActorState>(_state));
 
-  auto display_actor_pid = *(whereis("display"));
-
   {
     string tag_id_str;
     if (matches(message, "tag_found", tag_id_str))
@@ -73,84 +169,25 @@ auto app_actor_behaviour(
       auto progress = 0;
       auto message = "Tag " + tag_id_str + " search";
 
-      // For first request, override progress bar title
-      if (state.first_request)
-      {
-        state.first_request = false;
-        message = "First-time setup";
-      }
-
       // Send the updated progress bar to the display
       auto progress_bar = generate_progress_bar(message, progress);
-      auto display_actor_pid = *(whereis("display"));
-      send(display_actor_pid, "ProgressBar", progress_bar);
+      state.send_progress_bar(progress_bar);
 
-      if (not state.progress_tref)
-      {
-        state.progress_tref = send_interval(
-          200ms,
-          display_actor_pid,
-          "progress"
-        );
-      }
-
-      // Update the tag ID column in the permissions check query
-      auto did_update_query = update_permissions_check_query_intent(
-        state.permissions_check_query_intent_mutable_buf,
+#if CONFIG_ACM_ENABLE_SIGNED_IN_ACTIVITY
+      // Add a Signed_In activity:
+      const auto& activity_flatbuf = generate_activity(
+        state.machine_id_str,
+        ActivityType::Signed_In,
         tag_id_str
       );
 
-      // If the query was updated successfully, then send the query
-      if (did_update_query)
-      {
-        auto* query_intent = flatbuffers::GetMutableRoot<QueryIntent>(
-          state.permissions_check_query_intent_mutable_buf.data()
-        );
-        if (query_intent and query_intent->to_pid())
-        {
-          // Assign a random ID to this query
-          uuidgen(query_intent->mutable_id());
-
-          // Send query results back to this actor
-          update_uuid(query_intent->mutable_to_pid(), self);
-
-          // Send the query to the query actor
-          const auto& query_buf = state.permissions_check_query_intent_mutable_buf;
-          auto visualization_query_actor_pid = *(whereis("gviz"));
-          send(visualization_query_actor_pid, "query", query_buf);
-        }
-      }
-      else {
-        //return {Result::Error};
-      }
-
-      // Add a Signed_In activity:
-      {
-        auto values_json = generate_activity_json(
-          state.machine_id_str,
-          ActivityType::Signed_In,
-          tag_id_str
-        );
-
-        auto insert_row_intent_id = uuidgen();
-
-        flatbuffers::FlatBufferBuilder fbb;
-        fbb.Finish(
-          CreateInsertRowIntentDirect(
-            fbb,
-            &insert_row_intent_id,
-            &self,
-            CONFIG_SPREADSHEET_ID,
-            CONFIG_SPREADSHEET_ACTIVITY_SHEET_NAME,
-            values_json.c_str()
-          )
-        );
-
-        // Send the row to the sheets actor
-        auto sheets_actor_pid = *(whereis("sheets"));
-        auto insert_row = fbb.Release();
-        send(sheets_actor_pid, "insert_row", insert_row);
-      }
+      MutableActivityFlatbuffer activity_mutable_buf;
+      activity_mutable_buf.assign(
+        activity_flatbuf.data(),
+        activity_flatbuf.data() + activity_flatbuf.size()
+      );
+      state.send_activity_request(activity_mutable_buf, self);
+#endif // CONFIG_ACM_ENABLE_SIGNED_IN_ACTIVITY
 
       return {Result::Ok};
     }
@@ -164,143 +201,153 @@ auto app_actor_behaviour(
       auto message = "Tag " + tag_id_str + " removed";
       auto progress = 0;
       auto progress_bar = generate_progress_bar(message, progress);
-      auto display_actor_pid = *(whereis("display"));
-      send(display_actor_pid, "ProgressBar", progress_bar);
-
-      if (not state.progress_tref)
-      {
-        state.progress_tref = send_interval(
-          50ms,
-          display_actor_pid,
-          "progress"
-        );
-      }
+      state.send_progress_bar(progress_bar);
 
       // Reset stored current_user
-      state.current_user_flatbuf = UserFlatbuffer{};
+      state.current_user_flatbuf.clear();
 
+#if CONFIG_ACM_ENABLE_SIGNED_OUT_ACTIVITY
       // Add a Signed_Out activity:
-      {
-        auto values_json = generate_activity_json(
-          state.machine_id_str,
-          ActivityType::Signed_Out,
-          tag_id_str
-        );
+      const auto& activity_flatbuf = generate_activity(
+        state.machine_id_str,
+        ActivityType::Signed_Out,
+        tag_id_str
+      );
 
-        auto insert_row_intent_id = uuidgen();
-
-        flatbuffers::FlatBufferBuilder fbb;
-        fbb.Finish(
-          CreateInsertRowIntentDirect(
-            fbb,
-            &insert_row_intent_id,
-            &self,
-            CONFIG_SPREADSHEET_ID,
-            CONFIG_SPREADSHEET_ACTIVITY_SHEET_NAME,
-            values_json.c_str()
-          )
-        );
-
-        // Send the row to the sheets actor
-        auto sheets_actor_pid = *(whereis("sheets"));
-        send(sheets_actor_pid, "insert_row", fbb.Release());
-      }
+      const MutableActivityFlatbuffer activity_mutable_buf;
+      activity_mutable_buf.assign(
+        activity_flatbuf.data(),
+        activity_flatbuf.data() + activity_flatbuf.size()
+      );
+      state.send_activity_request(activity_mutable_buf, self);
+#endif // CONFIG_ACM_ENABLE_SIGNED_OUT_ACTIVITY
 
       return {Result::Ok};
     }
   }
 
   {
-    const Datatable* query_results;
-    if (matches(message, "query_results", query_results))
+    const Response* response = nullptr;
+    if (matches(message, "response_finished", response))
     {
-      auto valid_user = false;
-
-      const auto* query = flatbuffers::GetRoot<QueryIntent>(
-        state.permissions_check_query_intent_mutable_buf.data()
+      const auto& request_id_iter = (
+        state.pending_activity.find(*(response->request_id()))
       );
-
-      if (query and query_results)
+      if (request_id_iter != state.pending_activity.end())
       {
-        // Generate a User from the query results
-        state.current_user_flatbuf = generate_user_from_query_intent_with_results(
-          query,
-          query_results
-        );
-
-        printf("Updated logged in user\n");
-
-        const User* current_user = flatbuffers::GetRoot<User>(
-          state.current_user_flatbuf.data()
-        );
-
-        if (current_user)
+        if (response->code() == 200)
         {
-          valid_user = true;
+          // Update progress bar to 100%
+          {
+            auto progress = 100;
+            auto progress_bar = generate_progress_bar(
+              "",
+              progress,
+              Display::Icon::HeavyCheckmark
+            );
 
-          // Show user details on OLED display
-          auto show_user_details_display_intent_flatbuf = (
-            generate_show_user_details_from_user(current_user)
-          );
+            state.cancel_progress_timer();
+            state.send_progress_bar(progress_bar);
+          }
+          auto valid_user = false;
 
-          send(
-            display_actor_pid,
-            "ShowUserDetails",
-            show_user_details_display_intent_flatbuf
-          );
+          if (response->body() and response->body()->size() > 0)
+          {
+            flatbuffers::Verifier verifier(
+              response->body()->data(),
+              response->body()->size()
+            );
+
+            {
+              const auto& current_user_flatbuf = response->body();
+
+              printf("Updated logged in user\n");
+
+              state.current_user_flatbuf.assign(
+                current_user_flatbuf->data(),
+                current_user_flatbuf->data() + current_user_flatbuf->size()
+              );
+              const User* current_user = flatbuffers::GetRoot<User>(
+                state.current_user_flatbuf.data()
+              );
+
+              if (current_user)
+              {
+                valid_user = true;
+
+                // Show user details on OLED display
+                auto show_user_details_display_intent_flatbuf = (
+                  generate_show_user_details_from_user(current_user)
+                );
+
+                auto display_actor_pid = *(whereis("display"));
+                send(
+                  display_actor_pid,
+                  "ShowUserDetails",
+                  show_user_details_display_intent_flatbuf
+                );
+              }
+            }
+          }
+
+          if (not valid_user)
+          {
+            ESP_LOGW(TAG, "Missing user before updating display");
+            // Update progress bar to 100%
+            auto progress = 100;
+            auto progress_bar = generate_progress_bar(
+              "Access Denied",
+              progress,
+              Display::Icon::HeavyCheckmark
+            );
+
+            state.send_progress_bar(progress_bar);
+          }
+
+          // Clear the matching Activity, it has been completed
+          // And already re-queued if needed
+          state.pending_activity.erase(request_id_iter);
+
+          // TODO(@paulreimer): Cancel progress timer here?
+          state.cancel_progress_timer();
+
+          return {Result::Ok};
         }
       }
-
-      if (not valid_user)
-      {
-        ESP_LOGW(TAG, "Missing user before updating display");
-        // Update progress bar to 100%
-        auto progress = 100;
-        auto progress_bar = generate_progress_bar(
-          "Access Denied",
-          progress,
-          Display::Icon::HeavyCheckmark
-        );
-
-        auto display_actor_pid = *(whereis("display"));
-        send(display_actor_pid, "ProgressBar", progress_bar);
-      }
-
-      if (state.progress_tref)
-      {
-        cancel(state.progress_tref);
-        state.progress_tref = NullTRef;
-      }
-
-      return {Result::Ok};
     }
   }
 
   {
-    if (matches(message, "inserted_row"))
+    const Response* response = nullptr;
+    if (matches(message, "response_error", response))
     {
-      // Update progress bar to 100%
-      auto progress = 100;
-      auto progress_bar = generate_progress_bar(
-        "",
-        progress,
-        Display::Icon::HeavyCheckmark
+      const auto& request_id_iter = (
+        state.pending_activity.find(*(response->request_id()))
       );
-
-      if (state.progress_tref)
+      if (request_id_iter != state.pending_activity.end())
       {
-        cancel(state.progress_tref);
-        state.progress_tref = NullTRef;
-      }
+        if (response->code() < 0)
+        {
+          ESP_LOGE(TAG, "query: Internal error, re-queueing (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+        }
 
-      auto display_actor_pid = *(whereis("display"));
-      send(display_actor_pid, "ProgressBar", progress_bar);
+        // TODO(@paulreimer): In case of permissions error, should send re-auth?
+        if (
+          response->code() == 401
+          or response->code() == 408
+          or response->code() < 0
+        )
+        {
+          // Attempt to retransmit under a new request intent id
+          const auto& activity_flatbuf = request_id_iter->second;
+          state.send_activity_request(activity_flatbuf, self);
+        }
+      }
     }
   }
 
   {
-    string_view access_token_str;
-    if (matches(message, "access_token", access_token_str))
+    if (matches(message, "access_token", state.access_token))
     {
       if (not state.logged_in)
       {
@@ -309,27 +356,24 @@ auto app_actor_behaviour(
 
         // Update progress bar
         auto progress_bar = generate_progress_bar("Logged in", progress);
-        auto display_actor_pid = *(whereis("display"));
-        send(display_actor_pid, "ProgressBar", progress_bar);
+        state.send_progress_bar(progress_bar);
+      }
+
+      if (not state.permissions_check_request_intent_mutable_buf.empty())
+      {
+        // Update auth used for permissions_check requests
+        set_request_header(
+          state.permissions_check_request_intent_mutable_buf,
+          "Authorization",
+          "Bearer " + state.access_token
+        );
       }
 
       // Distribute access_token to other actors
-      auto spreadsheet_insert_row_actor_pid = *(whereis("sheets"));
-      if (not compare_uuids(self, spreadsheet_insert_row_actor_pid))
-      {
-        send(spreadsheet_insert_row_actor_pid, "access_token", access_token_str);
-      }
-
-      auto visualization_query_actor_pid = *(whereis("gviz"));
-      if (not compare_uuids(self, visualization_query_actor_pid))
-      {
-        send(visualization_query_actor_pid, "access_token", access_token_str);
-      }
-
       auto firmware_update_actor_pid = *(whereis("firmware_update"));
       if (not compare_uuids(self, firmware_update_actor_pid))
       {
-        send(firmware_update_actor_pid, "access_token", access_token_str);
+        send(firmware_update_actor_pid, "access_token", state.access_token);
       }
 
       // Ready to RFID scan!

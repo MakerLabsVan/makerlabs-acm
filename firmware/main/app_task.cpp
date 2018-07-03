@@ -30,10 +30,6 @@
 #include "requests.h"
 #include "request_manager_actor.h"
 
-// googleapis
-#include "spreadsheet_insert_row_actor.h"
-#include "visualization_query_actor.h"
-
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_log.h"
@@ -41,13 +37,15 @@
 #include "trace.h"
 
 using namespace ActorModel;
+
+using Requests::set_request_body;
+
 // ActorModel behaviours:
 using NetworkManager::ntp_actor_behaviour;
 using NetworkManager::wifi_actor_behaviour;
 using Requests::request_manager_actor_behaviour;
 using FirmwareUpdate::firmware_update_actor_behaviour;
 using FirmwareUpdate::get_current_firmware_version;
-using googleapis::Visualization::visualization_query_actor_behaviour;
 
 using string_view = std::experimental::string_view;
 using string = std::string;
@@ -56,7 +54,6 @@ using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 
 using namespace Display;
 using namespace NetworkManager;
-using namespace googleapis::Sheets;
 
 using namespace std::chrono_literals;
 
@@ -66,7 +63,7 @@ auto app_task(void* /* user_data */)
   -> void
 {
   printf("S/W Version Number: %lld\n", get_current_firmware_version());
-  string machine_id_str = CONFIG_PERMISSION_COLUMN_LABEL;
+  string machine_id_str = CONFIG_ACM_PERMISSION_COLUMN_LABEL;
 /*
   // Check boot state of GPIO5 (pull-down -> reset to factory immediately)
   uint32_t strapping_pins = REG_READ(GPIO_STRAP_REG);
@@ -108,12 +105,13 @@ auto app_task(void* /* user_data */)
       "v" + std::to_string(get_current_firmware_version())
     );
 
+    const auto& version_fbstr = fbb.CreateString(version_str);
     auto display_loc = CreateShowUserDetails(
       fbb,
       fbb.CreateString("MakerLabs ACM"),
-      fbb.CreateString(version_str),
-      fbb.CreateString(version_str),
-      fbb.CreateString(version_str)
+      version_fbstr,
+      version_fbstr,
+      version_fbstr
     );
 
     fbb.Finish(
@@ -131,52 +129,6 @@ auto app_task(void* /* user_data */)
       fbb.Release()
     );
   }
-
-  // NetworkManagerActor
-  {
-    auto network_manager_actor_pid = spawn(
-      {
-        ntp_actor_behaviour,
-        wifi_actor_behaviour,
-        network_check_actor_behaviour,
-        //
-        mdns_actor_behaviour,
-        http_server_actor_behaviour,
-      },
-      // Override the default execution config settings to increase mailbox size
-      [](ActorExecutionConfigBuilder& builder)
-      {
-        builder.add_task_stack_size(4096);
-        //builder.add_mailbox_size(8192);
-      }
-    );
-
-    // Create WifiConfiguration with STA credentials object here
-    send(network_manager_actor_pid, "connect_wifi_sta");
-
-    // Wait for valid network connection before starting NTP
-    NetworkManager::wait_for_network(
-      NetworkManager::NETWORK_IS_CONNECTED,
-      portMAX_DELAY
-    );
-
-    // Fetch time via NTP
-    {
-      flatbuffers::FlatBufferBuilder fbb;
-      fbb.Finish(
-        CreateNTPConfigurationDirect(fbb, "pool.ntp.org")//,
-        //DisplayIntentIdentifier()
-      );
-      send(network_manager_actor_pid, "ntpdate", fbb.Release());
-    }
-  }
-
-  // Wait for valid network connection before making the connection
-  NetworkManager::wait_for_network(
-    (NetworkManager::NETWORK_IS_CONNECTED | NetworkManager::NETWORK_TIME_AVAILABLE),
-    portMAX_DELAY
-  );
-  ESP_LOGI(TAG, "Network online");
 
   // Spawn the RequestManager actor
   Pid request_manager_actor_pid;
@@ -213,24 +165,26 @@ auto app_task(void* /* user_data */)
     auto combined_actor_pid = spawn(
       {
         auth_actor_behaviour,
-        spreadsheet_insert_row_actor_behaviour,
-        visualization_query_actor_behaviour,
         rfid_reader_actor_behaviour,
         app_actor_behaviour,
+        ntp_actor_behaviour,
+        wifi_actor_behaviour,
       },
       // Override the default execution config settings to increase mailbox size
       [](ActorExecutionConfigBuilder& builder)
       {
-        builder.add_task_stack_size(8192);
-        builder.add_mailbox_size(8192);
+        builder.add_task_stack_size(4096);
+        builder.add_mailbox_size(4096);
       }
     );
-    register_name("reauth", combined_actor_pid);
-    register_name("sheets", combined_actor_pid);
-    register_name("gviz", combined_actor_pid);
+    register_name("auth", combined_actor_pid);
     register_name("rfid_reader", combined_actor_pid);
     register_name("app", combined_actor_pid);
+
+    // network_manager
+    register_name("network_manager", combined_actor_pid);
   }
+
 /*
   // RFIDReaderActor
   {
@@ -252,32 +206,89 @@ auto app_task(void* /* user_data */)
       // Override the default execution config settings to increase stack size
       [](ActorExecutionConfigBuilder& builder)
       {
+        //builder.add_task_stack_size(8192);
         builder.add_task_stack_size(16384);
       }
     );
     register_name("app", app_actor_pid);
   }
+*/
+  heap_check("after spawn all actors");
 
-  // Set CA certs for *.google.com
-  send(
-    request_manager_actor_pid,
-    "add_cacert_der",
-    embedded_files::WILDCARD_google_com_root_cacert_der
+  // Set CA certs for request_manager
+  {
+    // Set CA certs for *.google.com
+    send(
+      request_manager_actor_pid,
+      "add_cacert_der",
+      embedded_files::WILDCARD_google_com_root_cacert_der
+    );
+
+    // Set CA certs for *.googleapis.com
+    send(
+      request_manager_actor_pid,
+      "add_cacert_der",
+      embedded_files::WILDCARD_googleapis_com_root_cacert_der
+    );
+  }
+
+  auto network_manager_actor_pid = *(whereis("network_manager"));
+
+  // Start Wifi in STA mode
+  {
+    send(network_manager_actor_pid, "connect_wifi_sta");
+  }
+
+  // Wait for valid network connection before starting services
+  NetworkManager::wait_for_network(
+    NetworkManager::NETWORK_IS_CONNECTED,
+    portMAX_DELAY
+  );
+  ESP_LOGI(TAG, "Network online");
+
+  // Fetch time via NTP
+  {
+    flatbuffers::FlatBufferBuilder fbb;
+    fbb.Finish(
+      CreateNTPConfiguration(fbb, fbb.CreateString("pool.ntp.org"))//,
+      //DisplayIntentIdentifier()
+    );
+    send(network_manager_actor_pid, "ntp_client_start", fbb.Release());
+  }
+
+  // Start ping check to upstream host to verify connection
+  {
+    // Create NetworkCheckConfiguration object here
+    //send(network_manager_actor_pid, "ping");
+  }
+
+  // Wait for valid network connection and NTP time before continuing
+  NetworkManager::wait_for_network(
+    (NetworkManager::NETWORK_IS_CONNECTED | NetworkManager::NETWORK_TIME_AVAILABLE),
+    portMAX_DELAY
   );
 
-  // Set CA certs for *.googleapis.com
-  send(
-    request_manager_actor_pid,
-    "add_cacert_der",
-    embedded_files::WILDCARD_googleapis_com_root_cacert_der
-  );
+  // Print current NTP time
+  {
+    // UTC Time
+    auto now = std::time(nullptr);
+    auto* timeinfo = std::gmtime(&now);
+    auto utc_now_str = NetworkManager::format_time(timeinfo, "%c");
+    printf("UTC:   %s\n", utc_now_str.c_str());
+
+    // 2017c, America/Vancouver
+    auto tz = Posix::time_zone{"PST8PDT,M3.2.0,M11.1.0"};
+    auto local_now = NetworkManager::TimeZone{tz, std::chrono::system_clock::now()};
+    auto local_now_str = NetworkManager::format_time(local_now, "%c");
+    printf("local:   %s\n", local_now_str.c_str());
+  }
 
   // Main loop:
   auto firmware_update_check_interval = std::chrono::seconds(
     CONFIG_FIRMWARE_UPDATE_CHECK_INTERVAL_SECONDS
   );
 
-  auto reauth_interval = 20min;
+  auto auth_interval = 20min;
   auto network_check_interval = 10min;
   auto reset_button_check_interval = 1s;
 
@@ -290,18 +301,26 @@ auto app_task(void* /* user_data */)
   uint32_t progress = 0;
   auto reset_count = 0;
 
-  // Send periodic reauth message
+  // Send periodic auth message
   {
-    auto reauth_request_intent_req_fb = filesystem_read(
-      "/spiflash/reauth_request_intent.req.fb"
+    auto auth_request_intent_mutable_buf = filesystem_read(
+      "/spiflash/auth_request_intent.req.fb"
     );
 
-    auto reauth_actor_pid = *(whereis("reauth"));
+    set_request_body(
+      auth_request_intent_mutable_buf ,
+      "grant_type="     "refresh_token" "&"
+      "client_id="      CONFIG_ACM_OAUTH_CLIENT_ID "&"
+      "client_secret="  CONFIG_ACM_OAUTH_CLIENT_SECRET "&"
+      "refresh_token="  CONFIG_ACM_OAUTH_REFRESH_TOKEN
+    );
 
-    // Send an initial full reauth request intent
-    send(reauth_actor_pid, "reauth", reauth_request_intent_req_fb);
-    // Schedule periodic reauth requests (re-using previous metadata)
-    send_interval(reauth_interval, reauth_actor_pid, "reauth");
+    auto auth_actor_pid = *(whereis("auth"));
+
+    // Send an initial full auth request intent
+    send(auth_actor_pid, "auth", auth_request_intent_mutable_buf);
+    // Schedule periodic auth requests (re-using previous metadata)
+    send_interval(auth_interval, auth_actor_pid, "auth");
   }
 
   {
