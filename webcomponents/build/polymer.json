@@ -37,7 +37,7 @@
       "addServiceWorker": true,
       "addPushManifest": false,
       "preset": "es5-bundled",
-      "basePath": "https://cdn.rawgit.com/MakerLabsVan/makerlabs-acm/281522801a52f811107ffce3c762abbfee15c7f3/webcomponents/build/es5-bundled/"
+      "basePath": "https://cdn.rawgit.com/MakerLabsVan/makerlabs-acm/c0471be9a2514098b7890ea436ac73e74725b97b/webcomponents/build/es5-bundled/"
     },
     {
       "name": "es6-bundled",
@@ -59,7 +59,7 @@
       "addServiceWorker": true,
       "addPushManifest": false,
       "preset": "es6-bundled",
-      "basePath": "https://cdn.rawgit.com/MakerLabsVan/makerlabs-acm/281522801a52f811107ffce3c762abbfee15c7f3/webcomponents/build/es6-bundled/"
+      "basePath": "https://cdn.rawgit.com/MakerLabsVan/makerlabs-acm/c0471be9a2514098b7890ea436ac73e74725b97b/webcomponents/build/es6-bundled/"
     }
   ],
   "lint": {
