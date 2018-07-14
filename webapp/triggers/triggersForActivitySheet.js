@@ -36,13 +36,11 @@ function triggerActivityProvideNewRowDefaultsOnEdit(e) {
 function triggerActivityProvideNewRowDefaultsOnChange(e) {
   var sheetName = 'Activity'
 
-  if (e && e.changeType && e.changeType == 'INSERT_ROW') {
-    // Only consider Activity sheet data rows
-    var activityDataRowsRange = getDataRowsForSheet(sheetName)
+  // Only consider Activity sheet data rows
+  var activityDataRowsRange = getDataRowsForSheet(sheetName)
 
-    if (activityDataRowsRange) {
-      provideNewFormulaDefaultsInRange(activityDataRowsRange)
-    }
+  if (activityDataRowsRange) {
+    provideNewFormulaDefaultsInRange(activityDataRowsRange)
   }
 }
 
@@ -86,13 +84,12 @@ function triggerActivityFreezeIdsOnEdit(e) {
 function triggerActivityFreezeIdsOnChange(e) {
   var sheetName = 'Activity'
 
-  if (e && e.changeType && e.changeType == 'INSERT_ROW') {
-    // Only consider Activity sheet data rows
-    var activityDataRowsRange = getDataRowsForSheet(sheetName)
+  // Only consider Activity sheet data rows
+  var activityDataRowsRange = getDataRowsForSheet(sheetName);
+  var activityFreezeRowsRange = excludeTemplateRowFromRange(activityDataRowsRange);
 
-    if (activityDataRowsRange) {
-      freezeActivityIdsInRange(activityDataRowsRange)
-    }
+  if (activityFreezeRowsRange) {
+    freezeActivityIdsInRange(activityFreezeRowsRange)
   }
 }
 
