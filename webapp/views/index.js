@@ -1,10 +1,10 @@
 function doGet(e) {
-  var route = e.parameter.href || 'view-user-fields'
+  var route = e.parameter.href || 'users-fields'
 
   switch (route) {
     default:
-    case 'view-user-fields':
-      return viewUserFields(e)
+    case 'users-fields':
+      return viewUsersFields(e)
       break;
   }
 }
