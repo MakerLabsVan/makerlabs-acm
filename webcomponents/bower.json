@@ -33,8 +33,7 @@
     "vaadin-material-styles": "vaadin/vaadin-material-styles#b62ae6f",
     "google-chart": "GoogleWebComponents/google-chart#^2.0.0",
     "google-signin": "GoogleWebComponents/google-signin#^2.0.0",
-    "google-apis": "GoogleWebComponents/google-apis#^2.0.1",
-    "iron-jsonp-library": "polymerelements/iron-jsonp-library#^2.1.0"
+    "google-apis": "GoogleWebComponents/google-apis#^2.0.1"
   },
   "main": [
     "view-user-page.html"
