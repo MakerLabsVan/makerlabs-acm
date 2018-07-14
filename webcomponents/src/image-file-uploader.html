@@ -14,7 +14,7 @@
         padding: 25px;
         margin-bottom: 8px;
         text-align: center;
-        font: 20pt bold 'Helvetica';
+        font: 20pt bold "Helvetica";
         color: #bbb;
         background-size: contain;
         background-repeat: no-repeat;
@@ -32,7 +32,7 @@
 
   <script>
     class ImageFileUploader extends Polymer.Element {
-      static get is() { return 'image-file-uploader'; }
+      static get is() { return "image-file-uploader"; }
 
       static get properties() {
         return {
@@ -67,8 +67,8 @@
           if (currentUser) {
             var authResponse = currentUser.getAuthResponse(true);
             if (authResponse) {
-              if ('access_token' in authResponse) {
-                accessToken = authResponse['access_token'];
+              if ("access_token" in authResponse) {
+                accessToken = authResponse["access_token"];
               }
             }
           }
@@ -99,9 +99,9 @@
                 var data = JSON.parse(json);
 
                 // Check if a valid web content link was created/found
-                if (data && data['webContentLink']) {
+                if (data && data["webContentLink"]) {
                   // Update displayed image
-                  this.src = data['webContentLink'];
+                  this.src = data["webContentLink"];
                 }
               }.bind(this)
             });
@@ -115,33 +115,33 @@
 
       // Dragover handler to set the drop effect.
       handleDragOver(evt) {
-        var el = this.shadowRoot.getElementById('drop_zone');
+        var el = this.shadowRoot.getElementById("drop_zone");
         if (el) {
-          el.style.borderWidth = '2px';
+          el.style.borderWidth = "2px";
         }
 
-        var hint = this.shadowRoot.getElementById('drop_hint');
+        var hint = this.shadowRoot.getElementById("drop_hint");
         if (hint) {
-          hint.style.display = 'block';
+          hint.style.display = "block";
         }
 
         if (evt) {
           evt.stopPropagation();
           evt.preventDefault();
-          evt.dataTransfer.dropEffect = 'copy';
+          evt.dataTransfer.dropEffect = "copy";
         }
       }
 
       // Dragover handler to set the drop effect.
       handleDragLeave(evt) {
-        var el = this.shadowRoot.getElementById('drop_zone');
+        var el = this.shadowRoot.getElementById("drop_zone");
         if (el) {
-          el.style.borderWidth = '0px';
+          el.style.borderWidth = "0px";
         }
 
-        var hint = this.shadowRoot.getElementById('drop_hint');
+        var hint = this.shadowRoot.getElementById("drop_hint");
         if (hint) {
-          hint.style.display = 'none';
+          hint.style.display = "none";
         }
 
         if (evt) {
@@ -154,10 +154,10 @@
         super.ready();
 
         // Wire up drag & drop listeners once page loads
-        var el = this.shadowRoot.getElementById('drop_zone');
-        el.addEventListener('dragover', this.handleDragOver.bind(this), false);
-        el.addEventListener('dragleave', this.handleDragLeave.bind(this), false);
-        el.addEventListener('drop', this.handleFileSelect.bind(this), false);
+        var el = this.shadowRoot.getElementById("drop_zone");
+        el.addEventListener("dragover", this.handleDragOver.bind(this), false);
+        el.addEventListener("dragleave", this.handleDragLeave.bind(this), false);
+        el.addEventListener("drop", this.handleFileSelect.bind(this), false);
       }
     }
 

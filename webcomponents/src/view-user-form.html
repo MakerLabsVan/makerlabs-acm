@@ -31,8 +31,6 @@
 <link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker-light.html">
 
 <!-- Google Sign-In, Sheets, Charts, ... -->
-<link rel="import" href="../bower_components/google-signin/google-signin.html">
-<link rel="import" href="../bower_components/google-apis/google-apis.html">
 <link rel="import" href="../bower_components/google-chart/google-chart-loader.html">
 
 <!-- Local Components -->
@@ -165,10 +163,13 @@
 
   <script>
     class ViewUserForm extends Polymer.Element {
-      static get is() { return 'view-user-form'; }
+      static get is() { return "view-user-form"; }
 
       static get properties() {
         return {
+          accessToken: {
+            type: String
+          },
           fields: {
             type: Array
           },
@@ -181,53 +182,28 @@
         }
       }
 
-      get sheetId() { return '1Sd3nYY34dllVUsakwU8hLnJQ1m-U50qZwQSxst2SKKg'; }
+      get sheetId() { return "1Sd3nYY34dllVUsakwU8hLnJQ1m-U50qZwQSxst2SKKg"; }
 
-      get usersSheetGid() { return '653502556'; }
+      get usersSheetName() { return "Users"; }
       get usersSheetNumHeaders() { return 2; }
 
-      get activitySheetGid() { return '1547381894'; }
+      get activitySheetName() { return "Activity"; }
       get activitySheetNumHeaders() { return 1; }
 
-      get sheetName() { return 'Users'; }
-      get hiddenSectionNames() { return ['Initial', 'Hidden', 'Private']; }
-      get tagIdColumn() { return 'T'; }
-      get nameColumn() { return 'C'; }
-      get makerLabsIdColumn() { return 'I'; }
-      get searchColumns() { return 'A,B,C,D,E,F,G,H,I'; }
+      get hiddenSectionNames() { return ["Initial", "Hidden", "Private"]; }
 
-      get defaultPhotoUrl() { return 'https://drive.google.com/a/p-rimes.net/uc?id=1nevGbxJUGvdw9MkuF1iBfuoR9cfvss-6&export=download'; }
+      get usersNameColumn() { return "C"; }
+      get usersMakerLabsIdColumn() { return "I"; }
+      get usersTagIdColumn() { return "U"; }
+      get usersSearchColumns() { return "A,B,C,D,E,F,G,H,I"; }
 
+      get activityTimestampColumn() { return "A"; }
+      get activityMachineIdColumn() { return "B"; }
+      get activityTypeColumn() { return "C"; }
+      get activityTagIdColumn() { return "E"; }
+      get activityMakerLabsIdColumn() { return "F"; }
 
-      get accessToken() {
-        var accessToken = null;
-
-        var authInstance = (
-          gapi
-          && gapi.auth2
-          && gapi.auth2.getAuthInstance()
-        );
-
-        if (authInstance)
-        {
-          var currentUser = (
-            authInstance
-            && authInstance.currentUser
-            && authInstance.currentUser.get()
-          );
-
-          if (currentUser) {
-            var authResponse = currentUser.getAuthResponse(true);
-            if (authResponse) {
-              if ('access_token' in authResponse) {
-                accessToken = authResponse['access_token'];
-              }
-            }
-          }
-        }
-
-        return accessToken;
-      }
+      get defaultPhotoUrl() { return "https://drive.google.com/a/p-rimes.net/uc?id=1nevGbxJUGvdw9MkuF1iBfuoR9cfvss-6&export=download"; }
 
       _sectionIsHidden(section) {
         return (
@@ -239,7 +215,7 @@
       // https://developers.google.com/apps-script/reference/spreadsheet/data-validation-criteria#properties
       _fieldIsCheckboxType(field) {
         return (
-          field.type === 'VALUE_IN_LIST'
+          field.type === "VALUE_IN_LIST"
           && field.choices.length == 2
           && this.isNoLike(field.choices[0])
           && this.isYesLike(field.choices[1])
@@ -248,7 +224,7 @@
 
       _fieldIsRadioGroupType(field) {
         return (
-          field.type === 'VALUE_IN_LIST'
+          field.type === "VALUE_IN_LIST"
           && field.choices.length <= 3
           && !this._fieldIsCheckboxType(field)
         );
@@ -256,21 +232,21 @@
 
       _fieldIsDropdownMenuType(field) {
         return (
-          field.type === 'VALUE_IN_LIST'
+          field.type === "VALUE_IN_LIST"
           && field.choices.length > 3
         );
       }
 
       _fieldIsDatePickerType(field) {
         return (
-          field.type == 'DATE_AFTER'
-          || field.type == 'DATE_BEFORE'
-          || field.type == 'DATE_BETWEEN'
-          || field.type == 'DATE_EQUAL_TO'
-          || field.type == 'DATE_IS_VALID_DATE'
-          || field.type == 'DATE_NOT_BETWEEN'
-          || field.type == 'DATE_ON_OR_AFTER'
-          || field.type == 'DATE_ON_OR_BEFORE'
+          field.type == "DATE_AFTER"
+          || field.type == "DATE_BEFORE"
+          || field.type == "DATE_BETWEEN"
+          || field.type == "DATE_EQUAL_TO"
+          || field.type == "DATE_IS_VALID_DATE"
+          || field.type == "DATE_NOT_BETWEEN"
+          || field.type == "DATE_ON_OR_AFTER"
+          || field.type == "DATE_ON_OR_BEFORE"
         );
       }
 
@@ -279,50 +255,51 @@
           !this._fieldIsTagIdType(field)
           && (
             !field.type
-            || field.type == 'NUMBER_BETWEEN'
-            || field.type == 'NUMBER_EQUAL_TO'
-            || field.type == 'NUMBER_GREATER_THAN'
-            || field.type == 'NUMBER_GREATER_THAN_OR_EQUAL_TO'
-            || field.type == 'NUMBER_LESS_THAN'
-            || field.type == 'NUMBER_LESS_THAN_OR_EQUAL_TO'
-            || field.type == 'NUMBER_NOT_BETWEEN'
-            || field.type == 'NUMBER_NOT_EQUAL_TO'
-            || field.type == 'TEXT_CONTAINS'
-            || field.type == 'TEXT_DOES_NOT_CONTAIN'
-            || field.type == 'TEXT_EQUAL_TO'
-            || field.type == 'TEXT_IS_VALID_EMAIL'
+            || field.type == "NUMBER_BETWEEN"
+            || field.type == "NUMBER_EQUAL_TO"
+            || field.type == "NUMBER_GREATER_THAN"
+            || field.type == "NUMBER_GREATER_THAN_OR_EQUAL_TO"
+            || field.type == "NUMBER_LESS_THAN"
+            || field.type == "NUMBER_LESS_THAN_OR_EQUAL_TO"
+            || field.type == "NUMBER_NOT_BETWEEN"
+            || field.type == "NUMBER_NOT_EQUAL_TO"
+            || field.type == "TEXT_CONTAINS"
+            || field.type == "TEXT_DOES_NOT_CONTAIN"
+            || field.type == "TEXT_EQUAL_TO"
+            || field.type == "TEXT_IS_VALID_EMAIL"
           )
         );
       }
 
       _fieldIsTagIdType(field) {
         return (
-          field.name === this.tagIdColumn
+          field.name === this.usersTagIdColumn
         );
       }
 
       _fieldIsImageType(field) {
         return (
-          field.type === 'TEXT_IS_VALID_URL'
+          field.type === "TEXT_IS_VALID_URL"
         );
       }
 
       connectedCallback() {
         super.connectedCallback();
 
+        // Attach auth callbacks
+        var aware = this.shadowRoot.querySelector("google-signin-aware");
+        aware.handleAuthSignIn = this.handleAuthSignIn;
+        aware.handleAuthSignOut = this.handleAuthSignOut;
+        aware.handleAuthStateChange = this.handleAuthStateChange;
+
         // Add callback to update styles on resize
         this._updateGridStyles = this._updateGridStyles || function() {
           this.updateStyles();
         }.bind(this);
-        window.addEventListener('resize', this._updateGridStyles);
+        window.addEventListener("resize", this._updateGridStyles);
 
-        // Attach auth callbacks
-        var aware = this.shadowRoot.querySelector('google-signin-aware');
-        aware.handleAuthSignIn = this.handleAuthSignIn;
-        aware.handleAuthSignOut = this.handleAuthSignOut;
-        aware.handleAuthStateChange = this.handleAuthStateChange;
 /*
-        var sheets = this.shadowRoot.getElementById('sheets');
+        var sheets = this.shadowRoot.getElementById("sheets");
         sheets.onSheetsApiLoaded = function() {
           console.log("onSheetsApiLoaded");
         }
@@ -332,33 +309,19 @@
 */
       }
 
+      disconnectedCallback() {
+        // Remove callback to update styles on resize
+        window.removeEventListener("resize", this._updateGridStyles);
+      }
+
       ready() {
         super.ready();
-        var intervalId = setInterval(
-          function() {
-            if (gapi.client) {
-              var clients = this.querySelectorAll("google-client-loader");
-              for (var i = 0; i < clients.length; i++) {
-                console.log("Force loaded gapi.client");
-                clients[i]._loadClient();
-              }
-              clearInterval(intervalId);
-            }
-            else {
-              console.log("Missing gapi.client");
-              gapi.load('client', function(){});
-            }
-          }.bind(this),
-          2000
-        );
+
         console.log("initialQuery");
         console.log(this.query);
-        if (
-          this.query
-          && "name" in this.query
-        ) {
+        if (this.query && "name" in this.query) {
           this.userName = this.query["name"];
-          this.queryUsers("where " + this.nameColumn + " = '" + this.userName + "'").then(function(q) {
+          this.queryUsers("where " + this.usersNameColumn + " = '" + this.userName + "'").then(function(q) {
             q.send(function(res) {
               var values = this.getFirstRowValuesFromResponse(res);
               if (values && values.length) {
@@ -367,11 +330,6 @@
             }.bind(this));
           }.bind(this));
         }
-      }
-
-      disconnectedCallback() {
-        // Remove callback to update styles on resize
-        window.removeEventListener('resize', this._updateGridStyles);
       }
 
       getValuesFromResponse(res) {
@@ -414,7 +372,7 @@
         if (this.accessToken) {
           // Search for user by name (if already entered), display in form
           if (this.userName) {
-            this.queryUsers("where " + this.nameColumn + " = '" + this.userName + "'").then(function(q) {
+            this.queryUsers("where " + this.usersNameColumn + " = '" + this.userName + "'").then(function(q) {
               q.send(function(res) {
                 var values = this.getFirstRowValuesFromResponse(res);
                 if (values && values.length) {
@@ -429,18 +387,18 @@
           var makerLabsIdPrev = "";
           window.setInterval(function () {
             //TODO: not hard-coded
-            this.queryActivity("select F where C = 'Signed_In' and B = 'Laser Lab 101' order by A desc limit 1").then(function(q) {
+            this.queryActivity("select " + this.activityMakerLabsIdColumn + " where " + this.activityTypeColumn + " = 'Signed_In' and " + this.activityMachineIdColumn + " = 'Laser Lab 101' order by " + this.activityTimestampColumn + " desc limit 1").then(function(q) {
               q.send(function(res) {
                 var items = [];
                 var values = this.getValuesFromResponse(res);
                 if (values && values.length) {
                   for (var rowIdx = 0; rowIdx < values.length; rowIdx++) {
                     var makerLabsId = values[rowIdx][0];
-//                    items.push({label: 'Recently scanned: ' + tagId, value: tagId});
+//                    items.push({label: "Recently scanned: " + tagId, value: tagId});
                     if (makerLabsId != makerLabsIdPrev) {
                       console.log("Now query for makerLabsId = " + makerLabsId);
 
-                      this.queryUsers("where " + this.makerLabsIdColumn + " = '" + makerLabsId + "'").then(function(q) {
+                      this.queryUsers("where " + this.usersMakerLabsIdColumn + " = '" + makerLabsId + "'").then(function(q) {
                         q.send(function(res) {
                       console.log("did find user");
                           var values = this.getFirstRowValuesFromResponse(res);
@@ -459,16 +417,16 @@
           }.bind(this), pollActivityIntervalMillis); // repeat forever
 
           // Search for recently scanned tags, prefill the Tag ID dropdown
-          var el = this.shadowRoot.getElementById(this.tagIdColumn);
+          var el = this.shadowRoot.getElementById(this.usersTagIdColumn);
           if (el) {
-            this.queryActivity("select C,count(E) group by " + this.tagIdColumn).then(function(q) {
+            this.queryActivity("select " + this.activityTagIdColumn + ", count(" + this.activityTimestampColumn + ") group by " + this.activityTagIdColumn).then(function(q) {
               q.send(function(res) {
                 var items = [];
                 var values = this.getValuesFromResponse(res);
                 if (values && values.length) {
                   for (var rowIdx = 0; rowIdx < values.length; rowIdx++) {
                     var tagId = values[rowIdx][0];
-                    items.push({label: 'Recently scanned: ' + tagId, value: tagId});
+                    items.push({label: "Recently scanned: " + tagId, value: tagId});
                   }
 
                   el.items = items;
@@ -478,7 +436,7 @@
           }
 
           // Select all users and update the search bar
-          this.queryUsers("select " + this.searchColumns).then(function(q) {
+          this.queryUsers("select " + this.usersSearchColumns).then(function(q) {
             q.send(function(res) {
               var datatable = res.getDataTable();
               var users = [];
@@ -501,25 +459,25 @@
                       currentSection++;
                     }
                     // Replace invalid identifier chars with _
-                    k = k.replace(/\W/g, '_');
+                    k = k.replace(/\W/g, "_");
 
                     var v = datatable.getValue(rowIdx, colIdx);
                     rowValues[k] = v;
                   }
 
-                  if (!('Photo' in rowValues) || !(rowValues['Photo']))
+                  if (!("Photo" in rowValues) || !(rowValues["Photo"]))
                   {
-                    rowValues['Photo'] = this.defaultPhotoUrl;
+                    rowValues["Photo"] = this.defaultPhotoUrl;
                   }
 
-                  if ('Name' in rowValues && rowValues['Name'])
+                  if ("Name" in rowValues && rowValues["Name"])
                   {
                     users.push(rowValues);
                   }
                 }
               }
 
-              var userSearchBar = document.querySelector('user-search-bar');
+              var userSearchBar = document.querySelector("user-search-bar");
               if (userSearchBar) {
                 userSearchBar.items = users;
               }
@@ -532,25 +490,25 @@
         console.log("did get sign out");
       }
 
-      querySheet(sheetGid, query, numHeaders = 1) {
+      querySheet(sheetName, query, numHeaders = 1) {
         var queryString = encodeURIComponent(query);
 
-        var loader = this.shadowRoot.querySelector('google-chart-loader');
+        var loader = this.shadowRoot.querySelector("google-chart-loader");
 
         return loader.query(
-          'https://docs.google.com/spreadsheets/d/'
+          "https://docs.google.com/spreadsheets/d/"
           + this.sheetId
-          + '/gviz/tq'
-          + '?gid=' + sheetGid
-          + '&access_token=' + this.accessToken
-          + '&headers=' + numHeaders
-          + '&tq=' + queryString
+          + "/gviz/tq"
+          + "?access_token=" + this.accessToken
+          + "&sheet=" + sheetName
+          + "&headers=" + numHeaders
+          + "&tq=" + queryString
         );
       }
 
       queryUsers(query) {
         return this.querySheet(
-          this.usersSheetGid,
+          this.usersSheetName,
           query,
           this.usersSheetNumHeaders
         );
@@ -558,7 +516,7 @@
 
       queryActivity(query) {
         return this.querySheet(
-          this.activitySheetGid,
+          this.activitySheetName,
           query,
           this.activitySheetNumHeaders
         );
@@ -606,7 +564,7 @@
             else if (this._fieldIsDropdownMenuType(field))
             {
               var el = this.shadowRoot.getElementById(field.name);
-              var listbox = el.querySelector('paper-listbox');
+              var listbox = el.querySelector("paper-listbox");
               var selectedIdx = field.choices.indexOf(val);
 
               listbox.selected = (selectedIdx >= 0? selectedIdx : 0);
@@ -638,7 +596,7 @@
       }
 
       handleSubmit() {
-        var sheets = document.getElementById('sheets');
+        var sheets = document.getElementById("sheets");
 
         var validTextFieldCount = 0;
         var formValues = [];
@@ -712,9 +670,9 @@
             console.log("update rowName = " + rowName);
             sheets.api.spreadsheets.values.update({
               spreadsheetId: this.sheetId,
-              range: this.sheetName + '!A' + rowName,
+              range: this.usersSheetName + "!A" + rowName,
               majorDimension: "ROWS",
-              valueInputOption: 'USER_ENTERED',
+              valueInputOption: "USER_ENTERED",
               values: [formValues]
             }).then(function(response) {
                console.log(response);
@@ -728,9 +686,9 @@
 
               sheets.api.spreadsheets.values.append({
                 spreadsheetId: this.sheetId,
-                range: this.sheetName,
-                valueInputOption: 'USER_ENTERED',
-                insertDataOption: 'INSERT_ROWS',
+                range: this.usersSheetName,
+                valueInputOption: "USER_ENTERED",
+                insertDataOption: "INSERT_ROWS",
                 values: [formValues]
               }).then(function(response) {
                  console.log(response);

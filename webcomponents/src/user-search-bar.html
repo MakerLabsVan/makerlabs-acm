@@ -23,7 +23,7 @@
 
   <script>
     class UserSearchBar extends Polymer.Element {
-      static get is() { return 'user-search-bar'; }
+      static get is() { return "user-search-bar"; }
 
       static get properties() {
         return {
@@ -37,11 +37,12 @@
       ready() {
         super.ready();
 
-        var combobox = this.shadowRoot.getElementById('search-bar-combo-box');
+        var combobox = this.shadowRoot.getElementById("search-bar-combo-box");
 
-        combobox.addEventListener('change', function(e) {
+        console.log("before addEventListener change");
+        combobox.addEventListener("change", function(e) {
           if (combobox.value) {
-            var form = document.querySelector('view-user-form');
+            var form = document.querySelector("view-user-form");
             console.log("form from search");
             console.log(form);
             form.queryUsers("where C = '" + combobox.value + "'").then(function(q) {

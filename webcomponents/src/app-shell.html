@@ -5,6 +5,13 @@
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
 
+<!-- Cross-Domain HTTP Requests via JSONP -->
+<link rel="import" href="../bower_components/iron-jsonp-library/iron-jsonp-library.html">
+
+<!-- Google Sign-In, Sheets, Charts, ... -->
+<link rel="import" href="../bower_components/google-signin/google-signin.html">
+<link rel="import" href="../bower_components/google-apis/google-apis.html">
+
 <!-- Local Components -->
 <link rel="import" href="user-search-bar.html">
 <link rel="import" href="view-user-form.html">
@@ -14,7 +21,7 @@
     <style>
       app-toolbar {
         background-color: #1E88E5;
-        font-family: 'Roboto', Helvetica, sans-serif;
+        font-family: "Roboto", Helvetica, sans-serif;
         color: white;
         --app-toolbar-font-size: 24px;
       }
@@ -27,11 +34,27 @@
     </style>
 
     <app-header-layout>
+      <!-- Google Data, APIs, and Auth -->
+      <google-client-loader
+        id="sheets"
+        name="sheets"
+        version="v4"
+      >
+      </google-client-loader>
+
+      <!-- Form Fields via Google Apps Script / JSONP -->
+      <iron-jsonp-library
+        library-url="[[fieldsUrl]]&access_token=[[accessToken]]&callback=%%callback%%"
+        notify-event="fields-load"
+        library-loaded="{{fieldsLoaded}}">
+      </iron-jsonp-library>
+
+      <!-- App Layout -->
       <app-header slot="header" fixed>
         <app-toolbar>
           <google-signin
-            client-id="837020778796-jav3n4g1fdse2f6s2qrbvm5n1koc93ci.apps.googleusercontent.com"
-            scopes="https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive"
+            client-id="[[oauthClientId]]"
+            scopes="[[oauthScopes]]"
           ></google-signin>
           <div main-title>
             <span>MakerLabs ACM</span>
@@ -39,24 +62,40 @@
           <user-search-bar class="search-bar"></user-search-bar>
         </app-toolbar>
       </app-header>
-      <view-user-form fields="[[fields]]" query="[[query]]">
-        <google-client-loader
-          id="sheets"
-          name="sheets"
-          version="v4"
-        ></google-client-loader>
+
+      <!-- Render Form -->
+      <view-user-form
+        fields="[[fields]]"
+        access-token="[[accessToken]]"
+        query="[[query]]"
+      >
       </view-user-form>
     </app-header-layout>
   </template>
 
   <script>
     class AppShell extends Polymer.Element {
-      static get is() { return 'app-shell'; }
+      static get is() { return "app-shell"; }
+
+      static get fetchInitialQuery() {
+        // TODO(@paulreimer): From Google Apps Script:
+        // JSON.stringify(e.parameters)
+        return {};
+      }
 
       static get properties() {
         return {
+          oauthClientId: {
+            type: String
+          },
+          oauthScopes: {
+            type: String
+          },
           fields: {
             type: Array
+          },
+          fieldsUrl: {
+            type: String
           },
           userName: {
             type: String
@@ -66,6 +105,68 @@
           }
         }
       }
+
+      connectedCallback() {
+        super.connectedCallback();
+
+        this.addEventListener("fields-load", () => {
+          this.fields = acm.userFields;
+        });
+      }
+
+      ready() {
+        super.ready();
+
+        var intervalId = setInterval(
+          function() {
+            if (gapi.client) {
+              var clients = this.querySelectorAll("google-client-loader");
+              for (var i = 0; i < clients.length; i++) {
+                console.log("Force loaded gapi.client");
+                clients[i]._loadClient();
+              }
+              clearInterval(intervalId);
+            }
+            else {
+              console.log("Missing gapi.client");
+              gapi.load("client", function(){});
+            }
+          }.bind(this),
+          2000
+        );
+      }
+
+      get accessToken() {
+        var accessToken = null;
+
+        var authInstance = (
+          gapi
+          && gapi.auth2
+          && gapi.auth2.getAuthInstance()
+        );
+
+        if (authInstance)
+        {
+          var currentUser = (
+            authInstance
+            && authInstance.currentUser
+            && authInstance.currentUser.get()
+          );
+
+          if (currentUser) {
+            var authResponse = currentUser.getAuthResponse(true);
+            if (authResponse) {
+              if ("access_token" in authResponse) {
+                accessToken = authResponse["access_token"];
+              }
+            }
+          }
+        }
+
+        console.log("accessToken = " + accessToken);
+        return accessToken;
+      }
+
     }
 
     customElements.define(AppShell.is, AppShell);
