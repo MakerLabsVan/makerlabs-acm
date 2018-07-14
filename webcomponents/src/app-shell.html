@@ -122,17 +122,22 @@
 
         var intervalId = setInterval(
           function() {
-            if (gapi.client) {
-              var clients = this.querySelectorAll("google-client-loader");
-              for (var i = 0; i < clients.length; i++) {
-                console.log("Force loaded gapi.client");
-                clients[i]._loadClient();
+            if (gapi) {
+              if (gapi.client) {
+                var clients = this.querySelectorAll("google-client-loader");
+                for (var i = 0; i < clients.length; i++) {
+                  console.log("Force loaded gapi.client");
+                  clients[i]._loadClient();
+                }
+                clearInterval(intervalId);
               }
-              clearInterval(intervalId);
+              else {
+                console.log("Missing gapi.client");
+                gapi.load("client", function(){});
+              }
             }
             else {
-              console.log("Missing gapi.client");
-              gapi.load("client", function(){});
+              console.log("Missing gapi global");
             }
           }.bind(this),
           2000
