@@ -1,11 +1,11 @@
-function viewUserPage(e) {
+function viewUserPage(req) {
   var sheetName = 'Users'
 
   var appTemplateFilename = 'views/view-user-page.html'
   var appTpl = HtmlService.createTemplateFromFile(appTemplateFilename)
 
   // Pass any provided URL parameters to template
-  appTpl.initialQuery = JSON.stringify(e.parameters)
+  appTpl.initialQuery = JSON.stringify(req.parameters)
 
   var fields = getUsersFields();
   appTpl.fields = JSON.stringify(fields)

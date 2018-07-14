@@ -1,4 +1,4 @@
-function viewUserFields(e) {
+function viewUserFields(req) {
   var fields = getUsersFields();
   var jsonContent = JSON.stringify(fields);
 
