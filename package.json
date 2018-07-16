@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "postinstall": "which xtensa-esp32-elf-gcc 2>/dev/null || (cd firmware && (ls xtensa-esp32-elf 2>/dev/null || (ls xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz 2>/dev/null || curl -LO https://dl.espressif.com/dl/xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz) && tar -xf xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz) && cd - && ln -sf `pwd`/firmware/xtensa-esp32-elf/bin/* node_modules/.bin)",
-    "deps": "brew install yarn bower flatbuffers caddy python2 jq gdrive && pip install pyserial && yarn global add @google/clasp",
+    "deps": "brew install yarn flatbuffers caddy python2 jq gdrive && pip install pyserial",
     "firmware": "cd \"firmware\" && IDF_PATH=esp-idf make",
     "webcomponents": "cd \"webcomponents\" && bower update",
     "webcomponents-add": "cd \"webcomponents\" && bower install --save",
@@ -27,10 +27,14 @@
     "eslint-plugin-prettier": "^2.3.1"
   },
   "devDependencies": {
+    "@google/clasp": "^1.4.1",
+    "bower": "^1.8.4",
     "eslint": "^4.18.1",
     "eslint-config-prettier": "^2.9.0",
+    "firebase-tools": "^3.19.3",
     "husky": "^0.14.3",
     "lint-staged": "^4.3.0",
+    "polymer-cli": "^1.7.7",
     "prettier": "^1.7.4"
   }
 }
