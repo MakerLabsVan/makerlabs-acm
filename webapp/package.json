@@ -1,0 +1,14 @@
+{
+  "license": "MIT",
+  "scripts": {
+    "apps-login": "clasp login",
+    "logout": "clasp logout",
+    "pull": "clasp pull",
+    "push": "clasp push",
+    "predeploy": "yarn push",
+    "deploy": "clasp deploy"
+  },
+  "devDependencies": {
+    "@google/clasp": "^1.4.1"
+  }
+}
