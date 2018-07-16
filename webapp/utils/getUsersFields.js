@@ -29,15 +29,23 @@ function getUsersFields() {
       var validation = validations[i]
       var type = validation && validation.getCriteriaType().toString()
 
-      section.fields.push({
+      var field = {
         name: name,
         title: title,
-        type: type,
-        values: validation && validation.getCriteriaValues(),
-        choices:
-          type == SpreadsheetApp.DataValidationCriteria.VALUE_IN_LIST &&
-          validation.getCriteriaValues()[0]
-      })
+        type: type
+      };
+
+      if (validation) {
+        field["values"] = validation.getCriteriaValues();
+
+        if (
+          type == SpreadsheetApp.DataValidationCriteria.VALUE_IN_LIST
+          || type == SpreadsheetApp.DataValidationCriteria.CHECKBOX) {
+          field["choices"] = validation.getCriteriaValues()[0];
+        }
+      }
+
+      section.fields.push(field);
     }
   }
 
