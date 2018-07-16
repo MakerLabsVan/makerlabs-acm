@@ -28,6 +28,16 @@ Future<void> google_apps_script_proxy(ExpressHttpRequest request) async {
     return;
   }
 
+  // Early exit for CORS preflight check
+  if (request.method == "OPTIONS") {
+    request.response
+      ..headers.add("Access-Control-Allow-Origin", "*")
+      ..headers.add("Access-Control-Allow-Headers", "Authorization")
+      ..statusCode = 200 // OK
+      ..close();
+    return;
+  }
+
   // Wrap the entire function in a future,
   // Using a global catchError at then end to return 500 error
   new Future<void>(() => true).then((_) async {
