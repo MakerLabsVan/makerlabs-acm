@@ -12,11 +12,10 @@ dependencies:
   flat_buffers: ^1.9.0
   node_http: ^1.0.0-dev.6.0
   node_interop: ^1.0.0-dev.8.0
+  firebase_functions_interop: ^1.0.0-dev.4.0
 
 dev_dependencies:
   test: ^0.12.30
   build_node_compilers: ^0.1.8
   build_runner: any
   build_test: any
-  logging_handlers: ^0.8.0
-  shelf: ^0.7.3+1

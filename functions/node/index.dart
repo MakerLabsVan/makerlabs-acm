@@ -6,12 +6,12 @@
 // or send a letter to
 // Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 
-import "package:js/js.dart";
-import "package:node_interop/node.dart";
+import 'package:firebase_functions_interop/firebase_functions_interop.dart';
 
 import "package:makerlabs_acm_functions/permissions_check.dart";
 
 // Establish Dart -> JS module exports
 void main() {
-  setExport("permissions_check", allowInterop(permissions_check));
+  functions["permissions_check"] =
+      (FirebaseFunctions.https.onRequest(permissions_check));
 }
