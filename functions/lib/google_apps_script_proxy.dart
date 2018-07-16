@@ -41,38 +41,48 @@ Future<void> google_apps_script_proxy(ExpressHttpRequest request) async {
   // Wrap the entire function in a future,
   // Using a global catchError at then end to return 500 error
   new Future<void>(() => true).then((_) async {
+    Map<String, String> proxy_query =
+        new Map.from(request.requestedUri.queryParameters);
+    Map<String, String> proxy_headers = {};
+
     // Parse request headers
     // Extract OAuth access_token from request, use it for Google API requests
     String access_token;
     {
       String auth = request.headers.value("authorization");
       // Check for valid Authorization header
-      if (auth == null) {
+      if (auth != null) {
+        // Extract the access_token part from the Authorization header
+        final auth_parts = auth.split(" ");
+        if (auth_parts.length != 2 ||
+            auth_parts.first != "Bearer" ||
+            auth_parts.last.isEmpty) {
+          request.response.statusCode = 401; // Unauthorized
+          throw ("Invalid 'Authorization: Bearer <token>' header in request");
+        }
+        access_token = auth_parts[1];
+        proxy_headers["Authorization"] = "Bearer ${access_token}";
+      } else if (proxy_query.containsKey("access_token")) {
+        // Extract access_token from query parameter
+        // Move it to Authorization: Bearer header and remove from query
+        access_token = proxy_query["access_token"];
+        proxy_headers["Authorization"] = "Bearer ${access_token}";
+        proxy_query.remove("access_token");
+      } else {
         request.response.statusCode = 401; // Unauthorized
         throw ("Missing Authorization header in request");
       }
-
-      // Extract the access_token part from the Authorization header
-      final auth_parts = auth.split(" ");
-      if (auth_parts.length != 2 ||
-          auth_parts.first != "Bearer" ||
-          auth_parts.last.isEmpty) {
-        request.response.statusCode = 401; // Unauthorized
-        throw ("Invalid 'Authorization: Bearer <token>' header in request");
-      }
-      access_token = auth_parts[1];
     }
 
     final proxy_path = request.uri.path.startsWith("/google_apps_script_proxy")
         ? request.uri.path.substring("/google_apps_script_proxy".length)
         : request.uri.path;
 
-    final proxy_uri = request.uri
-        .replace(scheme: "https", host: "script.google.com", path: proxy_path);
-
-    final proxy_headers = {
-      "Authorization": "Bearer ${access_token}",
-    };
+    final proxy_uri = request.uri.replace(
+        scheme: "https",
+        host: "script.google.com",
+        path: proxy_path,
+        queryParameters: proxy_query);
 
     print("Proxy URI: ${proxy_uri}");
 
