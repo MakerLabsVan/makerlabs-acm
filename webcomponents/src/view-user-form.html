@@ -80,15 +80,18 @@
       }
     </style>
 
+    <google-chart-loader
+      id="gviz"
+    ></google-chart-loader>
+
+    <google-client-loader
+      id="sheets"
+      name="sheets"
+      version="v4"
+    ></google-client-loader>
+
     <div class="content-wrapper">
       <form onsubmit="return false;" id="viewUserForm">
-        <!-- Google Data, APIs, and Auth -->
-        <google-signin-aware
-          on-google-signin-aware-success="handleAuthSignIn"
-          on-google-signin-aware-signed-out="handleAuthSignOut"
-        ></google-signin-aware>
-        <google-chart-loader></google-chart-loader>
-
         <div class="tool-bar">
           <div class="tool-bar-action">
             <paper-fab mini icon="add" on-tap="resetValues"></paper-fab>
@@ -174,7 +177,8 @@
             type: Array
           },
           userName: {
-            type: String
+            type: String,
+            observer: "_userNameChanged"
           },
           query: {
             type: Object
@@ -188,14 +192,15 @@
       get usersSheetNumHeaders() { return 2; }
 
       get activitySheetName() { return "Activity"; }
-      get activitySheetNumHeaders() { return 1; }
+      get activitySheetNumHeaders() { return 2; }
 
       get hiddenSectionNames() { return ["Initial", "Hidden", "Private"]; }
 
-      get usersNameColumn() { return "C"; }
-      get usersMakerLabsIdColumn() { return "I"; }
-      get usersTagIdColumn() { return "U"; }
-      get usersSearchColumns() { return "A,B,C,D,E,F,G,H,I"; }
+      get usersNameColumn() { return this._usersColumnFromFieldTitle("Name"); }
+      get usersMakerLabsIdColumn() { return this._usersColumnFromFieldTitle("MakerLabs ID"); }
+      get usersTagIdColumn() { return this._usersColumnFromFieldTitle("Tag ID"); }
+
+      get activityMachineIdValue() { return "Front Desk"; }
 
       get activityTimestampColumn() { return "A"; }
       get activityMachineIdColumn() { return "B"; }
@@ -203,7 +208,27 @@
       get activityTagIdColumn() { return "E"; }
       get activityMakerLabsIdColumn() { return "F"; }
 
-      get defaultPhotoUrl() { return "https://drive.google.com/a/p-rimes.net/uc?id=1nevGbxJUGvdw9MkuF1iBfuoR9cfvss-6&export=download"; }
+      _usersColumnFromFieldTitle(title) {
+        // Check for non-empty fields array
+        if (this.fields && this.fields.length) {
+          // Iterate through sections
+          for (var s = 0; s < this.fields.length; ++s) {
+            var section = this.fields[s];
+
+            // Iterate through fields within the section
+            for (var f = 0; f < section.fields.length; ++f) {
+              // Extract a candidate field
+              var field = section.fields[f];
+              // Check if the title matches
+              if (field.title == title) {
+                return field.name;
+              }
+            }
+          }
+        }
+
+        return null;
+      }
 
       _sectionIsHidden(section) {
         return (
@@ -215,10 +240,13 @@
       // https://developers.google.com/apps-script/reference/spreadsheet/data-validation-criteria#properties
       _fieldIsCheckboxType(field) {
         return (
-          field.type === "VALUE_IN_LIST"
-          && field.choices.length == 2
-          && this.isNoLike(field.choices[0])
-          && this.isYesLike(field.choices[1])
+          field.type === "CHECKBOX"
+          || (
+            field.type === "VALUE_IN_LIST"
+            && field.choices.length == 2
+            && this.isNoLike(field.choices[0])
+            && this.isYesLike(field.choices[1])
+          )
         );
       }
 
@@ -283,23 +311,33 @@
         );
       }
 
+      _userNameChanged(newValue, oldValue) {
+        if (newValue) {
+          // Search for user by name (if already entered), display in form
+          if (this.usersNameColumn && this.userName) {
+            this.queryUsers("where " + this.usersNameColumn + " = '" + this.userName + "'").then((q) => {
+              q.send((res) => {
+                var values = this.getFirstRowValuesFromResponse(res);
+                if (values && values.length) {
+                  this.showUser(values);
+                }
+              });
+            });
+          }
+        }
+      }
+
       connectedCallback() {
         super.connectedCallback();
 
-        // Attach auth callbacks
-        var aware = this.shadowRoot.querySelector("google-signin-aware");
-        aware.handleAuthSignIn = this.handleAuthSignIn;
-        aware.handleAuthSignOut = this.handleAuthSignOut;
-        aware.handleAuthStateChange = this.handleAuthStateChange;
-
         // Add callback to update styles on resize
-        this._updateGridStyles = this._updateGridStyles || function() {
+        this._updateGridStyles = this._updateGridStyles || (() => {
           this.updateStyles();
-        }.bind(this);
+        });
         window.addEventListener("resize", this._updateGridStyles);
 
 /*
-        var sheets = this.shadowRoot.getElementById("sheets");
+        var sheets = this.$.sheets;
         sheets.onSheetsApiLoaded = function() {
           console.log("onSheetsApiLoaded");
         }
@@ -317,18 +355,91 @@
       ready() {
         super.ready();
 
+        var intervalId = setInterval(
+          () => {
+            if (gapi) {
+              if (gapi.client) {
+                var clients = this.shadowRoot.querySelectorAll("google-client-loader");
+                for (var i = 0; i < clients.length; i++) {
+                  console.log("Force loaded gapi.client");
+                  clients[i]._loadClient();
+                }
+                clearInterval(intervalId);
+              }
+              else {
+                console.log("Missing gapi.client");
+                gapi.load("client", function(){});
+              }
+            }
+            else {
+              console.log("Missing gapi global");
+            }
+          },
+          1000
+        );
+
         console.log("initialQuery");
         console.log(this.query);
         if (this.query && "name" in this.query) {
           this.userName = this.query["name"];
-          this.queryUsers("where " + this.usersNameColumn + " = '" + this.userName + "'").then(function(q) {
-            q.send(function(res) {
+          this.queryUsers("where " + this.usersNameColumn + " = '" + this.userName + "'").then((q) => {
+            q.send((res) => {
               var values = this.getFirstRowValuesFromResponse(res);
               if (values && values.length) {
                 this.showUser(values);
               }
-            }.bind(this));
-          }.bind(this));
+            });
+          });
+        }
+
+        // Search the activity list periodically, update the user form accordingly
+        var pollActivityIntervalMillis = 2000;
+        var makerLabsIdPrev = "";
+        window.setInterval(() => {
+          //TODO: not hard-coded
+          this.queryActivity("select " + this.activityMakerLabsIdColumn + " where " + this.activityTypeColumn + " = 'Signed_In' and " + this.activityMachineIdColumn + " = '" + this.activityMachineIdValue + "' order by " + this.activityTimestampColumn + " desc limit 1").then((q) => {
+            q.send((res) => {
+              var items = [];
+              var values = this.getValuesFromResponse(res);
+              if (values && values.length) {
+                for (var rowIdx = 0; rowIdx < values.length; rowIdx++) {
+                  var makerLabsId = values[rowIdx][0];
+                  if (makerLabsId != makerLabsIdPrev) {
+
+                    this.queryUsers("where " + this.usersMakerLabsIdColumn + " = '" + makerLabsId + "'").then((q) => {
+                      q.send((res) => {
+                        var values = this.getFirstRowValuesFromResponse(res);
+                        if (values && values.length) {
+                          this.showUser(values);
+                        }
+                      });
+                    });
+
+                    makerLabsIdPrev = makerLabsId;
+                  }
+                }
+              }
+            });
+          });
+        }, pollActivityIntervalMillis); // repeat forever
+
+        // Search for recently scanned tags, prefill the Tag ID dropdown
+        var el = this.shadowRoot.getElementById(this.usersTagIdColumn);
+        if (el) {
+          this.queryActivity("select " + this.activityTagIdColumn + ", count(" + this.activityTimestampColumn + ") group by " + this.activityTagIdColumn).then((q) => {
+            q.send((res) => {
+              var items = [];
+              var values = this.getValuesFromResponse(res);
+              if (values && values.length) {
+                for (var rowIdx = 0; rowIdx < values.length; rowIdx++) {
+                  var tagId = values[rowIdx][0];
+                  items.push({label: "Recently scanned: " + tagId, value: tagId});
+                }
+
+                el.items = items;
+              }
+            });
+          });
         }
       }
 
@@ -366,134 +477,10 @@
         );
       }
 
-      handleAuthSignIn(response) {
-        console.log("did get sign in");
-
-        if (this.accessToken) {
-          // Search for user by name (if already entered), display in form
-          if (this.userName) {
-            this.queryUsers("where " + this.usersNameColumn + " = '" + this.userName + "'").then(function(q) {
-              q.send(function(res) {
-                var values = this.getFirstRowValuesFromResponse(res);
-                if (values && values.length) {
-                  this.showUser(values);
-                }
-              }.bind(this));
-            }.bind(this));
-          }
-
-          // Search the activity list periodically, update the user form accordingly
-          var pollActivityIntervalMillis = 5000;
-          var makerLabsIdPrev = "";
-          window.setInterval(function () {
-            //TODO: not hard-coded
-            this.queryActivity("select " + this.activityMakerLabsIdColumn + " where " + this.activityTypeColumn + " = 'Signed_In' and " + this.activityMachineIdColumn + " = 'Laser Lab 101' order by " + this.activityTimestampColumn + " desc limit 1").then(function(q) {
-              q.send(function(res) {
-                var items = [];
-                var values = this.getValuesFromResponse(res);
-                if (values && values.length) {
-                  for (var rowIdx = 0; rowIdx < values.length; rowIdx++) {
-                    var makerLabsId = values[rowIdx][0];
-//                    items.push({label: "Recently scanned: " + tagId, value: tagId});
-                    if (makerLabsId != makerLabsIdPrev) {
-                      console.log("Now query for makerLabsId = " + makerLabsId);
-
-                      this.queryUsers("where " + this.usersMakerLabsIdColumn + " = '" + makerLabsId + "'").then(function(q) {
-                        q.send(function(res) {
-                      console.log("did find user");
-                          var values = this.getFirstRowValuesFromResponse(res);
-                          if (values && values.length) {
-                            this.showUser(values);
-                          }
-                        }.bind(this));
-                      }.bind(this));
-
-                      makerLabsIdPrev = makerLabsId;
-                    }
-                  }
-                }
-              }.bind(this));
-            }.bind(this));
-          }.bind(this), pollActivityIntervalMillis); // repeat forever
-
-          // Search for recently scanned tags, prefill the Tag ID dropdown
-          var el = this.shadowRoot.getElementById(this.usersTagIdColumn);
-          if (el) {
-            this.queryActivity("select " + this.activityTagIdColumn + ", count(" + this.activityTimestampColumn + ") group by " + this.activityTagIdColumn).then(function(q) {
-              q.send(function(res) {
-                var items = [];
-                var values = this.getValuesFromResponse(res);
-                if (values && values.length) {
-                  for (var rowIdx = 0; rowIdx < values.length; rowIdx++) {
-                    var tagId = values[rowIdx][0];
-                    items.push({label: "Recently scanned: " + tagId, value: tagId});
-                  }
-
-                  el.items = items;
-                }
-              }.bind(this));
-            }.bind(this));
-          }
-
-          // Select all users and update the search bar
-          this.queryUsers("select " + this.usersSearchColumns).then(function(q) {
-            q.send(function(res) {
-              var datatable = res.getDataTable();
-              var users = [];
-              var sections = this.fields.map(function(section) { return section.title; });
-
-              if (datatable)
-              {
-                for (var rowIdx = 0; rowIdx < datatable.getNumberOfRows(); rowIdx++)
-                {
-                  var currentSection = 0;
-                  var rowValues = {};
-
-                  for (var colIdx = 0; colIdx < datatable.getNumberOfColumns(); colIdx++)
-                  {
-                    var k = datatable.getColumnLabel(colIdx);
-                    // Strip section heading if it is present
-                    if (k.indexOf(sections[currentSection]) == 0)
-                    {
-                      k = k.substr(sections[currentSection].length + 1);
-                      currentSection++;
-                    }
-                    // Replace invalid identifier chars with _
-                    k = k.replace(/\W/g, "_");
-
-                    var v = datatable.getValue(rowIdx, colIdx);
-                    rowValues[k] = v;
-                  }
-
-                  if (!("Photo" in rowValues) || !(rowValues["Photo"]))
-                  {
-                    rowValues["Photo"] = this.defaultPhotoUrl;
-                  }
-
-                  if ("Name" in rowValues && rowValues["Name"])
-                  {
-                    users.push(rowValues);
-                  }
-                }
-              }
-
-              var userSearchBar = document.querySelector("user-search-bar");
-              if (userSearchBar) {
-                userSearchBar.items = users;
-              }
-            }.bind(this));
-          }.bind(this));
-        }
-      }
-
-      handleAuthSignOut(response) {
-        console.log("did get sign out");
-      }
-
       querySheet(sheetName, query, numHeaders = 1) {
         var queryString = encodeURIComponent(query);
 
-        var loader = this.shadowRoot.querySelector("google-chart-loader");
+        var loader = this.$.gviz;
 
         return loader.query(
           "https://docs.google.com/spreadsheets/d/"
@@ -589,14 +576,14 @@
             }
 
             else {
-              console.log("unknown field name " + field.name);
+              console.log("unknown field name " + field.name + ", type " + field.type);
             }
           }
         }
       }
 
       handleSubmit() {
-        var sheets = document.getElementById("sheets");
+        var sheets = this.shadowRoot.getElementById("sheets");
 
         var validTextFieldCount = 0;
         var formValues = [];
