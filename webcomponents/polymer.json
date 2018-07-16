@@ -18,12 +18,10 @@
   },
   "builds": [
     {
-      "preset": "es5-bundled",
-      "basePath": "/MakerLabsVan/makerlabs-acm/d0a494ba132533e7d7bc967d231fed64f0263e26/webcomponents/build/es5-bundled/"
+      "preset": "es5-bundled"
     },
     {
-      "preset": "es6-bundled",
-      "basePath": "/MakerLabsVan/makerlabs-acm/d0a494ba132533e7d7bc967d231fed64f0263e26/webcomponents/build/es6-bundled/"
+      "preset": "es6-bundled"
     }
   ]
 }
