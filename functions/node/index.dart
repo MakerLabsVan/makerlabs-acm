@@ -9,9 +9,12 @@
 import 'package:firebase_functions_interop/firebase_functions_interop.dart';
 
 import "package:makerlabs_acm_functions/permissions_check.dart";
+import "package:makerlabs_acm_functions/google_apps_script_proxy.dart";
 
 // Establish Dart -> JS module exports
 void main() {
   functions["permissions_check"] =
       (FirebaseFunctions.https.onRequest(permissions_check));
+  functions["google_apps_script_proxy"] =
+      (FirebaseFunctions.https.onRequest(google_apps_script_proxy));
 }
