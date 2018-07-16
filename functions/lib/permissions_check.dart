@@ -214,7 +214,8 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
     final headers = {
       "X-DataSource-Auth": "force-json-workaround",
     };
-    http.get(uri, headers: headers).then((response) {
+    final String makerlabs_id =
+        await http.get(uri, headers: headers).then((response) {
       // Check for valid query response
       if (response.statusCode != 200) // OK
       {
@@ -247,7 +248,7 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
             ? userRow[1]["v"]
             : (userRow[0] != null) ? userRow[0]["v"] : null;
         final String email = (userRow[2] != null) ? userRow[2]["v"] : null;
-        final String makerlabsId =
+        final String makerlabs_id =
             (userRow[3] != null) ? userRow[3]["v"] : null;
         final String alerts = (userRow[4] != null) ? userRow[4]["v"] : null;
         final String tagId = (userRow[5] != null) ? userRow[5]["v"] : null;
@@ -265,7 +266,7 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
         final userBuilder = new ACM.UserObjectBuilder(
           name: name,
           email: email,
-          makerlabsId: makerlabsId,
+          makerlabsId: makerlabs_id,
           tagId: tagId,
           alerts: alerts,
           permissions: permissions,
@@ -284,7 +285,7 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
           ..statusCode = 200 // OK
           ..add(userBytes)
           ..close();
-        return;
+        return makerlabs_id;
       } else {
         print("No matching User for Activity tag_id: ${activity.tagId}");
       }
@@ -294,7 +295,7 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
         ..headers.add("Content-Type", "application/octet-stream")
         ..statusCode = 200 // OK
         ..close();
-      return;
+      return "";
     }).catchError((e) {
       // Re-throw errors to the parent catchError
       print("inner catchError: '${e}'");
@@ -318,6 +319,7 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
         activityTypeStr,
         activity.usageSeconds,
         activity.tagId,
+        makerlabs_id,
       ]
     ];
 
