@@ -1,0 +1,56 @@
+{
+  "hosting": {
+    "public": "webcomponents/build/es6-bundled/",
+    "rewrites": [
+      {
+        "source": "/permissions_check",
+        "function": "permissions_check"
+      },
+      {
+        "source": "/google_apps_script_proxy/**",
+        "function": "google_apps_script_proxy"
+      },
+      {
+        "source": "**/!(*.*)",
+        "destination": "/index.html"
+      }
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  },
+  "functions": {
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/functions/analysis_options.yaml",
+      "**/functions/build.yaml",
+      "**/functions/build/example/**",
+      "**/functions/build/node/packages/$sdk/dev_compiler/amd/**",
+      "**/functions/build/node/packages/$sdk/dev_compiler/es6/**",
+      "**/functions/build/node/packages/$sdk/dev_compiler/kernel/**",
+      "**/functions/build/node/packages/$sdk/dev_compiler/legacy/**",
+      "**/functions/build/node/packages/$sdk/dev_compiler/web/**",
+      "**/functions/build/node/packages/**/*.dart",
+      "**/functions/build/node/packages/**/*.md",
+      "**/functions/build/node/packages/**/*.sum",
+      "**/functions/build/node/packages/analyzer/**",
+      "**/functions/build/node/packages/build_modules/**",
+      "**/functions/build/node/packages/build_runner/**",
+      "**/functions/build/node/packages/node_preamble/**",
+      "**/functions/build/node/packages/package_resolver/**",
+      "**/functions/build/node/packages/test/**",
+      "**/functions/build/packages/**",
+      "**/functions/build/test/**",
+      "**/functions/example/**",
+      "**/functions/lib/**",
+      "**/functions/node/**",
+      "**/functions/pubspec.*",
+      "**/functions/web/**",
+      "**/functions/yarn.lock",
+      "**/node_modules/**"
+    ]
+  }
+}
