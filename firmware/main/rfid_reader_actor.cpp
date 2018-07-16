@@ -56,7 +56,9 @@ auto rfid_reader_actor_behaviour(
             scanned_tag->card_number
           );
 
+#if CONFIG_ACM_ENABLE_SIGNED_IN_ACTIVITY
           state.rfid_reader.beep(300ms);
+#endif // CONFIG_ACM_ENABLE_SIGNED_IN_ACTIVITY
 
           auto tag_id_str = std::to_string(scanned_tag->card_number);
 
@@ -66,7 +68,9 @@ auto rfid_reader_actor_behaviour(
         else {
           printf("lost tag\n");
 
+#if CONFIG_ACM_ENABLE_SIGNED_OUT_ACTIVITY
           state.rfid_reader.beep(150ms);
+#endif // CONFIG_ACM_ENABLE_SIGNED_OUT_ACTIVITY
 
           auto tag_id_str = std::to_string(state.scanned_tag_prev->card_number);
 
