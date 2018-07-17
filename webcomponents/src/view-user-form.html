@@ -243,6 +243,7 @@
           field.type === "CHECKBOX"
           || (
             field.type === "VALUE_IN_LIST"
+            && field.choices
             && field.choices.length == 2
             && this.isNoLike(field.choices[0])
             && this.isYesLike(field.choices[1])
@@ -253,6 +254,7 @@
       _fieldIsRadioGroupType(field) {
         return (
           field.type === "VALUE_IN_LIST"
+          && field.choices
           && field.choices.length <= 3
           && !this._fieldIsCheckboxType(field)
         );
@@ -261,6 +263,7 @@
       _fieldIsDropdownMenuType(field) {
         return (
           field.type === "VALUE_IN_LIST"
+          && field.choices
           && field.choices.length > 3
         );
       }
@@ -337,7 +340,7 @@
         window.addEventListener("resize", this._updateGridStyles);
 
 /*
-        var sheets = this.$.sheets;
+        var sheets = this.shadowRoot.getElementById("sheets");
         sheets.onSheetsApiLoaded = function() {
           console.log("onSheetsApiLoaded");
         }
@@ -599,7 +602,7 @@
             {
               if (this._fieldIsCheckboxType(field))
               {
-                formValue = (el.checked? field.choices[1] : field.choices[0]);
+                formValue = (el.checked? field.choices[0] : field.choices[1]);
               }
 
               else if (this._fieldIsRadioGroupType(field))
