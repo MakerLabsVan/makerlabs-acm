@@ -44,9 +44,9 @@ function getUsersFields() {
       if (validation) {
         field.values = validation.getCriteriaValues();
 
-        if (type === SpreadsheetApp.DataValidationCriteria.VALUE_IN_LIST) {
+        if (type === "VALUE_IN_LIST") {
           field.choices = validation.getCriteriaValues()[0];
-        } else if (type === SpreadsheetApp.DataValidationCriteria.CHECKBOX) {
+        } else if (type === "CHECKBOX") {
           field.choices = validation.getCriteriaValues();
         }
       }
