@@ -233,6 +233,11 @@
 
       handleAuthSignIn(response) {
         this.accessToken = this.populateAccessToken();
+
+        var intervalId = setInterval(
+          () => { this.accessToken = this.populateAccessToken(); },
+          20*(60*1000) // 20min
+        );
       }
 
       handleAuthSignOut(response) {
