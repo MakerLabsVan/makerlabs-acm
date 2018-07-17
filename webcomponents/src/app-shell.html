@@ -232,6 +232,7 @@
       }
 
       handleAuthSignIn(response) {
+        this.accessToken = this.populateAccessToken();
       }
 
       handleAuthSignOut(response) {
