@@ -1,6 +1,6 @@
 function triggerPopupOnUnsafeChangesOnChange(e) {
   // Popup a popup notification to the user if one of these change types occurs:
-  var unsafeChangeTypes = [
+  const unsafeChangeTypes = [
     "INSERT_COLUMN",
     "REMOVE_COLUMN",
     //    "OTHER"

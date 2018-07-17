@@ -1,5 +1,5 @@
 function doGet(e) {
-  var route = e.parameter.href || "users-fields";
+  const route = e.parameter.href || "users-fields";
 
   switch (route) {
     default:

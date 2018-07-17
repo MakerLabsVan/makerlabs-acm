@@ -1,30 +1,30 @@
 function excludeTemplateRowFromRange(fullRange) {
   // Extract sheet which holds the provided range
-  var sheet = fullRange.getSheet();
+  const sheet = fullRange.getSheet();
 
   // Extract the row which will serve as the template
-  var templateRowRange = getTemplateRowForSheet(sheet.getName());
+  const templateRowRange = getTemplateRowForSheet(sheet.getName());
 
   // Determine the last row in the template range
-  var templateRow = Number(templateRowRange.getLastRow());
+  const templateRow = Number(templateRowRange.getLastRow());
 
   // Determine the first row in the range
-  var firstRangeRow = Number(fullRange.getRow());
+  const firstRangeRow = Number(fullRange.getRow());
 
   // Check if the range includes any headers rows
   if (firstRangeRow < templateRow) {
     // Determine how many rows to offset to get past the headers
-    var rowsToOffset = templateRow - firstRangeRow;
+    const rowsToOffset = templateRow - firstRangeRow;
 
     // Remove an according number of rows from the length of the range
-    var numRowsAfterOffset = fullRange.getNumRows() - rowsToOffset;
+    const numRowsAfterOffset = fullRange.getNumRows() - rowsToOffset;
 
     // Figure out column offsets that select all columns
-    var firstColumnOffset = 0;
-    var numColumns = Number(fullRange.getNumColumns());
+    const firstColumnOffset = 0;
+    const numColumns = Number(fullRange.getNumColumns());
 
     // Offset the range and return the resulting range
-    var excludedRange = fullRange.offset(
+    const excludedRange = fullRange.offset(
       rowsToOffset,
       firstColumnOffset,
       numRowsAfterOffset,

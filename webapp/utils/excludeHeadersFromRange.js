@@ -1,27 +1,27 @@
 function excludeHeadersFromRange(fullRange) {
   // Extract sheet which holds the provided range
-  var sheet = fullRange.getSheet();
+  const sheet = fullRange.getSheet();
 
   // Determine the first non-header row
-  var firstNonHeaderRow = Number(sheet.getFrozenRows()) + 1;
+  const firstNonHeaderRow = Number(sheet.getFrozenRows()) + 1;
 
   // Determine the first row in the range
-  var firstRangeRow = Number(fullRange.getRow());
+  const firstRangeRow = Number(fullRange.getRow());
 
   // Check if the range includes any headers rows
   if (firstRangeRow < firstNonHeaderRow) {
     // Determine how many rows to offset to get past the headers
-    var rowsToOffset = firstNonHeaderRow - firstRangeRow;
+    const rowsToOffset = firstNonHeaderRow - firstRangeRow;
 
     // Remove an according number of rows from the length of the range
-    var numRowsAfterOffset = fullRange.getNumRows() - rowsToOffset;
+    const numRowsAfterOffset = fullRange.getNumRows() - rowsToOffset;
 
     // Figure out column offsets that select all columns
-    var firstColumnOffset = 0;
-    var numColumns = Number(fullRange.getNumColumns());
+    const firstColumnOffset = 0;
+    const numColumns = Number(fullRange.getNumColumns());
 
     // Offset the range and return the resulting range
-    var excludedRange = fullRange.offset(
+    const excludedRange = fullRange.offset(
       rowsToOffset,
       firstColumnOffset,
       numRowsAfterOffset,

@@ -3,11 +3,11 @@
 function getInstagramMediaUrl(originalPhotoUrl) {
   var photoUrl = originalPhotoUrl;
 
-  var instaUrl = "instagram.com/p/";
-  var shortcodeStartsAt = originalPhotoUrl.indexOf(instaUrl);
+  const instaUrl = "instagram.com/p/";
+  const shortcodeStartsAt = originalPhotoUrl.indexOf(instaUrl);
 
   if (shortcodeStartsAt !== -1) {
-    var slash = "/";
+    const slash = "/";
     var nextSlash = originalPhotoUrl.indexOf(
       slash,
       shortcodeStartsAt + instaUrl.length

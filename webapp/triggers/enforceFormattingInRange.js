@@ -1,29 +1,29 @@
 function enforceFormattingInRange(providedRange) {
   // Select the sheet (the one this range belongs to)
-  var sheet = providedRange.getSheet();
-  var dataRowsRange = getDataRowsForSheet(sheet.getName());
-  var enforceFormattingRange = getRangeIntersection(
+  const sheet = providedRange.getSheet();
+  const dataRowsRange = getDataRowsForSheet(sheet.getName());
+  const enforceFormattingRange = getRangeIntersection(
     providedRange,
     dataRowsRange
   );
 
   // Figure out first and last columns
-  var firstEditedColumn = Number(enforceFormattingRange.getColumn());
-  var lastEditedColumn =
+  const firstEditedColumn = Number(enforceFormattingRange.getColumn());
+  const lastEditedColumn =
     Number(enforceFormattingRange.getNumColumns()) + firstEditedColumn - 1;
-  var numEditedColumns = Number(enforceFormattingRange.getNumColumns());
-  var firstEditedColumnOffset = firstEditedColumn - 1;
+  const numEditedColumns = Number(enforceFormattingRange.getNumColumns());
+  const firstEditedColumnOffset = firstEditedColumn - 1;
 
   // Figure out first and last rows
-  var firstEditedRow = Number(enforceFormattingRange.getRow());
-  var lastEditedRow =
+  const firstEditedRow = Number(enforceFormattingRange.getRow());
+  const lastEditedRow =
     Number(enforceFormattingRange.getNumRows()) + firstEditedRow - 1;
 
   // Extract the row which will serve as the formatting source
-  var templateRowRange = getTemplateRowForSheet(sheet.getName());
+  const templateRowRange = getTemplateRowForSheet(sheet.getName());
 
   // Select only the columns from the template row that have been edited
-  var templateRowFormattingRange = templateRowRange.offset(
+  const templateRowFormattingRange = templateRowRange.offset(
     0,
     firstEditedColumnOffset,
     1,

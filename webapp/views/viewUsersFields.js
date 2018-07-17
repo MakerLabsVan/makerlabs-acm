@@ -1,6 +1,6 @@
 function viewUsersFields(req) {
-  var fields = getUsersFields();
-  var jsonContent = JSON.stringify(fields);
+  const fields = getUsersFields();
+  const jsonContent = JSON.stringify(fields);
 
   return ContentService.createTextOutput(jsonContent).setMimeType(
     ContentService.MimeType.JSON

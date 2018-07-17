@@ -1,22 +1,22 @@
 function getUsersFields() {
-  var sheetName = "Users";
+  const sheetName = "Users";
 
   // Populate list of fields
-  var usersSectionHeadersRange = getNamedRange(
+  const usersSectionHeadersRange = getNamedRange(
     sheetName,
     "users_section_headers"
   );
-  var usersColumnHeadersRange = getNamedRange(
+  const usersColumnHeadersRange = getNamedRange(
     sheetName,
     "users_column_headers"
   );
-  var usersTemplateRowRange = getNamedRange(sheetName, "users_template_row");
+  const usersTemplateRowRange = getNamedRange(sheetName, "users_template_row");
 
-  var sections = usersSectionHeadersRange.getValues()[0];
-  var columns = usersColumnHeadersRange.getValues()[0];
-  var validations = usersTemplateRowRange.getDataValidations()[0];
+  const sections = usersSectionHeadersRange.getValues()[0];
+  const columns = usersColumnHeadersRange.getValues()[0];
+  const validations = usersTemplateRowRange.getDataValidations()[0];
 
-  var fields = [];
+  const fields = [];
   var section = null;
   for (var i = 0; i < columns.length; ++i) {
     if (sections[i]) {

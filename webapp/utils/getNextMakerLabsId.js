@@ -1,15 +1,15 @@
 function getNextMakerLabsId(previousMakerLabsId) {
-  var makerLabsIdPrefix = "ML";
+  const makerLabsIdPrefix = "ML";
   var maxMakerLabsIdNum = -1;
 
   if (previousMakerLabsId === null) {
-    var sheetName = "Users";
-    var targetRangeName = "activity_makerlabs_id";
+    const sheetName = "Users";
+    const targetRangeName = "activity_makerlabs_id";
 
-    var makerLabsIdColumnRange = getNamedRange(sheetName, targetRangeName);
+    const makerLabsIdColumnRange = getNamedRange(sheetName, targetRangeName);
 
     if (makerLabsIdColumnRange) {
-      var makerLabsIdsArray = makerLabsIdColumnRange.getValues();
+      const makerLabsIdsArray = makerLabsIdColumnRange.getValues();
 
       for (var i in makerLabsIdsArray) {
         var makerLabsId = makerLabsIdsArray[i][0];
@@ -30,18 +30,18 @@ function getNextMakerLabsId(previousMakerLabsId) {
     );
   }
 
-  var nextMakerLabsIdNum = maxMakerLabsIdNum + 1;
+  const nextMakerLabsIdNum = maxMakerLabsIdNum + 1;
 
   // Pad with 00s (e.g. 001.)
   // Does allow extra digits without padding if the number is large enough (e.g. 1000)
-  var paddedIdSize = 3; // E.g. 001
+  const paddedIdSize = 3; // E.g. 001
   var paddedId = String(nextMakerLabsIdNum);
   while (paddedId.length < paddedIdSize) {
     // Prepend 0 to existing string
     paddedId = "0" + paddedId;
   }
 
-  var nextMakerLabsId = "ML" + paddedId;
+  const nextMakerLabsId = "ML" + paddedId;
 
   return nextMakerLabsId;
 }
