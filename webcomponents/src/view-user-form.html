@@ -170,6 +170,12 @@
 
       static get properties() {
         return {
+          sheetId: {
+            type: String
+          },
+          machineId: {
+            type: String
+          },
           accessToken: {
             type: String
           },
@@ -186,8 +192,6 @@
         }
       }
 
-      get sheetId() { return "1Sd3nYY34dllVUsakwU8hLnJQ1m-U50qZwQSxst2SKKg"; }
-
       get usersSheetName() { return "Users"; }
       get usersSheetNumHeaders() { return 2; }
 
@@ -199,8 +203,6 @@
       get usersNameColumn() { return this._usersColumnFromFieldTitle("Name"); }
       get usersMakerLabsIdColumn() { return this._usersColumnFromFieldTitle("MakerLabs ID"); }
       get usersTagIdColumn() { return this._usersColumnFromFieldTitle("Tag ID"); }
-
-      get activityMachineIdValue() { return "Front Desk"; }
 
       get activityTimestampColumn() { return "A"; }
       get activityMachineIdColumn() { return "B"; }
@@ -400,7 +402,7 @@
         var makerLabsIdPrev = "";
         window.setInterval(() => {
           //TODO: not hard-coded
-          this.queryActivity("select " + this.activityMakerLabsIdColumn + " where " + this.activityTypeColumn + " = 'Signed_In' and " + this.activityMachineIdColumn + " = '" + this.activityMachineIdValue + "' order by " + this.activityTimestampColumn + " desc limit 1").then((q) => {
+          this.queryActivity("select " + this.activityMakerLabsIdColumn + " where " + this.activityTypeColumn + " = 'Signed_In' and " + this.activityMachineIdColumn + " = '" + this.machineId + "' order by " + this.activityTimestampColumn + " desc limit 1").then((q) => {
             q.send((res) => {
               var items = [];
               var values = this.getValuesFromResponse(res);
