@@ -1,0 +1,36 @@
+{
+  "files": {
+    "google-chart.html": {
+      "convertedUrl": "google-chart.js",
+      "exports": {}
+    },
+    "google-chart-loader.html": {
+      "convertedUrl": "google-chart-loader.js",
+      "exports": {}
+    },
+    "charts-loader.html": {
+      "convertedUrl": "charts-loader.js",
+      "exports": {}
+    },
+    "google-chart-styles.html": {
+      "convertedUrl": "google-chart-styles.js",
+      "exports": {}
+    },
+    "index.html": {
+      "convertedUrl": "index.html",
+      "exports": {}
+    },
+    "demo/index.html": {
+      "convertedUrl": "demo/index.html",
+      "exports": {}
+    },
+    "test/basic-tests.html": {
+      "convertedUrl": "test/basic-tests.html",
+      "exports": {}
+    },
+    "test/index.html": {
+      "convertedUrl": "test/index.html",
+      "exports": {}
+    }
+  }
+}

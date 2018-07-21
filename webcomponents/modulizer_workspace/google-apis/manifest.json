@@ -1,0 +1,44 @@
+{
+  "files": {
+    "google-apis.html": {
+      "convertedUrl": "google-apis.js",
+      "exports": {}
+    },
+    "google-client-loader.html": {
+      "convertedUrl": "google-client-loader.js",
+      "exports": {}
+    },
+    "google-js-api.html": {
+      "convertedUrl": "google-js-api.js",
+      "exports": {}
+    },
+    "google-legacy-loader.html": {
+      "convertedUrl": "google-legacy-loader.js",
+      "exports": {}
+    },
+    "google-maps-api.html": {
+      "convertedUrl": "google-maps-api.js",
+      "exports": {}
+    },
+    "google-plusone-api.html": {
+      "convertedUrl": "google-plusone-api.js",
+      "exports": {}
+    },
+    "google-realtime-api.html": {
+      "convertedUrl": "google-realtime-api.js",
+      "exports": {}
+    },
+    "google-youtube-api.html": {
+      "convertedUrl": "google-youtube-api.js",
+      "exports": {}
+    },
+    "index.html": {
+      "convertedUrl": "index.html",
+      "exports": {}
+    },
+    "demo/index.html": {
+      "convertedUrl": "demo/index.html",
+      "exports": {}
+    }
+  }
+}

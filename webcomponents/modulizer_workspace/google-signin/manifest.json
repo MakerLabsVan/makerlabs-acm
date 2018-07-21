@@ -1,0 +1,28 @@
+{
+  "files": {
+    "google-signin.html": {
+      "convertedUrl": "google-signin.js",
+      "exports": {}
+    },
+    "google-signin-aware.html": {
+      "convertedUrl": "google-signin-aware.js",
+      "exports": {}
+    },
+    "google-icons.html": {
+      "convertedUrl": "google-icons.js",
+      "exports": {}
+    },
+    "google-signin-styles.html": {
+      "convertedUrl": "google-signin-styles.js",
+      "exports": {}
+    },
+    "index.html": {
+      "convertedUrl": "index.html",
+      "exports": {}
+    },
+    "demo/index.html": {
+      "convertedUrl": "demo/index.html",
+      "exports": {}
+    }
+  }
+}
