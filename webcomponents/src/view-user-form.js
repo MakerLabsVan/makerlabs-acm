@@ -34,7 +34,7 @@ import "@vaadin/vaadin-combo-box/vaadin-combo-box.js";
 import "@vaadin/vaadin-date-picker/vaadin-date-picker-light.js";
 
 /* Google Sign-In, Sheets, Charts, ... */
-import "google-chart-polymer-3/google-chart-loader.js";
+import { initGCharts } from "google-chart-polymer-3/google-chart.js";
 
 /* Local Components */
 import "./image-file-uploader.js";
@@ -374,115 +374,122 @@ class ViewUserForm extends PolymerElement {
   ready() {
     super.ready();
 
-    var intervalId = setInterval(() => {
-      if (gapi) {
-        if (gapi.client) {
-          var clients = this.shadowRoot.querySelectorAll(
-            "google-client-loader"
-          );
-          for (var i = 0; i < clients.length; i++) {
-            console.log("Force loaded gapi.client");
-            clients[i]._loadClient();
+    initGCharts(() => {
+      console.log("Did initialize Google Charts API");
+
+      var intervalId = setInterval(() => {
+        if (gapi) {
+          if (gapi.client) {
+            var clients = this.shadowRoot.querySelectorAll(
+              "google-client-loader"
+            );
+            for (var i = 0; i < clients.length; i++) {
+              console.log("Force loaded gapi.client");
+              clients[i]._loadClient();
+            }
+            clearInterval(intervalId);
+          } else {
+            console.log("Missing gapi.client");
+            gapi.load("client", function() {});
           }
-          clearInterval(intervalId);
         } else {
-          console.log("Missing gapi.client");
-          gapi.load("client", function() {});
+          console.log("Missing gapi global");
         }
-      } else {
-        console.log("Missing gapi global");
-      }
-    }, 1000);
+      }, 1000);
 
-    console.log("initialQuery");
-    console.log(this.query);
-    if (this.query && "name" in this.query) {
-      this.userName = this.query["name"];
-      this.queryUsers(
-        "where " + this.usersNameColumn + " = '" + this.userName + "'"
-      ).then(q => {
-        q.send(res => {
-          var values = this.getFirstRowValuesFromResponse(res);
-          if (values && values.length) {
-            this.showUser(values);
-          }
+      console.log("initialQuery");
+      console.log(this.query);
+      if (this.query && "name" in this.query) {
+        this.userName = this.query["name"];
+        this.queryUsers(
+          "where " + this.usersNameColumn + " = '" + this.userName + "'"
+        ).then(q => {
+          q.send(res => {
+            var values = this.getFirstRowValuesFromResponse(res);
+            if (values && values.length) {
+              this.showUser(values);
+            }
+          });
         });
-      });
-    }
+      }
 
-    // Search the activity list periodically, update the user form accordingly
-    var pollActivityIntervalMillis = 2000;
-    var makerLabsIdPrev = "";
-    window.setInterval(() => {
-      //TODO: not hard-coded
-      this.queryActivity(
-        "select " +
-          this.activityMakerLabsIdColumn +
-          " where " +
-          this.activityTypeColumn +
-          " = 'Signed_In' and " +
-          this.activityMachineIdColumn +
-          " = '" +
-          this.machineId +
-          "' order by " +
-          this.activityTimestampColumn +
-          " desc limit 1"
-      ).then(q => {
-        q.send(res => {
-          var items = [];
-          var values = this.getValuesFromResponse(res);
-          if (values && values.length) {
-            for (var rowIdx = 0; rowIdx < values.length; rowIdx++) {
-              var makerLabsId = values[rowIdx][0];
-              if (makerLabsId != makerLabsIdPrev) {
-                this.queryUsers(
-                  "where " +
-                    this.usersMakerLabsIdColumn +
-                    " = '" +
-                    makerLabsId +
-                    "'"
-                ).then(q => {
-                  q.send(res => {
-                    var values = this.getFirstRowValuesFromResponse(res);
-                    if (values && values.length) {
-                      this.showUser(values);
-                    }
+      // Search the activity list periodically, update the user form accordingly
+      var pollActivityIntervalMillis = 2000;
+      var makerLabsIdPrev = "";
+      window.setInterval(() => {
+        //TODO: not hard-coded
+        this.queryActivity(
+          "select " +
+            this.activityMakerLabsIdColumn +
+            " where " +
+            this.activityTypeColumn +
+            " = 'Signed_In' and " +
+            this.activityMachineIdColumn +
+            " = '" +
+            this.machineId +
+            "' order by " +
+            this.activityTimestampColumn +
+            " desc limit 1"
+        ).then(q => {
+          q.send(res => {
+            var items = [];
+            var values = this.getValuesFromResponse(res);
+            if (values && values.length) {
+              for (var rowIdx = 0; rowIdx < values.length; rowIdx++) {
+                var makerLabsId = values[rowIdx][0];
+                if (makerLabsId != makerLabsIdPrev) {
+                  this.queryUsers(
+                    "where " +
+                      this.usersMakerLabsIdColumn +
+                      " = '" +
+                      makerLabsId +
+                      "'"
+                  ).then(q => {
+                    q.send(res => {
+                      var values = this.getFirstRowValuesFromResponse(res);
+                      if (values && values.length) {
+                        this.showUser(values);
+                      }
+                    });
                   });
-                });
 
-                makerLabsIdPrev = makerLabsId;
+                  makerLabsIdPrev = makerLabsId;
+                }
               }
             }
-          }
+          });
         });
-      });
-    }, pollActivityIntervalMillis); // repeat forever
+      }, pollActivityIntervalMillis); // repeat forever
 
-    // Search for recently scanned tags, prefill the Tag ID dropdown
-    var el = this.shadowRoot.getElementById(this.usersTagIdColumn);
-    if (el) {
-      this.queryActivity(
-        "select " +
-          this.activityTagIdColumn +
-          ", count(" +
-          this.activityTimestampColumn +
-          ") group by " +
-          this.activityTagIdColumn
-      ).then(q => {
-        q.send(res => {
-          var items = [];
-          var values = this.getValuesFromResponse(res);
-          if (values && values.length) {
-            for (var rowIdx = 0; rowIdx < values.length; rowIdx++) {
-              var tagId = values[rowIdx][0];
-              items.push({ label: "Recently scanned: " + tagId, value: tagId });
+      // Search for recently scanned tags, prefill the Tag ID dropdown
+      var el = this.shadowRoot.getElementById(this.usersTagIdColumn);
+      if (el) {
+        this.queryActivity(
+          "select " +
+            this.activityTagIdColumn +
+            ", count(" +
+            this.activityTimestampColumn +
+            ") group by " +
+            this.activityTagIdColumn
+        ).then(q => {
+          q.send(res => {
+            var items = [];
+            var values = this.getValuesFromResponse(res);
+            if (values && values.length) {
+              for (var rowIdx = 0; rowIdx < values.length; rowIdx++) {
+                var tagId = values[rowIdx][0];
+                items.push({
+                  label: "Recently scanned: " + tagId,
+                  value: tagId
+                });
+              }
+
+              el.items = items;
             }
-
-            el.items = items;
-          }
+          });
         });
-      });
-    }
+      }
+    });
   }
 
   getValuesFromResponse(res) {
