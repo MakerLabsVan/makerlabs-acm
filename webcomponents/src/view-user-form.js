@@ -599,8 +599,6 @@ class ViewUserForm extends LitElement {
     var queryString = encodeURIComponent(query);
 
     var loader = this.shadowRoot.getElementById("gviz");
-    console.log("loader");
-    console.log(loader);
 
     return loader.query(
       "https://docs.google.com/spreadsheets/d/" +
