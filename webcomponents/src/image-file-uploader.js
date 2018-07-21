@@ -1,7 +1,28 @@
-import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
+import {LitElement, html} from "@polymer/lit-element";
 
-class ImageFileUploader extends PolymerElement {
-  static get template() {
+class ImageFileUploader extends LitElement {
+  static get properties() {
+    return {
+      src: {
+        type: String,
+        value: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+      },
+      emptyImageData: {
+        type: String,
+        value: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
+      },
+    };
+  }
+
+  _firstRendered() {
+    // Wire up drag & drop listeners once page loads
+    const el = this.shadowRoot.getElementById("drop_zone");
+    el.addEventListener("dragover", this.handleDragOver.bind(this), false);
+    el.addEventListener("dragleave", this.handleDragLeave.bind(this), false);
+    el.addEventListener("drop", this.handleFileSelect.bind(this), false);
+  }
+
+  _render({src, emptyImageData}) {
     return html`
     <style>
       #drop_zone {
@@ -24,38 +45,25 @@ class ImageFileUploader extends PolymerElement {
       }
     </style>
 
-    <div id="drop_zone" style="background-image: url([[src]]);">
+    <div id="drop_zone" style="background-image: url(${src});">
       <span id="drop_hint">Drop files here</span>
     </div>
 `;
   }
 
-  static get properties() {
-    return {
-      src: {
-        type: String,
-        value: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-      },
-      emptyImageData: {
-        type: String,
-        value: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-      }
-    };
-  }
-
   get accessToken() {
     var accessToken = null;
 
-    var authInstance = gapi && gapi.auth2 && gapi.auth2.getAuthInstance();
+    const authInstance = gapi && gapi.auth2 && gapi.auth2.getAuthInstance();
 
     if (authInstance) {
-      var currentUser =
+      const currentUser =
         authInstance &&
         authInstance.currentUser &&
         authInstance.currentUser.get();
 
       if (currentUser) {
-        var authResponse = currentUser.getAuthResponse(true);
+        const authResponse = currentUser.getAuthResponse(true);
         if (authResponse) {
           if ("access_token" in authResponse) {
             accessToken = authResponse["access_token"];
@@ -74,25 +82,25 @@ class ImageFileUploader extends PolymerElement {
     evt.preventDefault();
 
     if (this.accessToken) {
-      var files = evt.dataTransfer.files; // FileList object.
+      const files = evt.dataTransfer.files; // FileList object.
 
-      var output = [];
+      const output = [];
       for (var i = 0, f; (f = files[i]); i++) {
-        var uploader = new MediaUploader({
+        const uploader = new MediaUploader({
           file: f,
           token: this.accessToken,
           onComplete: function(json) {
             this.handleDragLeave();
 
             // Parse the uploaded file response metadata
-            var data = JSON.parse(json);
+            const data = JSON.parse(json);
 
             // Check if a valid web content link was created/found
             if (data && data["webContentLink"]) {
               // Update displayed image
               this.src = data["webContentLink"];
             }
-          }.bind(this)
+          }.bind(this),
         });
         uploader.upload();
       }
@@ -103,12 +111,12 @@ class ImageFileUploader extends PolymerElement {
 
   // Dragover handler to set the drop effect.
   handleDragOver(evt) {
-    var el = this.shadowRoot.getElementById("drop_zone");
+    const el = this.shadowRoot.getElementById("drop_zone");
     if (el) {
       el.style.borderWidth = "2px";
     }
 
-    var hint = this.shadowRoot.getElementById("drop_hint");
+    const hint = this.shadowRoot.getElementById("drop_hint");
     if (hint) {
       hint.style.display = "block";
     }
@@ -122,12 +130,12 @@ class ImageFileUploader extends PolymerElement {
 
   // Dragover handler to set the drop effect.
   handleDragLeave(evt) {
-    var el = this.shadowRoot.getElementById("drop_zone");
+    const el = this.shadowRoot.getElementById("drop_zone");
     if (el) {
       el.style.borderWidth = "0px";
     }
 
-    var hint = this.shadowRoot.getElementById("drop_hint");
+    const hint = this.shadowRoot.getElementById("drop_hint");
     if (hint) {
       hint.style.display = "none";
     }
@@ -136,16 +144,6 @@ class ImageFileUploader extends PolymerElement {
       evt.stopPropagation();
       evt.preventDefault();
     }
-  }
-
-  ready() {
-    super.ready();
-
-    // Wire up drag & drop listeners once page loads
-    var el = this.shadowRoot.getElementById("drop_zone");
-    el.addEventListener("dragover", this.handleDragOver.bind(this), false);
-    el.addEventListener("dragleave", this.handleDragLeave.bind(this), false);
-    el.addEventListener("drop", this.handleFileSelect.bind(this), false);
   }
 }
 
@@ -234,7 +232,7 @@ var MediaUploader = function(options) {
     options.contentType || this.file.type || "application/octet-stream";
   this.metadata = options.metadata || {
     title: this.file.name,
-    mimeType: this.contentType
+    mimeType: this.contentType,
   };
   this.token = options.token;
   this.onComplete = options.onComplete || noop;
