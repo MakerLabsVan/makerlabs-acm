@@ -29,9 +29,6 @@ class AppShell extends PolymerElement {
       .search-bar {
         width: 50%;
       }
-      .search-bar vaadin-combo-box {
-        width: 50%;
-      }
     </style>
 
     <app-header-layout>

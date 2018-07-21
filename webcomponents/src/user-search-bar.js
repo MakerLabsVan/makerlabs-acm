@@ -5,7 +5,7 @@ import "@vaadin/vaadin-combo-box/vaadin-combo-box.js";
 class UserSearchBar extends PolymerElement {
   static get template() {
     return html`
-    <vaadin-combo-box id="searchbox" style="width: 100%" item-value-path="Name" item-label-path="Name" items="[[items]]" on-change="_onSearchChanged">
+    <vaadin-combo-box id="searchbox" style="width: 100%" item-value-path="Name" item-label-path="Name" items="[[items]]" on-change="_onSearchChanged" class="full-width">
       <template>
         <paper-icon-item>
           <img src="[[item.Photo]]" style="border-radius: 50%; width: 48px; height: 48px;" slot="item-icon">
