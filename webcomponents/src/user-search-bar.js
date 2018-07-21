@@ -1,5 +1,7 @@
-import { PolymerElement } from "@polymer/polymer/polymer-element.js";
-import { html } from "@polymer/polymer/lib/utils/html-tag.js";
+import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
+
+import "@vaadin/vaadin-combo-box/vaadin-combo-box.js";
+
 class UserSearchBar extends PolymerElement {
   static get template() {
     return html`
@@ -15,10 +17,6 @@ class UserSearchBar extends PolymerElement {
       </template>
     </vaadin-combo-box>
 `;
-  }
-
-  static get is() {
-    return "user-search-bar";
   }
 
   static get properties() {
@@ -38,4 +36,4 @@ class UserSearchBar extends PolymerElement {
   }
 }
 
-customElements.define(UserSearchBar.is, UserSearchBar);
+customElements.define("user-search-bar", UserSearchBar);

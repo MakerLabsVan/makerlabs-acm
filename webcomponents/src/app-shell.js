@@ -1,23 +1,21 @@
-/* App Layout */
-/* Cross-Domain HTTP Requests via JSONP */
-/* Google Sign-In, Sheets, Charts, ... */
-/* Local Components */
-/*
-  FIXME(polymer-modulizer): the above comments were extracted
-  from HTML and may be out of place here. Review them and
-  then delete this comment!
-*/
-import { PolymerElement } from "@polymer/polymer/polymer-element.js";
+import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 
+/* App Layout */
 import "@polymer/app-layout/app-header-layout/app-header-layout.js";
 import "@polymer/app-layout/app-header/app-header.js";
 import "@polymer/app-layout/app-toolbar/app-toolbar.js";
+
+/* Cross-Domain HTTP Requests */
 import "@polymer/iron-ajax/iron-ajax.js";
+
+/* Google Sign-In, Sheets, Charts, ... */
 import "google-signin/google-signin.js";
 import "google-apis/google-apis.js";
+
+/* Local Components */
 import "./user-search-bar.js";
 import "./view-user-form.js";
-import { html } from "@polymer/polymer/lib/utils/html-tag.js";
+
 class AppShell extends PolymerElement {
   static get template() {
     return html`
@@ -60,10 +58,6 @@ class AppShell extends PolymerElement {
       </view-user-form>
     </app-header-layout>
 `;
-  }
-
-  static get is() {
-    return "app-shell";
   }
 
   static get fetchInitialQuery() {
@@ -244,4 +238,4 @@ class AppShell extends PolymerElement {
   handleAuthStateChange(response) {}
 }
 
-customElements.define(AppShell.is, AppShell);
+customElements.define("app-shell", AppShell);

@@ -1,5 +1,5 @@
-import { PolymerElement } from "@polymer/polymer/polymer-element.js";
-import { html } from "@polymer/polymer/lib/utils/html-tag.js";
+import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
+
 class ImageFileUploader extends PolymerElement {
   static get template() {
     return html`
@@ -28,10 +28,6 @@ class ImageFileUploader extends PolymerElement {
       <span id="drop_hint">Drop files here</span>
     </div>
 `;
-  }
-
-  static get is() {
-    return "image-file-uploader";
   }
 
   static get properties() {
@@ -153,7 +149,8 @@ class ImageFileUploader extends PolymerElement {
   }
 }
 
-customElements.define(ImageFileUploader.is, ImageFileUploader);
+customElements.define("image-file-uploader", ImageFileUploader);
+
 /**
  * Helper for implementing retries with backoff. Initial retry
  * delay is 1 second, increasing by 2x (+jitter) for subsequent retries

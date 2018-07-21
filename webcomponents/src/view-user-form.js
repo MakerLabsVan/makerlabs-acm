@@ -1,25 +1,21 @@
-/* Prereqs */
-/* Layout */
-/* Material Design Card/Item Components */
-/* Material Design Form Components */
-/* Vaadin Components */
-/* Google Sign-In, Sheets, Charts, ... */
-/* Local Components */
-/*
-  FIXME(polymer-modulizer): the above comments were extracted
-  from HTML and may be out of place here. Review them and
-  then delete this comment!
-*/
-import { PolymerElement } from "@polymer/polymer/polymer-element.js";
+import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 
-import "web-animations-js/web-animations-next-lite.min.js";
-import "@polymer/neon-animation/web-animations.js";
+import "@polymer/polymer/lib/elements/dom-if.js";
+import "@polymer/polymer/lib/elements/dom-repeat.js";
+
+/* Prereqs */
 import "@polymer/iron-icons/iron-icons.js";
+
+/* Layout */
 import "@polymer/app-layout/app-grid/app-grid-style.js";
+
+/* Material Design Card/Item Components */
 import "@polymer/paper-item/paper-item.js";
 import "@polymer/paper-item/paper-icon-item.js";
 import "@polymer/paper-item/paper-item-body.js";
 import "@polymer/paper-card/paper-card.js";
+
+/* Material Design Form Components */
 import "@polymer/paper-input/paper-input.js";
 import "@polymer/paper-checkbox/paper-checkbox.js";
 import "@polymer/paper-dropdown-menu/paper-dropdown-menu.js";
@@ -28,13 +24,21 @@ import "@polymer/paper-radio-group/paper-radio-group.js";
 import "@polymer/paper-radio-button/paper-radio-button.js";
 import "@polymer/paper-fab/paper-fab.js";
 import "@polymer/paper-tooltip/paper-tooltip.js";
-import "vaadin-material-styles/vaadin-date-picker.js";
-import "vaadin-material-styles/vaadin-combo-box.js";
-import "vaadin-material-styles/vaadin-combo-box-item.js";
-import "vaadin-date-picker/vaadin-date-picker-light.js";
-import "google-chart/google-chart-loader.js";
+
+/* Vaadin Material Theme Styles */
+import "@vaadin/vaadin-date-picker/theme/material/vaadin-date-picker-styles.js";
+import "@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box-styles.js";
+import "@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box-item-styles.js";
+/* Vaadin Components */
+import "@vaadin/vaadin-combo-box/vaadin-combo-box.js";
+import "@vaadin/vaadin-date-picker/vaadin-date-picker-light.js";
+
+/* Google Sign-In, Sheets, Charts, ... */
+import "google-chart-polymer-3/google-chart-loader.js";
+
+/* Local Components */
 import "./image-file-uploader.js";
-import { html } from "@polymer/polymer/lib/utils/html-tag.js";
+
 class ViewUserForm extends PolymerElement {
   static get template() {
     return html`
@@ -157,10 +161,6 @@ class ViewUserForm extends PolymerElement {
       </form>
     </div>
 `;
-  }
-
-  static get is() {
-    return "view-user-form";
   }
 
   static get properties() {
@@ -719,4 +719,4 @@ class ViewUserForm extends PolymerElement {
   }
 }
 
-customElements.define(ViewUserForm.is, ViewUserForm);
+customElements.define("view-user-form", ViewUserForm);
