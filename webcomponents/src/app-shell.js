@@ -1,7 +1,7 @@
-import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
+import {LitElement, html} from "@polymer/lit-element";
 import {
   setPassiveTouchGestures,
-  setRootPath
+  setRootPath,
 } from "@polymer/polymer/lib/utils/settings";
 
 /* App Layout */
@@ -28,8 +28,58 @@ setPassiveTouchGestures(true);
 // in `index.html`.
 setRootPath(MyAppGlobals.rootPath);
 
-class AppShell extends PolymerElement {
-  static get template() {
+class AppShell extends LitElement {
+  static get properties() {
+    return {
+      sheetId: {
+        type: String,
+      },
+      machineId: {
+        type: String,
+      },
+      accessToken: {
+        type: String,
+      },
+      oauthClientId: {
+        type: String,
+      },
+      oauthScopes: {
+        type: String,
+      },
+      fieldsUrl: {
+        type: String,
+      },
+      _fields: {
+        type: Array,
+      },
+      fieldsUrl: {
+        type: String,
+      },
+      userName: {
+        type: String,
+      },
+      usersSearchColumns: {
+        type: String,
+      },
+      defaultPhotoUrl: {
+        type: String,
+      },
+      query: {
+        type: Object,
+      },
+    };
+  }
+
+  _render({
+    fieldsUrl,
+    accessToken,
+    oauthClientId,
+    oauthScopes,
+    sheetId,
+    machineId,
+    _fields: fields,
+    query,
+  }) {
     return html`
     <style>
       app-toolbar {
@@ -45,16 +95,15 @@ class AppShell extends PolymerElement {
 
     <app-header-layout>
       <!-- Google Data, APIs, and Auth -->
-      <google-signin-aware on-google-signin-aware-success="handleAuthSignIn" on-google-signin-aware-signed-out="handleAuthSignOut"></google-signin-aware>
-
-      <!-- Form Fields via Firebase Function Proxy -> Google Apps Script -->
-      <iron-ajax auto="" url\$="[[fieldsUrl]]&amp;access_token=[[accessToken]]" handle-as="json" last-response="{{fields}}" debounce-duration="300">
-      </iron-ajax>
+      <google-signin-aware
+        on-google-signin-aware-success="${this.handleAuthSignIn.bind(this)}"
+        on-google-signin-aware-signed-out="${this.handleAuthSignOut.bind(this)}"
+      ></google-signin-aware>
 
       <!-- App Layout -->
       <app-header slot="header" fixed="">
         <app-toolbar>
-          <google-signin openid-prompt="select_account" client-id="[[oauthClientId]]" scopes="[[oauthScopes]]"></google-signin>
+          <google-signin openid-prompt="select_account" clientId="${oauthClientId}" scopes="${oauthScopes}"></google-signin>
           <div main-title="">
             <span>MakerLabs ACM</span>
           </div>
@@ -63,7 +112,7 @@ class AppShell extends PolymerElement {
       </app-header>
 
       <!-- Render Form -->
-      <view-user-form id="form" sheet-id="[[sheetId]]" machine-id="[[machineId]]" access-token="[[accessToken]]" fields="[[fields]]" query="[[query]]">
+      <view-user-form id="form" sheetId="${sheetId}" machineId="${machineId}" accessToken="${accessToken}" fields="${fields}" query="${query}">
       </view-user-form>
     </app-header-layout>
 `;
@@ -75,58 +124,25 @@ class AppShell extends PolymerElement {
     return {};
   }
 
-  static get properties() {
-    return {
-      sheetId: {
-        type: String
-      },
-      machineId: {
-        type: String
-      },
-      accessToken: {
-        type: String
-      },
-      oauthClientId: {
-        type: String
-      },
-      oauthScopes: {
-        type: String
-      },
-      fieldsUrl: {
-        type: String
-      },
-      fields: {
-        type: Array,
-        observer: "_fieldsChanged"
-      },
-      fieldsUrl: {
-        type: String
-      },
-      userName: {
-        type: String
-      },
-      usersSearchColumns: {
-        type: String
-      },
-      defaultPhotoUrl: {
-        type: String
-      },
-      query: {
-        type: Object
-      }
-    };
+  get fields() {
+    return this._fields;
+  }
+
+  set fields(fields) {
+    this._fieldsChanged(fields, this.fields);
+    this._fields = fields;
   }
 
   _fieldsChanged(newValue, oldValue) {
-    if (this.fields) {
-      const form = this.$.form;
+    if (newValue) {
+      const form = this.shadowRoot.getElementById("form");
       if (form) {
         // Select all users and update the search bar
-        form.queryUsers("select " + this.usersSearchColumns).then(q => {
-          q.send(res => {
+        form.queryUsers("select " + this.usersSearchColumns).then((q) => {
+          q.send((res) => {
             var datatable = res.getDataTable();
             var users = [];
-            var sections = this.fields.map(function(section) {
+            var sections = newValue.map(function(section) {
               return section.title;
             });
 
@@ -167,7 +183,7 @@ class AppShell extends PolymerElement {
               }
             }
 
-            var userSearchBar = this.$.search;
+            var userSearchBar = this.shadowRoot.getElementById("search");
             if (userSearchBar) {
               userSearchBar.items = users;
             }
@@ -187,15 +203,14 @@ class AppShell extends PolymerElement {
     aware.handleAuthStateChange = this.handleAuthStateChange;
   }
 
-  ready() {
-    super.ready();
-
-    this.$.search.addEventListener("search", e => {
-      const form = this.$.form;
+  _firstRendered() {
+    var search = this.shadowRoot.getElementById("search");
+    search.addEventListener("search", (e) => {
+      const form = this.shadowRoot.getElementById("form");
       const q = e.detail.q;
       form.queryUsers("where C = '" + q + "'").then(
         function(q) {
-          q.send(res => {
+          q.send((res) => {
             var values = this.getFirstRowValuesFromResponse(res);
             if (values && values.length) {
               this.showUser(values);
@@ -232,6 +247,7 @@ class AppShell extends PolymerElement {
   }
 
   handleAuthSignIn(response) {
+    console.log("handleAuthSignIn");
     this.accessToken = this.populateAccessToken();
 
     var intervalId = setInterval(
@@ -240,11 +256,38 @@ class AppShell extends PolymerElement {
       },
       20 * (60 * 1000) // 20min
     );
+
+    if (
+      this.fieldsUrl &&
+      this.fieldsUrl.length > 0 &&
+      this.accessToken &&
+      this.accessToken.length > 0
+    ) {
+      fetch(`${this.fieldsUrl}&access_token=${this.accessToken}`).then(
+        (response) => {
+          if (response.status == 200) {
+            response.json().then((fields) => {
+              this.fields = fields;
+            });
+          } else {
+            console.log(
+              `Fields JSON request fetch failed with response code: ${
+                response.status
+              }`
+            );
+          }
+        }
+      );
+    }
   }
 
-  handleAuthSignOut(response) {}
+  handleAuthSignOut(response) {
+    console.log("handleAuthSignOut");
+  }
 
-  handleAuthStateChange(response) {}
+  handleAuthStateChange(response) {
+    console.log("handleAuthStateChange");
+  }
 }
 
 customElements.define("app-shell", AppShell);
