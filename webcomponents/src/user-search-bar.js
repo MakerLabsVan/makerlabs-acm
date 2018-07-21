@@ -7,33 +7,37 @@ class UserSearchBar extends LitElement {
     return {
       items: {
         type: Array,
-        value: [],
       },
     };
   }
 
+  constructor() {
+    super();
+    this.items = this.items || [];
+  }
+
   _render({items}) {
     return html`
-    <vaadin-combo-box
-      id="searchbox"
-      style="width: 100%"
-      item-value-path="Name"
-      item-label-path="Name"
-      items="${items}"
-      on-change="${this.handleSearchChanged.bind(this)}"
-      class="full-width"
-    >
-      <template>
-        <paper-icon-item>
-          <img src="[[item.Photo]]" style="border-radius: 50%; width: 48px; height: 48px;" slot="item-icon">
-          <paper-item-body two-line="" style="min-height: 0">
-            <div style="text-transform: capitalize">[[item.Name]]</div>
-            <div secondary="">[[item.Email]]</div>
-          </paper-item-body>
-        </paper-icon-item>
-      </template>
-    </vaadin-combo-box>
-`;
+      <vaadin-combo-box
+        id="searchbox"
+        style="width: 100%"
+        item-value-path="Name"
+        item-label-path="Name"
+        items="${items}"
+        on-change="${this.handleSearchChanged.bind(this)}"
+        class="full-width"
+      >
+        <template>
+          <paper-icon-item>
+            <img src="[[item.Photo]]" style="border-radius: 50%; width: 48px; height: 48px;" slot="item-icon">
+            <paper-item-body two-line="" style="min-height: 0">
+              <div style="text-transform: capitalize">[[item.Name]]</div>
+              <div secondary="">[[item.Email]]</div>
+            </paper-item-body>
+          </paper-icon-item>
+        </template>
+      </vaadin-combo-box>
+    `;
   }
 
   handleSearchChanged() {
