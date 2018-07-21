@@ -26,7 +26,8 @@
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "google-apis": "file:./modulizer_workspace/google-apis",
     "google-chart-polymer-3": "^3.0.1",
-    "google-signin": "file:./modulizer_workspace/google-signin"
+    "google-signin": "file:./modulizer_workspace/google-signin",
+    "lit-html": "^0.10.2"
   },
   "devDependencies": {
     "firebase-tools": "^3.19.3",
