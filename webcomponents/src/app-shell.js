@@ -7,17 +7,17 @@
   from HTML and may be out of place here. Review them and
   then delete this comment!
 */
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { PolymerElement } from "@polymer/polymer/polymer-element.js";
 
-import '@polymer/app-layout/app-header-layout/app-header-layout.js';
-import '@polymer/app-layout/app-header/app-header.js';
-import '@polymer/app-layout/app-toolbar/app-toolbar.js';
-import '@polymer/iron-ajax/iron-ajax.js';
-import 'google-signin/google-signin.js';
-import 'google-apis/google-apis.js';
-import './user-search-bar.js';
-import './view-user-form.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import "@polymer/app-layout/app-header-layout/app-header-layout.js";
+import "@polymer/app-layout/app-header/app-header.js";
+import "@polymer/app-layout/app-toolbar/app-toolbar.js";
+import "@polymer/iron-ajax/iron-ajax.js";
+import "google-signin/google-signin.js";
+import "google-apis/google-apis.js";
+import "./user-search-bar.js";
+import "./view-user-form.js";
+import { html } from "@polymer/polymer/lib/utils/html-tag.js";
 class AppShell extends PolymerElement {
   static get template() {
     return html`
@@ -62,7 +62,9 @@ class AppShell extends PolymerElement {
 `;
   }
 
-  static get is() { return "app-shell"; }
+  static get is() {
+    return "app-shell";
+  }
 
   static get fetchInitialQuery() {
     // TODO(@paulreimer): From Google Apps Script:
@@ -109,7 +111,7 @@ class AppShell extends PolymerElement {
       query: {
         type: Object
       }
-    }
+    };
   }
 
   _fieldsChanged(newValue, oldValue) {
@@ -117,25 +119,31 @@ class AppShell extends PolymerElement {
       const form = this.$.form;
       if (form) {
         // Select all users and update the search bar
-        form.queryUsers("select " + this.usersSearchColumns).then((q) => {
-          q.send((res) => {
+        form.queryUsers("select " + this.usersSearchColumns).then(q => {
+          q.send(res => {
             var datatable = res.getDataTable();
             var users = [];
-            var sections = this.fields.map(function(section) { return section.title; });
+            var sections = this.fields.map(function(section) {
+              return section.title;
+            });
 
-            if (datatable)
-            {
-              for (var rowIdx = 0; rowIdx < datatable.getNumberOfRows(); rowIdx++)
-              {
+            if (datatable) {
+              for (
+                var rowIdx = 0;
+                rowIdx < datatable.getNumberOfRows();
+                rowIdx++
+              ) {
                 var currentSection = 0;
                 var rowValues = {};
 
-                for (var colIdx = 0; colIdx < datatable.getNumberOfColumns(); colIdx++)
-                {
+                for (
+                  var colIdx = 0;
+                  colIdx < datatable.getNumberOfColumns();
+                  colIdx++
+                ) {
                   var k = datatable.getColumnLabel(colIdx);
                   // Strip section heading if it is present
-                  if (k.indexOf(sections[currentSection]) == 0)
-                  {
+                  if (k.indexOf(sections[currentSection]) == 0) {
                     k = k.substr(sections[currentSection].length + 1);
                     currentSection++;
                   }
@@ -146,13 +154,11 @@ class AppShell extends PolymerElement {
                   rowValues[k] = v;
                 }
 
-                if (!("Photo" in rowValues) || !(rowValues["Photo"]))
-                {
+                if (!("Photo" in rowValues) || !rowValues["Photo"]) {
                   rowValues["Photo"] = this.defaultPhotoUrl;
                 }
 
-                if ("Name" in rowValues && rowValues["Name"])
-                {
+                if ("Name" in rowValues && rowValues["Name"]) {
                   users.push(rowValues);
                 }
               }
@@ -181,36 +187,33 @@ class AppShell extends PolymerElement {
   ready() {
     super.ready();
 
-    this.$.search.addEventListener("search", (e) => {
+    this.$.search.addEventListener("search", e => {
       const form = this.$.form;
       const q = e.detail.q;
-      form.queryUsers("where C = '" + q + "'").then(function(q) {
-        q.send((res) => {
-          var values = this.getFirstRowValuesFromResponse(res);
-          if (values && values.length) {
-            this.showUser(values);
-          }
-        });
-      }.bind(form));
-    })
+      form.queryUsers("where C = '" + q + "'").then(
+        function(q) {
+          q.send(res => {
+            var values = this.getFirstRowValuesFromResponse(res);
+            if (values && values.length) {
+              this.showUser(values);
+            }
+          });
+        }.bind(form)
+      );
+    });
   }
 
   populateAccessToken() {
     var accessToken = null;
 
-    var authInstance = (
-      typeof gapi === "object"
-      && gapi.auth2
-      && gapi.auth2.getAuthInstance()
-    );
+    var authInstance =
+      typeof gapi === "object" && gapi.auth2 && gapi.auth2.getAuthInstance();
 
-    if (authInstance)
-    {
-      var currentUser = (
-        authInstance
-        && authInstance.currentUser
-        && authInstance.currentUser.get()
-      );
+    if (authInstance) {
+      var currentUser =
+        authInstance &&
+        authInstance.currentUser &&
+        authInstance.currentUser.get();
 
       if (currentUser) {
         var authResponse = currentUser.getAuthResponse(true);
@@ -229,16 +232,16 @@ class AppShell extends PolymerElement {
     this.accessToken = this.populateAccessToken();
 
     var intervalId = setInterval(
-      () => { this.accessToken = this.populateAccessToken(); },
-      20*(60*1000) // 20min
+      () => {
+        this.accessToken = this.populateAccessToken();
+      },
+      20 * (60 * 1000) // 20min
     );
   }
 
-  handleAuthSignOut(response) {
-  }
+  handleAuthSignOut(response) {}
 
-  handleAuthStateChange(response) {
-  }
+  handleAuthStateChange(response) {}
 }
 
 customElements.define(AppShell.is, AppShell);

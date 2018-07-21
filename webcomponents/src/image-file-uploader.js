@@ -1,5 +1,5 @@
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from "@polymer/polymer/polymer-element.js";
+import { html } from "@polymer/polymer/lib/utils/html-tag.js";
 class ImageFileUploader extends PolymerElement {
   static get template() {
     return html`
@@ -30,7 +30,9 @@ class ImageFileUploader extends PolymerElement {
 `;
   }
 
-  static get is() { return "image-file-uploader"; }
+  static get is() {
+    return "image-file-uploader";
+  }
 
   static get properties() {
     return {
@@ -42,25 +44,19 @@ class ImageFileUploader extends PolymerElement {
         type: String,
         value: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
       }
-    }
+    };
   }
 
   get accessToken() {
     var accessToken = null;
 
-    var authInstance = (
-      gapi
-      && gapi.auth2
-      && gapi.auth2.getAuthInstance()
-    );
+    var authInstance = gapi && gapi.auth2 && gapi.auth2.getAuthInstance();
 
-    if (authInstance)
-    {
-      var currentUser = (
-        authInstance
-        && authInstance.currentUser
-        && authInstance.currentUser.get()
-      );
+    if (authInstance) {
+      var currentUser =
+        authInstance &&
+        authInstance.currentUser &&
+        authInstance.currentUser.get();
 
       if (currentUser) {
         var authResponse = currentUser.getAuthResponse(true);
@@ -81,12 +77,11 @@ class ImageFileUploader extends PolymerElement {
     evt.stopPropagation();
     evt.preventDefault();
 
-    if (this.accessToken)
-    {
+    if (this.accessToken) {
       var files = evt.dataTransfer.files; // FileList object.
 
       var output = [];
-      for (var i = 0, f; f = files[i]; i++) {
+      for (var i = 0, f; (f = files[i]); i++) {
         var uploader = new MediaUploader({
           file: f,
           token: this.accessToken,
@@ -105,8 +100,7 @@ class ImageFileUploader extends PolymerElement {
         });
         uploader.upload();
       }
-    }
-    else {
+    } else {
       console.log("Missing accessToken");
     }
   }
@@ -168,7 +162,7 @@ customElements.define(ImageFileUploader.is, ImageFileUploader);
  */
 var RetryHandler = function() {
   this.interval = 1000; // Start at one second
-  this.maxInterval = 60 * 1000; // Don't wait longer than a minute 
+  this.maxInterval = 60 * 1000; // Don't wait longer than a minute
 };
 
 /**
@@ -210,7 +204,6 @@ RetryHandler.prototype.getRandomInt_ = function(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-
 /**
  * Helper class for resumable uploads using XHR/CORS. Can upload any Blob-like item, whether
  * files or in-memory constructs.
@@ -240,10 +233,11 @@ RetryHandler.prototype.getRandomInt_ = function(min, max) {
 var MediaUploader = function(options) {
   var noop = function() {};
   this.file = options.file;
-  this.contentType = options.contentType || this.file.type || 'application/octet-stream';
+  this.contentType =
+    options.contentType || this.file.type || "application/octet-stream";
   this.metadata = options.metadata || {
-    'title': this.file.name,
-    'mimeType': this.contentType
+    title: this.file.name,
+    mimeType: this.contentType
   };
   this.token = options.token;
   this.onComplete = options.onComplete || noop;
@@ -256,10 +250,10 @@ var MediaUploader = function(options) {
   this.url = options.url;
   if (!this.url) {
     var params = options.params || {};
-    params.uploadType = 'resumable';
+    params.uploadType = "resumable";
     this.url = this.buildUrl_(options.fileId, params, options.baseUrl);
   }
-  this.httpMethod = options.fileId ? 'PUT' : 'POST';
+  this.httpMethod = options.fileId ? "PUT" : "POST";
 };
 
 /**
@@ -270,14 +264,14 @@ MediaUploader.prototype.upload = function() {
   var xhr = new XMLHttpRequest();
 
   xhr.open(this.httpMethod, this.url, true);
-  xhr.setRequestHeader('Authorization', 'Bearer ' + this.token);
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.setRequestHeader('X-Upload-Content-Length', this.file.size);
-  xhr.setRequestHeader('X-Upload-Content-Type', this.contentType);
+  xhr.setRequestHeader("Authorization", "Bearer " + this.token);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.setRequestHeader("X-Upload-Content-Length", this.file.size);
+  xhr.setRequestHeader("X-Upload-Content-Type", this.contentType);
 
   xhr.onload = function(e) {
     if (e.target.status < 400) {
-      var location = e.target.getResponseHeader('Location');
+      var location = e.target.getResponseHeader("Location");
       this.url = location;
       this.sendFile_();
     } else {
@@ -306,12 +300,15 @@ MediaUploader.prototype.sendFile_ = function() {
   }
 
   var xhr = new XMLHttpRequest();
-  xhr.open('PUT', this.url, true);
-  xhr.setRequestHeader('Content-Type', this.contentType);
-  xhr.setRequestHeader('Content-Range', "bytes " + this.offset + "-" + (end - 1) + "/" + this.file.size);
-  xhr.setRequestHeader('X-Upload-Content-Type', this.file.type);
+  xhr.open("PUT", this.url, true);
+  xhr.setRequestHeader("Content-Type", this.contentType);
+  xhr.setRequestHeader(
+    "Content-Range",
+    "bytes " + this.offset + "-" + (end - 1) + "/" + this.file.size
+  );
+  xhr.setRequestHeader("X-Upload-Content-Type", this.file.type);
   if (xhr.upload) {
-    xhr.upload.addEventListener('progress', this.onProgress);
+    xhr.upload.addEventListener("progress", this.onProgress);
   }
   xhr.onload = this.onContentUploadSuccess_.bind(this);
   xhr.onerror = this.onContentUploadError_.bind(this);
@@ -325,11 +322,11 @@ MediaUploader.prototype.sendFile_ = function() {
  */
 MediaUploader.prototype.resume_ = function() {
   var xhr = new XMLHttpRequest();
-  xhr.open('PUT', this.url, true);
-  xhr.setRequestHeader('Content-Range', "bytes */" + this.file.size);
-  xhr.setRequestHeader('X-Upload-Content-Type', this.file.type);
+  xhr.open("PUT", this.url, true);
+  xhr.setRequestHeader("Content-Range", "bytes */" + this.file.size);
+  xhr.setRequestHeader("X-Upload-Content-Type", this.file.type);
   if (xhr.upload) {
-    xhr.upload.addEventListener('progress', this.onProgress);
+    xhr.upload.addEventListener("progress", this.onProgress);
   }
   xhr.onload = this.onContentUploadSuccess_.bind(this);
   xhr.onerror = this.onContentUploadError_.bind(this);
@@ -342,7 +339,7 @@ MediaUploader.prototype.resume_ = function() {
  * @param {XMLHttpRequest} xhr Request object
  */
 MediaUploader.prototype.extractRange_ = function(xhr) {
-  var range = xhr.getResponseHeader('Range');
+  var range = xhr.getResponseHeader("Range");
   if (range) {
     this.offset = parseInt(range.match(/\d+/g).pop(), 10) + 1;
   }
@@ -402,9 +399,11 @@ MediaUploader.prototype.onUploadError_ = function(e) {
  */
 MediaUploader.prototype.buildQuery_ = function(params) {
   params = params || {};
-  return Object.keys(params).map(function(key) {
-    return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
-  }).join('&');
+  return Object.keys(params)
+    .map(function(key) {
+      return encodeURIComponent(key) + "=" + encodeURIComponent(params[key]);
+    })
+    .join("&");
 };
 
 /**
@@ -416,13 +415,13 @@ MediaUploader.prototype.buildQuery_ = function(params) {
  * @return {string} URL
  */
 MediaUploader.prototype.buildUrl_ = function(id, params, baseUrl) {
-  var url = baseUrl || 'https://www.googleapis.com/upload/drive/v2/files/';
+  var url = baseUrl || "https://www.googleapis.com/upload/drive/v2/files/";
   if (id) {
     url += id;
   }
   var query = this.buildQuery_(params);
   if (query) {
-    url += '?' + query;
+    url += "?" + query;
   }
   return url;
 };

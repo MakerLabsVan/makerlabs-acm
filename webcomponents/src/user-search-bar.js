@@ -1,5 +1,5 @@
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from "@polymer/polymer/polymer-element.js";
+import { html } from "@polymer/polymer/lib/utils/html-tag.js";
 class UserSearchBar extends PolymerElement {
   static get template() {
     return html`
@@ -17,7 +17,9 @@ class UserSearchBar extends PolymerElement {
 `;
   }
 
-  static get is() { return "user-search-bar"; }
+  static get is() {
+    return "user-search-bar";
+  }
 
   static get properties() {
     return {
@@ -25,13 +27,13 @@ class UserSearchBar extends PolymerElement {
         type: Array,
         value: []
       }
-    }
+    };
   }
 
   _onSearchChanged() {
     if (this.$.searchbox && this.$.searchbox.value) {
       const q = this.$.searchbox.value;
-      this.dispatchEvent(new CustomEvent("search", {detail: {q}}));
+      this.dispatchEvent(new CustomEvent("search", { detail: { q } }));
     }
   }
 }
