@@ -1,13 +1,12 @@
-import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
-
-import "@polymer/polymer/lib/elements/dom-if.js";
-import "@polymer/polymer/lib/elements/dom-repeat.js";
+import {LitElement, html} from "@polymer/lit-element";
 
 /* Prereqs */
+//import "web-animations-js/web-animations-next-lite.min.js";
+//import "@polymer/neon-animation/web-animations.js";
 import "@polymer/iron-icons/iron-icons.js";
 
 /* Layout */
-import "@polymer/app-layout/app-grid/app-grid-style.js";
+//import "@polymer/app-layout/app-grid/app-grid-style.js";
 
 /* Material Design Card/Item Components */
 import "@polymer/paper-item/paper-item.js";
@@ -34,27 +33,46 @@ import "@vaadin/vaadin-combo-box/vaadin-combo-box.js";
 import "@vaadin/vaadin-date-picker/vaadin-date-picker-light.js";
 
 /* Google Sign-In, Sheets, Charts, ... */
-import { initGCharts } from "google-chart-polymer-3/google-chart.js";
+//import "google-chart-polymer-3/google-chart-loader.js";
+import {initGCharts} from "google-chart-polymer-3/google-chart.js";
 
 /* Local Components */
 import "./image-file-uploader.js";
 
-class ViewUserForm extends PolymerElement {
-  static get template() {
+class ViewUserForm extends LitElement {
+  static get properties() {
+    return {
+      sheetId: {
+        type: String,
+      },
+      machineId: {
+        type: String,
+      },
+      accessToken: {
+        type: String,
+      },
+      fields: {
+        type: Array,
+      },
+      userName: {
+        type: String,
+        observer: "handleUserNameChanged",
+      },
+      query: {
+        type: Object,
+      },
+    };
+  }
+
+  constructor() {
+    super();
+    this.fields = this.fields || [];
+  }
+
+  _render({fields}) {
     return html`
-    <style include="app-grid-style">
-      :host {
-        display: block;
-        --app-grid-columns: 4;
-        --app-grid-expandible-item-columns: 4;
-        --app-grid-gutter: 10px;
-        --app-grid-item-height: 720px;
-      }
-
-      paper-card:last-child {
-        @apply --app-grid-expandible-item;
-      }
-
+    <link rel="stylesheet" href="../node_modules/@material/layout-grid/dist/mdc.layout-grid.min.css">
+    <style>
       .full-width {
         width: 100%;
       }
@@ -86,105 +104,161 @@ class ViewUserForm extends PolymerElement {
 
     <google-chart-loader id="gviz"></google-chart-loader>
 
-    <google-client-loader id="sheets" name="sheets" version="v4"></google-client-loader>
+    <google-client-loader
+      id="sheets"
+      name="sheets"
+      version="v4"
+    ></google-client-loader>
 
     <div class="content-wrapper">
       <form onsubmit="return false;" id="viewUserForm">
         <div class="tool-bar">
           <div class="tool-bar-action">
-            <paper-fab mini="" icon="add" on-tap="resetValues"></paper-fab>
-            <paper-tooltip position="top" animation-delay="0">Add new user</paper-tooltip>
+            <paper-fab
+              mini=""
+              icon="add"
+              on-tap="${this.resetValues.bind(this)}"
+            ></paper-fab>
+            <paper-tooltip
+              position="top"
+              animation-delay="0"
+            >Add new user</paper-tooltip>
           </div>
 
           <div class="tool-bar-action">
-            <paper-fab mini="" icon="save" on-tap="handleSubmit"></paper-fab>
-            <paper-tooltip position="top" animation-delay="0">Save changes</paper-tooltip>
+            <paper-fab
+              mini=""
+              icon="save"
+              on-tap="${this.handleSubmit.bind(this)}"
+            ></paper-fab>
+            <paper-tooltip
+              position="top"
+              animation-delay="0"
+            >Save changes</paper-tooltip>
           </div>
         </div>
 
-        <div class="app-grid">
-          <template is="dom-repeat" items="[[fields]]" as="section">
-            <paper-card heading="[[section.title]]" class="section" hidden="[[_sectionIsHidden(section)]]">
-              <div class="card-content">
-                <template is="dom-repeat" items="[[section.fields]]" as="field">
-
-                  <template is="dom-if" if="[[_fieldIsCheckboxType(field)]]" restamp="true">
-                    <div>
-                      <paper-checkbox name="[[field.name]]" id="[[field.name]]">[[field.title]]</paper-checkbox>
-                    </div>
-                  </template>
-
-                  <template is="dom-if" if="[[_fieldIsRadioGroupType(field)]]" restamp="true">
-                    <div>
-                      <span>[[field.title]]</span>
-                      <paper-radio-group name="[[field.name]]" id="[[field.name]]" items="[[field.choices]]" selected="0">
-                        <template is="dom-repeat" items="[[field.choices]]" as="choice">
-                          <paper-radio-button name="[[choice]]">[[choice]]</paper-radio-button>
-                        </template>
-                      </paper-radio-group>
-                    </div>
-                  </template>
-
-                  <template is="dom-if" if="[[_fieldIsDropdownMenuType(field)]]" restamp="true">
-                    <paper-dropdown-menu label="[[field.title]]" name="[[field.name]]" id="[[field.name]]" class="full-width">
-                      <paper-listbox slot="dropdown-content" selected="0">
-                        <template is="dom-repeat" items="[[field.choices]]" as="choice">
-                          <paper-item>[[choice]]</paper-item>
-                        </template>
-                      </paper-listbox>
-                    </paper-dropdown-menu>
-                  </template>
-
-                  <template is="dom-if" if="[[_fieldIsDatePickerType(field)]]" restamp="true">
-                    <vaadin-date-picker-light attr-for-value="value" class="full-width">
-                      <paper-input always-float-label="" label="[[field.title]]" name="[[field.name]]" id="[[field.name]]"></paper-input>
-                    </vaadin-date-picker-light>
-                  </template>
-
-                  <template is="dom-if" if="[[_fieldIsImageType(field)]]" restamp="true">
-                    <image-file-uploader id="[[field.name]]" name="[[field.name]]"></image-file-uploader>
-                  </template>
-
-                  <template is="dom-if" if="[[_fieldIsTextInputType(field)]]" restamp="true">
-                    <paper-input always-float-label="" label="[[field.title]]" id="[[field.name]]" name="[[field.name]]"></paper-input>
-                  </template>
-
-                  <template is="dom-if" if="[[_fieldIsTagIdType(field)]]" restamp="true">
-                    <vaadin-combo-box label="[[field.title]]" id="[[field.name]]" name="[[field.name]]" class="full-width"></vaadin-combo-box>
-                  </template>
-
-                </template>
-              </div>
-            </paper-card>
-          </template>
+        <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            ${fields.map(
+              (section) => html`
+                <paper-card
+                  heading="${section.title}"
+                  class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3"
+                  hidden="${this.sectionIsHidden(section)}"
+                >
+                  <div class="card-content style-scope form">
+                    ${section.fields.map(this.renderField.bind(this))}
+                  </div>
+                </paper-card>
+              `
+            )}
+          </div>
         </div>
       </form>
     </div>
-`;
+    `;
   }
 
-  static get properties() {
-    return {
-      sheetId: {
-        type: String
-      },
-      machineId: {
-        type: String
-      },
-      accessToken: {
-        type: String
-      },
-      fields: {
-        type: Array
-      },
-      userName: {
-        type: String,
-        observer: "_userNameChanged"
-      },
-      query: {
-        type: Object
-      }
-    };
+  renderField(field) {
+    if (this.fieldIsCheckboxType(field)) {
+      return html`
+        <div>
+          <paper-checkbox
+            name="${field.name}"
+            id="${field.name}"
+          >${field.title}</paper-checkbox>
+        </div>
+      `;
+    }
+
+    if (this.fieldIsRadioGroupType(field)) {
+      return html`
+        <div>
+          <span>${field.title}</span>
+          <paper-radio-group
+            name="${field.name}"
+            id="${field.name}"
+            items="${field.choices}"
+            selected="0"
+          >
+            ${field.choices.map(
+              (choice) => html`
+                <paper-radio-button
+                  name="${choice}"
+                >${choice}</paper-radio-button>
+              `
+            )}
+          </paper-radio-group>
+        </div>
+      `;
+    }
+
+    if (this.fieldIsDropdownMenuType(field)) {
+      return html`
+        <paper-dropdown-menu
+          label="${field.title}"
+          name="${field.name}"
+          id="${field.name}"
+          class="full-width"
+        >
+          <paper-listbox
+            slot="dropdown-content"
+            selected="0"
+          >
+            ${field.choices.map(
+              (choice) => html`
+                <paper-item>${choice}</paper-item>
+              `
+            )}
+          </paper-listbox>
+        </paper-dropdown-menu>
+      `;
+    }
+
+    if (this.fieldIsDatePickerType(field)) {
+      return html`
+        <vaadin-date-picker-light attr-for-value="value" class="full-width">
+          <paper-input
+            always-float-label=""
+            label="${field.title}"
+            name="${field.name}"
+            id="${field.name}"
+          ></paper-input>
+        </vaadin-date-picker-light>
+      `;
+    }
+
+    if (this.fieldIsImageType(field)) {
+      return html`
+        <image-file-uploader
+          id="${field.name}"
+          name="${field.name}"
+        ></image-file-uploader>
+      `;
+    }
+
+    if (this.fieldIsTextInputType(field)) {
+      return html`
+        <paper-input
+          always-float-label=""
+          label="${field.title}"
+          id="${field.name}"
+          name="${field.name}"
+        ></paper-input>
+      `;
+    }
+
+    if (this.fieldIsTagIdType(field)) {
+      return html`
+        <vaadin-combo-box
+          label="${field.title}"
+          id="${field.name}"
+          name="${field.name}"
+          class="full-width"
+        />
+      `;
+    }
   }
 
   get usersSheetName() {
@@ -206,13 +280,13 @@ class ViewUserForm extends PolymerElement {
   }
 
   get usersNameColumn() {
-    return this._usersColumnFromFieldTitle("Name");
+    return this.usersColumnFromFieldTitle("Name");
   }
   get usersMakerLabsIdColumn() {
-    return this._usersColumnFromFieldTitle("MakerLabs ID");
+    return this.usersColumnFromFieldTitle("MakerLabs ID");
   }
   get usersTagIdColumn() {
-    return this._usersColumnFromFieldTitle("Tag ID");
+    return this.usersColumnFromFieldTitle("Tag ID");
   }
 
   get activityTimestampColumn() {
@@ -231,7 +305,7 @@ class ViewUserForm extends PolymerElement {
     return "F";
   }
 
-  _usersColumnFromFieldTitle(title) {
+  usersColumnFromFieldTitle(title) {
     // Check for non-empty fields array
     if (this.fields && this.fields.length) {
       // Iterate through sections
@@ -253,12 +327,12 @@ class ViewUserForm extends PolymerElement {
     return null;
   }
 
-  _sectionIsHidden(section) {
+  sectionIsHidden(section) {
     return section && this.hiddenSectionNames.indexOf(section.title) != -1;
   }
 
   // https://developers.google.com/apps-script/reference/spreadsheet/data-validation-criteria#properties
-  _fieldIsCheckboxType(field) {
+  fieldIsCheckboxType(field) {
     return (
       field.type === "CHECKBOX" ||
       (field.type === "VALUE_IN_LIST" &&
@@ -269,16 +343,16 @@ class ViewUserForm extends PolymerElement {
     );
   }
 
-  _fieldIsRadioGroupType(field) {
+  fieldIsRadioGroupType(field) {
     return (
       field.type === "VALUE_IN_LIST" &&
       field.choices &&
       field.choices.length <= 3 &&
-      !this._fieldIsCheckboxType(field)
+      !this.fieldIsCheckboxType(field)
     );
   }
 
-  _fieldIsDropdownMenuType(field) {
+  fieldIsDropdownMenuType(field) {
     return (
       field.type === "VALUE_IN_LIST" &&
       field.choices &&
@@ -286,7 +360,7 @@ class ViewUserForm extends PolymerElement {
     );
   }
 
-  _fieldIsDatePickerType(field) {
+  fieldIsDatePickerType(field) {
     return (
       field.type == "DATE_AFTER" ||
       field.type == "DATE_BEFORE" ||
@@ -299,9 +373,9 @@ class ViewUserForm extends PolymerElement {
     );
   }
 
-  _fieldIsTextInputType(field) {
+  fieldIsTextInputType(field) {
     return (
-      !this._fieldIsTagIdType(field) &&
+      !this.fieldIsTagIdType(field) &&
       (!field.type ||
         field.type == "NUMBER_BETWEEN" ||
         field.type == "NUMBER_EQUAL_TO" ||
@@ -318,22 +392,22 @@ class ViewUserForm extends PolymerElement {
     );
   }
 
-  _fieldIsTagIdType(field) {
+  fieldIsTagIdType(field) {
     return field.name === this.usersTagIdColumn;
   }
 
-  _fieldIsImageType(field) {
+  fieldIsImageType(field) {
     return field.type === "TEXT_IS_VALID_URL";
   }
 
-  _userNameChanged(newValue, oldValue) {
+  handleUserNameChanged(newValue, oldValue) {
     if (newValue) {
       // Search for user by name (if already entered), display in form
       if (this.usersNameColumn && this.userName) {
         this.queryUsers(
           "where " + this.usersNameColumn + " = '" + this.userName + "'"
-        ).then(q => {
-          q.send(res => {
+        ).then((q) => {
+          q.send((res) => {
             var values = this.getFirstRowValuesFromResponse(res);
             if (values && values.length) {
               this.showUser(values);
@@ -371,9 +445,7 @@ class ViewUserForm extends PolymerElement {
     window.removeEventListener("resize", this._updateGridStyles);
   }
 
-  ready() {
-    super.ready();
-
+  _firstRendered() {
     initGCharts(() => {
       console.log("Did initialize Google Charts API");
 
@@ -403,8 +475,8 @@ class ViewUserForm extends PolymerElement {
         this.userName = this.query["name"];
         this.queryUsers(
           "where " + this.usersNameColumn + " = '" + this.userName + "'"
-        ).then(q => {
-          q.send(res => {
+        ).then((q) => {
+          q.send((res) => {
             var values = this.getFirstRowValuesFromResponse(res);
             if (values && values.length) {
               this.showUser(values);
@@ -430,8 +502,8 @@ class ViewUserForm extends PolymerElement {
             "' order by " +
             this.activityTimestampColumn +
             " desc limit 1"
-        ).then(q => {
-          q.send(res => {
+        ).then((q) => {
+          q.send((res) => {
             var items = [];
             var values = this.getValuesFromResponse(res);
             if (values && values.length) {
@@ -444,8 +516,8 @@ class ViewUserForm extends PolymerElement {
                       " = '" +
                       makerLabsId +
                       "'"
-                  ).then(q => {
-                    q.send(res => {
+                  ).then((q) => {
+                    q.send((res) => {
                       var values = this.getFirstRowValuesFromResponse(res);
                       if (values && values.length) {
                         this.showUser(values);
@@ -471,8 +543,8 @@ class ViewUserForm extends PolymerElement {
             this.activityTimestampColumn +
             ") group by " +
             this.activityTagIdColumn
-        ).then(q => {
-          q.send(res => {
+        ).then((q) => {
+          q.send((res) => {
             var items = [];
             var values = this.getValuesFromResponse(res);
             if (values && values.length) {
@@ -480,7 +552,7 @@ class ViewUserForm extends PolymerElement {
                 var tagId = values[rowIdx][0];
                 items.push({
                   label: "Recently scanned: " + tagId,
-                  value: tagId
+                  value: tagId,
                 });
               }
 
@@ -526,7 +598,9 @@ class ViewUserForm extends PolymerElement {
   querySheet(sheetName, query, numHeaders = 1) {
     var queryString = encodeURIComponent(query);
 
-    var loader = this.$.gviz;
+    var loader = this.shadowRoot.getElementById("gviz");
+    console.log("loader");
+    console.log(loader);
 
     return loader.query(
       "https://docs.google.com/spreadsheets/d/" +
@@ -583,28 +657,28 @@ class ViewUserForm extends PolymerElement {
           val = "";
         }
 
-        if (this._fieldIsCheckboxType(field)) {
+        if (this.fieldIsCheckboxType(field)) {
           var el = this.shadowRoot.getElementById(field.name);
 
           el.checked = this.isYesLike(val[0]);
-        } else if (this._fieldIsRadioGroupType(field)) {
+        } else if (this.fieldIsRadioGroupType(field)) {
           var el = this.shadowRoot.getElementById(field.name);
 
           el.select(val);
-        } else if (this._fieldIsDropdownMenuType(field)) {
+        } else if (this.fieldIsDropdownMenuType(field)) {
           var el = this.shadowRoot.getElementById(field.name);
           var listbox = el.querySelector("paper-listbox");
           var selectedIdx = field.choices.indexOf(val);
 
           listbox.selected = selectedIdx >= 0 ? selectedIdx : 0;
         } else if (
-          this._fieldIsDatePickerType(field) ||
-          this._fieldIsTextInputType(field)
+          this.fieldIsDatePickerType(field) ||
+          this.fieldIsTextInputType(field)
         ) {
           var el = this.shadowRoot.getElementById(field.name);
 
           el.value = val;
-        } else if (this._fieldIsImageType(field)) {
+        } else if (this.fieldIsImageType(field)) {
           var photoUrl = val;
           var img = this.shadowRoot.getElementById(field.name);
 
@@ -632,15 +706,15 @@ class ViewUserForm extends PolymerElement {
 
         var el = this.shadowRoot.getElementById(field.name);
         if (el) {
-          if (this._fieldIsCheckboxType(field)) {
+          if (this.fieldIsCheckboxType(field)) {
             formValue = el.checked ? field.choices[0] : field.choices[1];
-          } else if (this._fieldIsRadioGroupType(field)) {
+          } else if (this.fieldIsRadioGroupType(field)) {
             formValue = el.selected;
-          } else if (this._fieldIsDropdownMenuType(field)) {
+          } else if (this.fieldIsDropdownMenuType(field)) {
             formValue = el.value;
           } else if (
-            this._fieldIsDatePickerType(field) ||
-            this._fieldIsTextInputType(field)
+            this.fieldIsDatePickerType(field) ||
+            this.fieldIsTextInputType(field)
           ) {
             formValue = el.value;
 
@@ -648,7 +722,7 @@ class ViewUserForm extends PolymerElement {
             if (formValue) {
               validTextFieldCount++;
             }
-          } else if (this._fieldIsImageType(field)) {
+          } else if (this.fieldIsImageType(field)) {
             console.log("check image el");
             console.log(el);
             // Ignore emptyImageData
@@ -676,7 +750,7 @@ class ViewUserForm extends PolymerElement {
             range: this.usersSheetName + "!A" + rowName,
             majorDimension: "ROWS",
             valueInputOption: "USER_ENTERED",
-            values: [formValues]
+            values: [formValues],
           })
           .then(function(response) {
             console.log(response);
@@ -693,7 +767,7 @@ class ViewUserForm extends PolymerElement {
               range: this.usersSheetName,
               valueInputOption: "USER_ENTERED",
               insertDataOption: "INSERT_ROWS",
-              values: [formValues]
+              values: [formValues],
             })
             .then(function(response) {
               console.log(response);
