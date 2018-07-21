@@ -5,6 +5,8 @@
     <base href="/">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
+    <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script type="module" src="src/app-shell.js"></script>
     <style>
       html, body {
         margin: 0;
@@ -25,7 +27,5 @@
       oauth-scopes="https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive"
       unresolved
     >Loading...</app-shell>
-    <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-    <link rel="import" href="src/app-shell.html">
   </body>
 </html>
