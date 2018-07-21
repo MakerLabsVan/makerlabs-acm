@@ -5,13 +5,49 @@ class ImageFileUploader extends LitElement {
     return {
       src: {
         type: String,
-        value: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
       },
       emptyImageData: {
         type: String,
-        value: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",
       },
     };
+  }
+
+  constructor() {
+    super();
+    this.src =
+      this.src || "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
+    this.emptyImageData =
+      this.emptyImageData ||
+      "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
+  }
+
+  _render({src, emptyImageData}) {
+    return html`
+      <style>
+        #drop_zone {
+          height: 200px;
+          border: 0px dashed #bbb;
+          -moz-border-radius: 5px;
+          -webkit-border-radius: 5px;
+          border-radius: 5px;
+          padding: 25px;
+          margin-bottom: 8px;
+          text-align: center;
+          font: 20pt bold "Helvetica";
+          color: #bbb;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+        #drop_hint {
+          display: none;
+        }
+      </style>
+
+      <div id="drop_zone" style="background-image: url(${src});">
+        <span id="drop_hint">Drop files here</span>
+      </div>
+    `;
   }
 
   _firstRendered() {
@@ -20,35 +56,6 @@ class ImageFileUploader extends LitElement {
     el.addEventListener("dragover", this.handleDragOver.bind(this), false);
     el.addEventListener("dragleave", this.handleDragLeave.bind(this), false);
     el.addEventListener("drop", this.handleFileSelect.bind(this), false);
-  }
-
-  _render({src, emptyImageData}) {
-    return html`
-    <style>
-      #drop_zone {
-        height: 200px;
-        border: 0px dashed #bbb;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        border-radius: 5px;
-        padding: 25px;
-        margin-bottom: 8px;
-        text-align: center;
-        font: 20pt bold "Helvetica";
-        color: #bbb;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-      }
-      #drop_hint {
-        display: none;
-      }
-    </style>
-
-    <div id="drop_zone" style="background-image: url(${src});">
-      <span id="drop_hint">Drop files here</span>
-    </div>
-`;
   }
 
   get accessToken() {
