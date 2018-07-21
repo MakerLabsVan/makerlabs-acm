@@ -10,14 +10,14 @@
     "firmware": "cd \"firmware\" && IDF_PATH=esp-idf make",
     "functions": "cd \"functions\" && yarn build",
     "webcomponents": "cd \"webcomponents\" && yarn build",
-    "webapp": "cd \"webapp\" && yarn deploy",
+    "scripts": "cd \"scripts\" && yarn deploy",
     "build": "yarn webcomponents && yarn functions",
-    "predeploy": "yarn build && yarn webapp",
+    "predeploy": "yarn build && yarn scripts",
     "deploy": "firebase deploy",
     "precommit": "yarn lint-staged"
   },
   "lint-staged": {
-    "webapp/*.js": [
+    "scripts/*.js": [
       "prettier --trailing-comma=es5 --arrow-parens=always --no-bracket-spacing --write",
       "git add"
     ]
