@@ -2,9 +2,11 @@
   "entrypoint": "view-user-page.html",
   "shell": "src/app-shell.js",
   "sources": [
+   "images/**/*",
    "package.json"
   ],
   "extraDependencies": [
+    "manifest.json",
     "node_modules/@webcomponents/webcomponentsjs/*.js",
     "!node_modules/@webcomponents/webcomponentsjs/gulpfile.js",
     "node_modules/@webcomponents/webcomponentsjs/bundles/*.js"

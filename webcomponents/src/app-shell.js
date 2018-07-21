@@ -1,4 +1,8 @@
 import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
+import {
+  setPassiveTouchGestures,
+  setRootPath
+} from "@polymer/polymer/lib/utils/settings";
 
 /* App Layout */
 import "@polymer/app-layout/app-header-layout/app-header-layout.js";
@@ -15,6 +19,14 @@ import "google-apis/google-apis.js";
 /* Local Components */
 import "./user-search-bar.js";
 import "./view-user-form.js";
+
+// Gesture events like tap and track generated from touch will not be
+// preventable, allowing for better scrolling performance.
+setPassiveTouchGestures(true);
+
+// Set Polymer's root path to the same value we passed to our service worker
+// in `index.html`.
+setRootPath(MyAppGlobals.rootPath);
 
 class AppShell extends PolymerElement {
   static get template() {
