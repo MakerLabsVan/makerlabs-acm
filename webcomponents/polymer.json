@@ -1,27 +1,24 @@
 {
   "entrypoint": "view-user-page.html",
-  "shell": "src/app-shell.html",
-  "fragments": [
-    "src/image-file-uploader.html",
-    "src/user-search-bar.html",
-    "src/view-user-form.html"
-  ],
+  "shell": "src/app-shell.js",
   "sources": [
-   "src/**/*",
-   "bower.json"
+   "package.json"
   ],
   "extraDependencies": [
-    "bower_components/webcomponentsjs/webcomponents-lite.js"
+    "node_modules/@webcomponents/webcomponentsjs/*.js",
+    "!node_modules/@webcomponents/webcomponentsjs/gulpfile.js",
+    "node_modules/@webcomponents/webcomponentsjs/bundles/*.js"
   ],
-  "lint": {
-    "rules": ["polymer-2-hybrid"]
-  },
   "builds": [
-    {
-      "preset": "es5-bundled"
-    },
     {
       "preset": "es6-bundled"
     }
-  ]
+  ],
+  "moduleResolution": "node",
+  "npm": true,
+  "lint": {
+    "rules": [
+      "polymer-3"
+    ]
+  }
 }
