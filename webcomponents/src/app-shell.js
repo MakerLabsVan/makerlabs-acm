@@ -42,7 +42,7 @@ class AppShell extends PolymerElement {
       <!-- App Layout -->
       <app-header slot="header" fixed="">
         <app-toolbar>
-          <google-signin client-id="[[oauthClientId]]" scopes="[[oauthScopes]]"></google-signin>
+          <google-signin openid-prompt="select_account" client-id="[[oauthClientId]]" scopes="[[oauthScopes]]"></google-signin>
           <div main-title="">
             <span>MakerLabs ACM</span>
           </div>
