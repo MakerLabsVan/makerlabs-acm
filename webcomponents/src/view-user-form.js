@@ -407,34 +407,16 @@ class ViewUserForm extends LitElement {
     }
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-
+  _firstRendered() {
     // Add callback to update styles on resize
-    this._updateGridStyles =
-      this._updateGridStyles ||
-      (() => {
-        this.updateStyles();
-      });
-    window.addEventListener("resize", this._updateGridStyles);
-
-    /*
     var sheets = this.shadowRoot.getElementById("sheets");
     sheets.onSheetsApiLoaded = function() {
       console.log("onSheetsApiLoaded");
-    }
+    };
     sheets.onSheetsApiLoadError = function() {
       console.log("onSheetsApiLoadError");
-    }
-*/
-  }
+    };
 
-  disconnectedCallback() {
-    // Remove callback to update styles on resize
-    window.removeEventListener("resize", this._updateGridStyles);
-  }
-
-  _firstRendered() {
     var intervalId = setInterval(() => {
       if (gapi) {
         if (gapi.client) {

@@ -196,17 +196,13 @@ class AppShell extends LitElement {
     }
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-
+  _firstRendered() {
     // Attach auth callbacks
     const aware = this.shadowRoot.querySelector("google-signin-aware");
     aware.handleAuthSignIn = this.handleAuthSignIn;
     aware.handleAuthSignOut = this.handleAuthSignOut;
     aware.handleAuthStateChange = this.handleAuthStateChange;
-  }
 
-  _firstRendered() {
     const search = this.shadowRoot.getElementById("search");
     const form = this.shadowRoot.getElementById("form");
     search.addEventListener("search", (e) => {
