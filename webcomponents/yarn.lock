@@ -573,6 +573,10 @@
     string-format-obj "^1.0.0"
     through2 "^2.0.0"
 
+"@material/layout-grid@^0.34.0":
+  version "0.34.0"
+  resolved "https://registry.yarnpkg.com/@material/layout-grid/-/layout-grid-0.34.0.tgz#f730bdd962401b691ab7538e7d2b4d91764f4052"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -611,12 +615,6 @@
 "@polymer/iron-a11y-keys-behavior@^3.0.0-pre.12", "@polymer/iron-a11y-keys-behavior@^3.0.0-pre.21":
   version "3.0.0-pre.21"
   resolved "https://registry.yarnpkg.com/@polymer/iron-a11y-keys-behavior/-/iron-a11y-keys-behavior-3.0.0-pre.21.tgz#4b79ebfea1fb59225c00a6d9b360df7ed2696c19"
-  dependencies:
-    "@polymer/polymer" "^3.0.0"
-
-"@polymer/iron-ajax@^3.0.0-pre.18":
-  version "3.0.0-pre.21"
-  resolved "https://registry.yarnpkg.com/@polymer/iron-ajax/-/iron-ajax-3.0.0-pre.21.tgz#66c31e02f2b0403f5fa4157433a1e6daa0457a6a"
   dependencies:
     "@polymer/polymer" "^3.0.0"
 
@@ -778,7 +776,14 @@
     "@polymer/iron-meta" "^3.0.0-pre.21"
     "@polymer/polymer" "^3.0.0"
 
-"@polymer/neon-animation@^3.0.0-pre.18", "@polymer/neon-animation@^3.0.0-pre.21":
+"@polymer/lit-element@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@polymer/lit-element/-/lit-element-0.5.2.tgz#8d4e2d1ada27cf0f1a38b7b0eb9fadae92eb63df"
+  dependencies:
+    "@polymer/polymer" "^3.0.2"
+    lit-html "^0.10.0"
+
+"@polymer/neon-animation@^3.0.0-pre.21":
   version "3.0.0-pre.21"
   resolved "https://registry.yarnpkg.com/@polymer/neon-animation/-/neon-animation-3.0.0-pre.21.tgz#5a179b0091b52a32b82aa7a80e6ea8ff2f7d17e8"
   dependencies:
@@ -931,7 +936,7 @@
     "@polymer/paper-styles" "^3.0.0-pre.21"
     "@polymer/polymer" "^3.0.0"
 
-"@polymer/polymer@^3.0.0":
+"@polymer/polymer@^3.0.0", "@polymer/polymer@^3.0.2":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@polymer/polymer/-/polymer-3.0.2.tgz#626e6f9fae9716b0962ce0211e21df242153eab2"
   dependencies:
@@ -3686,6 +3691,10 @@ fd-slicer@~1.1.0:
   dependencies:
     pend "~1.2.0"
 
+fetch-jsonp@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/fetch-jsonp/-/fetch-jsonp-1.1.3.tgz#9eb9e585ba08aaf700563538d17bbebbcd5a3db2"
+
 figures@^1.3.5:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/figures/-/figures-1.7.0.tgz#cbe1e3affcf1cd44b80cadfed28dc793a9701d2e"
@@ -4304,13 +4313,6 @@ google-auto-auth@^0.9.0:
     gcp-metadata "^0.6.1"
     google-auth-library "^1.3.1"
     request "^2.79.0"
-
-google-chart-polymer-3@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/google-chart-polymer-3/-/google-chart-polymer-3-3.0.1.tgz#570ff217477db91c6bd16a33e0ec61bf1749e357"
-  dependencies:
-    "@polymer/iron-ajax" "^3.0.0-pre.18"
-    "@polymer/polymer" "^3.0.0"
 
 google-p12-pem@^0.1.0:
   version "0.1.2"
@@ -5388,6 +5390,10 @@ lcid@^1.0.0:
   resolved "https://registry.yarnpkg.com/lcid/-/lcid-1.0.0.tgz#308accafa0bc483a3867b4b6f2b9506251d1b835"
   dependencies:
     invert-kv "^1.0.0"
+
+lit-html@^0.10.0, lit-html@^0.10.2:
+  version "0.10.2"
+  resolved "https://registry.yarnpkg.com/lit-html/-/lit-html-0.10.2.tgz#53c846afcf91bb1e6623179ef22e327ab8ac0e0e"
 
 load-json-file@^1.0.0:
   version "1.1.0"
@@ -8665,6 +8671,10 @@ wd@^1.2.0:
     request "2.85.0"
     underscore.string "3.3.4"
     vargs "0.1.0"
+
+web-animations-js@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/web-animations-js/-/web-animations-js-2.3.1.tgz#3a6d9bc15196377a90f8e2803fa5262165b04510"
 
 web-component-tester@^6.7.1:
   version "6.7.1"
