@@ -1,43 +1,25 @@
 {
   "entrypoint": "view-user-page.html",
-  "shell": "src/app-shell.html",
-  "fragments": [
-    "src/image-file-uploader.html",
-    "src/user-search-bar.html",
-    "src/view-user-form.html"
-  ],
+  "shell": "src/app-shell.js",
+  "fragments": [],
   "sources": [
-    "src/**/*",
-    "bower.json",
+    "images/**/*",
+    "package.json",
     "view-user-page.html",
-    "src/app-shell.html",
-    "src/image-file-uploader.html",
-    "src/user-search-bar.html",
-    "src/view-user-form.html"
+    "src/app-shell.js"
   ],
   "extraDependencies": [
     "bower_components/webcomponentsjs/*.js",
-    "bower_components/webcomponentsjs/webcomponents-lite.js"
+    "manifest.json",
+    "node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js",
+    "node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js",
+    "node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js",
+    "node_modules/@webcomponents/webcomponentsjs/bundles/*.js",
+    "node_modules/@material/layout-grid/dist/mdc.layout-grid.min.css",
+    "node_modules/fetch-jsonp/build/fetch-jsonp.js",
+    "node_modules/web-animations-js/web-animations-next.min.js"
   ],
   "builds": [
-    {
-      "name": "es5-bundled",
-      "js": {
-        "minify": true,
-        "compile": "es5",
-        "transformModulesToAmd": true
-      },
-      "css": {
-        "minify": true
-      },
-      "html": {
-        "minify": true
-      },
-      "bundle": true,
-      "addServiceWorker": true,
-      "addPushManifest": false,
-      "preset": "es5-bundled"
-    },
     {
       "name": "es6-bundled",
       "browserCapabilities": [
@@ -62,8 +44,10 @@
   ],
   "lint": {
     "rules": [
-      "polymer-2-hybrid"
+      "polymer-3"
     ]
   },
+  "npm": true,
+  "componentDir": "node_modules/",
   "moduleResolution": "node"
 }
