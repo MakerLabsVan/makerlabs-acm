@@ -9,9 +9,6 @@ import "@polymer/app-layout/app-header-layout/app-header-layout.js";
 import "@polymer/app-layout/app-header/app-header.js";
 import "@polymer/app-layout/app-toolbar/app-toolbar.js";
 
-/* Cross-Domain HTTP Requests */
-import "@polymer/iron-ajax/iron-ajax.js";
-
 /* Google Sign-In, Sheets, Charts, ... */
 import "google-signin/google-signin.js";
 import "google-apis/google-apis.js";
@@ -138,29 +135,34 @@ class AppShell extends LitElement {
       const form = this.shadowRoot.getElementById("form");
       if (form) {
         // Select all users and update the search bar
-        form.queryUsers("select " + this.usersSearchColumns).then((q) => {
-          q.send((res) => {
-            var datatable = res.getDataTable();
-            var users = [];
-            var sections = newValue.map(function(section) {
+        form
+          .queryUsers("select " + this.usersSearchColumns)
+          .then((datatable) => {
+            const users = [];
+            const sections = newValue.map(function(section) {
               return section.title;
             });
 
-            if (datatable) {
+            if (
+              datatable &&
+              datatable.table &&
+              datatable.table.rows &&
+              datatable.table.cols
+            ) {
               for (
                 var rowIdx = 0;
-                rowIdx < datatable.getNumberOfRows();
+                rowIdx < datatable.table.rows.length;
                 rowIdx++
               ) {
                 var currentSection = 0;
-                var rowValues = {};
+                const rowValues = {};
 
                 for (
                   var colIdx = 0;
-                  colIdx < datatable.getNumberOfColumns();
+                  colIdx < datatable.table.cols.length;
                   colIdx++
                 ) {
-                  var k = datatable.getColumnLabel(colIdx);
+                  var k = datatable.table.cols[colIdx].label;
                   // Strip section heading if it is present
                   if (k.indexOf(sections[currentSection]) == 0) {
                     k = k.substr(sections[currentSection].length + 1);
@@ -169,7 +171,9 @@ class AppShell extends LitElement {
                   // Replace invalid identifier chars with _
                   k = k.replace(/\W/g, "_");
 
-                  var v = datatable.getValue(rowIdx, colIdx);
+                  const v =
+                    datatable.table.rows[rowIdx].c[colIdx] &&
+                    datatable.table.rows[rowIdx].c[colIdx].v;
                   rowValues[k] = v;
                 }
 
@@ -183,12 +187,11 @@ class AppShell extends LitElement {
               }
             }
 
-            var userSearchBar = this.shadowRoot.getElementById("search");
+            const userSearchBar = this.shadowRoot.getElementById("search");
             if (userSearchBar) {
               userSearchBar.items = users;
             }
           });
-        });
       }
     }
   }
@@ -197,44 +200,40 @@ class AppShell extends LitElement {
     super.connectedCallback();
 
     // Attach auth callbacks
-    var aware = this.shadowRoot.querySelector("google-signin-aware");
+    const aware = this.shadowRoot.querySelector("google-signin-aware");
     aware.handleAuthSignIn = this.handleAuthSignIn;
     aware.handleAuthSignOut = this.handleAuthSignOut;
     aware.handleAuthStateChange = this.handleAuthStateChange;
   }
 
   _firstRendered() {
-    var search = this.shadowRoot.getElementById("search");
+    const search = this.shadowRoot.getElementById("search");
+    const form = this.shadowRoot.getElementById("form");
     search.addEventListener("search", (e) => {
-      const form = this.shadowRoot.getElementById("form");
       const q = e.detail.q;
-      form.queryUsers("where C = '" + q + "'").then(
-        function(q) {
-          q.send((res) => {
-            var values = this.getFirstRowValuesFromResponse(res);
-            if (values && values.length) {
-              this.showUser(values);
-            }
-          });
-        }.bind(form)
-      );
+      form.queryUsers("where C = '" + q + "'").then((datatable) => {
+        const values = form.getFirstRowValuesFromDatatable(datatable);
+        if (values && values.length) {
+          form.showUser(values);
+        }
+      });
     });
   }
 
   populateAccessToken() {
     var accessToken = null;
 
-    var authInstance =
+    const authInstance =
       typeof gapi === "object" && gapi.auth2 && gapi.auth2.getAuthInstance();
 
     if (authInstance) {
-      var currentUser =
+      const currentUser =
         authInstance &&
         authInstance.currentUser &&
         authInstance.currentUser.get();
 
       if (currentUser) {
-        var authResponse = currentUser.getAuthResponse(true);
+        const authResponse = currentUser.getAuthResponse(true);
         if (authResponse) {
           if ("access_token" in authResponse) {
             accessToken = authResponse["access_token"];
@@ -250,7 +249,7 @@ class AppShell extends LitElement {
     console.log("handleAuthSignIn");
     this.accessToken = this.populateAccessToken();
 
-    var intervalId = setInterval(
+    const intervalId = setInterval(
       () => {
         this.accessToken = this.populateAccessToken();
       },

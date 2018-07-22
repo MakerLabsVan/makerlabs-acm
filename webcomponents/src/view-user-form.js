@@ -5,9 +5,6 @@ import {LitElement, html} from "@polymer/lit-element";
 //import "@polymer/neon-animation/web-animations.js";
 import "@polymer/iron-icons/iron-icons.js";
 
-/* Layout */
-//import "@polymer/app-layout/app-grid/app-grid-style.js";
-
 /* Material Design Card/Item Components */
 import "@polymer/paper-item/paper-item.js";
 import "@polymer/paper-item/paper-icon-item.js";
@@ -31,10 +28,6 @@ import "@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box-item-styles.js"
 /* Vaadin Components */
 import "@vaadin/vaadin-combo-box/vaadin-combo-box.js";
 import "@vaadin/vaadin-date-picker/vaadin-date-picker-light.js";
-
-/* Google Sign-In, Sheets, Charts, ... */
-//import "google-chart-polymer-3/google-chart-loader.js";
-import {initGCharts} from "google-chart-polymer-3/google-chart.js";
 
 /* Local Components */
 import "./image-file-uploader.js";
@@ -101,8 +94,6 @@ class ViewUserForm extends LitElement {
         padding-top: 5px;
       }
     </style>
-
-    <google-chart-loader id="gviz"></google-chart-loader>
 
     <google-client-loader
       id="sheets"
@@ -406,13 +397,11 @@ class ViewUserForm extends LitElement {
       if (this.usersNameColumn && this.userName) {
         this.queryUsers(
           "where " + this.usersNameColumn + " = '" + this.userName + "'"
-        ).then((q) => {
-          q.send((res) => {
-            var values = this.getFirstRowValuesFromResponse(res);
-            if (values && values.length) {
-              this.showUser(values);
-            }
-          });
+        ).then((datatable) => {
+          var values = this.getFirstRowValuesFromDatatable(datatable);
+          if (values && values.length) {
+            this.showUser(values);
+          }
         });
       }
     }
@@ -446,141 +435,134 @@ class ViewUserForm extends LitElement {
   }
 
   _firstRendered() {
-    initGCharts(() => {
-      console.log("Did initialize Google Charts API");
-
-      var intervalId = setInterval(() => {
-        if (gapi) {
-          if (gapi.client) {
-            var clients = this.shadowRoot.querySelectorAll(
-              "google-client-loader"
-            );
-            for (var i = 0; i < clients.length; i++) {
-              console.log("Force loaded gapi.client");
-              clients[i]._loadClient();
-            }
-            clearInterval(intervalId);
-          } else {
-            console.log("Missing gapi.client");
-            gapi.load("client", function() {});
+    var intervalId = setInterval(() => {
+      if (gapi) {
+        if (gapi.client) {
+          var clients = this.shadowRoot.querySelectorAll(
+            "google-client-loader"
+          );
+          for (var i = 0; i < clients.length; i++) {
+            console.log("Force loaded gapi.client");
+            clients[i]._loadClient();
           }
+          clearInterval(intervalId);
         } else {
-          console.log("Missing gapi global");
+          console.log("Missing gapi.client");
+          gapi.load("client", function() {});
         }
-      }, 1000);
-
-      console.log("initialQuery");
-      console.log(this.query);
-      if (this.query && "name" in this.query) {
-        this.userName = this.query["name"];
-        this.queryUsers(
-          "where " + this.usersNameColumn + " = '" + this.userName + "'"
-        ).then((q) => {
-          q.send((res) => {
-            var values = this.getFirstRowValuesFromResponse(res);
-            if (values && values.length) {
-              this.showUser(values);
-            }
-          });
-        });
+      } else {
+        console.log("Missing gapi global");
       }
+    }, 1000);
 
-      // Search the activity list periodically, update the user form accordingly
-      var pollActivityIntervalMillis = 2000;
-      var makerLabsIdPrev = "";
-      window.setInterval(() => {
-        //TODO: not hard-coded
-        this.queryActivity(
-          "select " +
-            this.activityMakerLabsIdColumn +
-            " where " +
-            this.activityTypeColumn +
-            " = 'Signed_In' and " +
-            this.activityMachineIdColumn +
-            " = '" +
-            this.machineId +
-            "' order by " +
-            this.activityTimestampColumn +
-            " desc limit 1"
-        ).then((q) => {
-          q.send((res) => {
-            var items = [];
-            var values = this.getValuesFromResponse(res);
-            if (values && values.length) {
-              for (var rowIdx = 0; rowIdx < values.length; rowIdx++) {
-                var makerLabsId = values[rowIdx][0];
-                if (makerLabsId != makerLabsIdPrev) {
-                  this.queryUsers(
-                    "where " +
-                      this.usersMakerLabsIdColumn +
-                      " = '" +
-                      makerLabsId +
-                      "'"
-                  ).then((q) => {
-                    q.send((res) => {
-                      var values = this.getFirstRowValuesFromResponse(res);
-                      if (values && values.length) {
-                        this.showUser(values);
-                      }
-                    });
-                  });
+    console.log("initialQuery");
+    console.log(this.query);
+    if (this.query && "name" in this.query) {
+      this.userName = this.query["name"];
+      this.queryUsers(
+        "where " + this.usersNameColumn + " = '" + this.userName + "'"
+      ).then((datatable) => {
+        var values = this.getFirstRowValuesFromDatatable(datatable);
+        if (values && values.length) {
+          this.showUser(values);
+        }
+      });
+    }
 
-                  makerLabsIdPrev = makerLabsId;
+    // Search the activity list periodically, update the user form accordingly
+    var pollActivityIntervalMillis = 2000;
+    var makerLabsIdPrev = "";
+    window.setInterval(() => {
+      //TODO: not hard-coded
+      this.queryActivity(
+        "select " +
+          this.activityMakerLabsIdColumn +
+          " where " +
+          this.activityTypeColumn +
+          " = 'Signed_In' and " +
+          this.activityMachineIdColumn +
+          " = '" +
+          this.machineId +
+          "' order by " +
+          this.activityTimestampColumn +
+          " desc limit 1"
+      ).then((datatable) => {
+        var items = [];
+        var values = this.getValuesFromDatatable(datatable);
+        if (values && values.length) {
+          for (var rowIdx = 0; rowIdx < values.length; rowIdx++) {
+            var makerLabsId = values[rowIdx][0];
+            if (makerLabsId != makerLabsIdPrev) {
+              this.queryUsers(
+                "where " +
+                  this.usersMakerLabsIdColumn +
+                  " = '" +
+                  makerLabsId +
+                  "'"
+              ).then((datatable) => {
+                var values = this.getFirstRowValuesFromDatatable(datatable);
+                if (values && values.length) {
+                  this.showUser(values);
                 }
-              }
-            }
-          });
-        });
-      }, pollActivityIntervalMillis); // repeat forever
+              });
 
-      // Search for recently scanned tags, prefill the Tag ID dropdown
-      var el = this.shadowRoot.getElementById(this.usersTagIdColumn);
-      if (el) {
-        this.queryActivity(
-          "select " +
-            this.activityTagIdColumn +
-            ", count(" +
-            this.activityTimestampColumn +
-            ") group by " +
-            this.activityTagIdColumn
-        ).then((q) => {
-          q.send((res) => {
-            var items = [];
-            var values = this.getValuesFromResponse(res);
-            if (values && values.length) {
-              for (var rowIdx = 0; rowIdx < values.length; rowIdx++) {
-                var tagId = values[rowIdx][0];
-                items.push({
-                  label: "Recently scanned: " + tagId,
-                  value: tagId,
-                });
-              }
-
-              el.items = items;
+              makerLabsIdPrev = makerLabsId;
             }
-          });
-        });
-      }
-    });
+          }
+        }
+      });
+    }, pollActivityIntervalMillis); // repeat forever
+
+    // Search for recently scanned tags, prefill the Tag ID dropdown
+    var el = this.shadowRoot.getElementById(this.usersTagIdColumn);
+    if (el) {
+      this.queryActivity(
+        "select " +
+          this.activityTagIdColumn +
+          ", count(" +
+          this.activityTimestampColumn +
+          ") group by " +
+          this.activityTagIdColumn
+      ).then((datatable) => {
+        var items = [];
+        var values = this.getValuesFromDatatable(datatable);
+        if (values && values.length) {
+          for (var rowIdx = 0; rowIdx < values.length; rowIdx++) {
+            var tagId = values[rowIdx][0];
+            items.push({
+              label: "Recently scanned: " + tagId,
+              value: tagId,
+            });
+          }
+
+          el.items = items;
+        }
+      });
+    }
   }
 
-  getValuesFromResponse(res) {
-    var datatable = res.getDataTable();
+  getValuesFromDatatable(datatable, limit) {
     var values = [];
     if (
       datatable &&
-      datatable.getNumberOfRows() &&
-      datatable.getNumberOfColumns()
+      datatable.table &&
+      datatable.table.rows &&
+      datatable.table.rows.length > 0 &&
+      datatable.table.cols &&
+      datatable.table.cols.length > 0
     ) {
-      for (var rowIdx = 0; rowIdx < datatable.getNumberOfRows(); rowIdx++) {
+      limit =
+        limit < datatable.table.rows.length
+          ? limit
+          : datatable.table.rows.length;
+      for (var rowIdx = 0; rowIdx < limit; rowIdx++) {
         var rowValues = [];
 
-        for (
-          var colIdx = 0;
-          colIdx < datatable.getNumberOfColumns();
-          colIdx++
-        ) {
-          rowValues.push(datatable.getValue(rowIdx, colIdx));
+        for (var colIdx = 0; colIdx < datatable.table.cols.length; colIdx++) {
+          var v =
+            datatable.table.rows[rowIdx].c[colIdx] &&
+            datatable.table.rows[rowIdx].c[colIdx].v;
+          rowValues.push(v);
         }
 
         values.push(rowValues);
@@ -590,28 +572,45 @@ class ViewUserForm extends LitElement {
     return values;
   }
 
-  getFirstRowValuesFromResponse(res) {
-    var values = this.getValuesFromResponse(res);
-    return values && values.length && values[0];
+  getFirstRowValuesFromDatatable(datatable) {
+    const limitFirstRowValues = this.getValuesFromDatatable(datatable, 1);
+    return limitFirstRowValues.length > 0 ? limitFirstRowValues[0] : null;
   }
 
   querySheet(sheetName, query, numHeaders = 1) {
     var queryString = encodeURIComponent(query);
 
-    var loader = this.shadowRoot.getElementById("gviz");
-
-    return loader.query(
+    const responseHandlerName = `jsonp_${Date.now()}_${Math.ceil(
+      Math.random() * 100000
+    )}`;
+    const query_url =
       "https://docs.google.com/spreadsheets/d/" +
-        this.sheetId +
-        "/gviz/tq" +
-        "?access_token=" +
-        this.accessToken +
-        "&sheet=" +
-        sheetName +
-        "&headers=" +
-        numHeaders +
-        "&tq=" +
-        queryString
+      this.sheetId +
+      "/gviz/tq" +
+      "?access_token=" +
+      this.accessToken +
+      "&sheet=" +
+      sheetName +
+      "&headers=" +
+      numHeaders +
+      "&tq=" +
+      queryString +
+      "&tqx=responseHandler:" +
+      responseHandlerName;
+
+    // Execute the request, return a parsed JSON datatable
+    return (
+      fetchJsonp(query_url, {
+        jsonpCallback: "responseHandler",
+        jsonpCallbackFunction: responseHandlerName,
+      })
+        // Parse JSON response body
+        .then(function(response) {
+          return response.json();
+        })
+        .catch(function(err) {
+          console.log("Parsing Google Visualization API response failed", err);
+        })
     );
   }
 
@@ -631,12 +630,6 @@ class ViewUserForm extends LitElement {
     );
   }
 
-  handleQueryResponse(response) {
-    var data = response.getDataTable();
-    console.log("handleQueryResponse data");
-    console.log(data);
-  }
-
   resetValues() {
     return this.showUser([]);
   }
@@ -651,7 +644,7 @@ class ViewUserForm extends LitElement {
         var field = section.fields[f];
 
         if (!val) {
-          // Reset the previous value, if no new value is set.
+          // Clear the previous value, if no new value is set.
           val = "";
         }
 
@@ -721,11 +714,8 @@ class ViewUserForm extends LitElement {
               validTextFieldCount++;
             }
           } else if (this.fieldIsImageType(field)) {
-            console.log("check image el");
-            console.log(el);
             // Ignore emptyImageData
             if (el.src != el.emptyImageData) {
-              console.log("image el.src = " + el.src);
               formValue = el.src;
             }
           } else {
