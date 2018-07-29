@@ -1,6 +1,6 @@
 import {LitElement, html} from "@polymer/lit-element";
 
-import "@vaadin/vaadin-combo-box/vaadin-combo-box.js";
+import "@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box.js";
 
 class UserSearchBar extends LitElement {
   static get properties() {
@@ -29,10 +29,11 @@ class UserSearchBar extends LitElement {
       >
         <template>
           <paper-icon-item>
-            <img src="[[item.Photo]]" style="border-radius: 50%; width: 48px; height: 48px;" slot="item-icon">
+            <img src="[[item.Photo]]" style="border-radius: 50%; width: 48px; height: 48px; [[item.imageStyle]]" slot="item-icon">
+            <iron-icon icon="inbox" class="big" style="[[item.iconStyle]]" slot="item-icon"></iron-icon>
             <paper-item-body two-line="" style="min-height: 0">
-              <div style="text-transform: capitalize">[[item.Name]]</div>
-              <div secondary="">[[item.Email]]</div>
+              <div style="[[item.style]]">[[item.Name]]</div>
+              <div secondary="" style="[[item.secondaryStyle]]">[[item.Email]]</div>
             </paper-item-body>
           </paper-icon-item>
         </template>
@@ -42,9 +43,10 @@ class UserSearchBar extends LitElement {
 
   handleSearchChanged() {
     const searchbox = this.shadowRoot.getElementById("searchbox");
-    if (searchbox && searchbox.value) {
-      const q = searchbox.value;
-      this.dispatchEvent(new CustomEvent("search", {detail: {q}}));
+    if (searchbox && searchbox.selectedItem) {
+      this.dispatchEvent(
+        new CustomEvent("search", {detail: {...searchbox.selectedItem}})
+      );
     }
   }
 }

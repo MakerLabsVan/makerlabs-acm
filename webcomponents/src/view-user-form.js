@@ -21,13 +21,11 @@ import "@polymer/paper-radio-button/paper-radio-button.js";
 import "@polymer/paper-fab/paper-fab.js";
 import "@polymer/paper-tooltip/paper-tooltip.js";
 
-/* Vaadin Material Theme Styles */
-import "@vaadin/vaadin-date-picker/theme/material/vaadin-date-picker-styles.js";
-import "@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box-styles.js";
-import "@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box-item-styles.js";
 /* Vaadin Components */
-import "@vaadin/vaadin-combo-box/vaadin-combo-box.js";
-import "@vaadin/vaadin-date-picker/vaadin-date-picker-light.js";
+import "@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box.js";
+import "@vaadin/vaadin-date-picker/theme/material/vaadin-date-picker-light.js";
+
+import "timeago.js/dist/timeago.js";
 
 /* Local Components */
 import "./image-file-uploader.js";
@@ -54,12 +52,24 @@ class ViewUserForm extends LitElement {
       query: {
         type: Object,
       },
+      defaultPhotoUrl: {
+        type: String,
+      },
     };
   }
 
   constructor() {
     super();
     this.fields = this.fields || [];
+    this.query = this.query || {};
+
+    if (window && window.location) {
+      const url = new URL(window.location);
+      const queryParams = new URLSearchParams(url.search.slice(1));
+      for (var [k, v] of queryParams) {
+        this.query[k] = v;
+      }
+    }
   }
 
   _render({fields}) {
@@ -246,8 +256,20 @@ class ViewUserForm extends LitElement {
           label="${field.title}"
           id="${field.name}"
           name="${field.name}"
+          item-value-path="tagId"
+          item-label-path="tagId"
+          allow-custom-value="true"
           class="full-width"
-        />
+        >
+          <template>
+            <paper-item>
+              <paper-item-body two-line="" style="min-height: 0">
+                <div>[[item.tagId]]</div>
+                <div secondary="" class="timeago" datetime="[[item.timestamp]]">[[item.timestamp]]</div>
+              </paper-item-body>
+            </paper-icon-item>
+          </template>
+        </vaadin-combo-box>
       `;
     }
   }
@@ -271,13 +293,13 @@ class ViewUserForm extends LitElement {
   }
 
   get usersNameColumn() {
-    return this.usersColumnFromFieldTitle("Name");
+    return this.usersColumnFromFieldTitle("Maker Info", "Name");
   }
   get usersMakerLabsIdColumn() {
-    return this.usersColumnFromFieldTitle("MakerLabs ID");
+    return this.usersColumnFromFieldTitle("Membership Info", "MakerLabs ID");
   }
   get usersTagIdColumn() {
-    return this.usersColumnFromFieldTitle("Tag ID");
+    return this.usersColumnFromFieldTitle("Access & Studio", "Tag ID");
   }
 
   get activityTimestampColumn() {
@@ -294,28 +316,6 @@ class ViewUserForm extends LitElement {
   }
   get activityMakerLabsIdColumn() {
     return "F";
-  }
-
-  usersColumnFromFieldTitle(title) {
-    // Check for non-empty fields array
-    if (this.fields && this.fields.length) {
-      // Iterate through sections
-      for (var s = 0; s < this.fields.length; ++s) {
-        var section = this.fields[s];
-
-        // Iterate through fields within the section
-        for (var f = 0; f < section.fields.length; ++f) {
-          // Extract a candidate field
-          var field = section.fields[f];
-          // Check if the title matches
-          if (field.title == title) {
-            return field.name;
-          }
-        }
-      }
-    }
-
-    return null;
   }
 
   sectionIsHidden(section) {
@@ -391,23 +391,68 @@ class ViewUserForm extends LitElement {
     return field.type === "TEXT_IS_VALID_URL";
   }
 
-  handleUserNameChanged(newValue, oldValue) {
+  usersColumnFromFieldTitle(prefixOrTitle, title) {
+    const prefix = title ? prefixOrTitle : "";
+    if (!title) {
+      title = prefixOrTitle;
+    }
+
+    // Check for non-empty fields array
+    if (this.fields && this.fields.length) {
+      // Iterate through sections
+      for (var s = 0; s < this.fields.length; ++s) {
+        var section = this.fields[s];
+
+        // Iterate through fields within the section
+        for (var f = 0; f < section.fields.length; ++f) {
+          // Extract a candidate field
+          var field = section.fields[f];
+
+          // If a prefix was provided, check if it matches and the title follows
+          if (prefix.length) {
+            var prefixStart = field.title.indexOf(prefix);
+            if (prefixStart === 0) {
+              var titleStart = field.title.indexOf(
+                title,
+                prefixStart + prefix.length + 1 // add a ' ' after prefix
+              );
+              if (
+                titleStart === 0 &&
+                titleStart + title.length === field.length - 1
+              ) {
+                return field.name;
+              }
+            }
+          }
+
+          // Either a prefix was not provided, or it failed to match.
+          // Check for an exact match
+          if (field.title == title) {
+            return field.name;
+          }
+        }
+      }
+    }
+
+    return null;
+  }
+
+  async handleUserNameChanged(newValue, oldValue) {
     if (newValue) {
       // Search for user by name (if already entered), display in form
       if (this.usersNameColumn && this.userName) {
-        this.queryUsers(
-          "where " + this.usersNameColumn + " = '" + this.userName + "'"
-        ).then((datatable) => {
-          var values = this.getFirstRowValuesFromDatatable(datatable);
-          if (values && values.length) {
-            this.showUser(values);
-          }
-        });
+        const datatable = await this.queryUsers(
+          `where ${this.usersNameColumn} = '${this.userName}'`
+        );
+        var values = this.getFirstRowValuesFromDatatable(datatable);
+        if (values && values.length) {
+          this.showUser(values);
+        }
       }
     }
   }
 
-  _firstRendered() {
+  async _firstRendered() {
     // Add callback to update styles on resize
     var sheets = this.shadowRoot.getElementById("sheets");
     sheets.onSheetsApiLoaded = function() {
@@ -417,46 +462,21 @@ class ViewUserForm extends LitElement {
       console.log("onSheetsApiLoadError");
     };
 
-    var intervalId = setInterval(() => {
-      if (gapi) {
-        if (gapi.client) {
-          var clients = this.shadowRoot.querySelectorAll(
-            "google-client-loader"
-          );
-          for (var i = 0; i < clients.length; i++) {
-            console.log("Force loaded gapi.client");
-            clients[i]._loadClient();
-          }
-          clearInterval(intervalId);
-        } else {
-          console.log("Missing gapi.client");
-          gapi.load("client", function() {});
-        }
-      } else {
-        console.log("Missing gapi global");
-      }
-    }, 1000);
+    // Search for recently scanned tags, prefill the Tag ID dropdown
+    this.updateRecentTagIds();
 
-    console.log("initialQuery");
-    console.log(this.query);
-    if (this.query && "name" in this.query) {
-      this.userName = this.query["name"];
-      this.queryUsers(
-        "where " + this.usersNameColumn + " = '" + this.userName + "'"
-      ).then((datatable) => {
-        var values = this.getFirstRowValuesFromDatatable(datatable);
-        if (values && values.length) {
-          this.showUser(values);
-        }
-      });
-    }
+    // Periodically update the Tag ID dropdown with recently scanned tags
+    var pollRecentTagIdsIntervalMillis = 10000;
+    window.setInterval(
+      this.updateRecentTagIds.bind(this),
+      pollRecentTagIdsIntervalMillis
+    ); // repeat forever
+  }
 
-    // Search the activity list periodically, update the user form accordingly
-    var pollActivityIntervalMillis = 2000;
-    var makerLabsIdPrev = "";
-    window.setInterval(() => {
+  async updateFormFromMostRecentScan() {
+    if (this.fields && this.usersMakerLabsIdColumn) {
       //TODO: not hard-coded
-      this.queryActivity(
+      const datatable = await this.queryActivity(
         "select " +
           this.activityMakerLabsIdColumn +
           " where " +
@@ -468,58 +488,74 @@ class ViewUserForm extends LitElement {
           "' order by " +
           this.activityTimestampColumn +
           " desc limit 1"
-      ).then((datatable) => {
-        var items = [];
-        var values = this.getValuesFromDatatable(datatable);
-        if (values && values.length) {
-          for (var rowIdx = 0; rowIdx < values.length; rowIdx++) {
-            var makerLabsId = values[rowIdx][0];
-            if (makerLabsId != makerLabsIdPrev) {
-              this.queryUsers(
-                "where " +
-                  this.usersMakerLabsIdColumn +
-                  " = '" +
-                  makerLabsId +
-                  "'"
-              ).then((datatable) => {
-                var values = this.getFirstRowValuesFromDatatable(datatable);
-                if (values && values.length) {
-                  this.showUser(values);
-                }
-              });
+      );
 
-              makerLabsIdPrev = makerLabsId;
+      var activityValues = this.getValuesFromDatatable(datatable);
+      if (activityValues && activityValues.length) {
+        var makerLabsIdPrev = "";
+        for (var rowIdx = 0; rowIdx < activityValues.length; rowIdx++) {
+          var makerLabsId = activityValues[rowIdx][0] || "";
+          if (makerLabsId != makerLabsIdPrev) {
+            const datatable = await this.queryUsers(
+              "where " +
+                this.usersMakerLabsIdColumn +
+                " = '" +
+                makerLabsId +
+                "'"
+            );
+            var userValues = this.getFirstRowValuesFromDatatable(datatable);
+            if (userValues && userValues.length) {
+              this.showUser(userValues);
             }
+
+            makerLabsIdPrev = makerLabsId;
           }
         }
-      });
-    }, pollActivityIntervalMillis); // repeat forever
+      }
+    }
+  }
 
-    // Search for recently scanned tags, prefill the Tag ID dropdown
-    var el = this.shadowRoot.getElementById(this.usersTagIdColumn);
+  async updateRecentTagIds() {
+    const el = this.shadowRoot.getElementById(this.usersTagIdColumn);
     if (el) {
-      this.queryActivity(
+      const sinceDuration = 2 * 60 * 1000; // 2 mins
+      const sinceTimestamp = Date.now() - sinceDuration;
+
+      //TODO: not hard-coded
+      const datatable = await this.queryActivity(
         "select " +
           this.activityTagIdColumn +
-          ", count(" +
+          ",max(" +
+          this.activityMakerLabsIdColumn +
+          "),max(" +
           this.activityTimestampColumn +
-          ") group by " +
-          this.activityTagIdColumn
-      ).then((datatable) => {
-        var items = [];
-        var values = this.getValuesFromDatatable(datatable);
-        if (values && values.length) {
-          for (var rowIdx = 0; rowIdx < values.length; rowIdx++) {
-            var tagId = values[rowIdx][0];
+          ") where " +
+          this.activityTimestampColumn +
+          " > " +
+          sinceTimestamp +
+          " group by " +
+          this.activityTagIdColumn +
+          " limit 5"
+      );
+      var items = [];
+      var values = this.getValuesFromDatatable(datatable);
+      if (values) {
+        for (var rowIdx = 0; rowIdx < values.length; rowIdx++) {
+          var tagId = values[rowIdx][0];
+          var makerLabsId = values[rowIdx][1];
+          var timestampMillis = values[rowIdx][2];
+          var timestamp = new Date(timestampMillis);
+
+          if (!makerLabsId || makerLabsId.length == 0) {
             items.push({
-              label: "Recently scanned: " + tagId,
-              value: tagId,
+              tagId,
+              timestamp: timeago().format(timestamp),
             });
           }
-
-          el.items = items;
         }
-      });
+
+        el.items = items;
+      }
     }
   }
 
@@ -557,6 +593,28 @@ class ViewUserForm extends LitElement {
   getFirstRowValuesFromDatatable(datatable) {
     const limitFirstRowValues = this.getValuesFromDatatable(datatable, 1);
     return limitFirstRowValues.length > 0 ? limitFirstRowValues[0] : null;
+  }
+
+  isYesLike(s) {
+    var yesLike = ["☑", "Y", "y", "T", "t", "Yes", "yes", "True", "true"];
+    return yesLike.indexOf(s) != -1;
+  }
+
+  isNoLike(s) {
+    var noLike = ["☐", "N", "n", "F", "f", "No", "no", "False", "false"];
+    return noLike.indexOf(s) != -1;
+  }
+
+  // https://stackoverflow.com/questions/3115982/how-to-check-if-two-arrays-are-equal-with-javascript#answer-16436975
+  arraysEqual(a, b) {
+    if (a === b) return true;
+    if (a == null || b == null) return false;
+    if (a.length != b.length) return false;
+
+    for (var i = 0; i < a.length; ++i) {
+      if (a[i] !== b[i]) return false;
+    }
+    return true;
   }
 
   querySheet(sheetName, query, numHeaders = 1) {
@@ -624,6 +682,7 @@ class ViewUserForm extends LitElement {
       for (var f = 0; f < section.fields.length; ++f) {
         var val = i < data.length ? data[i++] : null;
         var field = section.fields[f];
+        var el = this.shadowRoot.getElementById(field.name);
 
         if (!val) {
           // Clear the previous value, if no new value is set.
@@ -631,41 +690,31 @@ class ViewUserForm extends LitElement {
         }
 
         if (this.fieldIsCheckboxType(field)) {
-          var el = this.shadowRoot.getElementById(field.name);
-
           el.checked = this.isYesLike(val[0]);
         } else if (this.fieldIsRadioGroupType(field)) {
-          var el = this.shadowRoot.getElementById(field.name);
-
           el.select(val);
         } else if (this.fieldIsDropdownMenuType(field)) {
-          var el = this.shadowRoot.getElementById(field.name);
           var listbox = el.querySelector("paper-listbox");
           var selectedIdx = field.choices.indexOf(val);
 
           listbox.selected = selectedIdx >= 0 ? selectedIdx : 0;
         } else if (
           this.fieldIsDatePickerType(field) ||
-          this.fieldIsTextInputType(field)
+          this.fieldIsTextInputType(field) ||
+          this.fieldIsTagIdType(field)
         ) {
-          var el = this.shadowRoot.getElementById(field.name);
-
           el.value = val;
         } else if (this.fieldIsImageType(field)) {
-          var photoUrl = val;
-          var img = this.shadowRoot.getElementById(field.name);
-
-          img.src = photoUrl;
+          var photoUrl = val || this.defaultPhotoUrl;
+          el.src = photoUrl;
         } else {
-          console.log(
-            "unknown field name " + field.name + ", type " + field.type
-          );
+          console.log(`unknown field name ${field.name}, type ${field.type}`);
         }
       }
     }
   }
 
-  handleSubmit() {
+  async handleSubmit() {
     var sheets = this.shadowRoot.getElementById("sheets");
 
     var validTextFieldCount = 0;
@@ -700,8 +749,10 @@ class ViewUserForm extends LitElement {
             if (el.src != el.emptyImageData) {
               formValue = el.src;
             }
+          } else if (this.fieldIsTagIdType(field)) {
+            formValue = el.value;
           } else {
-            console.log("unknown field " + field.name);
+            console.log(`unknown field ${field.name}`);
           }
         }
 
@@ -713,60 +764,34 @@ class ViewUserForm extends LitElement {
       var rowName = formValues[0];
 
       if (rowName) {
-        console.log("update rowName = " + rowName);
-        sheets.api.spreadsheets.values
-          .update({
-            spreadsheetId: this.sheetId,
-            range: this.usersSheetName + "!A" + rowName,
-            majorDimension: "ROWS",
-            valueInputOption: "USER_ENTERED",
-            values: [formValues],
-          })
-          .then(function(response) {
-            console.log(response);
-          });
+        // Clear row value, it will be supplied by the ARRAYFORMULA
+        //formValues[0] = null;
+        console.log(`Update '${this.usersSheetName}' row ${rowName}`);
+        const response = await sheets.api.spreadsheets.values.update({
+          spreadsheetId: this.sheetId,
+          range: `${this.usersSheetName}!A${rowName}`,
+          majorDimension: "ROWS",
+          valueInputOption: "USER_ENTERED",
+          values: [formValues],
+        });
+        console.log(response);
       } else {
-        console.log(formValues);
         if (validTextFieldCount > 0) {
-          console.log("create new user");
-          formValues[0] = "=row()";
+          console.log(`Insert new '${this.usersSheetName}' row`);
+          //formValues[0] = null; // First column formula will provide row()
+          formValues[0] = "=row()"; // First column formula will provide row()
 
-          sheets.api.spreadsheets.values
-            .append({
-              spreadsheetId: this.sheetId,
-              range: this.usersSheetName,
-              valueInputOption: "USER_ENTERED",
-              insertDataOption: "INSERT_ROWS",
-              values: [formValues],
-            })
-            .then(function(response) {
-              console.log(response);
-            });
+          const response = await sheets.api.spreadsheets.values.append({
+            spreadsheetId: this.sheetId,
+            range: this.usersSheetName,
+            valueInputOption: "USER_ENTERED",
+            insertDataOption: "INSERT_ROWS",
+            values: [formValues],
+          });
+          console.log(response);
         }
       }
     }
-  }
-
-  isYesLike(s) {
-    var yesLike = ["☑", "Y", "y", "T", "t", "Yes", "yes", "True", "true"];
-    return yesLike.indexOf(s) != -1;
-  }
-
-  isNoLike(s) {
-    var noLike = ["☐", "N", "n", "F", "f", "No", "no", "False", "false"];
-    return noLike.indexOf(s) != -1;
-  }
-
-  // https://stackoverflow.com/questions/3115982/how-to-check-if-two-arrays-are-equal-with-javascript#answer-16436975
-  arraysEqual(a, b) {
-    if (a === b) return true;
-    if (a == null || b == null) return false;
-    if (a.length != b.length) return false;
-
-    for (var i = 0; i < a.length; ++i) {
-      if (a[i] !== b[i]) return false;
-    }
-    return true;
   }
 }
 

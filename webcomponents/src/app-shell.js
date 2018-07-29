@@ -49,9 +49,6 @@ class AppShell extends LitElement {
       _fields: {
         type: Array,
       },
-      fieldsUrl: {
-        type: String,
-      },
       userName: {
         type: String,
       },
@@ -68,7 +65,6 @@ class AppShell extends LitElement {
   }
 
   _render({
-    fieldsUrl,
     accessToken,
     oauthClientId,
     oauthScopes,
@@ -76,6 +72,7 @@ class AppShell extends LitElement {
     machineId,
     _fields: fields,
     query,
+    defaultPhotoUrl,
   }) {
     return html`
     <style>
@@ -100,25 +97,33 @@ class AppShell extends LitElement {
       <!-- App Layout -->
       <app-header slot="header" fixed="">
         <app-toolbar>
-          <google-signin openid-prompt="select_account" clientId="${oauthClientId}" scopes="${oauthScopes}"></google-signin>
+          <google-signin
+            openid-prompt="select_account"
+            clientId="${oauthClientId}"
+            scopes="${oauthScopes}"
+          ></google-signin>
           <div main-title="">
             <span>MakerLabs ACM</span>
           </div>
-          <user-search-bar id="search" class="search-bar"></user-search-bar>
+          <user-search-bar
+            id="search"
+            class="search-bar"
+          ></user-search-bar>
         </app-toolbar>
       </app-header>
 
       <!-- Render Form -->
-      <view-user-form id="form" sheetId="${sheetId}" machineId="${machineId}" accessToken="${accessToken}" fields="${fields}" query="${query}">
-      </view-user-form>
+      <view-user-form
+        id="form"
+        sheetId="${sheetId}"
+        machineId="${machineId}"
+        accessToken="${accessToken}"
+        fields="${fields}"
+        query="${query}"
+        defaultPhotoUrl="${defaultPhotoUrl}"
+      ></view-user-form>
     </app-header-layout>
 `;
-  }
-
-  static get fetchInitialQuery() {
-    // TODO(@paulreimer): From Google Apps Script:
-    // JSON.stringify(e.parameters)
-    return {};
   }
 
   get fields() {
@@ -126,72 +131,136 @@ class AppShell extends LitElement {
   }
 
   set fields(fields) {
-    this._fieldsChanged(fields, this.fields);
+    this._fieldsChanged(fields, this._fields);
     this._fields = fields;
   }
 
-  _fieldsChanged(newValue, oldValue) {
+  async _fieldsChanged(newValue, oldValue) {
     if (newValue) {
       const form = this.shadowRoot.getElementById("form");
       if (form) {
+        form.fields = newValue;
+        var queryStr;
+        if (form.query) {
+          if (form.query["Name"]) {
+            form.userName = form.query["Name"];
+            queryStr = `where ${form.usersNameColumn} = '${form.userName}'`;
+          }
+          if (form.query["MakerLabs ID"]) {
+            const makerLabsId = form.query["MakerLabs ID"];
+            queryStr = `where ${
+              form.usersMakerLabsIdColumn
+            } = '${makerLabsId}'`;
+          }
+
+          if (queryStr && queryStr.length) {
+            const datatable = await form.queryUsers(queryStr);
+            var values = form.getFirstRowValuesFromDatatable(datatable);
+            if (values && values.length) {
+              form.showUser(values);
+            }
+          }
+        }
+
+        // Select all machines for the top entries in the search bar
+        const machinesDatatable = await form.queryActivity(
+          "select max(" +
+            form.activityMachineIdColumn +
+            ") group by " +
+            form.activityMachineIdColumn
+        );
+        const machines = [];
+
+        if (
+          machinesDatatable &&
+          machinesDatatable.table &&
+          machinesDatatable.table.rows &&
+          machinesDatatable.table.cols
+        ) {
+          for (
+            var rowIdx = 0;
+            rowIdx < machinesDatatable.table.rows.length;
+            rowIdx++
+          ) {
+            const colIdx = 0;
+            const v =
+              machinesDatatable.table.rows[rowIdx].c[colIdx] &&
+              machinesDatatable.table.rows[rowIdx].c[colIdx].v;
+            if (v) {
+              machines.push({
+                type: "machine",
+                style: "",
+                secondaryStyle: "display: none;",
+                imageStyle: "display: none;",
+                iconStyle: "",
+                Name: v,
+              });
+            }
+          }
+        }
+
         // Select all users and update the search bar
-        form
-          .queryUsers("select " + this.usersSearchColumns)
-          .then((datatable) => {
-            const users = [];
-            const sections = newValue.map(function(section) {
-              return section.title;
-            });
+        const usersDatatable = await form.queryUsers(
+          `select ${this.usersSearchColumns}`
+        );
+        // Start with list of machines populated in previous step
+        const users = machines.slice();
+        const sections = this.fields.map((section) => section.title);
 
-            if (
-              datatable &&
-              datatable.table &&
-              datatable.table.rows &&
-              datatable.table.cols
+        if (
+          usersDatatable &&
+          usersDatatable.table &&
+          usersDatatable.table.rows &&
+          usersDatatable.table.cols
+        ) {
+          for (
+            var rowIdx = 0;
+            rowIdx < usersDatatable.table.rows.length;
+            rowIdx++
+          ) {
+            var currentSection = 0;
+            const user = {
+              type: "user",
+              style: "",
+              secondaryStyle: "",
+              imageStyle: "",
+              iconStyle: "display: none;",
+            };
+
+            for (
+              var colIdx = 0;
+              colIdx < usersDatatable.table.cols.length;
+              colIdx++
             ) {
-              for (
-                var rowIdx = 0;
-                rowIdx < datatable.table.rows.length;
-                rowIdx++
-              ) {
-                var currentSection = 0;
-                const rowValues = {};
-
-                for (
-                  var colIdx = 0;
-                  colIdx < datatable.table.cols.length;
-                  colIdx++
-                ) {
-                  var k = datatable.table.cols[colIdx].label;
-                  // Strip section heading if it is present
-                  if (k.indexOf(sections[currentSection]) == 0) {
-                    k = k.substr(sections[currentSection].length + 1);
-                    currentSection++;
-                  }
-                  // Replace invalid identifier chars with _
-                  k = k.replace(/\W/g, "_");
-
-                  const v =
-                    datatable.table.rows[rowIdx].c[colIdx] &&
-                    datatable.table.rows[rowIdx].c[colIdx].v;
-                  rowValues[k] = v;
-                }
-
-                if (!("Photo" in rowValues) || !rowValues["Photo"]) {
-                  rowValues["Photo"] = this.defaultPhotoUrl;
-                }
-
-                if ("Name" in rowValues && rowValues["Name"]) {
-                  users.push(rowValues);
-                }
+              var k = usersDatatable.table.cols[colIdx].label;
+              // Strip section heading if it is present
+              if (k.indexOf(sections[currentSection]) === 0) {
+                k = k.substr(sections[currentSection].length + 1);
+                currentSection++;
               }
+              // Replace invalid identifier chars with _
+              k = k.replace(/\W/g, "_");
+
+              const v =
+                usersDatatable.table.rows[rowIdx].c[colIdx] &&
+                usersDatatable.table.rows[rowIdx].c[colIdx].v;
+              user[k] = v;
             }
 
-            const userSearchBar = this.shadowRoot.getElementById("search");
-            if (userSearchBar) {
-              userSearchBar.items = users;
+            if (!("Photo" in user) || !user.Photo) {
+              user.Photo = this.defaultPhotoUrl;
             }
-          });
+
+            if (user.Name) {
+              users.push(user);
+            }
+          }
+        }
+
+        const userSearchBar = this.shadowRoot.getElementById("search");
+        if (userSearchBar) {
+          userSearchBar.items = users;
+        }
       }
     }
   }
@@ -205,14 +274,47 @@ class AppShell extends LitElement {
 
     const search = this.shadowRoot.getElementById("search");
     const form = this.shadowRoot.getElementById("form");
-    search.addEventListener("search", (e) => {
-      const q = e.detail.q;
-      form.queryUsers("where C = '" + q + "'").then((datatable) => {
-        const values = form.getFirstRowValuesFromDatatable(datatable);
-        if (values && values.length) {
-          form.showUser(values);
+    search.addEventListener("search", async (e) => {
+      if (e.detail) {
+        const item = e.detail;
+        switch (item.type) {
+          case "user": {
+            // Clear existing activity poll loop, if currently running
+            if (this.pollActivityIntervalId) {
+              clearInterval(this.pollActivityIntervalId);
+              this.pollActivityIntervalId = null;
+            }
+
+            form.resetValues();
+
+            // Search for this user by row, and display the values
+            const row = parseInt(item.Row, 10);
+            const datatable = await form.queryUsers(`where A = ${row}`);
+            const values = form.getFirstRowValuesFromDatatable(datatable);
+            if (values && values.length) {
+              form.showUser(values);
+            }
+            break;
+          }
+          case "machine": {
+            const q = item.Name;
+
+            // Search the activity list periodically, update the user form accordingly
+            var pollActivityIntervalMillis = 2000;
+            if (this.pollActivityIntervalId) {
+              clearInterval(this.pollActivityIntervalId);
+              this.pollActivityIntervalId = null;
+            }
+
+            form.resetValues();
+
+            this.pollActivityIntervalId = window.setInterval(
+              form.updateFormFromMostRecentScan.bind(form),
+              pollActivityIntervalMillis
+            ); // repeat forever
+          }
         }
-      });
+      }
     });
   }
 
@@ -241,13 +343,13 @@ class AppShell extends LitElement {
     return accessToken;
   }
 
-  handleAuthSignIn(response) {
-    console.log("handleAuthSignIn");
+  async handleAuthSignIn(response) {
     this.accessToken = this.populateAccessToken();
 
     const intervalId = setInterval(
       () => {
         this.accessToken = this.populateAccessToken();
+        console.log(`Updated accessToken`);
       },
       20 * (60 * 1000) // 20min
     );
@@ -258,31 +360,28 @@ class AppShell extends LitElement {
       this.accessToken &&
       this.accessToken.length > 0
     ) {
-      fetch(`${this.fieldsUrl}&access_token=${this.accessToken}`).then(
-        (response) => {
-          if (response.status == 200) {
-            response.json().then((fields) => {
-              this.fields = fields;
-            });
-          } else {
-            console.log(
-              `Fields JSON request fetch failed with response code: ${
-                response.status
-              }`
-            );
-          }
-        }
-      );
+      const response = await fetch(this.fieldsUrl, {
+        mode: "cors",
+        credentials: "omit",
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      });
+      if (response.status == 200) {
+        this.fields = await response.json();
+      } else {
+        console.log(
+          `Fields JSON request fetch failed with response code: ${
+            response.status
+          }`
+        );
+      }
     }
   }
 
-  handleAuthSignOut(response) {
-    console.log("handleAuthSignOut");
-  }
+  handleAuthSignOut(response) {}
 
-  handleAuthStateChange(response) {
-    console.log("handleAuthStateChange");
-  }
+  handleAuthStateChange(response) {}
 }
 
 customElements.define("app-shell", AppShell);
