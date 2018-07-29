@@ -2,9 +2,9 @@ function getNextMakerLabsId(previousMakerLabsId) {
   const makerLabsIdPrefix = "ML";
   var maxMakerLabsIdNum = -1;
 
-  if (previousMakerLabsId === null) {
+  if (!previousMakerLabsId) {
     const sheetName = "Users";
-    const targetRangeName = "activity_makerlabs_id";
+    const targetRangeName = "users_makerlabs_id";
 
     const makerLabsIdColumnRange = getNamedRange(sheetName, targetRangeName);
 
