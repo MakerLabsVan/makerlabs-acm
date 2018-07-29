@@ -32,14 +32,7 @@ import "src/gen/acm_a_c_m_generated.dart" as ACM;
 
 const String ACM_FILE_IDENTIFIER = "ACM.";
 
-// Google Sheets ACM Spreadsheet ID
-const String SPREADSHEET_ID = "1Sd3nYY34dllVUsakwU8hLnJQ1m-U50qZwQSxst2SKKg";
-
 // Users permissions check query:
-const String SPREADSHEET_QUERY_AUTHORITY = "docs.google.com";
-const String SPREADSHEET_QUERY_PATH =
-    "/spreadsheets/d/" + SPREADSHEET_ID + "/gviz/tq";
-
 const String SPREADSHEET_USERS_SHEET_GID = "0";
 
 // Activity row append:
@@ -102,6 +95,17 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
   // Wrap the entire function in a future,
   // Using a global catchError at then end to return 500 error
   new Future<void>(() => true).then((_) async {
+    final config = FirebaseFunctions.config;
+    // Google Sheets ACM Spreadsheet ID
+    final String SPREADSHEET_ID = config.get("acm.spreadsheet_id");
+    if (SPREADSHEET_ID == null) {
+      throw ("Missing Firebase functions env var: acm.spreadsheet_id");
+    }
+
+    final String SPREADSHEET_QUERY_AUTHORITY = "docs.google.com";
+    final String SPREADSHEET_QUERY_PATH =
+        "/spreadsheets/d/" + SPREADSHEET_ID + "/gviz/tq";
+
     // Parse request headers
     // Extract OAuth access_token from request, use it for Google API requests
     String access_token;
