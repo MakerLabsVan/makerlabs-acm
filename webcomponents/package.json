@@ -1,7 +1,9 @@
 {
   "license": "MIT",
   "scripts": {
+    "serve": "polymer serve",
     "build": "polymer build",
+    "predeploy": "yarn run build",
     "deploy": "firebase deploy --only hosting"
   },
   "dependencies": {
