@@ -33,7 +33,7 @@ import "src/gen/acm_a_c_m_generated.dart" as ACM;
 const String ACM_FILE_IDENTIFIER = "ACM.";
 
 // Users permissions check query:
-const String SPREADSHEET_USERS_SHEET_GID = "0";
+const String SPREADSHEET_USERS_SHEET_NAME = "Users";
 
 // Activity row append:
 const String SPREADSHEET_ACTIVITY_SHEET_NAME = "Activity";
@@ -169,7 +169,7 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
 
       final uri =
           Uri.https(SPREADSHEET_QUERY_AUTHORITY, SPREADSHEET_QUERY_PATH, {
-        "gid": SPREADSHEET_USERS_SHEET_GID,
+        "sheet": SPREADSHEET_USERS_SHEET_NAME,
         "tq": query,
         "access_token": access_token,
       });
@@ -249,7 +249,7 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
         "1");
 
     final uri = Uri.https(SPREADSHEET_QUERY_AUTHORITY, SPREADSHEET_QUERY_PATH, {
-      "gid": SPREADSHEET_USERS_SHEET_GID,
+      "sheet": SPREADSHEET_USERS_SHEET_NAME,
       "tq": query,
       "access_token": access_token,
     });
