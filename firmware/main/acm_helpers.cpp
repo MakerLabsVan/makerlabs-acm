@@ -17,13 +17,13 @@ auto generate_activity(
 ) -> ActivityFlatbuffer
 {
   flatbuffers::FlatBufferBuilder fbb;
-  auto epoch_seconds = std::chrono::duration_cast<std::chrono::seconds>(
+  auto epoch_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(
     std::chrono::system_clock::now().time_since_epoch()
   ).count();
 
   auto activity_loc = CreateActivity(
     fbb,
-    epoch_seconds,
+    epoch_milliseconds,
     fbb.CreateString(machine_id_str),
     activity_type,
     0, // usage_seconds?
@@ -41,7 +41,7 @@ auto generate_log(
 ) -> LogFlatbuffer
 {
   flatbuffers::FlatBufferBuilder fbb;
-  auto epoch_seconds = std::chrono::duration_cast<std::chrono::seconds>(
+  auto epoch_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(
     std::chrono::system_clock::now().time_since_epoch()
   ).count();
 
@@ -49,7 +49,7 @@ auto generate_log(
     fbb,
     fbb.CreateString(machine_id_str),
     severity,
-    epoch_seconds,
+    epoch_milliseconds,
     fbb.CreateString(message_str)
   );
   fbb.Finish(log_loc, ActivityIdentifier());
