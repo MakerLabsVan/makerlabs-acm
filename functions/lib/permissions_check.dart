@@ -38,8 +38,8 @@ const String SPREADSHEET_USERS_SHEET_GID = "0";
 // Activity row append:
 const String SPREADSHEET_ACTIVITY_SHEET_NAME = "Activity";
 
-const String USER_COLUMNS_DATATABLE_FIXTURE =
-    '{"version":"0.6","reqId":"0","status":"ok","sig":"2147058372","table":{"cols":[{"id":"A","label":"Row","type":"number","pattern":"General"},{"id":"B","label":"Maker Info Photo","type":"string"},{"id":"C","label":"Name","type":"string"},{"id":"D","label":"Display Name","type":"string"},{"id":"E","label":"Email","type":"string"},{"id":"F","label":"Alternate Email","type":"string"},{"id":"G","label":"Company","type":"string"},{"id":"H","label":"Phone","type":"string"},{"id":"I","label":"Membership Info MakerLabs ID","type":"string"},{"id":"J","label":"Maker Status","type":"string"},{"id":"K","label":"Alerts","type":"string"},{"id":"L","label":"Notes","type":"string"},{"id":"M","label":"Membership Start Date","type":"number","pattern":"General"},{"id":"N","label":"Membership End Date","type":"number","pattern":"General"},{"id":"O","label":"Membership Billing Date","type":"number","pattern":"General"},{"id":"P","label":"Studio Billing Date","type":"number","pattern":"General"},{"id":"Q","label":"Extended Hours Billing Date","type":"number","pattern":"General"},{"id":"R","label":"MakerLabs Industries Studio Billing Date","type":"number","pattern":"General"},{"id":"S","label":"Waiver Signed","type":"string"},{"id":"T","label":"Waiver Signed Date","type":"string"},{"id":"U","label":"Access & Studio Tag ID","type":"string"},{"id":"V","label":"MakerLabs Building Access","type":"string"},{"id":"W","label":"MakerLabs Industries Building Access","type":"string"},{"id":"X","label":"MakerLabs Studio(s)","type":"string"},{"id":"Y","label":"MakerLabs Industries Studio(s)","type":"number","pattern":"General"},{"id":"Z","label":"Total Studio Area","type":"number","pattern":"General"},{"id":"AA","label":"Studio Start Date","type":"number","pattern":"General"},{"id":"AB","label":"Studio End Date","type":"number","pattern":"General"},{"id":"AC","label":"MakerLabs Industries Studio Start Date","type":"number","pattern":"General"},{"id":"AD","label":"MakerLabs Industries Studio End Date","type":"string"},{"id":"AE","label":"Permissions 24/7 Membership","type":"string"},{"id":"AF","label":"Power","type":"string"},{"id":"AG","label":"Wood Lab 101","type":"string"},{"id":"AH","label":"Metal Lab 101","type":"string"},{"id":"AI","label":"Fibre Lab 101","type":"string"},{"id":"AJ","label":"CNC Router 101","type":"string"},{"id":"AK","label":"Laser Lab 101","type":"string"},{"id":"AL","label":"Welding 101","type":"string"},{"id":"AM","label":"Vinyl Lab 101","type":"string"},{"id":"AN","label":"Electronics 101","type":"string"},{"id":"AO","label":"3D Printing & Scanning 101","type":"string"},{"id":"AP","label":"Wood Lab 102","type":"string"},{"id":"AQ","label":"2D Vector Design 101","type":"string"},{"id":"AR","label":"3D Modelling 101","type":"string"},{"id":"AS","label":"Creative Coding 101","type":"string"},{"id":"AT","label":"Metal Laser Lab 101","type":"string"},{"id":"AU","label":"CNC Milling 101","type":"string"},{"id":"AV","label":"Photo Lab 101","type":"string"},{"id":"AW","label":"Lathe 101","type":"string"}],"rows":[]}}';
+// This global value will persist across function invocations
+String USER_COLUMNS_DATATABLE;
 
 // http://cwestblog.com/2013/09/05/javascript-snippet-convert-number-to-column-name/
 String toColumnName(int colNum) {
@@ -162,8 +162,46 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
     // Extract the latest Sheets API from the generated APIs
     final sheets = new SheetsApi(googleApisHttpClient);
 
-    final Map usersColumnsDatatable =
-        json.decode(USER_COLUMNS_DATATABLE_FIXTURE);
+    // Check for cached User sheet columns, fetch them if not present
+    if (USER_COLUMNS_DATATABLE == null) {
+      // Extract all columns but do not return any rows
+      final String query = "limit 0";
+
+      final uri =
+          Uri.https(SPREADSHEET_QUERY_AUTHORITY, SPREADSHEET_QUERY_PATH, {
+        "gid": SPREADSHEET_USERS_SHEET_GID,
+        "tq": query,
+        "access_token": access_token,
+      });
+      final headers = {
+        "X-DataSource-Auth": "force-json-workaround",
+      };
+      USER_COLUMNS_DATATABLE =
+          await http.get(uri, headers: headers).then((response) {
+        // Check for valid query response
+        if (response.statusCode != 200) // OK
+        {
+          request.response.statusCode =
+              response.statusCode; // Same as upstream response
+          throw ("Columns fetch operation failed: ${response.statusCode}");
+        }
+
+        String datatableJson = response.body;
+        // Check for a valid response, which may or may not contain a user
+        // Remove "" prefix from response JSON
+        const String googleMagic = ")]}'\n";
+        if (datatableJson.startsWith(googleMagic)) {
+          datatableJson = datatableJson.substring(googleMagic.length);
+        }
+
+        return datatableJson;
+      });
+      print("Did update USER_COLUMNS_DATATABLE via spreadsheet query");
+    } else {
+      print("Use cached USER_COLUMNS_DATATABLE");
+    }
+
+    final Map usersColumnsDatatable = json.decode(USER_COLUMNS_DATATABLE);
     if (usersColumnsDatatable == null ||
         !usersColumnsDatatable.containsKey("table") ||
         !usersColumnsDatatable["table"].containsKey("cols") ||
