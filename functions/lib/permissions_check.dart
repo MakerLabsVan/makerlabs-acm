@@ -70,13 +70,30 @@ bool isNoLike(String s) {
   return noLike.contains(s);
 }
 
-String nthColumnLabel(Map datatable, int idx) {
+String nthColumnLabel(Map datatable, int i) {
   if (datatable != null &&
       datatable.containsKey("table") &&
       datatable["table"].containsKey("cols") &&
-      datatable["table"]["cols"].length >= idx &&
-      datatable["table"]["cols"][idx].containsKey("label")) {
-    return datatable["table"]["cols"][idx]["label"];
+      datatable["table"]["cols"].length >= i &&
+      datatable["table"]["cols"][i].containsKey("label")) {
+    return datatable["table"]["cols"][i]["label"];
+  }
+
+  return null;
+}
+
+String labelToColumnId(Map datatable, String prefix, String label) {
+  if (datatable != null &&
+      datatable.containsKey("table") &&
+      datatable["table"].containsKey("cols")) {
+    for (int i = 0; i < datatable["table"]["cols"].length; ++i) {
+      if (datatable["table"]["cols"][i].containsKey("label")) {
+        if (datatable["table"]["cols"][i]["label"] == "${prefix} ${label}" ||
+            datatable["table"]["cols"][i]["label"] == "${label}") {
+          return datatable["table"]["cols"][i]["id"];
+        }
+      }
+    }
   }
 
   return null;
@@ -230,18 +247,41 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
     }
 
     // Generate select portion of query
-    final List<String> select = ["C", "D", "E", "I", "K", "U"];
+    final List<String> select = [];
+    final List<List<String>> selectColumnLabels = [
+      ["Maker Info", "Name"],
+      ["Maker Info", "Display Name"],
+      ["Maker Info", "Email"],
+      ["Membership Info", "MakerLabs ID"],
+      ["Membership Info", "Alerts"],
+      ["Access & Studio", "Tag ID"]
+    ];
+
+    for (int i = 0; i < selectColumnLabels.length; ++i) {
+      final List<String> label = selectColumnLabels[i];
+      final String columnName =
+          labelToColumnId(usersColumnsDatatable, label[0], label[1]);
+      if (columnName == null) {
+        throw ("Invalid/missing ${SPREADSHEET_USERS_SHEET_NAME} column in section: '${label[0]}, label: ${label[1]}'");
+      }
+      select.add(columnName);
+    }
+
     for (int i = 0; i <= numPermissionsColumns; ++i) {
       select.add(toColumnName(firstPermissionColumnNum + i));
     }
 
     // Execute permissions check query
-    final tagIdColumn = "U";
+    final tagIdColumnId =
+        labelToColumnId(usersColumnsDatatable, "Access & Studio", "Tag ID");
+    if (tagIdColumnId == null) {
+      throw ("Invalid/missing ${SPREADSHEET_USERS_SHEET_NAME} Tag ID column for query");
+    }
 
     final query = ("select " +
         select.join(",") +
         " where " +
-        tagIdColumn +
+        tagIdColumnId +
         " = \"" +
         activity.tagId +
         "\"" +
