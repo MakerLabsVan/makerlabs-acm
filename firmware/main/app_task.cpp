@@ -162,7 +162,7 @@ auto app_task(void* /* user_data */)
     register_name("firmware_update", firmware_update_actor_pid);
   }
 
-  // {Auth, Sheets, Visualization, PermissionsCheck}Actor
+  // Single actor with multiple behaviours combined sharing the same task
   {
     auto combined_actor_pid = spawn(
       {
@@ -195,34 +195,6 @@ auto app_task(void* /* user_data */)
     register_name("network_check", combined_actor_pid);
   }
 
-/*
-  // RFIDReaderActor
-  {
-    auto rfid_reader_actor_pid = spawn(
-      rfid_reader_actor_behaviour,
-      // Override the default execution config settings to increase stack size
-      [](ActorExecutionConfigBuilder& builder)
-      {
-        builder.add_task_stack_size(4096);
-      }
-    );
-    register_name("rfid_reader", rfid_reader_actor_pid);
-  }
-
-  // AppActor
-  {
-    auto app_actor_pid = spawn(
-      app_actor_behaviour,
-      // Override the default execution config settings to increase stack size
-      [](ActorExecutionConfigBuilder& builder)
-      {
-        //builder.add_task_stack_size(8192);
-        builder.add_task_stack_size(16384);
-      }
-    );
-    register_name("app", app_actor_pid);
-  }
-*/
   heap_check("after spawn all actors");
 
   // Set CA certs for request_manager
