@@ -23,6 +23,7 @@
 // network_manager
 #include "network_manager.h"
 #include "ntp.h"
+#include "network_check_actor.h"
 #include "ntp_actor.h"
 #include "wifi_actor.h"
 
@@ -41,6 +42,7 @@ using namespace ActorModel;
 using Requests::set_request_body;
 
 // ActorModel behaviours:
+using NetworkManager::network_check_actor_behaviour;
 using NetworkManager::ntp_actor_behaviour;
 using NetworkManager::wifi_actor_behaviour;
 using Requests::request_manager_actor_behaviour;
@@ -170,6 +172,7 @@ auto app_task(void* /* user_data */)
         machine_actor_behaviour,
         ntp_actor_behaviour,
         wifi_actor_behaviour,
+        network_check_actor_behaviour,
       },
       // Override the default execution config settings to increase mailbox size
       [](ActorExecutionConfigBuilder& builder)
@@ -178,13 +181,18 @@ auto app_task(void* /* user_data */)
         builder.add_mailbox_size(4096);
       }
     );
+
+    // app features
     register_name("auth", combined_actor_pid);
     register_name("rfid_reader", combined_actor_pid);
     register_name("machine", combined_actor_pid);
     register_name("app", combined_actor_pid);
 
-    // network_manager
+    // network_manager features
     register_name("network_manager", combined_actor_pid);
+    register_name("ntp", combined_actor_pid);
+    register_name("wifi", combined_actor_pid);
+    register_name("network_check", combined_actor_pid);
   }
 
 /*
@@ -234,10 +242,9 @@ auto app_task(void* /* user_data */)
     );
   }
 
-  auto network_manager_actor_pid = *(whereis("network_manager"));
-
   // Start Wifi in STA mode
   {
+    auto network_manager_actor_pid = *(whereis("network_manager"));
     send(network_manager_actor_pid, "connect_wifi_sta");
   }
 
@@ -248,20 +255,26 @@ auto app_task(void* /* user_data */)
   );
   ESP_LOGI(TAG, "Network online");
 
+  // Send periodic network_check ping message
+  {
+    auto network_check_interval = 10min;
+    auto network_check_actor_pid = *(whereis("network_check"));
+
+    // Send an initial full ping request
+    send(network_check_actor_pid, "ping");
+    // Schedule periodic ping requests (re-using previous metadata)
+    send_interval(network_check_interval, network_check_actor_pid, "ping");
+  }
+
   // Fetch time via NTP
   {
+    auto network_manager_actor_pid = *(whereis("network_manager"));
     flatbuffers::FlatBufferBuilder fbb;
     fbb.Finish(
       CreateNTPConfiguration(fbb, fbb.CreateString("pool.ntp.org"))//,
       //DisplayIntentIdentifier()
     );
     send(network_manager_actor_pid, "ntp_client_start", fbb.Release());
-  }
-
-  // Start ping check to upstream host to verify connection
-  {
-    // Create NetworkCheckConfiguration object here
-    //send(network_manager_actor_pid, "ping");
   }
 
   // Wait for valid network connection and NTP time before continuing
@@ -285,26 +298,9 @@ auto app_task(void* /* user_data */)
     printf("local:   %s\n", local_now_str.c_str());
   }
 
-  // Main loop:
-  auto firmware_update_check_interval = std::chrono::seconds(
-    CONFIG_FIRMWARE_UPDATE_CHECK_INTERVAL_SECONDS
-  );
-
-  auto auth_interval = 20min;
-  auto network_check_interval = 10min;
-  auto reset_button_check_interval = 1s;
-
-  Timestamp last_reset_button_check_timestamp;
-  Timestamp last_network_check_timestamp;
-
-  auto reset_button_pin = static_cast<gpio_num_t>(0);
-  gpio_set_direction(reset_button_pin, GPIO_MODE_INPUT);
-
-  uint32_t progress = 0;
-  auto reset_count = 0;
-
   // Send periodic auth message
   {
+    auto auth_interval = 20min;
     auto auth_request_intent_mutable_buf = filesystem_read(
       "/spiflash/auth_request_intent.req.fb"
     );
@@ -325,7 +321,11 @@ auto app_task(void* /* user_data */)
     send_interval(auth_interval, auth_actor_pid, "auth");
   }
 
+  // Send periodic firmware_update check message
   {
+    auto firmware_update_check_interval = std::chrono::seconds(
+      CONFIG_FIRMWARE_UPDATE_CHECK_INTERVAL_SECONDS
+    );
     auto firmware_update_check_request_intent_req_fb = filesystem_read(
       "/spiflash/firmware_update_check_request_intent.req.fb"
     );
@@ -347,6 +347,16 @@ auto app_task(void* /* user_data */)
     );
   }
 
+  // Main loop state
+  auto reset_button_check_interval = 1s;
+
+  Timestamp last_reset_button_check_timestamp;
+
+  auto reset_button_pin = static_cast<gpio_num_t>(0);
+  gpio_set_direction(reset_button_pin, GPIO_MODE_INPUT);
+
+  uint32_t progress = 0;
+  auto reset_count = 0;
   for (;;)
   {
     //heap_check("app_task loop");
@@ -375,15 +385,6 @@ auto app_task(void* /* user_data */)
       }
 
       last_reset_button_check_timestamp = now;
-    }
-
-    // Trigger network check if interval has elapsed
-    if ((now - last_network_check_timestamp) > network_check_interval)
-    {
-      printf("trigger network check here\n");
-      // TODO: trigger network check
-
-      last_network_check_timestamp = now;
     }
 
     // Run the loop at approx. half the shortest interval
