@@ -224,13 +224,14 @@ class User {
   String get name => const fb.StringReader().vTableGet(_bc, _bcOffset, 4, null);
   String get email => const fb.StringReader().vTableGet(_bc, _bcOffset, 6, null);
   String get makerlabsId => const fb.StringReader().vTableGet(_bc, _bcOffset, 8, null);
-  String get tagId => const fb.StringReader().vTableGet(_bc, _bcOffset, 10, null);
-  String get alerts => const fb.StringReader().vTableGet(_bc, _bcOffset, 12, null);
-  List<String> get permissions => const fb.ListReader<String>(const fb.StringReader()).vTableGet(_bc, _bcOffset, 14, null);
+  String get makerStatus => const fb.StringReader().vTableGet(_bc, _bcOffset, 10, null);
+  String get tagId => const fb.StringReader().vTableGet(_bc, _bcOffset, 12, null);
+  String get alerts => const fb.StringReader().vTableGet(_bc, _bcOffset, 14, null);
+  List<String> get permissions => const fb.ListReader<String>(const fb.StringReader()).vTableGet(_bc, _bcOffset, 16, null);
 
   @override
   String toString() {
-    return 'User{name: $name, email: $email, makerlabsId: $makerlabsId, tagId: $tagId, alerts: $alerts, permissions: $permissions}';
+    return 'User{name: $name, email: $email, makerlabsId: $makerlabsId, makerStatus: $makerStatus, tagId: $tagId, alerts: $alerts, permissions: $permissions}';
   }
 }
 
@@ -265,16 +266,20 @@ class UserBuilder {
     fbBuilder.addOffset(2, offset);
     return fbBuilder.offset;
   }
-  int addTagIdOffset(int offset) {
+  int addMakerStatusOffset(int offset) {
     fbBuilder.addOffset(3, offset);
     return fbBuilder.offset;
   }
-  int addAlertsOffset(int offset) {
+  int addTagIdOffset(int offset) {
     fbBuilder.addOffset(4, offset);
     return fbBuilder.offset;
   }
-  int addPermissionsOffset(int offset) {
+  int addAlertsOffset(int offset) {
     fbBuilder.addOffset(5, offset);
+    return fbBuilder.offset;
+  }
+  int addPermissionsOffset(int offset) {
+    fbBuilder.addOffset(6, offset);
     return fbBuilder.offset;
   }
 
@@ -287,6 +292,7 @@ class UserObjectBuilder extends fb.ObjectBuilder {
   final String _name;
   final String _email;
   final String _makerlabsId;
+  final String _makerStatus;
   final String _tagId;
   final String _alerts;
   final List<String> _permissions;
@@ -295,6 +301,7 @@ class UserObjectBuilder extends fb.ObjectBuilder {
     String name,
     String email,
     String makerlabsId,
+    String makerStatus,
     String tagId,
     String alerts,
     List<String> permissions,
@@ -302,6 +309,7 @@ class UserObjectBuilder extends fb.ObjectBuilder {
       : _name = name,
         _email = email,
         _makerlabsId = makerlabsId,
+        _makerStatus = makerStatus,
         _tagId = tagId,
         _alerts = alerts,
         _permissions = permissions;
@@ -314,6 +322,7 @@ class UserObjectBuilder extends fb.ObjectBuilder {
     final int nameOffset = fbBuilder.writeString(_name);
     final int emailOffset = fbBuilder.writeString(_email);
     final int makerlabsIdOffset = fbBuilder.writeString(_makerlabsId);
+    final int makerStatusOffset = fbBuilder.writeString(_makerStatus);
     final int tagIdOffset = fbBuilder.writeString(_tagId);
     final int alertsOffset = fbBuilder.writeString(_alerts);
     final int permissionsOffset = _permissions?.isNotEmpty == true
@@ -330,14 +339,17 @@ class UserObjectBuilder extends fb.ObjectBuilder {
     if (makerlabsIdOffset != null) {
       fbBuilder.addOffset(2, makerlabsIdOffset);
     }
+    if (makerStatusOffset != null) {
+      fbBuilder.addOffset(3, makerStatusOffset);
+    }
     if (tagIdOffset != null) {
-      fbBuilder.addOffset(3, tagIdOffset);
+      fbBuilder.addOffset(4, tagIdOffset);
     }
     if (alertsOffset != null) {
-      fbBuilder.addOffset(4, alertsOffset);
+      fbBuilder.addOffset(5, alertsOffset);
     }
     if (permissionsOffset != null) {
-      fbBuilder.addOffset(5, permissionsOffset);
+      fbBuilder.addOffset(6, permissionsOffset);
     }
     return fbBuilder.endTable();
   }

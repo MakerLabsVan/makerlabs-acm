@@ -28,6 +28,7 @@ table User
   name:string;
   email:string;
   makerlabs_id:string;
+  maker_status:string;
   tag_id:string;
   alerts:string;
   permissions:[string];

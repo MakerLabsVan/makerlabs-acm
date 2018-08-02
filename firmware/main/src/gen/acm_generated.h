@@ -226,9 +226,10 @@ struct User FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_NAME = 4,
     VT_EMAIL = 6,
     VT_MAKERLABS_ID = 8,
-    VT_TAG_ID = 10,
-    VT_ALERTS = 12,
-    VT_PERMISSIONS = 14
+    VT_MAKER_STATUS = 10,
+    VT_TAG_ID = 12,
+    VT_ALERTS = 14,
+    VT_PERMISSIONS = 16
   };
   const flatbuffers::String *name() const {
     return GetPointer<const flatbuffers::String *>(VT_NAME);
@@ -247,6 +248,12 @@ struct User FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   flatbuffers::String *mutable_makerlabs_id() {
     return GetPointer<flatbuffers::String *>(VT_MAKERLABS_ID);
+  }
+  const flatbuffers::String *maker_status() const {
+    return GetPointer<const flatbuffers::String *>(VT_MAKER_STATUS);
+  }
+  flatbuffers::String *mutable_maker_status() {
+    return GetPointer<flatbuffers::String *>(VT_MAKER_STATUS);
   }
   const flatbuffers::String *tag_id() const {
     return GetPointer<const flatbuffers::String *>(VT_TAG_ID);
@@ -274,6 +281,8 @@ struct User FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.Verify(email()) &&
            VerifyOffset(verifier, VT_MAKERLABS_ID) &&
            verifier.Verify(makerlabs_id()) &&
+           VerifyOffset(verifier, VT_MAKER_STATUS) &&
+           verifier.Verify(maker_status()) &&
            VerifyOffset(verifier, VT_TAG_ID) &&
            verifier.Verify(tag_id()) &&
            VerifyOffset(verifier, VT_ALERTS) &&
@@ -296,6 +305,9 @@ struct UserBuilder {
   }
   void add_makerlabs_id(flatbuffers::Offset<flatbuffers::String> makerlabs_id) {
     fbb_.AddOffset(User::VT_MAKERLABS_ID, makerlabs_id);
+  }
+  void add_maker_status(flatbuffers::Offset<flatbuffers::String> maker_status) {
+    fbb_.AddOffset(User::VT_MAKER_STATUS, maker_status);
   }
   void add_tag_id(flatbuffers::Offset<flatbuffers::String> tag_id) {
     fbb_.AddOffset(User::VT_TAG_ID, tag_id);
@@ -323,6 +335,7 @@ inline flatbuffers::Offset<User> CreateUser(
     flatbuffers::Offset<flatbuffers::String> name = 0,
     flatbuffers::Offset<flatbuffers::String> email = 0,
     flatbuffers::Offset<flatbuffers::String> makerlabs_id = 0,
+    flatbuffers::Offset<flatbuffers::String> maker_status = 0,
     flatbuffers::Offset<flatbuffers::String> tag_id = 0,
     flatbuffers::Offset<flatbuffers::String> alerts = 0,
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>>> permissions = 0) {
@@ -330,6 +343,7 @@ inline flatbuffers::Offset<User> CreateUser(
   builder_.add_permissions(permissions);
   builder_.add_alerts(alerts);
   builder_.add_tag_id(tag_id);
+  builder_.add_maker_status(maker_status);
   builder_.add_makerlabs_id(makerlabs_id);
   builder_.add_email(email);
   builder_.add_name(name);
@@ -341,6 +355,7 @@ inline flatbuffers::Offset<User> CreateUserDirect(
     const char *name = nullptr,
     const char *email = nullptr,
     const char *makerlabs_id = nullptr,
+    const char *maker_status = nullptr,
     const char *tag_id = nullptr,
     const char *alerts = nullptr,
     const std::vector<flatbuffers::Offset<flatbuffers::String>> *permissions = nullptr) {
@@ -349,6 +364,7 @@ inline flatbuffers::Offset<User> CreateUserDirect(
       name ? _fbb.CreateString(name) : 0,
       email ? _fbb.CreateString(email) : 0,
       makerlabs_id ? _fbb.CreateString(makerlabs_id) : 0,
+      maker_status ? _fbb.CreateString(maker_status) : 0,
       tag_id ? _fbb.CreateString(tag_id) : 0,
       alerts ? _fbb.CreateString(alerts) : 0,
       permissions ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*permissions) : 0);
@@ -537,18 +553,20 @@ inline const flatbuffers::TypeTable *UserTypeTable() {
     { flatbuffers::ET_STRING, 0, -1 },
     { flatbuffers::ET_STRING, 0, -1 },
     { flatbuffers::ET_STRING, 0, -1 },
+    { flatbuffers::ET_STRING, 0, -1 },
     { flatbuffers::ET_STRING, 1, -1 }
   };
   static const char * const names[] = {
     "name",
     "email",
     "makerlabs_id",
+    "maker_status",
     "tag_id",
     "alerts",
     "permissions"
   };
   static const flatbuffers::TypeTable tt = {
-    flatbuffers::ST_TABLE, 6, type_codes, nullptr, nullptr, names
+    flatbuffers::ST_TABLE, 7, type_codes, nullptr, nullptr, names
   };
   return &tt;
 }

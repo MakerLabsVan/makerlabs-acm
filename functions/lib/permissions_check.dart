@@ -253,6 +253,7 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
       ["Maker Info", "Display Name"],
       ["Maker Info", "Email"],
       ["Membership Info", "MakerLabs ID"],
+      ["Membership Info", "Maker Status"],
       ["Membership Info", "Alerts"],
       ["Access & Studio", "Tag ID"]
     ];
@@ -296,7 +297,7 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
     final headers = {
       "X-DataSource-Auth": "force-json-workaround",
     };
-    final String makerlabs_id =
+    final ACM.User user =
         await http.get(uri, headers: headers).then((response) {
       // Check for valid query response
       if (response.statusCode != 200) // OK
@@ -332,11 +333,13 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
         final String email = (userRow[2] != null) ? userRow[2]["v"] : null;
         final String makerlabs_id =
             (userRow[3] != null) ? userRow[3]["v"] : null;
-        final String alerts = (userRow[4] != null) ? userRow[4]["v"] : null;
-        final String tagId = (userRow[5] != null) ? userRow[5]["v"] : null;
+        final String maker_status =
+            (userRow[4] != null) ? userRow[4]["v"] : null;
+        final String alerts = (userRow[5] != null) ? userRow[5]["v"] : null;
+        final String tagId = (userRow[6] != null) ? userRow[6]["v"] : null;
 
         final List<String> permissions = [];
-        for (int i = 6; i < userRow.length; ++i) {
+        for (int i = 7; i < userRow.length; ++i) {
           String permissionValue =
               (userRow[i] != null) ? userRow[i]["v"] : null;
           if (isYesLike(permissionValue)) {
@@ -349,6 +352,7 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
           name: name,
           email: email,
           makerlabsId: makerlabs_id,
+          makerStatus: maker_status,
           tagId: tagId,
           alerts: alerts,
           permissions: permissions,
@@ -367,7 +371,7 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
           ..statusCode = 200 // OK
           ..add(userBytes)
           ..close();
-        return makerlabs_id;
+        return user;
       } else {
         print("No matching User for Activity tag_id: ${activity.tagId}");
       }
@@ -377,7 +381,7 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
         ..headers.add("Content-Type", "application/octet-stream")
         ..statusCode = 200 // OK
         ..close();
-      return "";
+      return null;
     }).catchError((e) {
       // Re-throw errors to the parent catchError
       print("inner catchError: '${e}'");
@@ -401,7 +405,8 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
         activityTypeStr,
         activity.usageSeconds,
         activity.tagId,
-        makerlabs_id,
+        user?.makerlabsId,
+        user?.makerStatus,
       ]
     ];
 
