@@ -206,6 +206,11 @@ auto app_actor_behaviour(
       // Reset stored current_user
       state.current_user_flatbuf.clear();
 
+#if CONFIG_ACM_ENABLE_PERMISSIONS_REQUIRED
+      auto machine_actor_pid = *(whereis("machine"));
+      send(machine_actor_pid, "disable");
+#endif // CONFIG_ACM_ENABLE_PERMISSIONS_REQUIRED
+
 #if CONFIG_ACM_ENABLE_SIGNED_OUT_ACTIVITY
       // Add a Signed_Out activity:
       const auto& activity_flatbuf = generate_activity(
@@ -214,7 +219,7 @@ auto app_actor_behaviour(
         tag_id_str
       );
 
-      const MutableActivityFlatbuffer activity_mutable_buf;
+      MutableActivityFlatbuffer activity_mutable_buf;
       activity_mutable_buf.assign(
         activity_flatbuf.data(),
         activity_flatbuf.data() + activity_flatbuf.size()
@@ -230,10 +235,10 @@ auto app_actor_behaviour(
     const Response* response = nullptr;
     if (matches(message, "response_finished", response))
     {
-      const auto& request_id_iter = (
+      const auto& activity_iter = (
         state.pending_activity.find(*(response->request_id()))
       );
-      if (request_id_iter != state.pending_activity.end())
+      if (activity_iter != state.pending_activity.end())
       {
         if (response->code() == 200)
         {
@@ -259,44 +264,73 @@ auto app_actor_behaviour(
             );
 
             {
-              const auto& current_user_flatbuf = response->body();
-
-              printf("Updated logged in user\n");
-
-              state.current_user_flatbuf.assign(
-                current_user_flatbuf->data(),
-                current_user_flatbuf->data() + current_user_flatbuf->size()
-              );
-              const User* current_user = flatbuffers::GetRoot<User>(
-                state.current_user_flatbuf.data()
+              valid_user = true;
+              const auto& activity_flatbuf = activity_iter->second;
+              const auto* activity = flatbuffers::GetRoot<const Activity>(
+                activity_flatbuf.data()
               );
 
-              if (current_user)
+              if (activity->activity_type() == ActivityType::Signed_In)
               {
-                valid_user = true;
+                const auto& current_user_flatbuf = response->body();
 
-                // Show user details on OLED display
-                auto show_user_details_display_intent_flatbuf = (
-                  generate_show_user_details_from_user(current_user)
+
+                state.current_user_flatbuf.assign(
+                  current_user_flatbuf->data(),
+                  current_user_flatbuf->data() + current_user_flatbuf->size()
+                );
+                const User* current_user = flatbuffers::GetRoot<User>(
+                  state.current_user_flatbuf.data()
                 );
 
-                auto display_actor_pid = *(whereis("display"));
-                send(
-                  display_actor_pid,
-                  "ShowUserDetails",
-                  show_user_details_display_intent_flatbuf
-                );
+                if (current_user)
+                {
+#if CONFIG_ACM_ENABLE_PERMISSIONS_REQUIRED
+                  if (current_user->permissions())
+                  {
+                    for (const auto* allowed : *(current_user->permissions()))
+                    {
+                      if (allowed->string_view() == state.machine_id_str)
+                      {
+                        auto machine_actor_pid = *(whereis("machine"));
+                        send(machine_actor_pid, "enable");
+                      }
+                    }
+                  }
+#endif // CONFIG_ACM_ENABLE_PERMISSIONS_REQUIRED
+
+                  // Show user details on OLED display
+                  auto show_user_details_display_intent_flatbuf = (
+                    generate_show_user_details_from_user(current_user)
+                  );
+
+                  auto display_actor_pid = *(whereis("display"));
+                  send(
+                    display_actor_pid,
+                    "ShowUserDetails",
+                    show_user_details_display_intent_flatbuf
+                  );
+                }
               }
             }
           }
 
           if (not valid_user)
           {
+#if CONFIG_ACM_ENABLE_PERMISSIONS_REQUIRED
+            auto machine_actor_pid = *(whereis("machine"));
+            send(machine_actor_pid, "disable");
+#endif // CONFIG_ACM_ENABLE_PERMISSIONS_REQUIRED
+
             ESP_LOGW(TAG, "Missing user before updating display");
             // Update progress bar to 100%
             auto progress = 100;
             auto progress_bar = generate_progress_bar(
+#if CONFIG_ACM_ENABLE_PERMISSIONS_REQUIRED
               "Access Denied",
+#else
+              "Unknown Tag",
+#endif // CONFIG_ACM_ENABLE_PERMISSIONS_REQUIRED
               progress,
               Display::Icon::HeavyCheckmark
             );
@@ -306,7 +340,7 @@ auto app_actor_behaviour(
 
           // Clear the matching Activity, it has been completed
           // And already re-queued if needed
-          state.pending_activity.erase(request_id_iter);
+          state.pending_activity.erase(activity_iter);
 
           // TODO(@paulreimer): Cancel progress timer here?
           state.cancel_progress_timer();
@@ -321,10 +355,10 @@ auto app_actor_behaviour(
     const Response* response = nullptr;
     if (matches(message, "response_error", response))
     {
-      const auto& request_id_iter = (
+      const auto& activity_iter = (
         state.pending_activity.find(*(response->request_id()))
       );
-      if (request_id_iter != state.pending_activity.end())
+      if (activity_iter != state.pending_activity.end())
       {
         if (response->code() < 0)
         {
@@ -339,7 +373,7 @@ auto app_actor_behaviour(
         )
         {
           // Attempt to retransmit under a new request intent id
-          const auto& activity_flatbuf = request_id_iter->second;
+          const auto& activity_flatbuf = activity_iter->second;
           state.send_activity_request(activity_flatbuf, self);
         }
       }

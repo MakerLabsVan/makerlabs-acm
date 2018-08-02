@@ -167,6 +167,7 @@ auto app_task(void* /* user_data */)
         auth_actor_behaviour,
         rfid_reader_actor_behaviour,
         app_actor_behaviour,
+        machine_actor_behaviour,
         ntp_actor_behaviour,
         wifi_actor_behaviour,
       },
@@ -179,6 +180,7 @@ auto app_task(void* /* user_data */)
     );
     register_name("auth", combined_actor_pid);
     register_name("rfid_reader", combined_actor_pid);
+    register_name("machine", combined_actor_pid);
     register_name("app", combined_actor_pid);
 
     // network_manager
