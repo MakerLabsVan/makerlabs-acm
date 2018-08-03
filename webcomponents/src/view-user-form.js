@@ -836,7 +836,7 @@ class ViewUserForm extends LitElement {
           } else if (this.fieldIsTagIdType(field)) {
             formValue = el.value;
           } else {
-            console.log(`unknown field ${field.name}`);
+            console.log(`Unknown field ${field.name}`);
           }
         }
 
@@ -858,7 +858,17 @@ class ViewUserForm extends LitElement {
           valueInputOption: "USER_ENTERED",
           values: [formValues],
         });
-        console.log(response);
+        if (response.status == 200) {
+          console.log(
+            `Successfully updated '${this.usersSheetName}' row ${rowName}`
+          );
+        } else {
+          console.log(
+            `Invalid response received for updating '${this.usersSheetName}' ${
+              response.status
+            }`
+          );
+        }
       } else {
         if (validTextFieldCount > 0) {
           console.log(`Insert new '${this.usersSheetName}' row`);
