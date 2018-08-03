@@ -21,7 +21,7 @@ class ImageFileUploader extends LitElement {
       "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
   }
 
-  _render({src, emptyImageData}) {
+  _render(props) {
     return html`
       <style>
         #drop_zone {
@@ -44,7 +44,7 @@ class ImageFileUploader extends LitElement {
         }
       </style>
 
-      <div id="drop_zone" style="background-image: url(${src});">
+      <div id="drop_zone" style="background-image: url(${props.src});">
         <span id="drop_hint">Drop files here</span>
       </div>
     `;

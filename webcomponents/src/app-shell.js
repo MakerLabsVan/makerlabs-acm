@@ -64,16 +64,7 @@ class AppShell extends LitElement {
     };
   }
 
-  _render({
-    accessToken,
-    oauthClientId,
-    oauthScopes,
-    sheetId,
-    machineId,
-    _fields: fields,
-    query,
-    defaultPhotoUrl,
-  }) {
+  _render(props) {
     return html`
     <style>
       app-toolbar {
@@ -99,8 +90,8 @@ class AppShell extends LitElement {
         <app-toolbar>
           <google-signin
             openid-prompt="select_account"
-            clientId="${oauthClientId}"
-            scopes="${oauthScopes}"
+            clientId="${props.oauthClientId}"
+            scopes="${props.oauthScopes}"
           ></google-signin>
           <div main-title="">
             <span>MakerLabs ACM</span>
@@ -115,12 +106,12 @@ class AppShell extends LitElement {
       <!-- Render Form -->
       <view-user-form
         id="form"
-        sheetId="${sheetId}"
-        machineId="${machineId}"
-        accessToken="${accessToken}"
-        fields="${fields}"
-        query="${query}"
-        defaultPhotoUrl="${defaultPhotoUrl}"
+        sheetId="${props.sheetId}"
+        machineId="${props.machineId}"
+        accessToken="${props.accessToken}"
+        fields="${props._fields}"
+        query="${props.query}"
+        defaultPhotoUrl="${props.defaultPhotoUrl}"
       ></view-user-form>
     </app-header-layout>
 `;

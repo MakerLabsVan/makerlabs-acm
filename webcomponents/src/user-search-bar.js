@@ -15,15 +15,14 @@ class UserSearchBar extends LitElement {
     super();
     this.items = this.items || [];
   }
-
-  _render({items}) {
+  _render(props) {
     return html`
       <vaadin-combo-box
         id="searchbox"
         style="width: 100%"
         item-value-path="Name"
         item-label-path="Name"
-        items="${items}"
+        items="${props.items}"
         on-change="${this.handleSearchChanged.bind(this)}"
         class="full-width"
       >

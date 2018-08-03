@@ -72,7 +72,7 @@ class ViewUserForm extends LitElement {
     }
   }
 
-  _render({fields}) {
+  _render(props) {
     return html`
     <link rel="stylesheet" href="../node_modules/@material/layout-grid/dist/mdc.layout-grid.min.css">
     <style>
@@ -141,7 +141,7 @@ class ViewUserForm extends LitElement {
 
         <div class="mdc-layout-grid">
           <div class="mdc-layout-grid__inner">
-            ${fields.map(
+            ${props.fields.map(
               (section) => html`
                 <paper-card
                   heading="${section.title}"
