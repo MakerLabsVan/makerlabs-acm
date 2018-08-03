@@ -881,6 +881,41 @@ class ViewUserForm extends LitElement {
             insertDataOption: "INSERT_ROWS",
             values: [formValues],
           });
+
+          if (response.status == 200) {
+            const appendResults = JSON.parse(response.body);
+            if (appendResults && appendResults.updates) {
+              const updatedRange = appendResults.updates.updatedRange;
+              const prefix = `${this.usersSheetName}!A`;
+              if (updatedRange && updatedRange.startsWith(prefix)) {
+                const newRowName = updatedRange
+                  .substr(prefix.length)
+                  .split(":")[0];
+                console.log(
+                  `Successfully created new '${
+                    this.usersSheetName
+                  }' row ${newRowName}`
+                );
+
+                const rowField = this.fieldForColumnId(this.usersRowColumn);
+                if (rowField) {
+                  this.updateField(rowField, newRowName);
+                } else {
+                  console.log(
+                    `Could not find Row column after creating '${
+                      this.usersSheetName
+                    }'`
+                  );
+                }
+              }
+            }
+          } else {
+            console.log(
+              `Invalid response received for creating new '${
+                this.usersSheetName
+              }' ${response.status}`
+            );
+          }
           console.log(response);
         }
       }
