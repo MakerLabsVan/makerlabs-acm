@@ -849,7 +849,7 @@ class ViewUserForm extends LitElement {
 
       if (rowName) {
         // Clear row value, it will be supplied by the ARRAYFORMULA
-        //formValues[0] = null;
+        formValues[0] = null;
         console.log(`Update '${this.usersSheetName}' row ${rowName}`);
         const response = await sheets.api.spreadsheets.values.update({
           spreadsheetId: this.sheetId,
@@ -862,8 +862,7 @@ class ViewUserForm extends LitElement {
       } else {
         if (validTextFieldCount > 0) {
           console.log(`Insert new '${this.usersSheetName}' row`);
-          //formValues[0] = null; // First column formula will provide row()
-          formValues[0] = "=row()"; // First column formula will provide row()
+          formValues[0] = null; // First column formula will provide row()
 
           const response = await sheets.api.spreadsheets.values.append({
             spreadsheetId: this.sheetId,
