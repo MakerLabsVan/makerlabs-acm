@@ -250,6 +250,19 @@ class ViewUserForm extends LitElement {
       `;
     }
 
+    if (this.fieldIsAlertsType(field)) {
+      return html`
+        <paper-input
+          always-float-label=""
+          auto-validate pattern=""
+          error-message="Resolve at Front Desk"
+          label="${field.title}"
+          id="${field.name}"
+          name="${field.name}"
+        ></paper-input>
+      `;
+    }
+
     if (this.fieldIsTagIdType(field)) {
       return html`
         <vaadin-combo-box
@@ -297,6 +310,9 @@ class ViewUserForm extends LitElement {
   }
   get usersMakerLabsIdColumn() {
     return this.usersColumnFromFieldTitle("Membership Info", "MakerLabs ID");
+  }
+  get usersAlertsColumn() {
+    return this.usersColumnFromFieldTitle("Membership Info", "Alerts");
   }
   get usersTagIdColumn() {
     return this.usersColumnFromFieldTitle("Access & Studio", "Tag ID");
@@ -367,6 +383,7 @@ class ViewUserForm extends LitElement {
   fieldIsTextInputType(field) {
     return (
       !this.fieldIsTagIdType(field) &&
+      !this.fieldIsAlertsType(field) &&
       (!field.type ||
         field.type == "NUMBER_BETWEEN" ||
         field.type == "NUMBER_EQUAL_TO" ||
@@ -381,6 +398,10 @@ class ViewUserForm extends LitElement {
         field.type == "TEXT_EQUAL_TO" ||
         field.type == "TEXT_IS_VALID_EMAIL")
     );
+  }
+
+  fieldIsAlertsType(field) {
+    return field.name === this.usersAlertsColumn;
   }
 
   fieldIsTagIdType(field) {
@@ -701,6 +722,7 @@ class ViewUserForm extends LitElement {
         } else if (
           this.fieldIsDatePickerType(field) ||
           this.fieldIsTextInputType(field) ||
+          this.fieldIsAlertsType(field) ||
           this.fieldIsTagIdType(field)
         ) {
           el.value = val;
@@ -749,6 +771,8 @@ class ViewUserForm extends LitElement {
             if (el.src != el.emptyImageData) {
               formValue = el.src;
             }
+          } else if (this.fieldIsAlertsType(field)) {
+            formValue = el.value;
           } else if (this.fieldIsTagIdType(field)) {
             formValue = el.value;
           } else {
