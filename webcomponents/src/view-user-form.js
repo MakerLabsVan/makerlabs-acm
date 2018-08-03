@@ -36,6 +36,9 @@ class ViewUserForm extends LitElement {
       sheetId: {
         type: String,
       },
+      nextMakerLabsIdUrl: {
+        type: String,
+      },
       machineId: {
         type: String,
       },
@@ -118,7 +121,7 @@ class ViewUserForm extends LitElement {
             <paper-fab
               mini=""
               icon="add"
-              on-tap="${this.resetValues.bind(this)}"
+              on-tap="${this.populateNewUser.bind(this)}"
             ></paper-fab>
             <paper-tooltip
               position="top"
@@ -305,6 +308,9 @@ class ViewUserForm extends LitElement {
     return ["Initial", "Hidden", "Private"];
   }
 
+  get usersRowColumn() {
+    return this.usersColumnFromFieldTitle("Hidden", "Row");
+  }
   get usersNameColumn() {
     return this.usersColumnFromFieldTitle("Maker Info", "Name");
   }
@@ -692,7 +698,12 @@ class ViewUserForm extends LitElement {
   }
 
   resetValues() {
-    return this.showUser([]);
+    this.showUser([]);
+  }
+
+  populateNewUser() {
+    this.showUser([]);
+    this.populateNextMakerLabsId();
   }
 
   showUser(data) {
@@ -703,36 +714,85 @@ class ViewUserForm extends LitElement {
       for (var f = 0; f < section.fields.length; ++f) {
         var val = i < data.length ? data[i++] : null;
         var field = section.fields[f];
-        var el = this.shadowRoot.getElementById(field.name);
 
-        if (!val) {
-          // Clear the previous value, if no new value is set.
-          val = "";
-        }
+        this.updateField(field, val);
+      }
+    }
+  }
 
-        if (this.fieldIsCheckboxType(field)) {
-          el.checked = this.isYesLike(val[0]);
-        } else if (this.fieldIsRadioGroupType(field)) {
-          el.select(val);
-        } else if (this.fieldIsDropdownMenuType(field)) {
-          var listbox = el.querySelector("paper-listbox");
-          var selectedIdx = field.choices.indexOf(val);
+  updateField(field, val) {
+    if (field.name) {
+      var el = this.shadowRoot.getElementById(field.name);
+      if (!val) {
+        // Clear the previous value, if no new value is set.
+        val = "";
+      }
 
-          listbox.selected = selectedIdx >= 0 ? selectedIdx : 0;
-        } else if (
-          this.fieldIsDatePickerType(field) ||
-          this.fieldIsTextInputType(field) ||
-          this.fieldIsAlertsType(field) ||
-          this.fieldIsTagIdType(field)
-        ) {
-          el.value = val;
-        } else if (this.fieldIsImageType(field)) {
-          var photoUrl = val || this.defaultPhotoUrl;
-          el.src = photoUrl;
-        } else {
-          console.log(`unknown field name ${field.name}, type ${field.type}`);
+      if (this.fieldIsCheckboxType(field)) {
+        el.checked = this.isYesLike(val[0]);
+      } else if (this.fieldIsRadioGroupType(field)) {
+        el.select(val);
+      } else if (this.fieldIsDropdownMenuType(field)) {
+        var listbox = el.querySelector("paper-listbox");
+        var selectedIdx = field.choices.indexOf(val);
+        listbox.selected = selectedIdx >= 0 ? selectedIdx : 0;
+      } else if (
+        this.fieldIsDatePickerType(field) ||
+        this.fieldIsTextInputType(field) ||
+        this.fieldIsAlertsType(field) ||
+        this.fieldIsTagIdType(field)
+      ) {
+        el.value = val;
+      } else if (this.fieldIsImageType(field)) {
+        var photoUrl = val || this.defaultPhotoUrl;
+        el.src = photoUrl;
+      } else {
+        console.log(`Unknown field name ${field.name}, type ${field.type}`);
+      }
+    } else {
+      console.log(`Missing field name`);
+    }
+  }
+
+  fieldForColumnId(columnId) {
+    var i = 0;
+    for (var s = 0; s < this.fields.length; ++s) {
+      var section = this.fields[s];
+
+      for (var f = 0; f < section.fields.length; ++f) {
+        var field = section.fields[f];
+
+        if (field.name == columnId) {
+          return field;
         }
       }
+    }
+
+    return null;
+  }
+
+  async populateNextMakerLabsId() {
+    const response = await fetch(this.nextMakerLabsIdUrl, {
+      mode: "cors",
+      credentials: "omit",
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+    if (response.status == 200) {
+      const nextMakerLabsId = await response.json();
+      const makerLabsIdField = this.fieldForColumnId(
+        this.usersMakerLabsIdColumn
+      );
+      if (makerLabsIdField) {
+        this.updateField(makerLabsIdField, nextMakerLabsId);
+      }
+    } else {
+      console.log(
+        `Fields JSON request fetch failed with response code: ${
+          response.status
+        }`
+      );
     }
   }
 

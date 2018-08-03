@@ -46,6 +46,9 @@ class AppShell extends LitElement {
       fieldsUrl: {
         type: String,
       },
+      nextMakerLabsIdUrl: {
+        type: String,
+      },
       _fields: {
         type: Array,
       },
@@ -112,6 +115,7 @@ class AppShell extends LitElement {
         fields="${props._fields}"
         query="${props.query}"
         defaultPhotoUrl="${props.defaultPhotoUrl}"
+        nextMakerLabsIdUrl="${props.nextMakerLabsIdUrl}"
       ></view-user-form>
     </app-header-layout>
 `;
