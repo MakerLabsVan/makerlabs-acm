@@ -30,7 +30,7 @@ function getActivitySummaryByUser(range, batchSize, filter) {
   const activityColumns = {
     "Maker Status": headers.indexOf("Maker Status"),
     //"Timestamp (UTC)": headers.indexOf("Timestamp (UTC)"),
-    //"Activity Type": headers.indexOf("Activity Type"),
+    "Activity Type": headers.indexOf("Activity Type"),
     "Usage (seconds)": headers.indexOf("Usage (seconds)"),
     "Time (PST)": headers.indexOf("Time (PST)"),
     "Usage Email Sent Time": headers.indexOf("Usage Email Sent Time"),
@@ -88,24 +88,8 @@ function getActivitySummaryByUser(range, batchSize, filter) {
         var activityType = values[row][activityTypeColumn];
         var rowNum = firstRow + currentRowIdx + row;
 
-        // Only consider rows which are of type "CNC_Job" with a "MakerLabs ID" set
-        if (makerLabsId && activityType == "CNC_Job") {
-          // If this is the first row for a user, populate the User columns that do not change
-          if (!(makerLabsId in activityByUser)) {
-            activityByUser[makerLabsId] = {};
-            for (var idx = 0; idx < userColumnNames.length; ++idx) {
-              var colName = userColumnNames[idx];
-              var col = userColumns[colName];
-              activityByUser[makerLabsId][colName] = values[row][col];
-            }
-          }
-
-          // If this is the first activity for this machine ID, create an empty array
-          var machineId = values[row][machineIdColumn];
-          if (!(machineId in activityByUser[makerLabsId])) {
-            activityByUser[makerLabsId][machineId] = [];
-          }
-
+        // Only consider rows with a "MakerLabs ID" set
+        if (makerLabsId) {
           var validRow = true;
 
           // If filter is set, ensure that all key/values have matching values in this row
@@ -115,7 +99,15 @@ function getActivitySummaryByUser(range, batchSize, filter) {
               var col = filterColumns[colName];
               var value = values[row][col];
 
-              if (value !== filter[colName]) {
+              if (
+                typeof value.getTime === "function" &&
+                typeof filter[colName].getTime === "function"
+              ) {
+                if (value.getTime() !== filter[colName].getTime()) {
+                  validRow = false;
+                  break;
+                }
+              } else if (value !== filter[colName]) {
                 validRow = false;
                 break;
               }
@@ -123,6 +115,22 @@ function getActivitySummaryByUser(range, batchSize, filter) {
           }
 
           if (validRow) {
+            // If this is the first row for a user, populate the User columns that do not change
+            if (!(makerLabsId in activityByUser)) {
+              activityByUser[makerLabsId] = {activity: {}};
+              for (var idx = 0; idx < userColumnNames.length; ++idx) {
+                var colName = userColumnNames[idx];
+                var col = userColumns[colName];
+                activityByUser[makerLabsId][colName] = values[row][col];
+              }
+            }
+
+            // If this is the first activity for this machine ID, create an empty array
+            var machineId = values[row][machineIdColumn];
+            if (!(machineId in activityByUser[makerLabsId].activity)) {
+              activityByUser[makerLabsId].activity[machineId] = [];
+            }
+
             // Start an empty activity array with the row for referencing later
             var activity = {row: rowNum};
 
@@ -134,7 +142,7 @@ function getActivitySummaryByUser(range, batchSize, filter) {
             }
 
             // Append the activity
-            activityByUser[makerLabsId][machineId].push(activity);
+            activityByUser[makerLabsId].activity[machineId].push(activity);
           }
         }
       }
