@@ -1,0 +1,80 @@
+<?
+  var makerLabsIds = Object.keys(activitySummary);
+  for (var i = 0; i < makerLabsIds.length; i++) {
+    var makerLabsId = makerLabsIds[i];
+    var userActivitySummary = activitySummary[makerLabsId];
+    var userActivity = userActivitySummary.activity;
+?>
+<? if (makerLabsIds.length > 1) { ?>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 1em;">
+  <tr>
+    <td class="mui-panel">
+<? } ?>
+      <div class="mui--text-title">Your activity</div>
+      <?
+        var machineIds = Object.keys(userActivity);
+        for (var i = 0; i < machineIds.length; i++) {
+          var machineId = machineIds[i];
+          if (machineId !== "Front Desk") {
+      ?>
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 1em;">
+        <tr>
+          <td class="mui-panel">
+            <div class="mui--text-subhead"><?= machineId ?></div>
+            <?
+              for (var j = 0; j < userActivity[machineId].length; j++) {
+                if (userActivity[machineId][j]["Activity Type"] === "CNC_Job") {
+            ?>
+            <table border="0" width="100%">
+              <tr class="mui--divider-bottom">
+                <td width="33%">
+                  <?= userActivity[machineId][j]["Time (PST)"].toLocaleString() ?>
+                </td>
+                <td width="33%">
+                </td>
+                <td width="33%">
+                  <?= userActivity[machineId][j]["Usage (seconds)"] ?> seconds
+                </td>
+              </tr>
+            </table>
+            <?
+                }
+              }
+            ?>
+          </td>
+        </tr>
+      </table>
+      <?
+          }
+        }
+      ?>
+      <div class="mui--text-title" style="margin-top: 1em;">Your details</div>
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 1em;">
+        <tr>
+          <td class="mui-panel">
+            <table border="0" width="100%">
+              <tr>
+                <td width="33%">Name:</td>
+                <td width="33%"><?= userActivitySummary["Name"] ?></td>
+                <td width="33%"></td>
+              </tr>
+              <tr>
+                <td width="33%">MakerLabs ID:</td>
+                <td width="33%"><?= makerLabsId ?></td>
+                <td width="33%"></td>
+              </tr>
+              <tr>
+                <td width="33%">Email:</td>
+                <td width="33%"><?= userActivitySummary["Email"] ?></td>
+                <td width="33%"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+<? if (makerLabsIds.length > 1) { ?>
+    </td>
+  </tr>
+</table>
+<? } ?>
+<? } ?>
