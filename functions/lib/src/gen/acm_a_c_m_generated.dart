@@ -106,12 +106,12 @@ class Activity {
   double get time => const fb.Float64Reader().vTableGet(_bc, _bcOffset, 4, 0.0);
   String get machineId => const fb.StringReader().vTableGet(_bc, _bcOffset, 6, null);
   ActivityType get activityType => new ActivityType.fromValue(const fb.Int8Reader().vTableGet(_bc, _bcOffset, 8, null));
-  int get usageSeconds => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 10, null);
-  String get tagId => const fb.StringReader().vTableGet(_bc, _bcOffset, 12, null);
+  String get tagId => const fb.StringReader().vTableGet(_bc, _bcOffset, 10, null);
+  int get usageSeconds => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 12, null);
 
   @override
   String toString() {
-    return 'Activity{time: $time, machineId: $machineId, activityType: $activityType, usageSeconds: $usageSeconds, tagId: $tagId}';
+    return 'Activity{time: $time, machineId: $machineId, activityType: $activityType, tagId: $tagId, usageSeconds: $usageSeconds}';
   }
 }
 
@@ -146,12 +146,12 @@ class ActivityBuilder {
     fbBuilder.addInt8(2, activityType?.value);
     return fbBuilder.offset;
   }
-  int addUsageSeconds(int usageSeconds) {
-    fbBuilder.addUint32(3, usageSeconds);
+  int addTagIdOffset(int offset) {
+    fbBuilder.addOffset(3, offset);
     return fbBuilder.offset;
   }
-  int addTagIdOffset(int offset) {
-    fbBuilder.addOffset(4, offset);
+  int addUsageSeconds(int usageSeconds) {
+    fbBuilder.addUint32(4, usageSeconds);
     return fbBuilder.offset;
   }
 
@@ -164,21 +164,21 @@ class ActivityObjectBuilder extends fb.ObjectBuilder {
   final double _time;
   final String _machineId;
   final ActivityType _activityType;
-  final int _usageSeconds;
   final String _tagId;
+  final int _usageSeconds;
 
   ActivityObjectBuilder({
     double time,
     String machineId,
     ActivityType activityType,
-    int usageSeconds,
     String tagId,
+    int usageSeconds,
   })
       : _time = time,
         _machineId = machineId,
         _activityType = activityType,
-        _usageSeconds = usageSeconds,
-        _tagId = tagId;
+        _tagId = tagId,
+        _usageSeconds = usageSeconds;
 
   /// Finish building, and store into the [fbBuilder].
   @override
@@ -194,10 +194,86 @@ class ActivityObjectBuilder extends fb.ObjectBuilder {
       fbBuilder.addOffset(1, machineIdOffset);
     }
     fbBuilder.addInt8(2, _activityType?.value);
-    fbBuilder.addUint32(3, _usageSeconds);
     if (tagIdOffset != null) {
-      fbBuilder.addOffset(4, tagIdOffset);
+      fbBuilder.addOffset(3, tagIdOffset);
     }
+    fbBuilder.addUint32(4, _usageSeconds);
+    return fbBuilder.endTable();
+  }
+
+  /// Convenience method to serialize to byte list.
+  @override
+  Uint8List toBytes([String fileIdentifier]) {
+    fb.Builder fbBuilder = new fb.Builder();
+    int offset = finish(fbBuilder);
+    return fbBuilder.finish(offset, fileIdentifier);
+  }
+}
+class CNC_Job {
+  CNC_Job._(this._bc, this._bcOffset);
+  factory CNC_Job(List<int> bytes) {
+    fb.BufferContext rootRef = new fb.BufferContext.fromBytes(bytes);
+    return reader.read(rootRef, 0);
+  }
+
+  static const fb.Reader<CNC_Job> reader = const _CNC_JobReader();
+
+  final fb.BufferContext _bc;
+  final int _bcOffset;
+
+  int get usageSeconds => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 4, null);
+
+  @override
+  String toString() {
+    return 'CNC_Job{usageSeconds: $usageSeconds}';
+  }
+}
+
+class _CNC_JobReader extends fb.TableReader<CNC_Job> {
+  const _CNC_JobReader();
+
+  @override
+  CNC_Job createObject(fb.BufferContext bc, int offset) => 
+    new CNC_Job._(bc, offset);
+}
+
+class CNC_JobBuilder {
+  CNC_JobBuilder(this.fbBuilder) {
+    assert(fbBuilder != null);
+  }
+
+  final fb.Builder fbBuilder;
+
+  void begin() {
+    fbBuilder.startTable();
+  }
+
+  int addUsageSeconds(int usageSeconds) {
+    fbBuilder.addUint32(0, usageSeconds);
+    return fbBuilder.offset;
+  }
+
+  int finish() {
+    return fbBuilder.endTable();
+  }
+}
+
+class CNC_JobObjectBuilder extends fb.ObjectBuilder {
+  final int _usageSeconds;
+
+  CNC_JobObjectBuilder({
+    int usageSeconds,
+  })
+      : _usageSeconds = usageSeconds;
+
+  /// Finish building, and store into the [fbBuilder].
+  @override
+  int finish(
+    fb.Builder fbBuilder) {
+    assert(fbBuilder != null);
+
+    fbBuilder.startTable();
+    fbBuilder.addUint32(0, _usageSeconds);
     return fbBuilder.endTable();
   }
 
