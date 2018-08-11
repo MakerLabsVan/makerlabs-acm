@@ -29,7 +29,6 @@
     "google-apis": "file:./modulizer_workspace/google-apis",
     "google-signin": "file:./modulizer_workspace/google-signin",
     "lit-html": "^0.10.2",
-    "redux": "^4.0.0",
     "timeago.js": "^3.0.2",
     "web-animations-js": "^2.3.1"
   },
