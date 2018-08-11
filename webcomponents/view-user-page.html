@@ -59,6 +59,13 @@
     <meta name="msapplication-TileColor" content="#1e88e5">
     <meta name="msapplication-tap-highlight" content="no">
 
+    <style>
+      html,
+      body {
+        margin: 0;
+      }
+    </style>
+
     <script>
       window.MyAppGlobals = {rootPath: "/"};
       // Load and register pre-caching Service Worker
@@ -70,16 +77,11 @@
         });
       }
     </script>
+
     <script src="./node_modules/fetch-jsonp/build/fetch-jsonp.js"></script>
     <script src="./node_modules/web-animations-js/web-animations-next.min.js"></script>
     <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script type="module" src="./src/app-shell.js"></script>
-    <style>
-      html,
-      body {
-        margin: 0;
-      }
-    </style>
 
     <title>MakerLabs ACM</title>
     <meta name="description" content="MakerLabs ACM Front Desk Kiosk">
