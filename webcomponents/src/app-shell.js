@@ -4,16 +4,16 @@ import {
   setRootPath,
 } from "@polymer/polymer/lib/utils/settings";
 
-/* App Layout */
+// App Layout
 import "@polymer/app-layout/app-header-layout/app-header-layout.js";
 import "@polymer/app-layout/app-header/app-header.js";
 import "@polymer/app-layout/app-toolbar/app-toolbar.js";
 
-/* Google Sign-In, Sheets, Charts, ... */
+// Google Sign-In, Sheets, Charts, ...
 import "google-signin/google-signin.js";
 import "google-apis/google-apis.js";
 
-/* Local Components */
+// Local Components
 import "./user-search-bar.js";
 import "./view-user-form.js";
 

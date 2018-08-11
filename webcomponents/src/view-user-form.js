@@ -1,17 +1,17 @@
 import {LitElement, html} from "@polymer/lit-element";
 
-/* Prereqs */
+// Prereqs
 //import "web-animations-js/web-animations-next-lite.min.js";
 //import "@polymer/neon-animation/web-animations.js";
 import "@polymer/iron-icons/iron-icons.js";
 
-/* Material Design Card/Item Components */
+// Material Design Card/Item Components
 import "@polymer/paper-item/paper-item.js";
 import "@polymer/paper-item/paper-icon-item.js";
 import "@polymer/paper-item/paper-item-body.js";
 import "@polymer/paper-card/paper-card.js";
 
-/* Material Design Form Components */
+// Material Design Form Components
 import "@polymer/paper-input/paper-input.js";
 import "@polymer/paper-checkbox/paper-checkbox.js";
 import "@polymer/paper-dropdown-menu/paper-dropdown-menu.js";
@@ -21,13 +21,13 @@ import "@polymer/paper-radio-button/paper-radio-button.js";
 import "@polymer/paper-fab/paper-fab.js";
 import "@polymer/paper-tooltip/paper-tooltip.js";
 
-/* Vaadin Components */
+// Vaadin Components
 import "@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box.js";
 import "@vaadin/vaadin-date-picker/theme/material/vaadin-date-picker-light.js";
 
 import "timeago.js/dist/timeago.js";
 
-/* Local Components */
+// Local Components
 import "./image-file-uploader.js";
 
 class ViewUserForm extends LitElement {
@@ -891,29 +891,21 @@ class ViewUserForm extends LitElement {
                 const newRowName = updatedRange
                   .substr(prefix.length)
                   .split(":")[0];
-                console.log(
-                  `Successfully created new '${
-                    this.usersSheetName
-                  }' row ${newRowName}`
-                );
+                console.log(`Successfully created new User row ${newRowName}`);
 
                 const rowField = this.fieldForColumnId(this.usersRowColumn);
                 if (rowField) {
                   this.updateField(rowField, newRowName);
                 } else {
-                  console.log(
-                    `Could not find Row column after creating '${
-                      this.usersSheetName
-                    }'`
-                  );
+                  console.log(`Could not find Row column after creating User`);
                 }
               }
             }
           } else {
             console.log(
-              `Invalid response received for creating new '${
-                this.usersSheetName
-              }' ${response.status}`
+              `Invalid response received for creating new User ${
+                response.status
+              }`
             );
           }
           console.log(response);
