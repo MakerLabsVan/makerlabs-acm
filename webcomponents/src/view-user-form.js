@@ -314,6 +314,9 @@ class ViewUserForm extends LitElement {
   get usersNameColumn() {
     return this.usersColumnFromFieldTitle("Maker Info", "Name");
   }
+  get usersEmailColumn() {
+    return this.usersColumnFromFieldTitle("Maker Info", "Email");
+  }
   get usersMakerLabsIdColumn() {
     return this.usersColumnFromFieldTitle("Membership Info", "MakerLabs ID");
   }
@@ -473,7 +476,7 @@ class ViewUserForm extends LitElement {
         );
         var values = this.getFirstRowValuesFromDatatable(datatable);
         if (values && values.length) {
-          this.showUser(values);
+          this.showUserRow(values);
         }
       }
     }
@@ -523,23 +526,27 @@ class ViewUserForm extends LitElement {
         for (var rowIdx = 0; rowIdx < activityValues.length; rowIdx++) {
           var makerLabsId = activityValues[rowIdx][0] || "";
           if (makerLabsId != makerLabsIdPrev) {
-            const datatable = await this.queryUsers(
-              "where " +
-                this.usersMakerLabsIdColumn +
-                " = '" +
-                makerLabsId +
-                "'"
-            );
-            var userValues = this.getFirstRowValuesFromDatatable(datatable);
-            if (userValues && userValues.length) {
-              this.showUser(userValues);
+            var didUpdateForm = this.updateFormFromMakerLabsId(makerLabsId);
+            if (didUpdateForm) {
+              makerLabsIdPrev = makerLabsId;
             }
-
-            makerLabsIdPrev = makerLabsId;
           }
         }
       }
     }
+  }
+
+  async updateFormFromMakerLabsId(makerLabsId) {
+    const datatable = await this.queryUsers(
+      "where " + this.usersMakerLabsIdColumn + " = '" + makerLabsId + "'"
+    );
+    var userValues = this.getFirstRowValuesFromDatatable(datatable);
+    if (userValues && userValues.length) {
+      this.showUserRow(userValues);
+      return true;
+    }
+
+    return false;
   }
 
   async updateRecentTagIds() {
@@ -548,7 +555,6 @@ class ViewUserForm extends LitElement {
       const sinceDuration = 2 * 60 * 1000; // 2 mins
       const sinceTimestamp = Date.now() - sinceDuration;
 
-      //TODO: not hard-coded
       const datatable = await this.queryActivity(
         "select " +
           this.activityTagIdColumn +
@@ -698,15 +704,42 @@ class ViewUserForm extends LitElement {
   }
 
   resetValues() {
-    this.showUser([]);
+    this.showUserRow([]);
   }
 
   populateNewUser() {
-    this.showUser([]);
+    this.showUserRow([]);
     this.populateNextMakerLabsId();
   }
 
-  showUser(data) {
+  showUserObj(user) {
+    const nameField = this.fieldForColumnId(this.usersNameColumn);
+    if (nameField && user.name) {
+      this.updateField(nameField, user.name);
+    }
+
+    const emailField = this.fieldForColumnId(this.emailsNameColumn);
+    if (emailField && user.email) {
+      this.updateField(emailField, user.email);
+    }
+
+    const makerLabsIdField = this.fieldForColumnId(this.usersMakerLabsIdColumn);
+    if (makerLabsIdField && user.makerlabsId) {
+      this.updateField(makerLabsIdField, user.makerlabsId);
+    }
+
+    const alertsField = this.fieldForColumnId(this.usersAlertsColumn);
+    if (alertsField && user.alerts) {
+      this.updateField(alertsField, user.alerts);
+    }
+
+    const tagIdField = this.fieldForColumnId(this.usersTagIdColumn);
+    if (tagIdField && user.tagId) {
+      this.updateField(tagIdField, user.tagId);
+    }
+  }
+
+  showUserRow(data) {
     var i = 0;
     for (var s = 0; s < this.fields.length; ++s) {
       var section = this.fields[s];

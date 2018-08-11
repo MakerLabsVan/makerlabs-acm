@@ -13,6 +13,9 @@ import "@polymer/app-layout/app-toolbar/app-toolbar.js";
 import "google-signin/google-signin.js";
 import "google-apis/google-apis.js";
 
+// Firebase
+import {auth, googleAuthProvider, database} from "./firebase.js";
+
 // Local Components
 import "./user-search-bar.js";
 import "./view-user-form.js";
@@ -35,6 +38,9 @@ class AppShell extends LitElement {
         type: String,
       },
       accessToken: {
+        type: String,
+      },
+      idToken: {
         type: String,
       },
       oauthClientId: {
@@ -152,7 +158,7 @@ class AppShell extends LitElement {
             const datatable = await form.queryUsers(queryStr);
             var values = form.getFirstRowValuesFromDatatable(datatable);
             if (values && values.length) {
-              form.showUser(values);
+              form.showUserRow(values);
             }
           }
         }
@@ -275,9 +281,12 @@ class AppShell extends LitElement {
         switch (item.type) {
           case "user": {
             // Clear existing activity poll loop, if currently running
-            if (this.pollActivityIntervalId) {
-              clearInterval(this.pollActivityIntervalId);
-              this.pollActivityIntervalId = null;
+            if (this.onActivityCallback) {
+              const latestUserRef = database.ref(
+                `readers/${this.machineId}/latestUser`
+              );
+              latestUserRef.off("value", this.onActivityCallback);
+              this.onActivityCallback = null;
             }
 
             form.resetValues();
@@ -287,35 +296,51 @@ class AppShell extends LitElement {
             const datatable = await form.queryUsers(`where A = ${row}`);
             const values = form.getFirstRowValuesFromDatatable(datatable);
             if (values && values.length) {
-              form.showUser(values);
+              form.showUserRow(values);
             }
             break;
           }
           case "machine": {
-            const q = item.Name;
+            this.machineId = item.Name;
 
             // Search the activity list periodically, update the user form accordingly
+            const latestUserRef = database.ref(
+              `readers/${this.machineId}/latestUser`
+            );
+
             var pollActivityIntervalMillis = 2000;
             if (this.pollActivityIntervalId) {
-              clearInterval(this.pollActivityIntervalId);
-              this.pollActivityIntervalId = null;
+              latestUserRef.off("value", this.onActivityCallback);
+              this.onActivityCallback = null;
             }
 
             form.resetValues();
 
-            this.pollActivityIntervalId = window.setInterval(
-              form.updateFormFromMostRecentScan.bind(form),
-              pollActivityIntervalMillis
-            ); // repeat forever
+            // Subscribe to activity events
+            this.onActivityCallback = latestUserRef.on(
+              "value",
+              function(data) {
+                const form = this.shadowRoot.getElementById("form");
+                const user = data.toJSON();
+                if (form && user) {
+                  const makerLabsId = user.makerlabsId;
+
+                  // Clear form and update with Firebase values immediately
+                  form.resetValues();
+                  form.showUserObj(user);
+
+                  // Fetch full user row to update all form fields
+                  form.updateFormFromMakerLabsId(makerLabsId);
+                }
+              }.bind(this)
+            );
           }
         }
       }
     });
   }
 
-  populateAccessToken() {
-    var accessToken = null;
-
+  populateAuthTokens() {
     const authInstance =
       typeof gapi === "object" && gapi.auth2 && gapi.auth2.getAuthInstance();
 
@@ -329,26 +354,24 @@ class AppShell extends LitElement {
         const authResponse = currentUser.getAuthResponse(true);
         if (authResponse) {
           if ("access_token" in authResponse) {
-            accessToken = authResponse["access_token"];
+            this.accessToken = authResponse["access_token"];
+          } else {
+            console.log(
+              "Could not find access_token in Google Sign-In response"
+            );
+          }
+          if ("id_token" in authResponse) {
+            this.idToken = authResponse["id_token"];
+            this.loginFirebase();
+          } else {
+            console.log("Could not find id_token in Google Sign-In response");
           }
         }
       }
     }
-
-    return accessToken;
   }
 
-  async handleAuthSignIn(response) {
-    this.accessToken = this.populateAccessToken();
-
-    const intervalId = setInterval(
-      () => {
-        this.accessToken = this.populateAccessToken();
-        console.log(`Updated accessToken`);
-      },
-      20 * (60 * 1000) // 20min
-    );
-
+  async fetchUserFields() {
     if (
       this.fieldsUrl &&
       this.fieldsUrl.length > 0 &&
@@ -374,7 +397,53 @@ class AppShell extends LitElement {
     }
   }
 
-  handleAuthSignOut(response) {}
+  loginFirebase() {
+    // Build Firebase credential with the Google ID token.
+    var credential = googleAuthProvider.credential(this.idToken);
+
+    // Sign in with credential from the Google user.
+    auth.signInAndRetrieveDataWithCredential(credential).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      if (errorCode === "auth/account-exists-with-different-credential") {
+        console.log(
+          "You have already signed up with a different auth provider for that email."
+        );
+        // If you are using multiple auth providers on your app you should handle linking
+        // the user's accounts here.
+      } else {
+        console.error(error);
+      }
+    });
+  }
+
+  handleFirebaseAuthStateChange(user) {
+  }
+
+  async handleAuthSignIn(response) {
+    this.populateAuthTokens();
+
+    const intervalId = setInterval(
+      () => {
+        this.populateAuthTokens();
+        console.log(`Updated accessToken`);
+      },
+      20 * (60 * 1000) // 20min
+    );
+
+    this.fetchUserFields();
+
+    auth.onAuthStateChanged(this.handleFirebaseAuthStateChange.bind(this));
+  }
+
+  handleAuthSignOut(response) {
+    auth.signOut();
+  }
 
   handleAuthStateChange(response) {}
 }
