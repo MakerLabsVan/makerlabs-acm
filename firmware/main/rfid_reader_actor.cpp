@@ -44,7 +44,13 @@ auto rfid_reader_actor_behaviour(
   {
     if (matches(message, "scan"))
     {
+#if CONFIG_ACM_ENABLE_SIGNED_OUT_ACTIVITY || CONFIG_ACM_ENABLE_CNC_JOB_ACTIVITY
+      // Use the latest tag from the scanning_fsm (using hold toggle loop)
       const auto scanned_tag = state.rfid_reader.last_scanned_tag;
+#else
+      // Use the latest tag (no need to periodically check if it is still there)
+      const auto scanned_tag = state.rfid_reader.scan_tag();
+#endif // CONFIG_ACM_ENABLE_SIGNED_OUT_ACTIVITY || CONFIG_ACM_ENABLE_CNC_JOB_ACTIVITY
 
       if (scanned_tag != state.scanned_tag_prev)
       {
