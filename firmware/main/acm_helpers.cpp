@@ -13,7 +13,8 @@ using string_view = std::experimental::string_view;
 auto generate_activity(
   const string_view machine_id_str,
   const ActivityType activity_type,
-  const string_view tag_id_str
+  const string_view tag_id_str,
+  const int usage_seconds
 ) -> ActivityFlatbuffer
 {
   flatbuffers::FlatBufferBuilder fbb;
@@ -26,8 +27,8 @@ auto generate_activity(
     epoch_milliseconds,
     fbb.CreateString(machine_id_str),
     activity_type,
-    0, // usage_seconds?
-    fbb.CreateString(tag_id_str)
+    fbb.CreateString(tag_id_str),
+    usage_seconds
   );
   fbb.Finish(activity_loc, ActivityIdentifier());
 

@@ -10,11 +10,15 @@ namespace ACM {
 
 struct Activity;
 
+struct CNC_Job;
+
 struct User;
 
 struct Log;
 
 inline const flatbuffers::TypeTable *ActivityTypeTable();
+
+inline const flatbuffers::TypeTable *CNC_JobTypeTable();
 
 inline const flatbuffers::TypeTable *UserTypeTable();
 
@@ -107,8 +111,8 @@ struct Activity FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_TIME = 4,
     VT_MACHINE_ID = 6,
     VT_ACTIVITY_TYPE = 8,
-    VT_USAGE_SECONDS = 10,
-    VT_TAG_ID = 12
+    VT_TAG_ID = 10,
+    VT_USAGE_SECONDS = 12
   };
   double time() const {
     return GetField<double>(VT_TIME, 0.0);
@@ -128,27 +132,27 @@ struct Activity FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   bool mutate_activity_type(ActivityType _activity_type) {
     return SetField<int8_t>(VT_ACTIVITY_TYPE, static_cast<int8_t>(_activity_type), 0);
   }
-  uint32_t usage_seconds() const {
-    return GetField<uint32_t>(VT_USAGE_SECONDS, 0);
-  }
-  bool mutate_usage_seconds(uint32_t _usage_seconds) {
-    return SetField<uint32_t>(VT_USAGE_SECONDS, _usage_seconds, 0);
-  }
   const flatbuffers::String *tag_id() const {
     return GetPointer<const flatbuffers::String *>(VT_TAG_ID);
   }
   flatbuffers::String *mutable_tag_id() {
     return GetPointer<flatbuffers::String *>(VT_TAG_ID);
   }
+  uint32_t usage_seconds() const {
+    return GetField<uint32_t>(VT_USAGE_SECONDS, 0);
+  }
+  bool mutate_usage_seconds(uint32_t _usage_seconds) {
+    return SetField<uint32_t>(VT_USAGE_SECONDS, _usage_seconds, 0);
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<double>(verifier, VT_TIME) &&
            VerifyOffset(verifier, VT_MACHINE_ID) &&
-           verifier.Verify(machine_id()) &&
+           verifier.VerifyString(machine_id()) &&
            VerifyField<int8_t>(verifier, VT_ACTIVITY_TYPE) &&
-           VerifyField<uint32_t>(verifier, VT_USAGE_SECONDS) &&
            VerifyOffset(verifier, VT_TAG_ID) &&
-           verifier.Verify(tag_id()) &&
+           verifier.VerifyString(tag_id()) &&
+           VerifyField<uint32_t>(verifier, VT_USAGE_SECONDS) &&
            verifier.EndTable();
   }
 };
@@ -165,11 +169,11 @@ struct ActivityBuilder {
   void add_activity_type(ActivityType activity_type) {
     fbb_.AddElement<int8_t>(Activity::VT_ACTIVITY_TYPE, static_cast<int8_t>(activity_type), 0);
   }
-  void add_usage_seconds(uint32_t usage_seconds) {
-    fbb_.AddElement<uint32_t>(Activity::VT_USAGE_SECONDS, usage_seconds, 0);
-  }
   void add_tag_id(flatbuffers::Offset<flatbuffers::String> tag_id) {
     fbb_.AddOffset(Activity::VT_TAG_ID, tag_id);
+  }
+  void add_usage_seconds(uint32_t usage_seconds) {
+    fbb_.AddElement<uint32_t>(Activity::VT_USAGE_SECONDS, usage_seconds, 0);
   }
   explicit ActivityBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -188,12 +192,12 @@ inline flatbuffers::Offset<Activity> CreateActivity(
     double time = 0.0,
     flatbuffers::Offset<flatbuffers::String> machine_id = 0,
     ActivityType activity_type = ActivityType::Signed_In,
-    uint32_t usage_seconds = 0,
-    flatbuffers::Offset<flatbuffers::String> tag_id = 0) {
+    flatbuffers::Offset<flatbuffers::String> tag_id = 0,
+    uint32_t usage_seconds = 0) {
   ActivityBuilder builder_(_fbb);
   builder_.add_time(time);
-  builder_.add_tag_id(tag_id);
   builder_.add_usage_seconds(usage_seconds);
+  builder_.add_tag_id(tag_id);
   builder_.add_machine_id(machine_id);
   builder_.add_activity_type(activity_type);
   return builder_.Finish();
@@ -204,15 +208,64 @@ inline flatbuffers::Offset<Activity> CreateActivityDirect(
     double time = 0.0,
     const char *machine_id = nullptr,
     ActivityType activity_type = ActivityType::Signed_In,
-    uint32_t usage_seconds = 0,
-    const char *tag_id = nullptr) {
+    const char *tag_id = nullptr,
+    uint32_t usage_seconds = 0) {
   return ACM::CreateActivity(
       _fbb,
       time,
       machine_id ? _fbb.CreateString(machine_id) : 0,
       activity_type,
-      usage_seconds,
-      tag_id ? _fbb.CreateString(tag_id) : 0);
+      tag_id ? _fbb.CreateString(tag_id) : 0,
+      usage_seconds);
+}
+
+struct CNC_Job FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  static const flatbuffers::TypeTable *MiniReflectTypeTable() {
+    return CNC_JobTypeTable();
+  }
+  static FLATBUFFERS_CONSTEXPR const char *GetFullyQualifiedName() {
+    return "ACM.CNC_Job";
+  }
+  enum {
+    VT_USAGE_SECONDS = 4
+  };
+  uint32_t usage_seconds() const {
+    return GetField<uint32_t>(VT_USAGE_SECONDS, 0);
+  }
+  bool mutate_usage_seconds(uint32_t _usage_seconds) {
+    return SetField<uint32_t>(VT_USAGE_SECONDS, _usage_seconds, 0);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<uint32_t>(verifier, VT_USAGE_SECONDS) &&
+           verifier.EndTable();
+  }
+};
+
+struct CNC_JobBuilder {
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_usage_seconds(uint32_t usage_seconds) {
+    fbb_.AddElement<uint32_t>(CNC_Job::VT_USAGE_SECONDS, usage_seconds, 0);
+  }
+  explicit CNC_JobBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  CNC_JobBuilder &operator=(const CNC_JobBuilder &);
+  flatbuffers::Offset<CNC_Job> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<CNC_Job>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<CNC_Job> CreateCNC_Job(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    uint32_t usage_seconds = 0) {
+  CNC_JobBuilder builder_(_fbb);
+  builder_.add_usage_seconds(usage_seconds);
+  return builder_.Finish();
 }
 
 struct User FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -276,19 +329,19 @@ struct User FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_NAME) &&
-           verifier.Verify(name()) &&
+           verifier.VerifyString(name()) &&
            VerifyOffset(verifier, VT_EMAIL) &&
-           verifier.Verify(email()) &&
+           verifier.VerifyString(email()) &&
            VerifyOffset(verifier, VT_MAKERLABS_ID) &&
-           verifier.Verify(makerlabs_id()) &&
+           verifier.VerifyString(makerlabs_id()) &&
            VerifyOffset(verifier, VT_MAKER_STATUS) &&
-           verifier.Verify(maker_status()) &&
+           verifier.VerifyString(maker_status()) &&
            VerifyOffset(verifier, VT_TAG_ID) &&
-           verifier.Verify(tag_id()) &&
+           verifier.VerifyString(tag_id()) &&
            VerifyOffset(verifier, VT_ALERTS) &&
-           verifier.Verify(alerts()) &&
+           verifier.VerifyString(alerts()) &&
            VerifyOffset(verifier, VT_PERMISSIONS) &&
-           verifier.Verify(permissions()) &&
+           verifier.VerifyVector(permissions()) &&
            verifier.VerifyVectorOfStrings(permissions()) &&
            verifier.EndTable();
   }
@@ -410,11 +463,11 @@ struct Log FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_MACHINE_ID) &&
-           verifier.Verify(machine_id()) &&
+           verifier.VerifyString(machine_id()) &&
            VerifyField<int8_t>(verifier, VT_SEVERITY) &&
            VerifyField<uint64_t>(verifier, VT_TIME) &&
            VerifyOffset(verifier, VT_MESSAGE) &&
-           verifier.Verify(message()) &&
+           verifier.VerifyString(message()) &&
            verifier.EndTable();
   }
 };
@@ -527,8 +580,8 @@ inline const flatbuffers::TypeTable *ActivityTypeTable() {
     { flatbuffers::ET_DOUBLE, 0, -1 },
     { flatbuffers::ET_STRING, 0, -1 },
     { flatbuffers::ET_CHAR, 0, 0 },
-    { flatbuffers::ET_UINT, 0, -1 },
-    { flatbuffers::ET_STRING, 0, -1 }
+    { flatbuffers::ET_STRING, 0, -1 },
+    { flatbuffers::ET_UINT, 0, -1 }
   };
   static const flatbuffers::TypeFunction type_refs[] = {
     ActivityTypeTypeTable
@@ -537,11 +590,24 @@ inline const flatbuffers::TypeTable *ActivityTypeTable() {
     "time",
     "machine_id",
     "activity_type",
-    "usage_seconds",
-    "tag_id"
+    "tag_id",
+    "usage_seconds"
   };
   static const flatbuffers::TypeTable tt = {
     flatbuffers::ST_TABLE, 5, type_codes, type_refs, nullptr, names
+  };
+  return &tt;
+}
+
+inline const flatbuffers::TypeTable *CNC_JobTypeTable() {
+  static const flatbuffers::TypeCode type_codes[] = {
+    { flatbuffers::ET_UINT, 0, -1 }
+  };
+  static const char * const names[] = {
+    "usage_seconds"
+  };
+  static const flatbuffers::TypeTable tt = {
+    flatbuffers::ST_TABLE, 1, type_codes, nullptr, nullptr, names
   };
   return &tt;
 }
@@ -593,51 +659,51 @@ inline const flatbuffers::TypeTable *LogTypeTable() {
   return &tt;
 }
 
-inline const ACM::Activity *GetActivity(const void *buf) {
-  return flatbuffers::GetRoot<ACM::Activity>(buf);
+inline const ACM::User *GetUser(const void *buf) {
+  return flatbuffers::GetRoot<ACM::User>(buf);
 }
 
-inline const ACM::Activity *GetSizePrefixedActivity(const void *buf) {
-  return flatbuffers::GetSizePrefixedRoot<ACM::Activity>(buf);
+inline const ACM::User *GetSizePrefixedUser(const void *buf) {
+  return flatbuffers::GetSizePrefixedRoot<ACM::User>(buf);
 }
 
-inline Activity *GetMutableActivity(void *buf) {
-  return flatbuffers::GetMutableRoot<Activity>(buf);
+inline User *GetMutableUser(void *buf) {
+  return flatbuffers::GetMutableRoot<User>(buf);
 }
 
-inline const char *ActivityIdentifier() {
+inline const char *UserIdentifier() {
   return "ACM.";
 }
 
-inline bool ActivityBufferHasIdentifier(const void *buf) {
+inline bool UserBufferHasIdentifier(const void *buf) {
   return flatbuffers::BufferHasIdentifier(
-      buf, ActivityIdentifier());
+      buf, UserIdentifier());
 }
 
-inline bool VerifyActivityBuffer(
+inline bool VerifyUserBuffer(
     flatbuffers::Verifier &verifier) {
-  return verifier.VerifyBuffer<ACM::Activity>(ActivityIdentifier());
+  return verifier.VerifyBuffer<ACM::User>(UserIdentifier());
 }
 
-inline bool VerifySizePrefixedActivityBuffer(
+inline bool VerifySizePrefixedUserBuffer(
     flatbuffers::Verifier &verifier) {
-  return verifier.VerifySizePrefixedBuffer<ACM::Activity>(ActivityIdentifier());
+  return verifier.VerifySizePrefixedBuffer<ACM::User>(UserIdentifier());
 }
 
-inline const char *ActivityExtension() {
+inline const char *UserExtension() {
   return "fb";
 }
 
-inline void FinishActivityBuffer(
+inline void FinishUserBuffer(
     flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<ACM::Activity> root) {
-  fbb.Finish(root, ActivityIdentifier());
+    flatbuffers::Offset<ACM::User> root) {
+  fbb.Finish(root, UserIdentifier());
 }
 
-inline void FinishSizePrefixedActivityBuffer(
+inline void FinishSizePrefixedUserBuffer(
     flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<ACM::Activity> root) {
-  fbb.FinishSizePrefixed(root, ActivityIdentifier());
+    flatbuffers::Offset<ACM::User> root) {
+  fbb.FinishSizePrefixed(root, UserIdentifier());
 }
 
 }  // namespace ACM

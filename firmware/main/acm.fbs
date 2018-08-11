@@ -19,8 +19,13 @@ table Activity
   time:float64;
   machine_id:string;
   activity_type:ActivityType;
-  usage_seconds:uint32 = 0;
   tag_id:string;
+  usage_seconds:uint32 = 0;
+}
+
+table CNC_Job
+{
+  usage_seconds:uint32 = 0;
 }
 
 table User

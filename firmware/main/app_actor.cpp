@@ -144,6 +144,7 @@ struct AppActorState
   string access_token;
 
   string machine_id_str = CONFIG_ACM_PERMISSION_COLUMN_LABEL;
+  string tag_id_str;
   bool logged_in = false;
   TRef progress_tref = NullTRef;
   bool rfid_scanning = false;
@@ -162,12 +163,11 @@ auto app_actor_behaviour(
   auto& state = *(std::static_pointer_cast<AppActorState>(_state));
 
   {
-    string tag_id_str;
-    if (matches(message, "tag_found", tag_id_str))
+    if (matches(message, "tag_found", state.tag_id_str))
     {
       // Update progress bar to 0%
       auto progress = 0;
-      auto message = "Tag " + tag_id_str + " search";
+      auto message = "Tag " + state.tag_id_str + " search";
 
       // Send the updated progress bar to the display
       auto progress_bar = generate_progress_bar(message, progress);
@@ -178,7 +178,7 @@ auto app_actor_behaviour(
       const auto& activity_flatbuf = generate_activity(
         state.machine_id_str,
         ActivityType::Signed_In,
-        tag_id_str
+        state.tag_id_str
       );
 
       MutableActivityFlatbuffer activity_mutable_buf;
@@ -194,11 +194,10 @@ auto app_actor_behaviour(
   }
 
   {
-    string tag_id_str;
-    if (matches(message, "tag_lost", tag_id_str))
+    if (matches(message, "tag_lost", state.tag_id_str))
     {
       // Update progress bar to 0%
-      auto message = "Tag " + tag_id_str + " removed";
+      auto message = "Tag " + state.tag_id_str + " removed";
       auto progress = 0;
       auto progress_bar = generate_progress_bar(message, progress);
       state.send_progress_bar(progress_bar);
@@ -216,7 +215,7 @@ auto app_actor_behaviour(
       const auto& activity_flatbuf = generate_activity(
         state.machine_id_str,
         ActivityType::Signed_Out,
-        tag_id_str
+        state.tag_id_str
       );
 
       MutableActivityFlatbuffer activity_mutable_buf;
@@ -228,6 +227,29 @@ auto app_actor_behaviour(
 #endif // CONFIG_ACM_ENABLE_SIGNED_OUT_ACTIVITY
 
       return {Result::Ok};
+    }
+  }
+
+  {
+    const CNC_Job* cnc_job = nullptr;
+    if (matches(message, "cnc_job", cnc_job))
+    {
+#if CONFIG_ACM_ENABLE_CNC_JOB_ACTIVITY
+      // Add a Signed_In activity:
+      const auto& activity_flatbuf = generate_activity(
+        state.machine_id_str,
+        ActivityType::CNC_Job,
+        state.tag_id_str,
+        cnc_job->usage_seconds()
+      );
+
+      MutableActivityFlatbuffer activity_mutable_buf;
+      activity_mutable_buf.assign(
+        activity_flatbuf.data(),
+        activity_flatbuf.data() + activity_flatbuf.size()
+      );
+      state.send_activity_request(activity_mutable_buf, self);
+#endif // CONFIG_ACM_ENABLE_CNC_JOB_ACTIVITY
     }
   }
 

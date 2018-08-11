@@ -13,7 +13,8 @@ using UserFlatbuffer = flatbuffers::DetachedBuffer;
 auto generate_activity(
   const std::experimental::string_view machine_id_str,
   const ACM::ActivityType activity_type,
-  const std::experimental::string_view tag_id_str
+  const std::experimental::string_view tag_id_str,
+  const int usage_seconds = 0
 ) -> ActivityFlatbuffer;
 
 auto generate_log(
