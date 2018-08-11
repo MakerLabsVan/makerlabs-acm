@@ -2,8 +2,8 @@
 
 #include "delay.h"
 
-#include "soc/timer_group_struct.h"
 #include "driver/timer.h"
+#include "soc/timer_group_struct.h"
 
 #include "esp_log.h"
 
@@ -23,6 +23,7 @@ HIDGlobalReader::HIDGlobalReader(const WiegandReader::Config& config) noexcept
 : WiegandReader(config)
 {
   set_beeper(0);
+  set_hold(0);
 
   // Configure one of the hardware timer groups, two separate timers on it
   timer_config_t timer_config = {
@@ -36,7 +37,9 @@ HIDGlobalReader::HIDGlobalReader(const WiegandReader::Config& config) noexcept
 
   auto timer_idxs = std::unordered_map<int, TimerCallbackFunction>{
     { BEEP_TIMER_IDX, beep_timer_isr },
+#if CONFIG_ACM_ENABLE_SIGNED_OUT_ACTIVITY || CONFIG_ACM_ENABLE_CNC_JOB_ACTIVITY
     { HOLD_TIMER_IDX, hold_timer_isr }
+#endif // CONFIG_ACM_ENABLE_SIGNED_OUT_ACTIVITY || CONFIG_ACM_ENABLE_CNC_JOB_ACTIVITY
   };
   for (const auto& timer_callback : timer_idxs)
   {
@@ -60,11 +63,13 @@ HIDGlobalReader::HIDGlobalReader(const WiegandReader::Config& config) noexcept
     );
   }
 
+#if CONFIG_ACM_ENABLE_SIGNED_OUT_ACTIVITY || CONFIG_ACM_ENABLE_CNC_JOB_ACTIVITY
   // Set the initial hold timer to expire immediately
   timer_set_alarm_value(TIMER_GROUP_0, HOLD_TIMER_IDX, 1ULL);
 
   // Start the hold timer loop
   timer_start(TIMER_GROUP_0, HOLD_TIMER_IDX);
+#endif // CONFIG_ACM_ENABLE_SIGNED_OUT_ACTIVITY || CONFIG_ACM_ENABLE_CNC_JOB_ACTIVITY
 }
 
 auto IRAM_ATTR HIDGlobalReader::scanning_fsm()
