@@ -217,13 +217,13 @@ struct ShowUserDetails FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_NAME) &&
-           verifier.Verify(name()) &&
+           verifier.VerifyString(name()) &&
            VerifyOffset(verifier, VT_EMAIL) &&
-           verifier.Verify(email()) &&
+           verifier.VerifyString(email()) &&
            VerifyOffset(verifier, VT_MAKERLABS_ID) &&
-           verifier.Verify(makerlabs_id()) &&
+           verifier.VerifyString(makerlabs_id()) &&
            VerifyOffset(verifier, VT_TAG_ID) &&
-           verifier.Verify(tag_id()) &&
+           verifier.VerifyString(tag_id()) &&
            verifier.EndTable();
   }
 };
@@ -482,19 +482,19 @@ struct ShowMessage FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     return VerifyTableStart(verifier) &&
            VerifyField<int16_t>(verifier, VT_TOP_LEFT_ICON) &&
            VerifyOffset(verifier, VT_TOP_LEFT) &&
-           verifier.Verify(top_left()) &&
+           verifier.VerifyString(top_left()) &&
            VerifyField<int8_t>(verifier, VT_TOP_LEFT_FONT_SIZE) &&
            VerifyField<int16_t>(verifier, VT_TOP_RIGHT_ICON) &&
            VerifyOffset(verifier, VT_TOP_RIGHT) &&
-           verifier.Verify(top_right()) &&
+           verifier.VerifyString(top_right()) &&
            VerifyField<int8_t>(verifier, VT_TOP_RIGHT_FONT_SIZE) &&
            VerifyField<int16_t>(verifier, VT_BOTTOM_LEFT_ICON) &&
            VerifyOffset(verifier, VT_BOTTOM_LEFT) &&
-           verifier.Verify(bottom_left()) &&
+           verifier.VerifyString(bottom_left()) &&
            VerifyField<int8_t>(verifier, VT_BOTTOM_LEFT_FONT_SIZE) &&
            VerifyField<int16_t>(verifier, VT_BOTTOM_RIGHT_ICON) &&
            VerifyOffset(verifier, VT_BOTTOM_RIGHT) &&
-           verifier.Verify(bottom_right()) &&
+           verifier.VerifyString(bottom_right()) &&
            VerifyField<int8_t>(verifier, VT_BOTTOM_RIGHT_FONT_SIZE) &&
            verifier.EndTable();
   }
@@ -644,7 +644,7 @@ struct ProgressBar FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_MESSAGE) &&
-           verifier.Verify(message()) &&
+           verifier.VerifyString(message()) &&
            VerifyField<uint32_t>(verifier, VT_PROGRESS) &&
            VerifyField<int16_t>(verifier, VT_ICON) &&
            verifier.EndTable();
