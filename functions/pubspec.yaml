@@ -4,7 +4,7 @@ version: 0.0.1
 author: Paul Reimer <paul@p-rimes.net>
 
 environment:
-  sdk: '>=2.0.0-dev.55.0 <2.0.0'
+  sdk: '>=2.0.0-dev.55.0 <3.0.0'
 
 dependencies:
   googleapis: ^0.51.0
