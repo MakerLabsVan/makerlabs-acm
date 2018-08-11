@@ -46,16 +46,24 @@ struct MachineActorState
     _gpio_config.intr_type = static_cast<gpio_int_type_t>(GPIO_PIN_INTR_DISABLE);
     // Set as output type
     _gpio_config.mode = static_cast<gpio_mode_t>(GPIO_MODE_OUTPUT);
+
+    // Interlock:
     // Enable pull-up mode
     _gpio_config.pull_down_en = static_cast<gpio_pulldown_t>(false);
     _gpio_config.pull_up_en = static_cast<gpio_pullup_t>(true);
-    // Configure all output pins with above options at once
     _gpio_config.pin_bit_mask = (
       (1ULL << static_cast<gpio_num_t>(interlock_pin))
-      | (1ULL << static_cast<gpio_num_t>(relay_pin))
     );
+    // Configure interlock GPIO
+    gpio_config(&_gpio_config);
 
-    // Configure GPIO outputs
+    // Relay:
+    _gpio_config.pull_down_en = static_cast<gpio_pulldown_t>(true);
+    _gpio_config.pull_up_en = static_cast<gpio_pullup_t>(false);
+    _gpio_config.pin_bit_mask = (
+      (1ULL << static_cast<gpio_num_t>(relay_pin))
+    );
+    // Configure interlock GPIO
     gpio_config(&_gpio_config);
 
     // Setup GPIO inputs (MotorX, MotorY)
@@ -65,7 +73,7 @@ struct MachineActorState
     _gpio_config.mode = GPIO_MODE_INPUT;
     // Disable pull-up / pull-down mode
     _gpio_config.pull_down_en = static_cast<gpio_pulldown_t>(false);
-    _gpio_config.pull_up_en = static_cast<gpio_pullup_t>(false);
+    _gpio_config.pull_up_en = static_cast<gpio_pullup_t>(true);
     // Configure all input pins with above options at once
     _gpio_config.pin_bit_mask = (
       (1ULL << static_cast<gpio_num_t>(motor_x_pin))
@@ -126,14 +134,23 @@ struct MachineActorState
   int relay_pin;
   int motor_x_pin;
   int motor_y_pin;
-  TimeDuration last_motor_timestamp;
-  int last_motor_activity_count = 0;
+  TimeDuration last_motor_pulse_timestamp = 0s;
+  TimeDuration last_motor_activity_timestamp = 0s;
+  int last_motor_pulse_count = 0;
+  int motor_activity_seconds = 0;
+  TimeDuration max_job_interval = 5s;
 
+  int max_motor_pulse_count = 1024;
+  int threshold_motor_pulse_count = 5;
+
+  TRef motor_activity_check_tref = NullTRef;
   TRef disable_interlock_tref = NullTRef;
   TRef disable_relay_tref = NullTRef;
 
-  static constexpr bool ON = false;
-  static constexpr bool OFF = true;
+  static constexpr bool RELAY_ON = true;
+  static constexpr bool RELAY_OFF = false;
+  static constexpr bool INTERLOCK_ON = false;
+  static constexpr bool INTERLOCK_OFF = true;
 };
 
 static void IRAM_ATTR
@@ -142,14 +159,17 @@ motors_gpio_isr_handler(void* arg)
   if (arg)
   {
     auto* state = static_cast<MachineActorState*>(arg);
-    auto& last_motor_timestamp = state->last_motor_timestamp;
-    auto& last_motor_activity_count = state->last_motor_activity_count;
+    auto& last_motor_pulse_timestamp = state->last_motor_pulse_timestamp;
+    auto& last_motor_pulse_count = state->last_motor_pulse_count;
+    const auto& max_motor_pulse_count = state->max_motor_pulse_count;
 
     auto now = get_elapsed_microseconds();
 
     // Update last motor timestamp
-    last_motor_timestamp = now;
-    last_motor_activity_count++;
+    last_motor_pulse_timestamp = now;
+    if (last_motor_pulse_count < max_motor_pulse_count) {
+      last_motor_pulse_count++;
+    }
   }
 }
 
@@ -180,6 +200,16 @@ auto machine_actor_behaviour(
         state.disable_relay_tref = NullTRef;
       }
 
+      // Start periodic motor activity check
+      if (not state.motor_activity_check_tref)
+      {
+        state.motor_activity_check_tref = send_interval(
+          1s,
+          self,
+          "motor_activity_check"
+        );
+      }
+
       // Enable machine immediately
       send(self, "enable_interlock");
       send(self, "enable_relay");
@@ -206,6 +236,52 @@ auto machine_actor_behaviour(
           "disable_relay"
         );
       }
+
+      // Disable periodic motor activity check
+      if (state.motor_activity_check_tref)
+      {
+        cancel(state.motor_activity_check_tref);
+        state.motor_activity_check_tref = NullTRef;
+      }
+    }
+  }
+
+  {
+    if (matches(message, "motor_activity_check"))
+    {
+      auto now = get_elapsed_microseconds();
+      bool motor_activity = (
+        state.last_motor_pulse_count >= state.threshold_motor_pulse_count
+      );
+      printf("Check pulse count over threshold: %d / %d = %d\n", state.last_motor_pulse_count, state.threshold_motor_pulse_count, motor_activity);
+      if (motor_activity)
+      {
+        if ((now - state.last_motor_activity_timestamp) > state.max_job_interval)
+        {
+          printf("Begin job\n");
+        }
+
+        state.last_motor_activity_timestamp = now;
+        state.motor_activity_seconds++;
+      }
+      else if (
+        ((now - state.last_motor_activity_timestamp) > state.max_job_interval)
+        and (state.motor_activity_seconds > 0)
+      )
+      {
+        flatbuffers::FlatBufferBuilder fbb;
+
+        auto cnc_job_loc = CreateCNC_Job(fbb, state.motor_activity_seconds);
+        fbb.Finish(cnc_job_loc, UserIdentifier());
+
+        //printf("End job, usage seconds = %d\n", state.motor_activity_seconds);
+        auto main_actor_pid = *(whereis("app"));
+        send(main_actor_pid, "cnc_job", fbb.Release());
+        state.motor_activity_seconds = 0;
+      }
+
+      state.last_motor_pulse_count = 0;
+      return {Result::Ok};
     }
   }
 
@@ -213,7 +289,7 @@ auto machine_actor_behaviour(
     if (matches(message, "enable_interlock"))
     {
       printf("Turn on interlock\n");
-      state._set_output(state.interlock_pin, state.ON);
+      state._set_output(state.interlock_pin, state.INTERLOCK_ON);
       return {Result::Ok};
     }
   }
@@ -222,7 +298,7 @@ auto machine_actor_behaviour(
     if (matches(message, "disable_interlock"))
     {
       printf("Turn off interlock\n");
-      state._set_output(state.interlock_pin, state.OFF);
+      state._set_output(state.interlock_pin, state.INTERLOCK_OFF);
       return {Result::Ok};
     }
   }
@@ -231,7 +307,7 @@ auto machine_actor_behaviour(
     if (matches(message, "enable_relay"))
     {
       printf("Turn on relay\n");
-      state._set_output(state.relay_pin, state.ON);
+      state._set_output(state.relay_pin, state.RELAY_ON);
       return {Result::Ok};
     }
   }
@@ -240,7 +316,7 @@ auto machine_actor_behaviour(
     if (matches(message, "disable_relay"))
     {
       printf("Turn off relay\n");
-      state._set_output(state.relay_pin, state.OFF);
+      state._set_output(state.relay_pin, state.RELAY_OFF);
       return {Result::Ok};
     }
   }
