@@ -7,7 +7,7 @@
     "headers": [
       { "k": "Content-Type", "v": "application/x-www-form-urlencoded" }
     ],
-    "body": [],
+    "body": "",
   },
   "desired_format": "JsonPath",
   "object_path": ".access_token"

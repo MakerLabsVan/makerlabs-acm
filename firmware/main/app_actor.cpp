@@ -281,7 +281,7 @@ auto app_actor_behaviour(
           if (response->body() and response->body()->size() > 0)
           {
             flatbuffers::Verifier verifier(
-              response->body()->data(),
+              reinterpret_cast<const uint8_t*>(response->body()->data()),
               response->body()->size()
             );
 

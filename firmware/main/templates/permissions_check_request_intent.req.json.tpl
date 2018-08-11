@@ -9,7 +9,7 @@
       { "k": "Authorization", "v": "" }
     ],
     "query": [],
-    "body": []
+    "body": ""
   },
   "desired_format": "FullResponseBody"
 }
