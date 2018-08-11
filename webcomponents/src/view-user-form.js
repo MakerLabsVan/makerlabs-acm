@@ -29,6 +29,7 @@ import "timeago.js/dist/timeago.js";
 
 // Local Components
 import "./image-file-uploader.js";
+import beep from "./beep.js";
 
 class ViewUserForm extends LitElement {
   static get properties() {
@@ -713,6 +714,10 @@ class ViewUserForm extends LitElement {
   }
 
   showUserObj(user) {
+    if (user.alerts) {
+      beep();
+    }
+
     const nameField = this.fieldForColumnId(this.usersNameColumn);
     if (nameField && user.name) {
       this.updateField(nameField, user.name);
