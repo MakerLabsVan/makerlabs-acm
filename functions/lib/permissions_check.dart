@@ -23,14 +23,16 @@ import "package:node_http/node_http.dart" as http;
 // Local packages
 import "src/gen/acm_a_c_m_generated.dart" as ACM;
 
-import "src/http_response_exception.dart";
-import "src/spreadsheet_helpers.dart";
 import "src/append_activity_to_spreadsheet.dart";
-import "src/spreadsheet_client.dart";
-import "src/fetch_sheet_columns.dart";
 import "src/datatable_to_user.dart";
 import "src/extract_access_token.dart";
+import "src/fetch_sheet_columns.dart";
 import "src/generate_permissions_check_query.dart";
+import "src/http_response_exception.dart";
+import "src/push_activity_to_firebase.dart";
+import "src/push_latest_user_to_firebase.dart";
+import "src/spreadsheet_client.dart";
+import "src/spreadsheet_helpers.dart";
 
 final String SPREADSHEET_QUERY_AUTHORITY = "docs.google.com";
 
@@ -56,6 +58,7 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
   // Return 500 error for any unhandled exceptions
   try {
     final config = FirebaseFunctions.config;
+
     // Google Sheets ACM Spreadsheet ID
     final String SPREADSHEET_ID = config.get("acm.spreadsheet_id");
     if (SPREADSHEET_ID == null) {
@@ -82,10 +85,24 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
     // Check that the Activity flatbuffer has the expected fields
     if (activity.time == null ||
         activity.tagId == null ||
-        activity.activityType == null) {
+        activity.activityType == null ||
+        activity.machineId == null) {
       throw new HttpResponseException(
           "Invalid (empty) Activity in request body",
           statusCode: HttpStatus.badRequest);
+    }
+
+    // Firebase RTDB Activity ref
+    final admin = FirebaseAdmin.instance;
+    final app = admin.initializeApp();
+    final Database database = app.database();
+    final Reference activityRef =
+        database.ref("/activity/${activity.machineId}");
+    final Reference latestUserRef =
+        database.ref("readers/${activity.machineId}/latestUser");
+
+    if (activityRef != null) {
+      //push_activity_to_firebase(activityRef, activity);
     }
 
     // Extract the latest Sheets API from the generated APIs
@@ -152,6 +169,10 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
 
     final user = new ACM.User(userBytes);
     print("got User: ${user}");
+
+    if (latestUserRef != null) {
+      push_latest_user_to_firebase(latestUserRef, user);
+    }
 
     final hexdump =
         userBytes.map((b) => b.toRadixString(16).padLeft(2, "0")).join("");
