@@ -16,14 +16,16 @@ import "package:googleapis/sheets/v4.dart";
 // Dart / NodeJS interop
 import "package:node_http/node_http.dart" as http;
 
-SheetsApi spreadsheet_client(String accessToken) {
+SheetsApi spreadsheet_client(String accessToken, [http.NodeClient baseClient]) {
   // Generate credentials from existing token, guessing at best-case expiry time
   final expiry = new DateTime.now().add(new Duration(hours: 1)).toUtc();
   final accessTokenObj = new AccessToken("Bearer", accessToken, expiry);
   final credentials = new AccessCredentials(accessTokenObj, null, []);
 
   // Create a base HTTP client which will be (re)used for GoogleAPIs requests
-  final baseClient = new http.NodeClient();
+  if (baseClient == null) {
+    baseClient = new http.NodeClient();
+  }
   // Wrap base client with an OAuth2-token-aware version from googleapis_auth
   final googleApisHttpClient = new AuthenticatedClient(baseClient, credentials);
 
