@@ -49,6 +49,10 @@ String USER_COLUMNS_DATATABLE;
 
 http.NodeClient HTTP_CLIENT;
 
+FirebaseAdmin FIREBASE_admin;
+App FIREBASE_app;
+Database FIREBASE_database;
+
 // Firebase Function HTTPS handler
 Future<void> permissions_check(GoogleCloudFunctionsRequest request,
     GoogleCloudFunctionsResponse response) async {
@@ -109,13 +113,20 @@ Future<void> permissions_check(GoogleCloudFunctionsRequest request,
     }
 
     // Firebase RTDB Activity ref
-    final admin = FirebaseAdmin.instance;
-    final app = admin.initializeApp();
-    final Database database = app.database();
+    if (FIREBASE_admin == null) {
+      FIREBASE_admin = FirebaseAdmin.instance;
+    }
+    if (FIREBASE_app == null) {
+      FIREBASE_app = FIREBASE_admin.initializeApp();
+    }
+    if (FIREBASE_database == null) {
+      FIREBASE_database = FIREBASE_app.database();
+    }
+
     final Reference activityRef =
-        database.ref("/activity/${activity.machineId}");
+        FIREBASE_database.ref("/activity/${activity.machineId}");
     final Reference latestUserRef =
-        database.ref("readers/${activity.machineId}/latestUser");
+        FIREBASE_database.ref("readers/${activity.machineId}/latestUser");
 
     if (activityRef != null) {
       //push_activity_to_firebase(activityRef, activity);
