@@ -6,8 +6,6 @@
 // or send a letter to
 // Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 
-library makerlabs_acm_functions;
-
 import "dart:async";
 import "dart:core";
 import "dart:convert";
@@ -19,6 +17,10 @@ import 'package:firebase_functions_interop/firebase_functions_interop.dart';
 
 // Dart / NodeJS interop
 import "package:node_http/node_http.dart" as http;
+import "package:node_interop/buffer.dart";
+
+// Google Cloud Functions interop
+import "google_cloud_functions.dart";
 
 // Local packages
 import "src/gen/acm_a_c_m_generated.dart" as ACM;
@@ -46,12 +48,14 @@ const String SPREADSHEET_ACTIVITY_SHEET_NAME = "Activity";
 String USER_COLUMNS_DATATABLE;
 
 // Firebase Function HTTPS handler
-Future<void> permissions_check(ExpressHttpRequest request) async {
+Future<void> permissions_check(GoogleCloudFunctionsRequest request,
+    GoogleCloudFunctionsResponse response) async {
   // Early exit for external ping check to keep function "warm"
-  if (request.requestedUri.queryParameters.containsKey("ping")) {
-    request.response
+  final uri = Uri.parse(request.url);
+  if (uri.queryParameters.containsKey("ping")) {
+    response
       ..statusCode = HttpStatus.ok
-      ..close();
+      ..end();
     return;
   }
 
@@ -69,17 +73,21 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
         "/spreadsheets/d/" + SPREADSHEET_ID + "/gviz/tq";
 
     // Parse request headers
+    String authorization;
+    for (int i = 0; i < (request.rawHeaders.length - 1); ++i) {
+      if (request.rawHeaders[i] == "Authorization" ||
+          request.rawHeaders[i] == "authorization") {
+        authorization = request.rawHeaders[i + 1];
+      }
+    }
+
     // Extract OAuth access_token from request, use it for Google API requests
-    String access_token =
-        extract_access_token(request.headers.value("authorization"));
+    String access_token = extract_access_token(authorization);
 
     // Parse request body
     // Expect a binary ACM.Activity flatbuffer
-    //Uint8List bytes = request.body;
-    Uint8List bytes = new Uint8List(request.body.length);
-    for (var i = 0; i < bytes.length; ++i) {
-      bytes[i] = request.body[i];
-    }
+    Uint8List bytes = request.body;
+
     final activity = new ACM.Activity(bytes);
 
     // Check that the Activity flatbuffer has the expected fields
@@ -140,19 +148,19 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
       "tq": query,
       "access_token": access_token,
     });
-    final headers = {
+    final queryHeaders = {
       "X-DataSource-Auth": "force-json-workaround",
     };
 
-    final response = await http.get(uri, headers: headers);
+    final queryResponse = await http.get(uri, headers: queryHeaders);
 
     // Check for valid query response
-    if (response.statusCode != HttpStatus.ok) {
+    if (queryResponse.statusCode != HttpStatus.ok) {
       throw new HttpResponseException("Google Query operation failed",
-          statusCode: response.statusCode);
+          statusCode: queryResponse.statusCode);
     }
 
-    String datatableJson = response.body;
+    String datatableJson = queryResponse.body;
     // Check for a valid response, which may or may not contain a user
     // Remove "" prefix from response JSON
     const String googleMagic = ")]}'\n";
@@ -174,19 +182,15 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
       push_latest_user_to_firebase(latestUserRef, user);
     }
 
-    final hexdump =
-        userBytes.map((b) => b.toRadixString(16).padLeft(2, "0")).join("");
-    print("User bytes: ${hexdump}");
-
-    request.response
-      ..headers.add("Content-Type", "application/octet-stream")
-      ..statusCode = HttpStatus.ok;
+    response
+      ..statusCode = HttpStatus.ok
+      ..setHeader("Content-Type", "application/octet-stream");
 
     if (user != null) {
-      request.response.add(userBytes);
+      response.write(Buffer.from(userBytes));
     }
 
-    request.response.close();
+    response.end();
 
     await append_activity_to_spreadsheet(sheets, SPREADSHEET_ID,
         SPREADSHEET_ACTIVITY_SHEET_NAME, activity, user);
@@ -195,12 +199,12 @@ Future<void> permissions_check(ExpressHttpRequest request) async {
     print("Trapped exception: ${e.toString()}");
 
     // If a specific error code has not been set, send a general error
-    request.response.statusCode = (e is HttpResponseException)
+    response.statusCode = (e is HttpResponseException)
         ? e.statusCode
         : HttpStatus.internalServerError;
 
-    request.response
+    response
       ..write(e.toString())
-      ..close();
+      ..end();
   }
 }

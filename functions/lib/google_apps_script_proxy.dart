@@ -6,35 +6,37 @@
 // or send a letter to
 // Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 
-library makerlabs_acm_functions;
-
 import "dart:async";
 import "dart:core";
-import "dart:js_util" as js;
 
 // Dart / Firebase Functions interop
-import "package:firebase_functions_interop/firebase_functions_interop.dart";
 
 // Dart / NodeJS interop
 import "package:node_http/node_http.dart" as http;
 
+// Google Cloud Functions interop
+import "google_cloud_functions.dart";
+
 // Firebase Function HTTPS handler
-Future<void> google_apps_script_proxy(ExpressHttpRequest request) async {
+//Future<void> google_apps_script_proxy(ExpressHttpRequest request) async {
+void google_apps_script_proxy(GoogleCloudFunctionsRequest request,
+    GoogleCloudFunctionsResponse response) async {
   // Early exit for external ping check to keep function "warm"
-  if (request.requestedUri.queryParameters.containsKey("ping")) {
-    request.response
+  final uri = Uri.parse(request.url);
+  if (uri.queryParameters.containsKey("ping")) {
+    response
       ..statusCode = 200 // OK
-      ..close();
+      ..end();
     return;
   }
 
   // Early exit for CORS preflight check
   if (request.method == "OPTIONS") {
-    request.response
-      ..headers.add("Access-Control-Allow-Origin", "*")
-      ..headers.add("Access-Control-Allow-Headers", "Authorization")
+    response
+      ..setHeader("Access-Control-Allow-Origin", "*")
+      ..setHeader("Access-Control-Allow-Headers", "Authorization")
       ..statusCode = 200 // OK
-      ..close();
+      ..end();
     return;
   }
 
@@ -42,7 +44,7 @@ Future<void> google_apps_script_proxy(ExpressHttpRequest request) async {
   // Using a global catchError at then end to return 500 error
   new Future<void>(() => true).then((_) async {
     Map<String, String> proxy_query =
-        new Map.from(request.requestedUri.queryParameters);
+        new Map.from(uri.queryParameters);
     Map<String, String> proxy_headers = {};
 
     // Parse request headers
@@ -57,7 +59,7 @@ Future<void> google_apps_script_proxy(ExpressHttpRequest request) async {
         if (auth_parts.length != 2 ||
             auth_parts.first != "Bearer" ||
             auth_parts.last.isEmpty) {
-          request.response.statusCode = 401; // Unauthorized
+          response.statusCode = 401; // Unauthorized
           throw ("Invalid 'Authorization: Bearer <token>' header in request");
         }
         access_token = auth_parts[1];
@@ -69,16 +71,16 @@ Future<void> google_apps_script_proxy(ExpressHttpRequest request) async {
         proxy_headers["Authorization"] = "Bearer ${access_token}";
         proxy_query.remove("access_token");
       } else {
-        request.response.statusCode = 401; // Unauthorized
+        response.statusCode = 401; // Unauthorized
         throw ("Missing Authorization header in request");
       }
     }
 
-    final proxy_path = request.uri.path.startsWith("/google_apps_script_proxy")
-        ? request.uri.path.substring("/google_apps_script_proxy".length)
-        : request.uri.path;
+    final proxy_path = uri.path.startsWith("/google_apps_script_proxy")
+        ? uri.path.substring("/google_apps_script_proxy".length)
+        : uri.path;
 
-    final proxy_uri = request.uri.replace(
+    final proxy_uri = uri.replace(
         scheme: "https",
         host: "script.google.com",
         path: proxy_path,
@@ -86,18 +88,18 @@ Future<void> google_apps_script_proxy(ExpressHttpRequest request) async {
 
     print("Proxy URI: ${proxy_uri}");
 
-    http.get(proxy_uri, headers: proxy_headers).then((response) {
+    http.get(proxy_uri, headers: proxy_headers).then((proxyResponse) {
       // Copy upstream response headers to response
-      for (String k in response.headers.keys) {
-        String v = response.headers[k];
-        request.response.headers.add(k, v);
+      for (String k in proxyResponse.headers.keys) {
+        String v = proxyResponse.headers[k];
+        response.setHeader(k, v);
       }
 
-      print("Proxy response status code: ${response.statusCode}");
-      request.response
-        ..statusCode = response.statusCode
-        ..write(response.body)
-        ..close();
+      print("Proxy response status code: ${proxyResponse.statusCode}");
+      response
+        ..statusCode = proxyResponse.statusCode
+        ..write(proxyResponse.body)
+        ..end();
     }).catchError((e) {
       // Re-throw errors to the parent catchError
       print("Google Apps Script proxy request error: '${e}'");
@@ -107,11 +109,11 @@ Future<void> google_apps_script_proxy(ExpressHttpRequest request) async {
     // In case of general failure, return response with exception text
     print("Trapped exception: ${e.toString()}");
     // If a specific error code has not been set, send a general error
-    if (request.response.statusCode < 400) {
-      request.response.statusCode = 500; // Internal Server Error
+    if (response.statusCode < 400) {
+      response.statusCode = 500; // Internal Server Error
     }
-    request.response
+    response
       ..write(e.toString())
-      ..close();
+      ..end();
   });
 }
