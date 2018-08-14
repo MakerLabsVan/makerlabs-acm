@@ -59,6 +59,7 @@ Future<void> permissions_check(GoogleCloudFunctionsRequest request,
   // Early exit for external ping check to keep function "warm"
   final uri = Uri.parse(request.url);
   if (uri.queryParameters.containsKey("ping")) {
+    print("ping");
     response
       ..statusCode = HttpStatus.ok
       ..end();
