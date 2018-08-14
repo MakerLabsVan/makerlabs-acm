@@ -196,7 +196,7 @@ packages:
       name: flat_buffers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.9.1"
+    version: "1.9.2"
   front_end:
     dependency: transitive
     description:
@@ -345,7 +345,7 @@ packages:
     source: hosted
     version: "1.0.0-dev.9.0"
   node_io:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: node_io
       url: "https://pub.dartlang.org"
