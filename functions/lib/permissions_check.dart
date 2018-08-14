@@ -9,7 +9,7 @@
 import "dart:async";
 import "dart:core";
 import "dart:convert";
-import "dart:io";
+import "package:node_io/node_io.dart" show Platform, HttpStatus;
 import "dart:typed_data" show Uint8List;
 
 // Dart / Firebase Functions interop
@@ -67,7 +67,6 @@ Future<void> permissions_check(GoogleCloudFunctionsRequest request,
 
   // Return 500 error for any unhandled exceptions
   try {
-    final config = FirebaseFunctions.config;
     if (HTTP_CLIENT == null) {
       print("Initialize HTTP_CLIENT");
       HTTP_CLIENT = new http.NodeClient(keepAlive: true);
@@ -76,9 +75,21 @@ Future<void> permissions_check(GoogleCloudFunctionsRequest request,
     }
 
     // Google Sheets ACM Spreadsheet ID
-    final String SPREADSHEET_ID = config.get("acm.spreadsheet_id");
+    String SPREADSHEET_ID;
+
+    Map<String, String> envVars = Platform.environment;
+
+    final config = FirebaseFunctions.config;
+    const String firebase_spreadsheet_id_key = "acm.spreadsheet_id";
+    const String env_var = "SPREADSHEET_ID";
+    if (config?.get(firebase_spreadsheet_id_key) != null) {
+      SPREADSHEET_ID = config.get(firebase_spreadsheet_id_key);
+    } else {
+      SPREADSHEET_ID = envVars[env_var];
+    }
+
     if (SPREADSHEET_ID == null) {
-      throw ("Missing Firebase functions env var: acm.spreadsheet_id");
+      throw ("Missing env var: SPREADSHEET_ID");
     }
 
     final String spreadsheetQueryPath =
@@ -117,7 +128,18 @@ Future<void> permissions_check(GoogleCloudFunctionsRequest request,
       FIREBASE_admin = FirebaseAdmin.instance;
     }
     if (FIREBASE_app == null) {
-      FIREBASE_app = FIREBASE_admin.initializeApp();
+      // If environment variables for Firebase service account are provided, use them
+      if (envVars.containsKey("FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY")) {
+        FIREBASE_app = FIREBASE_admin.initializeApp(new AppOptions(
+            credential: FIREBASE_admin.cert(
+                projectId: envVars["GCLOUD_PROJECT"],
+                clientEmail: envVars["FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL"],
+                privateKey: envVars["FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY"]),
+            databaseURL: envVars["FIREBASE_DATABASE_URL"]));
+      } else {
+        // Use Application Default Credentials in Google Cloud
+        FIREBASE_app = FIREBASE_admin.initializeApp();
+      }
     }
     if (FIREBASE_database == null) {
       FIREBASE_database = FIREBASE_app.database();
