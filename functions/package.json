@@ -15,12 +15,18 @@
     "logs": "firebase functions:log"
   },
   "devDependencies": {
-    "firebase-tools": "^4.0.0"
+    "firebase-tools": "^4.0.0",
+    "serverless": "^1.30.0"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
     "firebase-admin": "~5.12.1",
-    "firebase-functions": "^2.0.0"
+    "firebase-functions": "^2.0.0",
+    "serverless-http": "^1.6.0"
   },
   "private": true,
-  "engines": { "node": "8" }
+  "engines": {
+    "node": "8"
+  }
 }
