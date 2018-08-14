@@ -1,0 +1,76 @@
+service: makerlabs-acm-functions
+
+################################################################################
+provider:
+  runtime: nodejs8.10
+
+# AWS Lambda
+  name: aws
+  stage: dev
+  region: us-west-2
+  timeout: 60
+
+################################################################################
+functions:
+  permissions_check:
+    memorySize: 256
+    handler: index-aws.permissions_check
+    timeout: 30
+    environment:
+      SPREADSHEET_ID: "1Sd3nYY34dllVUsakwU8hLnJQ1m-U50qZwQSxst2SKKg"
+      GCLOUD_PROJECT: "makerlabs-acm-test"
+      FIREBASE_DATABASE_URL: "https://makerlabs-acm-test.firebaseio.com"
+      FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL: ""
+      FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY: ""
+    events:
+      - http:
+          path: /permissions_check
+          method: post
+
+################################################################################
+package:
+  # Layout generated from Dart -> JS (using build_node_compilers/node_interop):
+  # From running: `pub run build_runner watch --output=build/`
+  exclude:
+    - '*.*'
+    # No git files
+    - .git/**
+    # No hidden files
+    - .*
+    - .DS_Store
+    # No dart tool cache/config files
+    - .dart_tool/**
+    - analysis_options.yaml
+    - build.yaml
+    - pubspec.*
+    - yarn.lock
+    # No Dart -> JS build cache files
+    - build/**
+    # No Dart source files
+    - example/**
+    - node/**
+    - lib/**
+    - web/**
+  include:
+    # Always include a Google Cloud Functions index file
+    - index.js
+
+    # Include package.json to indicate package dependencies
+    - package.json
+
+    # Include Dart -> JS generated release build files
+    - build/node/*.js
+    # Include Dart -> JS generated debugging files
+    - build/node/*.js.map
+
+    # Include Dart -> JS SDK
+    - build/node/packages/$sdk/dev_compiler/common/dart_sdk.js
+    - build/node/packages/$sdk/dev_compiler/common/run.js
+
+    # Include Dart -> JS generated packages
+    - build/node/packages/**/*.ddc.js
+    - build/node/packages/**/*.ddc.js.map
+
+# AWS Lambda
+    # Include an AWS Lambda wrapper for Google Cloud Function handler
+    - index-aws.js
