@@ -11,14 +11,17 @@
         "function": "google_apps_script_proxy"
       },
       {
+        "source": "/",
+        "destination": "/view-user-page.html"
+      },
+      {
         "source": "**/!(*.*)",
-        "destination": "/index.html"
+        "destination": "/view-user-page.html"
       }
     ],
     "ignore": [
       "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
+      "**/.*"
     ]
   },
   "functions": {
