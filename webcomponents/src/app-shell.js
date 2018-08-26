@@ -13,9 +13,6 @@ import "@polymer/app-layout/app-toolbar/app-toolbar.js";
 import "google-signin/google-signin.js";
 import "google-apis/google-apis.js";
 
-// Firebase
-import {auth, googleAuthProvider, database} from "./firebase.js";
-
 // Local Components
 import "./user-search-bar.js";
 import "./view-user-form.js";
@@ -267,6 +264,8 @@ class AppShell extends LitElement {
   }
 
   _firstRendered() {
+    const database = firebase.database();
+
     // Attach auth callbacks
     const aware = this.shadowRoot.querySelector("google-signin-aware");
     aware.handleAuthSignIn = this.handleAuthSignIn;
@@ -399,27 +398,31 @@ class AppShell extends LitElement {
 
   loginFirebase() {
     // Build Firebase credential with the Google ID token.
+    const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
     var credential = googleAuthProvider.credential(this.idToken);
 
     // Sign in with credential from the Google user.
-    auth.signInAndRetrieveDataWithCredential(credential).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      if (errorCode === "auth/account-exists-with-different-credential") {
-        console.log(
-          "You have already signed up with a different auth provider for that email."
-        );
-        // If you are using multiple auth providers on your app you should handle linking
-        // the user's accounts here.
-      } else {
-        console.error(error);
-      }
-    });
+    firebase
+      .auth()
+      .signInAndRetrieveDataWithCredential(credential)
+      .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        if (errorCode === "auth/account-exists-with-different-credential") {
+          console.log(
+            "You have already signed up with a different auth provider for that email."
+          );
+          // If you are using multiple auth providers on your app you should handle linking
+          // the user's accounts here.
+        } else {
+          console.error(error);
+        }
+      });
   }
 
   handleFirebaseAuthStateChange(user) {
@@ -438,11 +441,13 @@ class AppShell extends LitElement {
 
     this.fetchUserFields();
 
-    auth.onAuthStateChanged(this.handleFirebaseAuthStateChange.bind(this));
+    firebase
+      .auth()
+      .onAuthStateChanged(this.handleFirebaseAuthStateChange.bind(this));
   }
 
   handleAuthSignOut(response) {
-    auth.signOut();
+    firebase.auth().signOut();
   }
 
   handleAuthStateChange(response) {}
