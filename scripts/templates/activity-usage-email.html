@@ -25,7 +25,6 @@
             <div class="mui--text-subhead"><?= machineId ?></div>
             <?
               for (var j = 0; j < userActivity[machineId].length; j++) {
-                if (userActivity[machineId][j]["Activity Type"] === "CNC_Job") {
             ?>
             <table border="0" width="100%">
               <tr class="mui--divider-bottom">
@@ -39,10 +38,7 @@
                 </td>
               </tr>
             </table>
-            <?
-                }
-              }
-            ?>
+            <? } ?>
           </td>
         </tr>
       </table>

@@ -26,6 +26,7 @@ function triggerActivitySendUsageEmails(e) {
     const batchSize = 1000;
     const activityFilter = {
       "Usage Email Sent Time": "",
+      "Activity Type": "CNC_Job",
     };
     const activityByUser = getActivitySummaryByUser(
       activityRowsToCheckRange,
@@ -99,6 +100,7 @@ function triggerActivitySendBillingEmails(e) {
     const batchSize = 1000;
     const activityFilter = {
       "Billing Email Sent Time": "",
+      "Activity Type": "CNC_Job",
       "Group Billing Week": nextMonday,
     };
     const activityByUser = getActivitySummaryByUser(
