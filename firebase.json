@@ -2,6 +2,9 @@
   "database": {
     "rules": "database-rules.json"
   },
+  "storage": {
+    "rules": "storage.rules"
+  },
   "hosting": {
     "public": "webcomponents/build/es6-bundled/",
     "rewrites": [
@@ -25,6 +28,7 @@
     "ignore": [
       "firebase.json",
       "database-rules.json",
+      "storage.json",
       "**/.*"
     ]
   },
@@ -32,6 +36,7 @@
     "ignore": [
       "firebase.json",
       "database-rules.json",
+      "storage.json",
       "**/.*",
       "**/functions/analysis_options.yaml",
       "**/functions/build.yaml",
