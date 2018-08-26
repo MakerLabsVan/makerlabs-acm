@@ -22,11 +22,11 @@ const app = express();
 app.use(bodyParser.raw());
 
 // Add routing for (req,res)-style Dart handlers
-app.post("/permissions_check", (req, res) => {
-  index.permissions_check(req, res);
+app.all("/permissions_check", (req, res) => {
+  index.permissions_check_http(req, res);
 });
-app.post("/google_apps_script_proxy", (req, res) => {
-  index.google_apps_script_proxy(req, res);
+app.all("/google_apps_script_proxy", (req, res) => {
+  index.google_apps_script_proxy_http(req, res);
 });
 
 // Re-export the Express server wrapped as an AWS Lambda-compatible handler
@@ -37,5 +37,11 @@ exports.permissions_check = serverless(app, {
       request.headers.Authorization = event.headers.Authorization;
       request.rawHeaders.push("Authorization", event.headers.Authorization);
     }
+    if (event && event.headers && event.headers["Content-Type"]) {
+      request.headers["Content-Type"] = event.headers["Content-Type"];
+      request.rawHeaders.push("Content-Type", event.headers["Content-Type"]);
+    }
   },
 });
+
+exports.google_apps_script_proxy = serverless(app);

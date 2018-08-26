@@ -6,7 +6,7 @@
 // or send a letter to
 // Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 
-import "dart:io";
+import "dart:io" show HttpStatus;
 
 import "http_response_exception.dart";
 

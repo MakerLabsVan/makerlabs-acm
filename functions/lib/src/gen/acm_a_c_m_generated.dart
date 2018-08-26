@@ -105,9 +105,9 @@ class Activity {
 
   double get time => const fb.Float64Reader().vTableGet(_bc, _bcOffset, 4, 0.0);
   String get machineId => const fb.StringReader().vTableGet(_bc, _bcOffset, 6, null);
-  ActivityType get activityType => new ActivityType.fromValue(const fb.Int8Reader().vTableGet(_bc, _bcOffset, 8, null));
+  ActivityType get activityType => new ActivityType.fromValue(const fb.Int8Reader().vTableGet(_bc, _bcOffset, 8, 0));
   String get tagId => const fb.StringReader().vTableGet(_bc, _bcOffset, 10, null);
-  int get usageSeconds => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 12, null);
+  int get usageSeconds => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 12, 0);
 
   @override
   String toString() {
@@ -221,7 +221,7 @@ class CNC_Job {
   final fb.BufferContext _bc;
   final int _bcOffset;
 
-  int get usageSeconds => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 4, null);
+  int get usageSeconds => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 4, 0);
 
   @override
   String toString() {
@@ -451,8 +451,8 @@ class Log {
   final int _bcOffset;
 
   String get machineId => const fb.StringReader().vTableGet(_bc, _bcOffset, 4, null);
-  LogSeverity get severity => new LogSeverity.fromValue(const fb.Int8Reader().vTableGet(_bc, _bcOffset, 6, null));
-  int get time => const fb.Uint64Reader().vTableGet(_bc, _bcOffset, 8, null);
+  LogSeverity get severity => new LogSeverity.fromValue(const fb.Int8Reader().vTableGet(_bc, _bcOffset, 6, 0));
+  int get time => const fb.Uint64Reader().vTableGet(_bc, _bcOffset, 8, 0);
   String get message => const fb.StringReader().vTableGet(_bc, _bcOffset, 10, null);
 
   @override

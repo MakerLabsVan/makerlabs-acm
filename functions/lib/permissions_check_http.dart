@@ -31,10 +31,8 @@ import "src/extract_access_token.dart";
 import "src/fetch_sheet_columns.dart";
 import "src/generate_permissions_check_query.dart";
 import "src/http_response_exception.dart";
-import "src/push_activity_to_firebase.dart";
 import "src/push_latest_user_to_firebase.dart";
 import "src/spreadsheet_client.dart";
-import "src/spreadsheet_helpers.dart";
 
 final String SPREADSHEET_QUERY_AUTHORITY = "docs.google.com";
 
@@ -54,7 +52,7 @@ App FIREBASE_app;
 Database FIREBASE_database;
 
 // Firebase Function HTTPS handler
-Future<void> permissions_check(GoogleCloudFunctionsRequest request,
+Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
     GoogleCloudFunctionsResponse response) async {
   // Early exit for external ping check to keep function "warm"
   final uri = Uri.parse(request.url);
@@ -202,6 +200,12 @@ Future<void> permissions_check(GoogleCloudFunctionsRequest request,
           statusCode: queryResponse.statusCode);
     }
 
+    // We will be sending a 200 response with a matching User (or empty)
+    ACM.User user;
+    response
+      ..statusCode = HttpStatus.ok
+      ..setHeader("Content-Type", "application/octet-stream");
+
     String datatableJson = queryResponse.body;
     // Check for a valid response, which may or may not contain a user
     // Remove "" prefix from response JSON
@@ -213,23 +217,17 @@ Future<void> permissions_check(GoogleCloudFunctionsRequest request,
     final Map datatable = json.decode(datatableJson);
 
     final userBytes = datatable_to_user(datatable);
-    if (userBytes == null) {
-      throw ("Invalid (empty) User response flatbuffer");
-    }
+    if (userBytes != null) {
+      user = new ACM.User(userBytes);
 
-    final user = new ACM.User(userBytes);
-    print("got User: ${user}");
+      if (user != null) {
+        print("got User: ${user}");
 
-    if (latestUserRef != null) {
-      push_latest_user_to_firebase(latestUserRef, user);
-    }
-
-    response
-      ..statusCode = HttpStatus.ok
-      ..setHeader("Content-Type", "application/octet-stream");
-
-    if (user != null) {
-      response.write(Buffer.from(userBytes));
+        if (latestUserRef != null) {
+          push_latest_user_to_firebase(latestUserRef, user);
+        }
+        response.write(Buffer.from(userBytes));
+      }
     }
 
     response.end();

@@ -10,18 +10,14 @@ import 'package:firebase_functions_interop/firebase_functions_interop.dart';
 import "package:js/js.dart";
 import "package:node_interop/node.dart";
 
-import "package:makerlabs_acm_functions/activity_subscription.dart";
-import "package:makerlabs_acm_functions/permissions_check.dart";
-import "package:makerlabs_acm_functions/google_apps_script_proxy.dart";
+import "package:makerlabs_acm_functions/permissions_check_http.dart";
+import "package:makerlabs_acm_functions/google_apps_script_proxy_http.dart";
 
 // Establish Dart -> JS module exports
 void main() {
   final config = FirebaseFunctions.config;
 
-  setExport("permissions_check", allowInterop(permissions_check));
-  setExport("google_apps_script_proxy", allowInterop(google_apps_script_proxy));
-  final String activity_topic = config.get("acm.activity_topic");
-  if (activity_topic != null) {
-    setExport("activity_subscription", allowInterop(activity_subscription));
-  }
+  setExport("permissions_check_http", allowInterop(permissions_check_http));
+  setExport("google_apps_script_proxy_http",
+      allowInterop(google_apps_script_proxy_http));
 }

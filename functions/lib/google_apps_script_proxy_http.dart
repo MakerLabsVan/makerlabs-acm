@@ -8,8 +8,7 @@
 
 import "dart:async";
 import "dart:core";
-
-// Dart / Firebase Functions interop
+import "dart:io" show HttpStatus;
 
 // Dart / NodeJS interop
 import "package:node_http/node_http.dart" as http;
@@ -17,15 +16,18 @@ import "package:node_http/node_http.dart" as http;
 // Google Cloud Functions interop
 import "google_cloud_functions.dart";
 
+// Local packages
+import "src/http_response_exception.dart";
+
 // Firebase Function HTTPS handler
 //Future<void> google_apps_script_proxy(ExpressHttpRequest request) async {
-void google_apps_script_proxy(GoogleCloudFunctionsRequest request,
+void google_apps_script_proxy_http(GoogleCloudFunctionsRequest request,
     GoogleCloudFunctionsResponse response) async {
   // Early exit for external ping check to keep function "warm"
   final uri = Uri.parse(request.url);
   if (uri.queryParameters.containsKey("ping")) {
     response
-      ..statusCode = 200 // OK
+      ..statusCode = HttpStatus.ok
       ..end();
     return;
   }
@@ -35,23 +37,28 @@ void google_apps_script_proxy(GoogleCloudFunctionsRequest request,
     response
       ..setHeader("Access-Control-Allow-Origin", "*")
       ..setHeader("Access-Control-Allow-Headers", "Authorization")
-      ..statusCode = 200 // OK
+      ..statusCode = HttpStatus.ok
       ..end();
     return;
   }
 
-  // Wrap the entire function in a future,
-  // Using a global catchError at then end to return 500 error
-  new Future<void>(() => true).then((_) async {
-    Map<String, String> proxy_query =
-        new Map.from(uri.queryParameters);
+  // Return 500 error for any unhandled exceptions
+  try {
+    Map<String, String> proxy_query = new Map.from(uri.queryParameters);
     Map<String, String> proxy_headers = {};
 
     // Parse request headers
     // Extract OAuth access_token from request, use it for Google API requests
     String access_token;
     {
-      String auth = request.headers.value("authorization");
+      String auth;
+      for (int i = 0; i < (request.rawHeaders.length - 1); ++i) {
+        if (request.rawHeaders[i] == "Authorization" ||
+            request.rawHeaders[i] == "authorization") {
+          auth = request.rawHeaders[i + 1];
+        }
+      }
+
       // Check for valid Authorization header
       if (auth != null) {
         // Extract the access_token part from the Authorization header
@@ -59,7 +66,7 @@ void google_apps_script_proxy(GoogleCloudFunctionsRequest request,
         if (auth_parts.length != 2 ||
             auth_parts.first != "Bearer" ||
             auth_parts.last.isEmpty) {
-          response.statusCode = 401; // Unauthorized
+          response.statusCode = HttpStatus.unauthorized;
           throw ("Invalid 'Authorization: Bearer <token>' header in request");
         }
         access_token = auth_parts[1];
@@ -71,7 +78,7 @@ void google_apps_script_proxy(GoogleCloudFunctionsRequest request,
         proxy_headers["Authorization"] = "Bearer ${access_token}";
         proxy_query.remove("access_token");
       } else {
-        response.statusCode = 401; // Unauthorized
+        response.statusCode = HttpStatus.unauthorized;
         throw ("Missing Authorization header in request");
       }
     }
@@ -105,15 +112,17 @@ void google_apps_script_proxy(GoogleCloudFunctionsRequest request,
       print("Google Apps Script proxy request error: '${e}'");
       throw e;
     });
-  }).catchError((e) {
+  } catch (e) {
     // In case of general failure, return response with exception text
     print("Trapped exception: ${e.toString()}");
+
     // If a specific error code has not been set, send a general error
-    if (response.statusCode < 400) {
-      response.statusCode = 500; // Internal Server Error
-    }
+    response.statusCode = (e is HttpResponseException)
+        ? e.statusCode
+        : HttpStatus.internalServerError;
+
     response
       ..write(e.toString())
       ..end();
-  });
+  }
 }
