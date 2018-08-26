@@ -1,4 +1,7 @@
 {
+  "database": {
+    "rules": "database-rules.json"
+  },
   "hosting": {
     "public": "webcomponents/build/es6-bundled/",
     "rewrites": [
@@ -21,12 +24,14 @@
     ],
     "ignore": [
       "firebase.json",
+      "database-rules.json",
       "**/.*"
     ]
   },
   "functions": {
     "ignore": [
       "firebase.json",
+      "database-rules.json",
       "**/.*",
       "**/functions/analysis_options.yaml",
       "**/functions/build.yaml",
