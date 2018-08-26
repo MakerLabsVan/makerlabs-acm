@@ -10,6 +10,7 @@ dependencies:
   googleapis: ^0.51.0
   googleapis_auth: ^0.2.5
   flat_buffers: ^1.9.2
+  js: ^0.6.0
   node_http: ^1.0.0-dev.7.0
   node_io: ^1.0.0-dev.8.0
   node_interop: ^1.0.0-dev.8.0
