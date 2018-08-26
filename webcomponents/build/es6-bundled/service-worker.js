@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["manifest.json","49506f0f8bb3a04a7fa3ef5d8acfa1fc"],["src/app-shell.js","c7c08569bd2ad3522ff32bc0395c27d0"],["view-user-page.html","52e3549b807333ade28de892fbcc4ff7"]];
+var precacheConfig = [["manifest.json","49506f0f8bb3a04a7fa3ef5d8acfa1fc"],["src/app-shell.js","1c44348cfcfebedbc6e9c81543efffe9"],["view-user-page.html","7bebdd3582f084296feb9a809eaa14e8"]];
 var cacheName = 'sw-precache-v3--' + (self.registration ? self.registration.scope : '');
 
 
@@ -286,6 +286,9 @@ self.addEventListener('fetch', function (event) {
 // Runtime cache configuration, using the sw-toolbox library.
 
 toolbox.router.get(/\/@webcomponents\/webcomponentsjs\//, toolbox.fastest, {});
+toolbox.router.get(/\/web-animations-js\//, toolbox.fastest, {});
+toolbox.router.get(/\/fetch-jsonp\//, toolbox.fastest, {});
+toolbox.router.get(/\/__\/firebase\//, toolbox.fastest, {});
 toolbox.router.get(/^https:\/\/fonts.gstatic.com\//, toolbox.fastest, {});
 
 
