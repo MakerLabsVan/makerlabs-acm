@@ -64,6 +64,9 @@ class AppShell extends LitElement {
       defaultPhotoUrl: {
         type: String,
       },
+      profilePhotosFolderId: {
+        type: String,
+      },
       query: {
         type: Object,
       },
@@ -119,6 +122,7 @@ class AppShell extends LitElement {
         query="${props.query}"
         defaultPhotoUrl="${props.defaultPhotoUrl}"
         nextMakerLabsIdUrl="${props.nextMakerLabsIdUrl}"
+        profilePhotosFolderId="${props.profilePhotosFolderId}"
       ></view-user-form>
     </app-header-layout>
 `;

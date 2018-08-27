@@ -59,6 +59,9 @@ class ViewUserForm extends LitElement {
       defaultPhotoUrl: {
         type: String,
       },
+      profilePhotosFolderId: {
+        type: String,
+      },
     };
   }
 
@@ -239,6 +242,7 @@ class ViewUserForm extends LitElement {
         <image-file-uploader
           id="${field.name}"
           name="${field.name}"
+          parentFolderId="${this.profilePhotosFolderId}"
         ></image-file-uploader>
       `;
     }

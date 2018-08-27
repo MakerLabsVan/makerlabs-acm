@@ -6,7 +6,13 @@ class ImageFileUploader extends LitElement {
       src: {
         type: String,
       },
+      name: {
+        type: String,
+      },
       emptyImageData: {
+        type: String,
+      },
+      parentFolderId: {
         type: String,
       },
     };
@@ -19,6 +25,7 @@ class ImageFileUploader extends LitElement {
     this.emptyImageData =
       this.emptyImageData ||
       "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
+    this.parentFolderId = this.parentFolderId || "root";
   }
 
   _render(props) {
@@ -95,6 +102,11 @@ class ImageFileUploader extends LitElement {
       for (var i = 0, f; (f = files[i]); i++) {
         const uploader = new MediaUploader({
           file: f,
+          metadata: {
+            title: f.name,
+            mimeType: f.type,
+            parents: [{id: this.parentFolderId}],
+          },
           token: this.accessToken,
           onComplete: function(json) {
             this.handleDragLeave();
