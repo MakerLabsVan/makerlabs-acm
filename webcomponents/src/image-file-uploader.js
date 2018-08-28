@@ -49,11 +49,17 @@ class ImageFileUploader extends LitElement {
         #drop_hint {
           display: none;
         }
+        input[type="file"] {
+          display: none;
+        }
       </style>
 
-      <div id="drop_zone" style="background-image: url(${props.src});">
-        <span id="drop_hint">Drop files here</span>
-      </div>
+      <label for="file-upload">
+        <div id="drop_zone" style="background-image: url(${props.src});">
+          <span id="drop_hint">Drop files here</span>
+          <input id="file-upload" type="file" capture="camera" accept="image/*">
+        </div>
+      </label>
     `;
   }
 
@@ -62,7 +68,8 @@ class ImageFileUploader extends LitElement {
     const el = this.shadowRoot.getElementById("drop_zone");
     el.addEventListener("dragover", this.handleDragOver.bind(this), false);
     el.addEventListener("dragleave", this.handleDragLeave.bind(this), false);
-    el.addEventListener("drop", this.handleFileSelect.bind(this), false);
+    el.addEventListener("drop", this.handleDraggedFiles.bind(this), false);
+    el.addEventListener("change", this.handleUploadedFiles.bind(this), false);
   }
 
   get accessToken() {
@@ -80,7 +87,7 @@ class ImageFileUploader extends LitElement {
         const authResponse = currentUser.getAuthResponse(true);
         if (authResponse) {
           if ("access_token" in authResponse) {
-            accessToken = authResponse["access_token"];
+            accessToken = authResponse.access_token;
           }
         }
       }
@@ -89,16 +96,9 @@ class ImageFileUploader extends LitElement {
     return accessToken;
   }
 
-  // Called when files are dropped on to the drop target. For each file,
-  // uploads the content to Drive & displays the results when complete.
-  handleFileSelect(evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
-
+  // Uploads the content to Drive & displays the results when complete.
+  uploadFiles(files) {
     if (this.accessToken) {
-      const files = evt.dataTransfer.files; // FileList object.
-
-      const output = [];
       for (var i = 0, f; (f = files[i]); i++) {
         const uploader = new MediaUploader({
           file: f,
@@ -115,9 +115,9 @@ class ImageFileUploader extends LitElement {
             const data = JSON.parse(json);
 
             // Check if a valid web content link was created/found
-            if (data && data["webContentLink"]) {
+            if (data && data.webContentLink) {
               // Update displayed image
-              this.src = data["webContentLink"];
+              this.src = data.webContentLink;
             }
           }.bind(this),
         });
@@ -126,6 +126,22 @@ class ImageFileUploader extends LitElement {
     } else {
       console.log("Missing accessToken");
     }
+  }
+
+  // Called when files are uploaded via the OS file picker dialog
+  handleUploadedFiles(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+
+    this.uploadFiles(evt.target.files); // FileList object.
+  }
+
+  // Called when files are dropped on to the drop target.
+  handleDraggedFiles(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+
+    this.uploadFiles(evt.dataTransfer.files); // FileList object.
   }
 
   // Dragover handler to set the drop effect.
