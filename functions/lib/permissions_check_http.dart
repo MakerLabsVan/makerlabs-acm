@@ -106,11 +106,8 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
     // Extract OAuth access_token from request, use it for Google API requests
     String access_token = extract_access_token(authorization);
 
-    // Parse request body
-    // Expect a binary ACM.Activity flatbuffer
-    Uint8List bytes = request.body;
-
-    final activity = new ACM.Activity(bytes);
+    // Expect a binary ACM.Activity flatbuffer in request body
+    final activity = new ACM.Activity(request.body);
 
     // Check that the Activity flatbuffer has the expected fields
     if (activity.time == null ||
@@ -226,6 +223,7 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
         if (latestUserRef != null) {
           push_latest_user_to_firebase(latestUserRef, user);
         }
+
         response.write(Buffer.from(userBytes));
       }
     }

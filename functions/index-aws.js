@@ -37,6 +37,7 @@ exports.permissions_check = serverless(app, {
       request.headers.Authorization = event.headers.Authorization;
       request.rawHeaders.push("Authorization", event.headers.Authorization);
     }
+    // Pass Content-Type header to lambda if it was provided
     if (event && event.headers && event.headers["Content-Type"]) {
       request.headers["Content-Type"] = event.headers["Content-Type"];
       request.rawHeaders.push("Content-Type", event.headers["Content-Type"]);
