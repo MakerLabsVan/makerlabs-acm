@@ -1,5 +1,14 @@
 service: makerlabs-acm-functions
 
+plugins:
+  - serverless-apigw-binary
+  - serverless-apigwy-binary
+
+custom:
+  apigwBinary:
+    types:
+      - "application/octet-stream"
+
 ################################################################################
 provider:
   runtime: nodejs8.10
@@ -22,6 +31,7 @@ functions:
       FIREBASE_DATABASE_URL: ${file(./config.${self:provider.stage}.yml):FIREBASE_DATABASE_URL}
       FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL: ${file(./config.${self:provider.stage}.yml):FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL}
       FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY: ${file(./config.${self:provider.stage}.yml):FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY}
+      BINARY_CONTENT_TYPES: "application/octet-stream"
     events:
       - http:
           path: /permissions_check
@@ -31,6 +41,7 @@ functions:
               headers:
                 "Authorization": false
                 "Content-Type": false
+          contentHandling: CONVERT_TO_BINARY
       - http:
           path: /permissions_check
           method: get
