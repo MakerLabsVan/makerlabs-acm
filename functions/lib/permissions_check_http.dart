@@ -232,9 +232,10 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
 
     await append_activity_to_spreadsheet(sheets, SPREADSHEET_ID,
         SPREADSHEET_ACTIVITY_SHEET_NAME, activity, user);
-  } catch (e) {
+  } catch (e, s) {
     // In case of general failure, return response with exception text
-    print("Trapped exception: ${e.toString()}");
+    print("Trapped exception: ${e}");
+    print("Stack trace: ${s}");
 
     // If a specific error code has not been set, send a general error
     response.statusCode = (e is HttpResponseException)
