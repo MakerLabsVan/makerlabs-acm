@@ -45,11 +45,6 @@ functions:
       - http:
           path: /permissions_check
           method: get
-          request:
-            parameters:
-              headers:
-                "Authorization": false
-                "Content-Type": false
 
 ################################################################################
 package:
