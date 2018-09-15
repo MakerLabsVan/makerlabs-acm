@@ -26,6 +26,7 @@ void google_apps_script_proxy_http(GoogleCloudFunctionsRequest request,
   // Early exit for external ping check to keep function "warm"
   final uri = Uri.parse(request.url);
   if (uri.queryParameters.containsKey("ping")) {
+    print("ping");
     response
       ..statusCode = HttpStatus.ok
       ..end();
