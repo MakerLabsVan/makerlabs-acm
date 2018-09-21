@@ -6,8 +6,6 @@
 #include "requests.h"
 #include "uuid.h"
 
-#include "embedded_files.h"
-
 #include "esp_log.h"
 
 #include <chrono>

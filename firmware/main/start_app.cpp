@@ -7,7 +7,6 @@
 #include "actors.h"
 #include "acm_helpers.h"
 #include "display_generated.h"
-#include "embedded_files.h"
 
 // actor_model
 #include "actor_model.h"
@@ -200,17 +199,25 @@ auto app_task(void* /* user_data */)
   // Set CA certs for request_manager
   {
     // Set CA certs for *.google.com
+    auto WILDCARD_google_com_root_cacert_der = filesystem_read(
+      "/spiflash/WILDCARD_google_com_root_cacert.der"
+    );
+
     send(
       request_manager_actor_pid,
       "add_cacert_der",
-      embedded_files::WILDCARD_google_com_root_cacert_der
+      WILDCARD_google_com_root_cacert_der
     );
 
     // Set CA certs for *.googleapis.com
+    auto WILDCARD_googleapis_com_root_cacert_der = filesystem_read(
+      "/spiflash/WILDCARD_googleapis_com_root_cacert.der"
+    );
+
     send(
       request_manager_actor_pid,
       "add_cacert_der",
-      embedded_files::WILDCARD_googleapis_com_root_cacert_der
+      WILDCARD_googleapis_com_root_cacert_der
     );
   }
 

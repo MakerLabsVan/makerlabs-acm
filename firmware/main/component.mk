@@ -29,10 +29,6 @@ COMPONENT_EXTRA_CLEAN := \
 	$(COMPONENT_PATH)/src/gen/acm_generated.h \
 	$(COMPONENT_PATH)/src/gen/display_generated.h
 
-COMPONENT_EMBED_TXTFILES := \
-	assets/gen/WILDCARD_google_com_root_cacert.der \
-	assets/gen/WILDCARD_googleapis_com_root_cacert.der
-
 # Needed for std::to_string
 acm_helpers.o: CXXFLAGS += -D_GLIBCXX_USE_C99=1
 app_task.o: CXXFLAGS += -D_GLIBCXX_USE_C99=1
@@ -45,9 +41,17 @@ app_task.o: $(COMPONENT_PATH)/src/gen/display_generated.h
 app_task.o: $(PROJECT_PATH)/esp32-network-lib/firmware_update/src/gen/firmware_update_generated.h
 display_actor.o: $(COMPONENT_PATH)/src/gen/display_generated.h
 
+app_actor.o: $(PROJECT_PATH)/fs/WILDCARD_google_com_root_cacert.der
+app_actor.o: $(PROJECT_PATH)/fs/WILDCARD_googleapis_com_root_cacert.der
 app_actor.o: $(PROJECT_PATH)/fs/firmware_update_check_request_intent.req.fb
 app_actor.o: $(PROJECT_PATH)/fs/auth_request_intent.req.fb
 app_actor.o: $(PROJECT_PATH)/fs/permissions_check_request_intent.req.fb
+
+$(PROJECT_PATH)/fs/WILDCARD_google_com_root_cacert.der: $(COMPONENT_PATH)/assets/gen/WILDCARD_google_com_root_cacert.der
+	cp $^ $@
+
+$(PROJECT_PATH)/fs/WILDCARD_googleapis_com_root_cacert.der: $(COMPONENT_PATH)/assets/gen/WILDCARD_googleapis_com_root_cacert.der
+	cp $^ $@
 
 $(PROJECT_PATH)/fs/firmware_update_check_request_intent.req.fb: $(COMPONENT_PATH)/secrets/gen/firmware_update_check_request_intent.req.fb
 	cp $^ $@
