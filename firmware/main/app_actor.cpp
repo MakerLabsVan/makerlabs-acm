@@ -285,6 +285,7 @@ auto app_actor_behaviour(
               response->body()->size()
             );
 
+            if (verifier.VerifyBuffer<ACM::User>("ACM."))
             {
               valid_user = true;
               const auto& activity_flatbuf = activity_iter->second;
