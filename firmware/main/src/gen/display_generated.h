@@ -61,6 +61,17 @@ inline const Icon (&EnumValuesIcon())[5] {
   return values;
 }
 
+inline const char *EnumNameIcon(Icon e) {
+  switch (e) {
+    case Icon::None: return "None";
+    case Icon::Healthy: return "Healthy";
+    case Icon::Warning: return "Warning";
+    case Icon::Error: return "Error";
+    case Icon::HeavyCheckmark: return "HeavyCheckmark";
+    default: return "";
+  }
+}
+
 enum class DisplayAction : uint8_t {
   NONE = 0,
   ClearDisplay = 1,

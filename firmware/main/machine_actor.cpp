@@ -8,8 +8,8 @@
 #include "esp_log.h"
 
 #include <chrono>
-#include <string>
 #include <experimental/string_view>
+#include <string>
 
 using namespace ActorModel;
 using namespace Requests;
@@ -272,7 +272,7 @@ auto machine_actor_behaviour(
         flatbuffers::FlatBufferBuilder fbb;
 
         auto cnc_job_loc = CreateCNC_Job(fbb, state.motor_activity_seconds);
-        fbb.Finish(cnc_job_loc, UserIdentifier());
+        fbb.Finish(cnc_job_loc, ActivityIdentifier());
 
         //printf("End job, usage seconds = %d\n", state.motor_activity_seconds);
         auto main_actor_pid = *(whereis("app"));

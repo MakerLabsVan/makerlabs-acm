@@ -659,51 +659,51 @@ inline const flatbuffers::TypeTable *LogTypeTable() {
   return &tt;
 }
 
-inline const ACM::User *GetUser(const void *buf) {
-  return flatbuffers::GetRoot<ACM::User>(buf);
+inline const ACM::Activity *GetActivity(const void *buf) {
+  return flatbuffers::GetRoot<ACM::Activity>(buf);
 }
 
-inline const ACM::User *GetSizePrefixedUser(const void *buf) {
-  return flatbuffers::GetSizePrefixedRoot<ACM::User>(buf);
+inline const ACM::Activity *GetSizePrefixedActivity(const void *buf) {
+  return flatbuffers::GetSizePrefixedRoot<ACM::Activity>(buf);
 }
 
-inline User *GetMutableUser(void *buf) {
-  return flatbuffers::GetMutableRoot<User>(buf);
+inline Activity *GetMutableActivity(void *buf) {
+  return flatbuffers::GetMutableRoot<Activity>(buf);
 }
 
-inline const char *UserIdentifier() {
+inline const char *ActivityIdentifier() {
   return "ACM.";
 }
 
-inline bool UserBufferHasIdentifier(const void *buf) {
+inline bool ActivityBufferHasIdentifier(const void *buf) {
   return flatbuffers::BufferHasIdentifier(
-      buf, UserIdentifier());
+      buf, ActivityIdentifier());
 }
 
-inline bool VerifyUserBuffer(
+inline bool VerifyActivityBuffer(
     flatbuffers::Verifier &verifier) {
-  return verifier.VerifyBuffer<ACM::User>(UserIdentifier());
+  return verifier.VerifyBuffer<ACM::Activity>(ActivityIdentifier());
 }
 
-inline bool VerifySizePrefixedUserBuffer(
+inline bool VerifySizePrefixedActivityBuffer(
     flatbuffers::Verifier &verifier) {
-  return verifier.VerifySizePrefixedBuffer<ACM::User>(UserIdentifier());
+  return verifier.VerifySizePrefixedBuffer<ACM::Activity>(ActivityIdentifier());
 }
 
-inline const char *UserExtension() {
+inline const char *ActivityExtension() {
   return "fb";
 }
 
-inline void FinishUserBuffer(
+inline void FinishActivityBuffer(
     flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<ACM::User> root) {
-  fbb.Finish(root, UserIdentifier());
+    flatbuffers::Offset<ACM::Activity> root) {
+  fbb.Finish(root, ActivityIdentifier());
 }
 
-inline void FinishSizePrefixedUserBuffer(
+inline void FinishSizePrefixedActivityBuffer(
     flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<ACM::User> root) {
-  fbb.FinishSizePrefixed(root, UserIdentifier());
+    flatbuffers::Offset<ACM::Activity> root) {
+  fbb.FinishSizePrefixed(root, ActivityIdentifier());
 }
 
 }  // namespace ACM
