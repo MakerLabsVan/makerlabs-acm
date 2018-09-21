@@ -29,6 +29,12 @@ constexpr char TAG[] = "main";
 extern "C"
 #endif // __cplusplus
 void
+app_main();
+
+#ifdef __cplusplus
+extern "C"
+#endif // __cplusplus
+void
 app_main()
 {
   // Print and increment the boot count (from persistent RTC memory)
