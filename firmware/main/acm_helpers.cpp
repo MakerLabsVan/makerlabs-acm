@@ -2,8 +2,8 @@
 
 #include "display_generated.h"
 
-#include <experimental/string_view>
 #include <chrono>
+#include <experimental/string_view>
 
 using namespace ACM;
 using namespace Display;
@@ -18,7 +18,7 @@ auto generate_activity(
 ) -> ActivityFlatbuffer
 {
   flatbuffers::FlatBufferBuilder fbb;
-  auto epoch_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(
+  double epoch_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(
     std::chrono::system_clock::now().time_since_epoch()
   ).count();
 
