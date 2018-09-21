@@ -1,11 +1,7 @@
-#include "app_task.h"
+#include "start_app.h"
 
-#include <chrono>
-#include <memory>
-#include <string>
-
-#include "actors.h"
 #include "acm_helpers.h"
+#include "actors.h"
 #include "display_generated.h"
 
 // actor_model
@@ -20,19 +16,23 @@
 #include "firmware_update_actor.h"
 
 // network_manager
+#include "network_check_actor.h"
 #include "network_manager.h"
 #include "ntp.h"
-#include "network_check_actor.h"
 #include "ntp_actor.h"
 #include "wifi_actor.h"
 
 // requests
-#include "requests.h"
 #include "request_manager_actor.h"
+#include "requests.h"
 
+#include <chrono>
+#include <memory>
+#include <string>
+
+#include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "esp_log.h"
 
 #include "trace.h"
 
@@ -46,22 +46,22 @@ using NetworkManager::ntp_actor_behaviour;
 using NetworkManager::wifi_actor_behaviour;
 using Requests::request_manager_actor_behaviour;
 using FirmwareUpdate::firmware_update_actor_behaviour;
-using FirmwareUpdate::get_current_firmware_version;
 
 using string_view = std::experimental::string_view;
 using string = std::string;
 
 using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
+using FirmwareUpdate::get_current_firmware_version;
 
 using namespace Display;
 using namespace NetworkManager;
 
 using namespace std::chrono_literals;
 
-constexpr char TAG[] = "app_task";
+constexpr char TAG[] = "start_app";
 
-auto app_task(void* /* user_data */)
-  -> void
+auto start_app()
+  -> bool
 {
   printf("S/W Version Number: %lld\n", get_current_firmware_version());
   string machine_id_str = CONFIG_ACM_PERMISSION_COLUMN_LABEL;
@@ -85,14 +85,14 @@ auto app_task(void* /* user_data */)
     }
   }
 */
-  heap_check("app_task");
+  heap_check("start_app");
 
   // DisplayActor
   {
     auto display_actor_pid = spawn(
-      display_actor_behaviour,
+      static_cast<ActorBehaviour>(display_actor_behaviour),
       // Override the default execution config settings
-      [](ActorExecutionConfigBuilder& builder)
+      [](ProcessExecutionConfigBuilder& builder)
       {
         builder.add_task_stack_size(4096);
       }
@@ -136,9 +136,9 @@ auto app_task(void* /* user_data */)
   {
     // Spawn the RequestManager actor using the generated execution config
     request_manager_actor_pid = spawn(
-      request_manager_actor_behaviour,
+      static_cast<ActorBehaviour>(request_manager_actor_behaviour),
       // Override the default execution config settings
-      [](ActorExecutionConfigBuilder& builder)
+      [](ProcessExecutionConfigBuilder& builder)
       {
         builder.add_task_stack_size(REQUESTS_REQUEST_MANAGER_TASK_STACK_SIZE);
         builder.add_mailbox_size(REQUESTS_REQUEST_MANAGER_MAILBOX_SIZE);
@@ -150,9 +150,9 @@ auto app_task(void* /* user_data */)
   // FirmwareUpdateActor
   {
     auto firmware_update_actor_pid = spawn(
-      firmware_update_actor_behaviour,
+      static_cast<ActorBehaviour>(firmware_update_actor_behaviour),
       // Override the default execution config settings
-      [](ActorExecutionConfigBuilder& builder)
+      [](ProcessExecutionConfigBuilder& builder)
       {
         builder.add_task_stack_size(FIRMWARE_UPDATE_ACTOR_TASK_STACK_SIZE);
         builder.add_mailbox_size(FIRMWARE_UPDATE_ACTOR_MAILBOX_SIZE);
@@ -174,9 +174,11 @@ auto app_task(void* /* user_data */)
         network_check_actor_behaviour,
       },
       // Override the default execution config settings to increase mailbox size
-      [](ActorExecutionConfigBuilder& builder)
+      [](ProcessExecutionConfigBuilder& builder)
       {
+        //builder.add_task_stack_size(8192);
         builder.add_task_stack_size(4096);
+        //builder.add_mailbox_size(8192);
         builder.add_mailbox_size(4096);
       }
     );
@@ -194,21 +196,18 @@ auto app_task(void* /* user_data */)
     register_name("network_check", combined_actor_pid);
   }
 
-  heap_check("after spawn all actors");
+  //heap_check("after spawn all actors");
+  // Send periodic heap check message
+  {
+    auto heap_check_interval = 30s;
+    auto app_actor_pid = *(whereis("app_actor"));
+
+    // Schedule periodic ping requests (re-using previous metadata)
+    send_interval(heap_check_interval, app_actor_pid, "heap_check");
+  }
 
   // Set CA certs for request_manager
   {
-    // Set CA certs for *.google.com
-    auto WILDCARD_google_com_root_cacert_der = filesystem_read(
-      "/spiflash/WILDCARD_google_com_root_cacert.der"
-    );
-
-    send(
-      request_manager_actor_pid,
-      "add_cacert_der",
-      WILDCARD_google_com_root_cacert_der
-    );
-
     // Set CA certs for *.googleapis.com
     auto WILDCARD_googleapis_com_root_cacert_der = filesystem_read(
       "/spiflash/WILDCARD_googleapis_com_root_cacert.der"
@@ -218,6 +217,17 @@ auto app_task(void* /* user_data */)
       request_manager_actor_pid,
       "add_cacert_der",
       WILDCARD_googleapis_com_root_cacert_der
+    );
+
+    // Set CA certs for *.execute-api.us-west-2.amazonaws.com
+    auto WILDCARD_execute_api_us_west_2_amazonaws_com_root_cacert_der = filesystem_read(
+      "/spiflash/WILDCARD_execute_api_us_west_2_amazonaws_com_root_cacert.der"
+    );
+
+    send(
+      request_manager_actor_pid,
+      "add_cacert_der",
+      WILDCARD_execute_api_us_west_2_amazonaws_com_root_cacert_der
     );
   }
 
@@ -280,12 +290,12 @@ auto app_task(void* /* user_data */)
   // Send periodic auth message
   {
     auto auth_interval = 20min;
-    auto auth_request_intent_mutable_buf = filesystem_read(
+    auto auth_request_intent_req_fb = filesystem_read(
       "/spiflash/auth_request_intent.req.fb"
     );
 
     set_request_body(
-      auth_request_intent_mutable_buf ,
+      auth_request_intent_req_fb ,
       "grant_type="     "refresh_token" "&"
       "client_id="      CONFIG_ACM_OAUTH_CLIENT_ID "&"
       "client_secret="  CONFIG_ACM_OAUTH_CLIENT_SECRET "&"
@@ -295,7 +305,7 @@ auto app_task(void* /* user_data */)
     auto auth_actor_pid = *(whereis("auth"));
 
     // Send an initial full auth request intent
-    send(auth_actor_pid, "auth", auth_request_intent_mutable_buf);
+    send(auth_actor_pid, "auth", auth_request_intent_req_fb);
     // Schedule periodic auth requests (re-using previous metadata)
     send_interval(auth_interval, auth_actor_pid, "auth");
   }
@@ -324,52 +334,16 @@ auto app_task(void* /* user_data */)
       firmware_update_actor_pid,
       "check"
     );
+
+    //TODO: this should be interrupt, timer, cancellation driven
+    // Schedule periodic reset button checks
+    auto reset_button_check_interval = 1s;
+    send_interval(
+      reset_button_check_interval,
+      firmware_update_actor_pid,
+      "check_reset_pressed"
+    );
   }
 
-  // Main loop state
-  auto reset_button_check_interval = 1s;
-
-  Timestamp last_reset_button_check_timestamp;
-
-  auto reset_button_pin = static_cast<gpio_num_t>(0);
-  gpio_set_direction(reset_button_pin, GPIO_MODE_INPUT);
-
-  uint32_t progress = 0;
-  auto reset_count = 0;
-  for (;;)
-  {
-    //heap_check("app_task loop");
-
-    // Periodic polling loop, send interval-based messages here
-    auto now = std::chrono::system_clock::now();
-
-    // Progress reset count, eventually trigger a factory reset after 5s
-    if ((now - last_reset_button_check_timestamp) > reset_button_check_interval)
-    {
-      // Invert logic on reset button (pull-down for 5s triggers factory reset)
-      auto reset_button_pressed = (gpio_get_level(reset_button_pin) == 0);
-      if (reset_button_pressed)
-      {
-        // Update progress bar by 20%
-        reset_count++;
-        auto progress_bar = generate_progress_bar("Reset...", reset_count * 20);
-        auto display_actor_pid = *(whereis("display"));
-        send(display_actor_pid, "ProgressBar", progress_bar);
-
-        auto firmware_update_actor_pid = *(whereis("firmware_update"));
-        send(firmware_update_actor_pid, "reset_pressed");
-      }
-      else {
-        reset_count = 0;
-      }
-
-      last_reset_button_check_timestamp = now;
-    }
-
-    // Run the loop at approx. half the shortest interval
-    delay(500ms);
-  }
-
-  ESP_LOGI(TAG, "Complete, deleting task.");
-  vTaskDelete(nullptr);
+  return true;
 }

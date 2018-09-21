@@ -12,7 +12,7 @@
 #include "nvs_flash.h"
 #include "tcpip_adapter.h"
 
-#include "app_task.h"
+#include "start_app.h"
 
 extern EventGroupHandle_t network_event_group;
 
@@ -81,9 +81,15 @@ app_main()
     ESP_LOGE(TAG, "Could not set event loop callback");
   }
 
-  xTaskCreate(&app_task, "app_task", 4096, nullptr, 5, nullptr);
-
-  // Main task can complete as soon as other tasks have been started
-  ESP_LOGI(TAG, "Complete, deleting task.");
-  vTaskDelete(nullptr);
+  auto app_started = start_app();
+  if (app_started)
+  {
+    // Main task can complete as soon as actors have been started
+    ESP_LOGI(TAG, "Complete, deleting task.");
+    vTaskDelete(nullptr);
+  }
+  else {
+    // Crash the system, reboot to try again
+    throw std::runtime_error("Failed to start app");
+  }
 }

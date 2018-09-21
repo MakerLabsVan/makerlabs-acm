@@ -1,35 +1,5 @@
 menu "MakerLabs ACM Configuration"
 
-#config SPREADSHEET_ID
-#  string "Google Apps Spreadsheet ID"
-#  default ""
-#  help
-#    Google Apps Spreadsheet ID
-#
-#config SPREADSHEET_USERS_SHEET_GID
-#  string "Google Apps 'Users' Sheet ID (GID)"
-#  default ""
-#  help
-#    Google Apps 'Users' Sheet ID (GID)
-#
-#config SPREADSHEET_USERS_SHEET_NAME
-#  string "Google Apps 'Users' Sheet Name"
-#  default "Users"
-#  help
-#    Google Apps 'Users' Sheet Name
-#
-#config SPREADSHEET_ACTIVITY_SHEET_NAME
-#  string "Google Apps 'Activity' Sheet Name"
-#  default "Activity"
-#  help
-#    Google Apps 'Activity' Sheet Name
-#
-#config SPREADSHEET_LOGS_SHEET_NAME
-#  string "Google Apps 'Logs' Sheet Name"
-#  default "Logs"
-#  help
-#    Google Apps 'Logs' Sheet Name
-
 config ACM_OAUTH_CLIENT_ID
   string "OAuth Client ID"
   default ""
@@ -47,6 +17,12 @@ config ACM_OAUTH_REFRESH_TOKEN
   default ""
   help
     OAuth refresh_token used to obtain fresh access_token's every hour
+
+config ACM_PERMISSIONS_CHECK_URL
+  string "Permissions Check HTTPS Endpoint URL"
+  default ""
+  help
+    Permissions Check HTTPS Endpoint URL (Google Cloud Functions, AWS Lambda, etc) which accepts an ACM.Activity message and returns an ACM.User message.
 
 config ACM_ENABLE_SIGNED_IN_ACTIVITY
   prompt "Send Sign_In events to spreadsheet"
