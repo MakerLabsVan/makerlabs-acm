@@ -104,7 +104,7 @@ struct AppActorState
         if (not progress_tref)
         {
           auto display_actor_pid = *(whereis("display"));
-          progress_tref = send_interval(50ms, display_actor_pid, "progress");
+          progress_tref = send_interval(250ms, display_actor_pid, "progress");
         }
 
         return request_id;
