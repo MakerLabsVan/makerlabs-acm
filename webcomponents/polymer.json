@@ -11,6 +11,7 @@
     "node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js",
     "node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js",
     "node_modules/@webcomponents/webcomponentsjs/bundles/*.js",
+    "node_modules/@webcomponents/webcomponentsjs/bundles/*.js.map",
     "node_modules/@material/layout-grid/dist/mdc.layout-grid.min.css",
     "node_modules/fetch-jsonp/build/fetch-jsonp.js",
     "node_modules/web-animations-js/web-animations-next.min.js"
