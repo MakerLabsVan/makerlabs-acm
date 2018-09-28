@@ -9,7 +9,6 @@ add_c_compile_options(
 )
 
 add_cxx_compile_options(
-  -std=c++14
   -finline-small-functions
   -findirect-inlining
   -fpie

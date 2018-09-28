@@ -28,6 +28,9 @@ set(
 
 register_component()
 
+set_property(TARGET "${COMPONENT_NAME}" PROPERTY CXX_STANDARD 14)
+set_property(TARGET "${COMPONENT_NAME}" PROPERTY CXX_STANDARD_REQUIRED ON)
+
 set_property(
   SOURCE acm_helpers.cpp
   APPEND PROPERTY
