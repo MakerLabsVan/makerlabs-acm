@@ -24,6 +24,7 @@ set(
     "main.cpp"
     "rfid_reader_actor.cpp"
     "start_app.cpp"
+    "start_request_manager.cpp"
 )
 
 register_component()

@@ -4,8 +4,11 @@
 #include "actors.h"
 #include "display_generated.h"
 
+#include "start_request_manager.h"
+
 // actor_model
 #include "actor_model.h"
+#include "supervisor_actor_behaviour.h"
 
 // utils
 #include "delay.h"
@@ -23,7 +26,6 @@
 #include "wifi_actor.h"
 
 // requests
-#include "request_manager_actor.h"
 #include "requests.h"
 
 #include <chrono>
@@ -36,15 +38,12 @@
 
 #include "trace.h"
 
-using namespace ActorModel;
-
 using Requests::set_request_body;
 
 // ActorModel behaviours:
 using NetworkManager::network_check_actor_behaviour;
 using NetworkManager::ntp_actor_behaviour;
 using NetworkManager::wifi_actor_behaviour;
-using Requests::request_manager_actor_behaviour;
 using FirmwareUpdate::firmware_update_actor_behaviour;
 
 using string_view = std::experimental::string_view;
@@ -54,6 +53,7 @@ using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 using FirmwareUpdate::get_current_firmware_version;
 
 using namespace Display;
+using namespace ModuleManager;
 using namespace NetworkManager;
 
 using namespace std::chrono_literals;
@@ -86,6 +86,42 @@ auto start_app()
   }
 */
   heap_check("start_app");
+
+  // Single actor with multiple behaviours combined sharing the same task
+  Pid app_actor_pid = UUID::NullUUID;
+  {
+    auto combined_actor_pid = spawn(
+      {
+        auth_actor_behaviour,
+        rfid_reader_actor_behaviour,
+        app_actor_behaviour,
+        machine_actor_behaviour,
+        ntp_actor_behaviour,
+        wifi_actor_behaviour,
+        network_check_actor_behaviour,
+      },
+      // Override the default execution config settings to increase mailbox size
+      [](ProcessExecutionConfigBuilder& builder)
+      {
+        builder.add_task_stack_size(4096);
+        builder.add_mailbox_size(4096);
+      }
+    );
+
+    // app features
+    register_name("auth", combined_actor_pid);
+    register_name("rfid_reader", combined_actor_pid);
+    register_name("machine", combined_actor_pid);
+    register_name("app", combined_actor_pid);
+
+    // network_manager features
+    register_name("network_manager", combined_actor_pid);
+    register_name("ntp", combined_actor_pid);
+    register_name("wifi", combined_actor_pid);
+    register_name("network_check", combined_actor_pid);
+
+    app_actor_pid = combined_actor_pid;
+  }
 
   // DisplayActor
   {
@@ -131,20 +167,95 @@ auto start_app()
     );
   }
 
-  // Spawn the RequestManager actor
-  Pid request_manager_actor_pid;
   {
-    // Spawn the RequestManager actor using the generated execution config
-    request_manager_actor_pid = spawn(
-      static_cast<ActorBehaviour>(request_manager_actor_behaviour),
+    // Register module(s)
+    ModuleFlatbuffer mod1_flatbuf;
+
+    flatbuffers::FlatBufferBuilder fbb;
+
+    std::vector<flatbuffers::Offset<Function>> exports;
+    exports.push_back(
+      CreateFunctionDirect(
+        fbb,
+        "start_request_manager",
+        reinterpret_cast<uint64_t>(&start_request_manager)
+      )
+    );
+
+    fbb.Finish(
+      CreateModuleDirect(fbb, "mod1", &(exports), "/spiflash/mod1.elf")
+    );
+
+    module(
+      string_view{
+        reinterpret_cast<const char*>(fbb.GetBufferPointer()),
+        fbb.GetSize()
+      }
+    );
+  }
+
+  // Supervisor
+  {
+    auto supervisor_pid = spawn_link(
+      app_actor_pid,
+      static_cast<ActorBehaviour>(supervisor_actor_behaviour),
       // Override the default execution config settings
       [](ProcessExecutionConfigBuilder& builder)
       {
-        builder.add_task_stack_size(REQUESTS_REQUEST_MANAGER_TASK_STACK_SIZE);
-        builder.add_mailbox_size(REQUESTS_REQUEST_MANAGER_MAILBOX_SIZE);
+        builder.add_task_stack_size(4096);
       }
     );
-    register_name("request_manager", request_manager_actor_pid);
+    register_name("supervisor", supervisor_pid);
+
+    flatbuffers::FlatBufferBuilder fbb;
+
+    const auto id = "request_manager";
+
+    flatbuffers::FlatBufferBuilder args_fbb;
+
+    std::vector<uint8_t> payload{};
+    args_fbb.Finish(
+      CreateMessageDirect(args_fbb, "init", 0, nullptr, 1, &(payload))
+    );
+
+    std::vector<uint8_t> args{
+      args_fbb.GetBufferPointer(),
+      args_fbb.GetBufferPointer() + args_fbb.GetSize()
+    };
+    auto start = CreateMFADirect(fbb, "mod1", "start_request_manager", &(args));
+
+    auto shutdown_milliseconds = 5000;
+
+    std::vector<flatbuffers::Offset<Module>> modules;
+    modules.push_back(
+      CreateModule(
+        fbb
+      )
+    );
+
+    std::vector<flatbuffers::Offset<ChildSpec>> child_specs;
+    child_specs.push_back(
+      CreateChildSpecDirect(
+        fbb,
+        id,
+        start,
+        ChildSpecRestartFlag::permanent,
+        shutdown_milliseconds,
+        ChildSpecTypeFlag::worker,
+        &(modules)
+      )
+    );
+
+    fbb.Finish(
+      CreateSupervisorArgsDirect(fbb, &(child_specs)),
+      MessageIdentifier()
+    );
+
+    send(
+      supervisor_pid,
+      "init",
+      fbb.Release()
+    );
   }
 
   // FirmwareUpdateActor
@@ -160,75 +271,16 @@ auto start_app()
     );
     register_name("firmware_update", firmware_update_actor_pid);
   }
-
-  // Single actor with multiple behaviours combined sharing the same task
-  {
-    auto combined_actor_pid = spawn(
-      {
-        auth_actor_behaviour,
-        rfid_reader_actor_behaviour,
-        app_actor_behaviour,
-        machine_actor_behaviour,
-        ntp_actor_behaviour,
-        wifi_actor_behaviour,
-        network_check_actor_behaviour,
-      },
-      // Override the default execution config settings to increase mailbox size
-      [](ProcessExecutionConfigBuilder& builder)
-      {
-        //builder.add_task_stack_size(8192);
-        builder.add_task_stack_size(4096);
-        //builder.add_mailbox_size(8192);
-        builder.add_mailbox_size(4096);
-      }
-    );
-
-    // app features
-    register_name("auth", combined_actor_pid);
-    register_name("rfid_reader", combined_actor_pid);
-    register_name("machine", combined_actor_pid);
-    register_name("app", combined_actor_pid);
-
-    // network_manager features
-    register_name("network_manager", combined_actor_pid);
-    register_name("ntp", combined_actor_pid);
-    register_name("wifi", combined_actor_pid);
-    register_name("network_check", combined_actor_pid);
-  }
+  heap_check("after firmware_update");
 
   //heap_check("after spawn all actors");
   // Send periodic heap check message
   {
     auto heap_check_interval = 30s;
-    auto app_actor_pid = *(whereis("app_actor"));
+    auto app_actor_pid = *(whereis("app"));
 
     // Schedule periodic ping requests (re-using previous metadata)
     send_interval(heap_check_interval, app_actor_pid, "heap_check");
-  }
-
-  // Set CA certs for request_manager
-  {
-    // Set CA certs for *.googleapis.com
-    auto WILDCARD_googleapis_com_root_cacert_der = filesystem_read(
-      "/spiflash/WILDCARD_googleapis_com_root_cacert.der"
-    );
-
-    send(
-      request_manager_actor_pid,
-      "add_cacert_der",
-      WILDCARD_googleapis_com_root_cacert_der
-    );
-
-    // Set CA certs for *.execute-api.us-west-2.amazonaws.com
-    auto WILDCARD_execute_api_us_west_2_amazonaws_com_root_cacert_der = filesystem_read(
-      "/spiflash/WILDCARD_execute_api_us_west_2_amazonaws_com_root_cacert.der"
-    );
-
-    send(
-      request_manager_actor_pid,
-      "add_cacert_der",
-      WILDCARD_execute_api_us_west_2_amazonaws_com_root_cacert_der
-    );
   }
 
   // Start Wifi in STA mode
