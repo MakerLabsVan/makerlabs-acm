@@ -12,14 +12,12 @@ EXTRA_COMPONENT_DIRS ?= \
 
 include $(IDF_PATH)/make/project.mk
 
-CFLAGS := \
-	$(CFLAGS) \
+CFLAGS += \
 	-fpie
 
 # Replace -std={c++11,gnu++11,gnu++14} with c++14
 # This must happen after include make/project.mk above
-CXXFLAGS := \
-	$(patsubst -std=%,-std=c++14,$(CXXFLAGS)) \
+CXXFLAGS += \
 	-finline-small-functions \
 	-findirect-inlining \
 	-fpie \

@@ -5,8 +5,16 @@
 
 COMPONENT_DEPENDS := \
 	actor_model \
+	fatfs \
 	firmware_update \
-	requests
+	module_manager \
+	mqtt \
+	network_manager \
+	nvs_flash \
+	requests \
+	utils \
+	u8g2 \
+	wiegand_reader
 
 COMPONENT_ADD_INCLUDEDIRS := \
 	. \
@@ -28,6 +36,8 @@ COMPONENT_EXTRA_CLEAN := \
 	$(COMPONENT_PATH)/secrets/gen/auth_request_intent.req.json \
 	$(COMPONENT_PATH)/src/gen/acm_generated.h \
 	$(COMPONENT_PATH)/src/gen/display_generated.h
+
+CXXFLAGS += -std=c++14
 
 # Needed for std::to_string
 acm_helpers.o: CXXFLAGS += -D_GLIBCXX_USE_C99=1
