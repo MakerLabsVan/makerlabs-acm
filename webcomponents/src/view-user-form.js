@@ -64,9 +64,6 @@ class ViewUserForm extends LitElement {
       profilePhotosFolderId: {
         type: String,
       },
-      isSaving: {
-        type: Boolean,
-      },
     };
   }
 
@@ -74,7 +71,6 @@ class ViewUserForm extends LitElement {
     super();
     this.fields = [];
     this.query = {};
-    this.isSaving = false;
 
     if (window && window.location) {
       const url = new URL(window.location);
@@ -199,7 +195,7 @@ class ViewUserForm extends LitElement {
         <div class="tool-bar">
           <div class="tool-bar-action">
             <paper-spinner-lite
-              ?active=${this.isSaving}
+              id="is-saving-spinner"
             ></paper-spinner-lite>
           </div>
           <div class="tool-bar-action">
@@ -207,7 +203,6 @@ class ViewUserForm extends LitElement {
               mini
               icon="add"
               @tap="${this.populateNewUser.bind(this)}"
-              ?disabled=${this.isSaving}
             ></paper-fab>
             <paper-tooltip
               position="top"
@@ -220,7 +215,6 @@ class ViewUserForm extends LitElement {
               mini
               icon="save"
               @tap="${this.handleSubmit.bind(this)}"
-              ?disabled=${this.isSaving}
             ></paper-fab>
             <paper-tooltip
               position="top"
@@ -937,6 +931,15 @@ class ViewUserForm extends LitElement {
     }
   }
 
+  async setIsSaving(isSaving) {
+    var spinner = this.shadowRoot.getElementById("is-saving-spinner");
+    spinner.active = isSaving;
+    var fabs = this.shadowRoot.querySelectorAll("paper-fab");
+    for (var i = 0; i < fabs.length; ++i) {
+      fabs[i].disabled = isSaving;
+    }
+  }
+
   async handleSubmit() {
     var sheets = this.shadowRoot.getElementById("sheets");
 
@@ -1005,7 +1008,7 @@ class ViewUserForm extends LitElement {
     if (sheets && sheets.api && formValues.length && validMakerLabsId) {
       var rowName = formValues[0];
 
-      this.isSaving = true;
+      this.setIsSaving(true);
 
       if (rowName) {
         // Clear row value, it will be supplied by the ARRAYFORMULA
@@ -1026,7 +1029,7 @@ class ViewUserForm extends LitElement {
           // Emit event with user field names and confirmed values
           user.Row = parseInt(rowName);
           this.dispatchEvent(new CustomEvent("updated-user", {detail: user}));
-          this.isSaving = false;
+          this.setIsSaving(false);
         } else {
           console.log(
             `Invalid response received for updating '${this.usersSheetName}' ${
@@ -1063,7 +1066,7 @@ class ViewUserForm extends LitElement {
                 this.dispatchEvent(
                   new CustomEvent("updated-user", {detail: user})
                 );
-                this.isSaving = false;
+                this.setIsSaving(false);
 
                 const rowField = this.fieldForColumnId(this.usersRowColumn);
 
