@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["manifest.json","49506f0f8bb3a04a7fa3ef5d8acfa1fc"],["src/app-shell.js","1c44348cfcfebedbc6e9c81543efffe9"],["view-user-page.html","7bebdd3582f084296feb9a809eaa14e8"]];
+var precacheConfig = [["manifest.json","49506f0f8bb3a04a7fa3ef5d8acfa1fc"],["node_modules/@material/layout-grid/dist/mdc.layout-grid.min.css","1188a8aabb72a3814ede0272f15bfdba"],["node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js","d42dd0732b85d5efa9e1660a1747b05c"],["node_modules/fetch-jsonp/build/fetch-jsonp.js","79758ccaf7bd1291573eccbb2b18974a"],["node_modules/web-animations-js/web-animations-next.min.js","26a87bbc4392cfdc6a684665a0a02ff5"],["src/app-shell.js","27f4601431e813b72063919fa4b8f4c9"],["view-user-page.html","4a6166fddae8ec39819ebbb434e69644"]];
 var cacheName = 'sw-precache-v3--' + (self.registration ? self.registration.scope : '');
 
 
@@ -285,11 +285,11 @@ self.addEventListener('fetch', function (event) {
 
 // Runtime cache configuration, using the sw-toolbox library.
 
-toolbox.router.get(/\/@webcomponents\/webcomponentsjs\//, toolbox.fastest, {});
-toolbox.router.get(/\/web-animations-js\//, toolbox.fastest, {});
-toolbox.router.get(/\/fetch-jsonp\//, toolbox.fastest, {});
-toolbox.router.get(/\/__\/firebase\//, toolbox.fastest, {});
+toolbox.router.get(/\/__\/firebase\//, toolbox.cacheFirst, {});
+toolbox.router.get(/^https:\/\/apis.google.com\/js\/api.js/, toolbox.fastest, {});
 toolbox.router.get(/^https:\/\/fonts.gstatic.com\//, toolbox.fastest, {});
+toolbox.router.get(/\/google_apps_script_proxy\/.*?href=users-fields/, toolbox.fastest, {});
+toolbox.router.get(/https:\/\/drive.google.com\//, toolbox.cacheFirst, {"cache":{"maxEntries":1000,"name":"profile-photos-cache","maxAgeSeconds":604800}});
 
 
 
