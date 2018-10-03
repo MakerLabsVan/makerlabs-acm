@@ -6,6 +6,7 @@
     "uri": "@CONFIG_ACM_PERMISSIONS_CHECK_URL@",
     "headers": [
       { "k": "Content-Type", "v": "application/octet-stream" },
+      { "k": "Accept", "v": "application/octet-stream" },
       { "k": "Authorization", "v": "" }
     ],
     "query": [],
