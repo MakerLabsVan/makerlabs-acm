@@ -6,16 +6,27 @@ import {
 
 // App Layout
 import "@polymer/app-layout/app-header-layout/app-header-layout.js";
+import "@polymer/app-layout/app-drawer-layout/app-drawer-layout.js";
+import "@polymer/app-layout/app-drawer/app-drawer.js";
 import "@polymer/app-layout/app-header/app-header.js";
 import "@polymer/app-layout/app-toolbar/app-toolbar.js";
 
 // Google Sign-In, Sheets, Charts, ...
-import "google-signin/google-signin.js";
 import "google-apis/google-apis.js";
+
+// Material Design Components
+import "@polymer/paper-button/paper-button.js";
+import "@polymer/paper-dialog/paper-dialog.js";
+import "@polymer/paper-icon-button/paper-icon-button.js";
+import "@polymer/paper-item/paper-icon-item.js";
+import "@polymer/paper-item/paper-item.js";
+import "@polymer/paper-item/paper-item-body.js";
+import "@polymer/paper-spinner/paper-spinner-lite.js";
 
 // Local Components
 import "./user-search-bar.js";
 import "./view-user-form.js";
+import "./google-signin-button.js";
 
 // Gesture events like tap and track generated from touch will not be
 // preventable, allowing for better scrolling performance.
@@ -23,7 +34,7 @@ setPassiveTouchGestures(true);
 
 // Set Polymer's root path to the same value we passed to our service worker
 // in `index.html`.
-setRootPath(MyAppGlobals.rootPath);
+setRootPath(AppGlobals.rootPath);
 
 class AppShell extends LitElement {
   static get properties() {
@@ -52,7 +63,7 @@ class AppShell extends LitElement {
       nextMakerLabsIdUrl: {
         type: String,
       },
-      _fields: {
+      fields: {
         type: Array,
       },
       userName: {
@@ -70,10 +81,25 @@ class AppShell extends LitElement {
       query: {
         type: Object,
       },
+      emptyImageData: {
+        type: String,
+      },
+      dialogMetadata: {
+        type: Object,
+      },
     };
   }
 
-  _render(props) {
+  constructor() {
+    super();
+    this.emptyImageData =
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=";
+    this.fields = [];
+    this.dialogMetadata = {};
+    this.accessToken = "";
+  }
+
+  render() {
     return html`
     <style>
       app-toolbar {
@@ -85,63 +111,125 @@ class AppShell extends LitElement {
       .search-bar {
         width: 50%;
       }
+      .overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .avatar {
+        display: inline-block;
+        box-sizing: border-box;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--paper-grey-600);
+      }
+      .listbox-button,
+      .listbox-button google-signin-button {
+        width: 95%;
+      }
     </style>
 
-    <app-header-layout>
-      <!-- Google Data, APIs, and Auth -->
-      <google-signin-aware
-        on-google-signin-aware-success="${this.handleAuthSignIn.bind(this)}"
-        on-google-signin-aware-signed-out="${this.handleAuthSignOut.bind(this)}"
-      ></google-signin-aware>
-
-      <!-- App Layout -->
-      <app-header slot="header" fixed="">
-        <app-toolbar>
-          <google-signin
-            openid-prompt="select_account"
-            clientId="${props.oauthClientId}"
-            scopes="${props.oauthScopes}"
-          ></google-signin>
-          <div main-title="">
-            <span>MakerLabs ACM</span>
+    <!-- App Layout -->
+    <app-drawer-layout fullbleed force-narrow>
+      <app-drawer slot="drawer" id="drawer">
+        <div role="listbox">
+          ${
+            this.currentUser
+              ? html`
+            <paper-icon-item>
+              <img
+                class="avatar"
+                slot="item-icon"
+                src="${this.currentUser.photoURL}"
+              />
+              <paper-item-body two-line>
+                <div>${this.currentUser.displayName}</div>
+                <div secondary>${this.currentUser.email}</div>
+              </paper-item-body>
+            </paper-icon-item>
+          `
+              : html``
+          }
+          <hr />
+          <div class="listbox-button">
+            <google-signin-button
+              id="auth"
+              .oauthClientId="${this.oauthClientId}"
+              .oauthScopes="${this.oauthScopes}"
+              @auth-error="${(e) => this.displayDialog(e.detail)}"
+            ></google-signin-button>
           </div>
-          <user-search-bar
-            id="search"
-            class="search-bar"
-          ></user-search-bar>
-        </app-toolbar>
-      </app-header>
+        </div>
+      </app-drawer>
+      <app-header-layout fullbleed>
+        <app-header slot="header" fixed>
+          <app-toolbar>
+            <paper-icon-button
+              icon="account-box"
+              drawer-toggle
+            ></paper-icon-button>
+            <div main-title>MakerLabs ACM</div>
+            <user-search-bar
+              id="search"
+              class="search-bar"
+            ></user-search-bar>
+          </app-toolbar>
+        </app-header>
 
-      <!-- Render Form -->
-      <view-user-form
-        id="form"
-        sheetId="${props.sheetId}"
-        machineId="${props.machineId}"
-        accessToken="${props.accessToken}"
-        fields="${props._fields}"
-        query="${props.query}"
-        defaultPhotoUrl="${props.defaultPhotoUrl}"
-        nextMakerLabsIdUrl="${props.nextMakerLabsIdUrl}"
-        profilePhotosFolderId="${props.profilePhotosFolderId}"
-      ></view-user-form>
-    </app-header-layout>
+        <!-- User Form -->
+        ${
+          this.fields && this.fields.length > 0
+            ? ""
+            : html`
+            <div class="overlay">
+              <paper-spinner-lite active></paper-spinner-lite>
+            </div>
+          `
+        }
+        <view-user-form
+          id="form"
+          .sheetId=${this.sheetId}
+          .machineId=${this.machineId}
+          .accessToken=${this.accessToken}
+          .query=${this.query}
+          .defaultPhotoUrl=${this.defaultPhotoUrl}
+          .nextMakerLabsIdUrl=${this.nextMakerLabsIdUrl}
+          .profilePhotosFolderId=${this.profilePhotosFolderId}
+        ></view-user-form>
+
+      </app-header-layout>
+    </app-drawer-layout>
+
+    <!-- Error Dialog (hidden until opened) -->
+    <paper-dialog id="dialog" with-backdrop>
+      <h2>${this.dialogMetadata.title}</h2>
+      <p>${this.dialogMetadata.helpText}</p>
+      <p>Internal Error: <i>"${this.dialogMetadata.errorText}"</i></p>
+      <div class="buttons">
+        <paper-button dialog-confirm autofocus>OK</paper-button>
+      </div>
+    </paper-dialog>
+
 `;
   }
 
-  get fields() {
-    return this._fields;
-  }
-
-  set fields(fields) {
-    this._fieldsChanged(fields, this._fields);
-    this._fields = fields;
-  }
-
-  async _fieldsChanged(newValue, oldValue) {
-    if (newValue) {
+  async updated(changedProperties) {
+    if (
+      changedProperties &&
+      changedProperties.has("fields") &&
+      this.fields &&
+      this.fields.length > 0
+    ) {
       const form = this.shadowRoot.getElementById("form");
       if (form) {
-        form.fields = newValue;
+        form.fields = this.fields;
         var queryStr;
         if (form.query) {
           if (form.query["Name"]) {
@@ -196,6 +284,7 @@ class AppShell extends LitElement {
                 imageStyle: "display: none;",
                 iconStyle: "",
                 Name: v,
+                Photo: this.emptyImageData,
               });
             }
           }
@@ -259,28 +348,57 @@ class AppShell extends LitElement {
           }
         }
 
-        const userSearchBar = this.shadowRoot.getElementById("search");
-        if (userSearchBar) {
-          userSearchBar.items = users;
+        const search = this.shadowRoot.getElementById("search");
+        if (search) {
+          search.items = users;
         }
       }
     }
   }
 
-  _firstRendered() {
+  firstUpdated(changedProperties) {
     const database = firebase.database();
 
-    // Attach auth callbacks
-    const aware = this.shadowRoot.querySelector("google-signin-aware");
-    aware.handleAuthSignIn = this.handleAuthSignIn;
-    aware.handleAuthSignOut = this.handleAuthSignOut;
-    aware.handleAuthStateChange = this.handleAuthStateChange;
+    const auth = this.shadowRoot.getElementById("auth");
+    auth.addEventListener("currentUser", async (e) => {
+      if (e.detail) {
+        this.handleAuthSignIn();
+      } else {
+        this.handleAuthSignOut();
+      }
+    });
 
-    const search = this.shadowRoot.getElementById("search");
     const form = this.shadowRoot.getElementById("form");
+    const search = this.shadowRoot.getElementById("search");
+
+    form.addEventListener("reset-form", async (e) => {
+      search.resetSelectedItem();
+    });
+
+    form.addEventListener("updated-user", async (e) => {
+      if (e.detail) {
+        const user = e.detail;
+        if (search) {
+          search.mergeItem({
+            type: "user",
+            style: "",
+            secondaryStyle: "",
+            imageStyle: "",
+            iconStyle: "display: none;",
+            Row: user.Row,
+            Name: user.Name,
+            Email: user.Email,
+            MakerLabs_ID: user["MakerLabs ID"],
+            Photo: user.Photo,
+          });
+        }
+      }
+    });
+
     search.addEventListener("search", async (e) => {
       if (e.detail) {
         const item = e.detail;
+
         switch (item.type) {
           case "user": {
             // Clear existing activity poll loop, if currently running
@@ -341,6 +459,14 @@ class AppShell extends LitElement {
         }
       }
     });
+  }
+
+  displayDialog(dialogMetadata) {
+    this.dialogMetadata = dialogMetadata;
+    const dialog = this.shadowRoot.getElementById("dialog");
+    if (dialog) {
+      dialog.open();
+    }
   }
 
   populateAuthTokens() {
@@ -430,9 +556,10 @@ class AppShell extends LitElement {
   }
 
   handleFirebaseAuthStateChange(user) {
+    this.currentUser = user;
   }
 
-  async handleAuthSignIn(response) {
+  async handleAuthSignIn() {
     this.populateAuthTokens();
 
     const intervalId = setInterval(
@@ -450,11 +577,10 @@ class AppShell extends LitElement {
       .onAuthStateChanged(this.handleFirebaseAuthStateChange.bind(this));
   }
 
-  handleAuthSignOut(response) {
+  handleAuthSignOut() {
+    this.currentUser = null;
     firebase.auth().signOut();
   }
-
-  handleAuthStateChange(response) {}
 }
 
 customElements.define("app-shell", AppShell);

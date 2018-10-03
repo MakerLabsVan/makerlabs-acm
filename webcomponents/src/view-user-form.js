@@ -10,6 +10,7 @@ import "@polymer/paper-item/paper-item.js";
 import "@polymer/paper-item/paper-icon-item.js";
 import "@polymer/paper-item/paper-item-body.js";
 import "@polymer/paper-card/paper-card.js";
+import "@polymer/paper-spinner/paper-spinner-lite.js";
 
 // Material Design Form Components
 import "@polymer/paper-input/paper-input.js";
@@ -23,7 +24,8 @@ import "@polymer/paper-tooltip/paper-tooltip.js";
 
 // Vaadin Components
 import "@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box.js";
-import "@vaadin/vaadin-date-picker/theme/material/vaadin-date-picker-light.js";
+//import "@vaadin/vaadin-date-picker/theme/material/vaadin-date-picker-light.js";
+import "@vaadin/vaadin-date-picker/theme/material/vaadin-date-picker.js";
 
 import "timeago.js/dist/timeago.js";
 
@@ -62,13 +64,17 @@ class ViewUserForm extends LitElement {
       profilePhotosFolderId: {
         type: String,
       },
+      isSaving: {
+        type: Boolean,
+      },
     };
   }
 
   constructor() {
     super();
-    this.fields = this.fields || [];
-    this.query = this.query || {};
+    this.fields = [];
+    this.query = {};
+    this.isSaving = false;
 
     if (window && window.location) {
       const url = new URL(window.location);
@@ -79,7 +85,77 @@ class ViewUserForm extends LitElement {
     }
   }
 
-  _render(props) {
+  updated(changedProperties) {
+    super.updated(changedProperties);
+    if (changedProperties.has("fields")) {
+      var datepickers = this.shadowRoot.querySelectorAll(
+        //"vaadin-date-picker-light"
+        "vaadin-date-picker"
+      );
+      for (var d = 0; d < datepickers.length; d++) {
+        const datepicker = datepickers[d];
+
+        datepicker.checkValidity = (value) => {
+          const parts = value && value.split("-");
+          return (
+            !value ||
+            value.length === 0 ||
+            (parts.length == 3 &&
+              parts[0].length == 4 &&
+              parts[1].length == 2 &&
+              parts[2].length == 2)
+          );
+        };
+
+        datepicker.i18n.formatDate = (d) => {
+          const yearStr = (d.year + "").replace(
+            /\d+/,
+            (y) => "0000".substr(y.length) + y
+          );
+          const month = d.month + 1;
+          const monthStr = (month + "").replace(
+            /\d+/,
+            (m) => "00".substr(m.length) + m
+          );
+          const dayStr = (d.day + "").replace(
+            /\d+/,
+            (d) => "00".substr(d.length) + d
+          );
+          return [yearStr, monthStr, dayStr].join("-");
+        };
+
+        datepicker.i18n.parseDate = (text) => {
+          const parts = text.split("-"),
+            today = new Date();
+          let date,
+            month = today.getMonth(),
+            year = today.getFullYear();
+          if (3 === parts.length) {
+            year = parseInt(parts[0]);
+            if (3 > parts[0].length && 0 <= year) {
+              year += 50 > year ? 2e3 : 1900;
+            }
+            month = parseInt(parts[1]) - 1;
+            date = parseInt(parts[0]);
+          } else if (2 === parts.length) {
+            month = parseInt(parts[1]) - 1;
+            date = parseInt(parts[0]);
+          } else if (1 === parts.length) {
+            date = parseInt(parts[1]);
+          }
+          if (date !== void 0) {
+            return {day: date, month, year};
+          }
+        };
+
+        datepicker.addEventListener("value-changed", (e) => {
+          e.target.blur();
+        });
+      }
+    }
+  }
+
+  render() {
     return html`
     <link rel="stylesheet" href="../node_modules/@material/layout-grid/dist/mdc.layout-grid.min.css">
     <style>
@@ -122,10 +198,16 @@ class ViewUserForm extends LitElement {
       <form onsubmit="return false;" id="viewUserForm">
         <div class="tool-bar">
           <div class="tool-bar-action">
+            <paper-spinner-lite
+              ?active=${this.isSaving}
+            ></paper-spinner-lite>
+          </div>
+          <div class="tool-bar-action">
             <paper-fab
-              mini=""
+              mini
               icon="add"
-              on-tap="${this.populateNewUser.bind(this)}"
+              @tap="${this.populateNewUser.bind(this)}"
+              ?disabled=${this.isSaving}
             ></paper-fab>
             <paper-tooltip
               position="top"
@@ -135,9 +217,10 @@ class ViewUserForm extends LitElement {
 
           <div class="tool-bar-action">
             <paper-fab
-              mini=""
+              mini
               icon="save"
-              on-tap="${this.handleSubmit.bind(this)}"
+              @tap="${this.handleSubmit.bind(this)}"
+              ?disabled=${this.isSaving}
             ></paper-fab>
             <paper-tooltip
               position="top"
@@ -148,12 +231,12 @@ class ViewUserForm extends LitElement {
 
         <div class="mdc-layout-grid">
           <div class="mdc-layout-grid__inner">
-            ${props.fields.map(
+            ${this.fields.map(
               (section) => html`
                 <paper-card
                   heading="${section.title}"
                   class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3"
-                  hidden="${this.sectionIsHidden(section)}"
+                  ?hidden="${this.sectionIsHidden(section)}"
                 >
                   <div class="card-content style-scope form">
                     ${section.fields.map(this.renderField.bind(this))}
@@ -226,14 +309,11 @@ class ViewUserForm extends LitElement {
 
     if (this.fieldIsDatePickerType(field)) {
       return html`
-        <vaadin-date-picker-light attr-for-value="value" class="full-width">
-          <paper-input
-            always-float-label=""
-            label="${field.title}"
-            name="${field.name}"
-            id="${field.name}"
-          ></paper-input>
-        </vaadin-date-picker-light>
+        <vaadin-date-picker class="full-width"
+          label="${field.title}"
+          name="${field.name}"
+          id="${field.name}"
+        ></vaadin-date-picker>
       `;
     }
 
@@ -250,7 +330,7 @@ class ViewUserForm extends LitElement {
     if (this.fieldIsTextInputType(field)) {
       return html`
         <paper-input
-          always-float-label=""
+          always-float-label
           label="${field.title}"
           id="${field.name}"
           name="${field.name}"
@@ -261,7 +341,7 @@ class ViewUserForm extends LitElement {
     if (this.fieldIsAlertsType(field)) {
       return html`
         <paper-input
-          always-float-label=""
+          always-float-label
           auto-validate pattern=""
           error-message="Resolve at Front Desk"
           label="${field.title}"
@@ -284,9 +364,9 @@ class ViewUserForm extends LitElement {
         >
           <template>
             <paper-item>
-              <paper-item-body two-line="" style="min-height: 0">
+              <paper-item-body two-line style="min-height: 0">
                 <div>[[item.tagId]]</div>
-                <div secondary="" class="timeago" datetime="[[item.timestamp]]">[[item.timestamp]]</div>
+                <div secondary class="timeago" datetime="[[item.timestamp]]">[[item.timestamp]]</div>
               </paper-item-body>
             </paper-icon-item>
           </template>
@@ -487,16 +567,7 @@ class ViewUserForm extends LitElement {
     }
   }
 
-  async _firstRendered() {
-    // Add callback to update styles on resize
-    var sheets = this.shadowRoot.getElementById("sheets");
-    sheets.onSheetsApiLoaded = function() {
-      console.log("onSheetsApiLoaded");
-    };
-    sheets.onSheetsApiLoadError = function() {
-      console.log("onSheetsApiLoadError");
-    };
-
+  async firstUpdated(changedProperties) {
     // Search for recently scanned tags, prefill the Tag ID dropdown
     this.updateRecentTagIds();
 
@@ -615,9 +686,8 @@ class ViewUserForm extends LitElement {
         var rowValues = [];
 
         for (var colIdx = 0; colIdx < datatable.table.cols.length; colIdx++) {
-          var v =
-            datatable.table.rows[rowIdx].c[colIdx] &&
-            datatable.table.rows[rowIdx].c[colIdx].v;
+          var c = datatable.table.rows[rowIdx].c[colIdx];
+          var v = c && (c.f ? c.f : c.v);
           rowValues.push(v);
         }
 
@@ -656,6 +726,11 @@ class ViewUserForm extends LitElement {
   }
 
   querySheet(sheetName, query, numHeaders = 1) {
+    if (!this.accessToken) {
+      console.log("Early exit from querySheet, no access token set");
+      return null;
+    }
+
     var queryString = encodeURIComponent(query);
 
     const responseHandlerName = `jsonp_${Date.now()}_${Math.ceil(
@@ -713,7 +788,9 @@ class ViewUserForm extends LitElement {
   }
 
   populateNewUser() {
+    // Clear the row and send an event (do not use resetValues)
     this.showUserRow([]);
+    this.dispatchEvent(new CustomEvent("reset-form"));
     this.populateNextMakerLabsId();
   }
 
@@ -765,6 +842,9 @@ class ViewUserForm extends LitElement {
   updateField(field, val) {
     if (field.name) {
       var el = this.shadowRoot.getElementById(field.name);
+      if (!el) {
+        console.log("Invalid el for field.name = " + field.name);
+      }
       if (!val) {
         // Clear the previous value, if no new value is set.
         val = "";
@@ -778,8 +858,16 @@ class ViewUserForm extends LitElement {
         var listbox = el.querySelector("paper-listbox");
         var selectedIdx = field.choices.indexOf(val);
         listbox.selected = selectedIdx >= 0 ? selectedIdx : 0;
+      } else if (this.fieldIsDatePickerType(field)) {
+        // Blur the date picker input, vaadin-date-picker does not do this?
+        const textField = el.shadowRoot.querySelector("vaadin-text-field");
+        if (textField) {
+          textField.value = "";
+          textField.blur();
+        }
+
+        el.value = val;
       } else if (
-        this.fieldIsDatePickerType(field) ||
         this.fieldIsTextInputType(field) ||
         this.fieldIsAlertsType(field) ||
         this.fieldIsTagIdType(field)
@@ -814,6 +902,17 @@ class ViewUserForm extends LitElement {
   }
 
   async populateNextMakerLabsId() {
+    if (
+      !this.accessToken ||
+      this.accessToken === "null" ||
+      this.accessToken === "undefined"
+    ) {
+      console.log(
+        "Early exit from populateNextMakerLabsId, no access token set"
+      );
+      return null;
+    }
+
     const response = await fetch(this.nextMakerLabsIdUrl, {
       mode: "cors",
       credentials: "omit",
@@ -842,6 +941,8 @@ class ViewUserForm extends LitElement {
     var sheets = this.shadowRoot.getElementById("sheets");
 
     var validTextFieldCount = 0;
+    var validMakerLabsId = false;
+    var user = {};
     var formValues = [];
     for (var s = 0; s < this.fields.length; ++s) {
       var section = this.fields[s];
@@ -858,15 +959,29 @@ class ViewUserForm extends LitElement {
             formValue = el.selected;
           } else if (this.fieldIsDropdownMenuType(field)) {
             formValue = el.value;
-          } else if (
-            this.fieldIsDatePickerType(field) ||
-            this.fieldIsTextInputType(field)
-          ) {
+          } else if (this.fieldIsDatePickerType(field)) {
+            let value = el.value;
+            // Check for value in text-field, not detected by vaadin-date-picker
+            if (!value) {
+              const textField = el.shadowRoot.querySelector(
+                "vaadin-text-field"
+              );
+              if (textField && textField.value) {
+                value = textField.value;
+              }
+            }
+
+            formValue = value;
+          } else if (this.fieldIsTextInputType(field)) {
             formValue = el.value;
 
             // Check whether any non-empty text value was supplied
             if (formValue) {
-              validTextFieldCount++;
+              if (field.name == this.usersMakerLabsIdColumn) {
+                validMakerLabsId = true;
+              } else {
+                validTextFieldCount++;
+              }
             }
           } else if (this.fieldIsImageType(field)) {
             // Ignore emptyImageData
@@ -882,12 +997,15 @@ class ViewUserForm extends LitElement {
           }
         }
 
+        user[field.title] = formValue;
         formValues.push(formValue);
       }
     }
 
-    if (sheets && sheets.api && formValues.length) {
+    if (sheets && sheets.api && formValues.length && validMakerLabsId) {
       var rowName = formValues[0];
+
+      this.isSaving = true;
 
       if (rowName) {
         // Clear row value, it will be supplied by the ARRAYFORMULA
@@ -904,6 +1022,11 @@ class ViewUserForm extends LitElement {
           console.log(
             `Successfully updated '${this.usersSheetName}' row ${rowName}`
           );
+
+          // Emit event with user field names and confirmed values
+          user.Row = parseInt(rowName);
+          this.dispatchEvent(new CustomEvent("updated-user", {detail: user}));
+          this.isSaving = false;
         } else {
           console.log(
             `Invalid response received for updating '${this.usersSheetName}' ${
@@ -935,7 +1058,15 @@ class ViewUserForm extends LitElement {
                   .split(":")[0];
                 console.log(`Successfully created new User row ${newRowName}`);
 
+                // Emit event with user field names and confirmed values
+                user.Row = parseInt(newRowName);
+                this.dispatchEvent(
+                  new CustomEvent("updated-user", {detail: user})
+                );
+                this.isSaving = false;
+
                 const rowField = this.fieldForColumnId(this.usersRowColumn);
+
                 if (rowField) {
                   this.updateField(rowField, newRowName);
                 } else {
@@ -950,8 +1081,13 @@ class ViewUserForm extends LitElement {
               }`
             );
           }
-          console.log(response);
         }
+      }
+    } else {
+      if (!validMakerLabsId) {
+        console.log("Invalid or missing MakerLabs ID");
+      } else {
+        console.log("Invalid or missing form data");
       }
     }
   }

@@ -20,19 +20,17 @@ class ImageFileUploader extends LitElement {
 
   constructor() {
     super();
-    this.src =
-      this.src || "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
     this.emptyImageData =
-      this.emptyImageData ||
-      "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
-    this.parentFolderId = this.parentFolderId || "root";
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=";
+    this.src = this.emptyImageData;
+    this.parentFolderId = "root";
   }
 
-  _render(props) {
+  render() {
     return html`
       <style>
         #drop_zone {
-          height: 200px;
+          height: 250px;
           border: 0px dashed #bbb;
           -moz-border-radius: 5px;
           -webkit-border-radius: 5px;
@@ -55,7 +53,7 @@ class ImageFileUploader extends LitElement {
       </style>
 
       <label for="file-upload">
-        <div id="drop_zone" style="background-image: url(${props.src});">
+        <div id="drop_zone" style="background-image: url(${this.src});">
           <span id="drop_hint">Drop files here</span>
           <input id="file-upload" type="file" capture="camera" accept="image/*">
         </div>
@@ -63,13 +61,18 @@ class ImageFileUploader extends LitElement {
     `;
   }
 
-  _firstRendered() {
+  //firstUpdated(changedProperties) {
+  updated(changedProperties) {
     // Wire up drag & drop listeners once page loads
     const el = this.shadowRoot.getElementById("drop_zone");
+    // Draw a border around the drop zone when dragged over
     el.addEventListener("dragover", this.handleDragOver.bind(this), false);
+    // Cancel the border when no longer dragged over
     el.addEventListener("dragleave", this.handleDragLeave.bind(this), false);
-    el.addEventListener("drop", this.handleDraggedFiles.bind(this), false);
-    el.addEventListener("change", this.handleUploadedFiles.bind(this), false);
+    // Begin the file upload immediately after dropping a file
+    el.addEventListener("drop", this.handleFileUpload.bind(this), false);
+    // Begin the file upload after selecting a file with the chooser dialog
+    el.addEventListener("change", this.handleFileUpload.bind(this), false);
   }
 
   get accessToken() {
@@ -98,7 +101,7 @@ class ImageFileUploader extends LitElement {
 
   // Uploads the content to Drive & displays the results when complete.
   uploadFiles(files) {
-    if (this.accessToken) {
+    if (this.accessToken && files) {
       for (var i = 0, f; (f = files[i]); i++) {
         const uploader = new MediaUploader({
           file: f,
@@ -108,18 +111,25 @@ class ImageFileUploader extends LitElement {
             parents: [{id: this.parentFolderId}],
           },
           token: this.accessToken,
-          onComplete: function(json) {
+          onComplete: (json) => {
             this.handleDragLeave();
 
             // Parse the uploaded file response metadata
             const data = JSON.parse(json);
 
             // Check if a valid web content link was created/found
-            if (data && data.webContentLink) {
+            //if (data && data.webContentLink) {
+            //if (data && data.thumbnailLink) {
+            if (data && data.id) {
+              var src = `https://drive.google.com/thumbnail?id=${
+                data.id
+              }&sz=w300-c`;
               // Update displayed image
-              this.src = data.webContentLink;
+              this.src = src;
+
+              this.clearUploadedFiles();
             }
-          }.bind(this),
+          },
         });
         uploader.upload();
       }
@@ -128,20 +138,19 @@ class ImageFileUploader extends LitElement {
     }
   }
 
-  // Called when files are uploaded via the OS file picker dialog
-  handleUploadedFiles(evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
-
-    this.uploadFiles(evt.target.files); // FileList object.
+  clearUploadedFiles() {
+    const el = this.shadowRoot.getElementById("file-input");
+    if (el && el.value) {
+      el.value = "";
+    }
   }
 
-  // Called when files are dropped on to the drop target.
-  handleDraggedFiles(evt) {
+  // Called when files are uploaded via the OS file picker dialog
+  handleFileUpload(evt) {
     evt.stopPropagation();
     evt.preventDefault();
 
-    this.uploadFiles(evt.dataTransfer.files); // FileList object.
+    this.uploadFiles(evt.target.files);
   }
 
   // Dragover handler to set the drop effect.
