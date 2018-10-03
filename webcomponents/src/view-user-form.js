@@ -1,8 +1,6 @@
 import {LitElement, html} from "@polymer/lit-element";
 
 // Prereqs
-//import "web-animations-js/web-animations-next-lite.min.js";
-//import "@polymer/neon-animation/web-animations.js";
 import "@polymer/iron-icons/iron-icons.js";
 
 // Material Design Card/Item Components
@@ -24,7 +22,6 @@ import "@polymer/paper-tooltip/paper-tooltip.js";
 
 // Vaadin Components
 import "@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box.js";
-//import "@vaadin/vaadin-date-picker/theme/material/vaadin-date-picker-light.js";
 import "@vaadin/vaadin-date-picker/theme/material/vaadin-date-picker.js";
 
 import "timeago.js/dist/timeago.js";
