@@ -312,7 +312,7 @@ auto start_app()
     auto network_manager_actor_pid = *(whereis("network_manager"));
     flatbuffers::FlatBufferBuilder fbb;
     fbb.Finish(
-      CreateNTPConfiguration(fbb, fbb.CreateString("pool.ntp.org"))//,
+      CreateNTPConfiguration(fbb, fbb.CreateString("2.pool.ntp.org"))//,
       //DisplayIntentIdentifier()
     );
     send(network_manager_actor_pid, "ntp_client_start", fbb.Release());
