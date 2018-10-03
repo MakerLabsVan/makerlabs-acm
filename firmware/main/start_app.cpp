@@ -52,6 +52,7 @@ using string = std::string;
 using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 using FirmwareUpdate::get_current_firmware_version;
 
+using namespace ActorModel;
 using namespace Display;
 using namespace ModuleManager;
 using namespace NetworkManager;
