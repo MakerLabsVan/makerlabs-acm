@@ -25,7 +25,7 @@
     "@polymer/paper-radio-group": "^3.0.1",
     "@polymer/paper-spinner": "^3.0.1",
     "@polymer/paper-tooltip": "^3.0.1",
-    "@vaadin/vaadin-combo-box": "^4.1.0-beta2",
+    "@vaadin/vaadin-combo-box": "git://github.com/paulreimer/vaadin-combo-box.git#v4.1.0-npm-patched",
     "@vaadin/vaadin-date-picker": "^3.2.0",
     "@webcomponents/webcomponentsjs": "^2.1.3",
     "fetch-jsonp": "^1.1.3",
