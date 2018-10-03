@@ -8,7 +8,6 @@ COMPONENT_DEPENDS := \
 	fatfs \
 	firmware_update \
 	module_manager \
-	mqtt \
 	network_manager \
 	nvs_flash \
 	requests \
