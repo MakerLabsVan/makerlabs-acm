@@ -54,7 +54,6 @@ using FirmwareUpdate::get_current_firmware_version;
 
 using namespace ActorModel;
 using namespace Display;
-using namespace ModuleManager;
 using namespace NetworkManager;
 
 using namespace std::chrono_literals;
