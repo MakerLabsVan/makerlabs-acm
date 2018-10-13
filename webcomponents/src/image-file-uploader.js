@@ -55,7 +55,7 @@ class ImageFileUploader extends LitElement {
       <label for="file-upload">
         <div id="drop_zone" style="background-image: url(${this.src});">
           <span id="drop_hint">Drop files here</span>
-          <input id="file-upload" type="file" capture="camera" accept="image/*">
+          <input id="file-upload" type="file" accept="image/*">
         </div>
       </label>
     `;
