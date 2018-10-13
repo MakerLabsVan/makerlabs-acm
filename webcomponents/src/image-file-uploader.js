@@ -61,8 +61,7 @@ class ImageFileUploader extends LitElement {
     `;
   }
 
-  //firstUpdated(changedProperties) {
-  updated(changedProperties) {
+  firstUpdated(changedProperties) {
     // Wire up drag & drop listeners once page loads
     const el = this.shadowRoot.getElementById("drop_zone");
     // Draw a border around the drop zone when dragged over
@@ -70,9 +69,13 @@ class ImageFileUploader extends LitElement {
     // Cancel the border when no longer dragged over
     el.addEventListener("dragleave", this.handleDragLeave.bind(this), false);
     // Begin the file upload immediately after dropping a file
-    el.addEventListener("drop", this.handleFileUpload.bind(this), false);
+    el.addEventListener("drop", this.handleDraggedFileUpload.bind(this), false);
     // Begin the file upload after selecting a file with the chooser dialog
-    el.addEventListener("change", this.handleFileUpload.bind(this), false);
+    el.addEventListener(
+      "change",
+      this.handleSelectedFileUpload.bind(this),
+      false
+    );
   }
 
   get accessToken() {
@@ -94,6 +97,8 @@ class ImageFileUploader extends LitElement {
           }
         }
       }
+    } else {
+      console.log("Invalid authInstance in image-file-uploader");
     }
 
     return accessToken;
@@ -118,8 +123,6 @@ class ImageFileUploader extends LitElement {
             const data = JSON.parse(json);
 
             // Check if a valid web content link was created/found
-            //if (data && data.webContentLink) {
-            //if (data && data.thumbnailLink) {
             if (data && data.id) {
               var src = `https://drive.google.com/thumbnail?id=${
                 data.id
@@ -134,7 +137,7 @@ class ImageFileUploader extends LitElement {
         uploader.upload();
       }
     } else {
-      console.log("Missing accessToken");
+      console.log(`Invalid or missing accessToken: '${this.accessToken}'`);
     }
   }
 
@@ -145,8 +148,16 @@ class ImageFileUploader extends LitElement {
     }
   }
 
+  // Called when files are uploaded via drag n' drop
+  handleDraggedFileUpload(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+
+    this.uploadFiles(evt.dataTransfer.files);
+  }
+
   // Called when files are uploaded via the OS file picker dialog
-  handleFileUpload(evt) {
+  handleSelectedFileUpload(evt) {
     evt.stopPropagation();
     evt.preventDefault();
 
