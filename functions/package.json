@@ -8,7 +8,7 @@
     "prebuild": "yarn run pub",
     "build": "pub run build_runner build --output=build/",
     "predeploy": "yarn run build",
-    "deploy": "firebase deploy --only functions",
+    "deploy": "sls deploy && firebase deploy --only functions",
     "preserve": "yarn run build",
     "serve": "firebase serve --only functions",
     "shell": "firebase functions:shell",

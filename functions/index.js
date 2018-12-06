@@ -10,9 +10,9 @@ const functions = require("firebase-functions");
 
 const index = require("./build/node/index.dart.js");
 
-exports.permissions_check = functions.https.onRequest((req, res) => {
-  index.permissions_check_http(req, res);
-});
+//exports.permissions_check = functions.https.onRequest((req, res) => {
+//  index.permissions_check_http(req, res);
+//});
 exports.google_apps_script_proxy = functions.https.onRequest((req, res) => {
   index.google_apps_script_proxy_http(req, res);
 });
