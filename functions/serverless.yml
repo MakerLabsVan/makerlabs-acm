@@ -1,4 +1,6 @@
-service: makerlabs-acm-functions
+service:
+  name: makerlabs-acm-functions
+  publish: false
 
 plugins:
   - serverless-apigw-binary
