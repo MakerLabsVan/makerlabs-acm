@@ -119,6 +119,8 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
           statusCode: HttpStatus.badRequest);
     }
 
+    print("Record Activity: ${activity}");
+
     // Firebase RTDB Activity ref
     if (FIREBASE_admin == null) {
       FIREBASE_admin = FirebaseAdmin.instance;
@@ -189,7 +191,9 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
       "X-DataSource-Auth": "force-json-workaround",
     };
 
+    print("Search for matching User...");
     final queryResponse = await HTTP_CLIENT.get(uri, headers: queryHeaders);
+    print("Search for matching User complete.");
 
     // Check for valid query response
     if (queryResponse.statusCode != HttpStatus.ok) {
@@ -218,7 +222,7 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
       user = new ACM.User(userBytes);
 
       if (user != null) {
-        print("got User: ${user}");
+        print("Matched User: ${user}");
 
         if (latestUserRef != null) {
           push_latest_user_to_firebase(latestUserRef, user);
@@ -230,8 +234,10 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
 
     response.end();
 
+    print("Append Activity to spreadsheet...");
     await append_activity_to_spreadsheet(sheets, SPREADSHEET_ID,
         SPREADSHEET_ACTIVITY_SHEET_NAME, activity, user);
+    print("Append Activity to spreadsheet complete.");
   } catch (e, s) {
     // In case of general failure, return response with exception text
     print("Trapped exception: ${e}");
