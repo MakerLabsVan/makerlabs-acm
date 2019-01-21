@@ -19,10 +19,6 @@
       {
         "source": "/",
         "destination": "/view-user-page.html"
-      },
-      {
-        "source": "**/!(*.*)",
-        "destination": "/view-user-page.html"
       }
     ],
     "ignore": [
