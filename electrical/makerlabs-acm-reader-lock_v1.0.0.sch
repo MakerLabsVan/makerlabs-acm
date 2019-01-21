@@ -757,4 +757,131 @@ Text Label 10150 3300 2    50   ~ 0
 Relay
 Text Label 5350 2500 0    50   ~ 0
 Relay
+$Comp
+L Connector_Generic:Conn_01x02 CON1
+U 1 1 5C46308C
+P 10350 1950
+F 0 "CON1" H 10429 1942 50  0000 L CNN
+F 1 "Interlock Conn." H 10429 1851 50  0000 L CNN
+F 2 "TerminalBlock_Phoenix_PTSM:TerminalBlock_Phoenix_PTSM-0,5-2-HV-2.5-SMD_1x02_P2.50mm_Vertical" H 10350 1950 50  0001 C CNN
+F 3 "~" H 10350 1950 50  0001 C CNN
+F 4 "https://media.digikey.com/PDF/Data%20Sheets/Phoenix%20Contact%20PDFs/1778832.pdf" H 10350 1950 50  0001 C CNN "Datasheet Link"
+F 5 "Phoenix Contact" H 10350 1950 50  0001 C CNN "MFN"
+F 6 "1778832" H 10350 1950 50  0001 C CNN "MFP"
+F 7 "277-2322-ND" H 10350 1950 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/phoenix-contact/1778832/277-2322-ND/2625556" H 10350 1950 50  0001 C CNN "S1PL"
+	1    10350 1950
+	-1   0    0    1   
+$EndComp
+NoConn ~ 10550 1850
+NoConn ~ 10550 1950
+$Comp
+L Connector_Generic:Conn_01x04 CON2
+U 1 1 5C4696D8
+P 10350 3000
+F 0 "CON2" H 10429 2992 50  0000 L CNN
+F 1 "Motors Conn." H 10429 2901 50  0000 L CNN
+F 2 "TerminalBlock_Phoenix_PTSM:TerminalBlock_Phoenix_PTSM-0,5-4-HV-2.5-SMD_1x06_P2.50mm_Vertical" H 10350 3000 50  0001 C CNN
+F 3 "~" H 10350 3000 50  0001 C CNN
+F 4 "https://media.digikey.com/PDF/Data%20Sheets/Phoenix%20Contact%20PDFs/1778858.pdf" H 10350 3000 50  0001 C CNN "Datasheet Link"
+F 5 "Phoenix Contact" H 10350 3000 50  0001 C CNN "MFN"
+F 6 "1778858 " H 10350 3000 50  0001 C CNN "MFP"
+F 7 "277-2324-ND" H 10350 3000 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/phoenix-contact/1778858/277-2324-ND/2625558" H 10350 3000 50  0001 C CNN "S1PL"
+	1    10350 3000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x03 CON3
+U 1 1 5C46C674
+P 10350 3750
+F 0 "CON3" H 10430 3792 50  0000 L CNN
+F 1 "Relay Conn." H 10430 3701 50  0000 L CNN
+F 2 "Connectors_Phoenix:PhoenixContact_PTSM0,5_3-HV-2,5_SMD" H 10350 3750 50  0001 C CNN
+F 3 "~" H 10350 3750 50  0001 C CNN
+F 4 "https://media.digikey.com/PDF/Data%20Sheets/Phoenix%20Contact%20PDFs/1778845.pdf" H 10350 3750 50  0001 C CNN "Datasheet Link"
+F 5 "Phoenix Contact" H 10350 3750 50  0001 C CNN "MFN"
+F 6 " 1778845" H 10350 3750 50  0001 C CNN "MFP"
+F 7 "277-2323-ND" H 10350 3750 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/phoenix-contact/1778845/277-2323-ND/2625557" H 10350 3750 50  0001 C CNN "S1PL"
+	1    10350 3750
+	-1   0    0    1   
+$EndComp
+NoConn ~ 10550 3650
+NoConn ~ 10550 3750
+NoConn ~ 10550 3850
+NoConn ~ 10550 3100
+NoConn ~ 10550 3000
+NoConn ~ 10550 2900
+NoConn ~ 10550 2800
+$Comp
+L Connector:Conn_01x19_Female J6
+U 1 1 5C4637FA
+P 3450 4600
+F 0 "J6" H 3477 4626 50  0000 L CNN
+F 1 "Conn_01x19_Female" H 3477 4535 50  0000 L CNN
+F 2 "" H 3450 4600 50  0001 C CNN
+F 3 "~" H 3450 4600 50  0001 C CNN
+F 4 "https://drawings-pdf.s3.amazonaws.com/10492.pdf" H 3450 4600 50  0001 C CNN "Datasheet Link"
+F 5 "Sullins Connector Solutions" H 3450 4600 50  0001 C CNN "MFN"
+F 6 "PPTC181LFBN-RC" H 3450 4600 50  0001 C CNN "MFP"
+F 7 "S7016-ND" H 3450 4600 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/sullins-connector-solutions/PPTC181LFBN-RC/S7016-ND/810156" H 3450 4600 50  0001 C CNN "S1PL"
+	1    3450 4600
+	1    0    0    -1  
+$EndComp
+NoConn ~ 3250 5500
+NoConn ~ 3250 5400
+NoConn ~ 3250 5300
+NoConn ~ 3250 5200
+NoConn ~ 3250 5100
+NoConn ~ 3250 5000
+NoConn ~ 3250 4900
+NoConn ~ 3250 4800
+NoConn ~ 3250 4700
+NoConn ~ 3250 4600
+NoConn ~ 3250 4500
+NoConn ~ 3250 4400
+NoConn ~ 3250 4300
+NoConn ~ 3250 4200
+NoConn ~ 3250 4100
+NoConn ~ 3250 4000
+NoConn ~ 3250 3900
+NoConn ~ 3250 3800
+NoConn ~ 3250 3700
+$Comp
+L Connector:Conn_01x19_Female J7
+U 1 1 5C484229
+P 5100 4600
+F 0 "J7" H 4994 3475 50  0000 C CNN
+F 1 "Conn_01x19_Female" H 4994 3566 50  0000 C CNN
+F 2 "" H 5100 4600 50  0001 C CNN
+F 3 "~" H 5100 4600 50  0001 C CNN
+F 4 "https://drawings-pdf.s3.amazonaws.com/10492.pdf" H 5100 4600 50  0001 C CNN "Datasheet Link"
+F 5 "Sullins Connector Solutions" H 5100 4600 50  0001 C CNN "MFN"
+F 6 "PPTC181LFBN-RC" H 5100 4600 50  0001 C CNN "MFP"
+F 7 "S7016-ND" H 5100 4600 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/sullins-connector-solutions/PPTC181LFBN-RC/S7016-ND/810156" H 5100 4600 50  0001 C CNN "S1PL"
+	1    5100 4600
+	-1   0    0    1   
+$EndComp
+NoConn ~ 5300 3700
+NoConn ~ 5300 3800
+NoConn ~ 5300 3900
+NoConn ~ 5300 4000
+NoConn ~ 5300 4100
+NoConn ~ 5300 4200
+NoConn ~ 5300 4300
+NoConn ~ 5300 4400
+NoConn ~ 5300 4500
+NoConn ~ 5300 4600
+NoConn ~ 5300 4700
+NoConn ~ 5300 4800
+NoConn ~ 5300 4900
+NoConn ~ 5300 5000
+NoConn ~ 5300 5100
+NoConn ~ 5300 5200
+NoConn ~ 5300 5300
+NoConn ~ 5300 5400
+NoConn ~ 5300 5500
 $EndSCHEMATC
