@@ -12,5 +12,7 @@
     "query": [],
     "body": []
   },
-  "desired_format": "FullResponseBody"
+  "desired_format": "FullResponseBody",
+  "timeout_microseconds": 30000000,
+  "retries": 5
 }

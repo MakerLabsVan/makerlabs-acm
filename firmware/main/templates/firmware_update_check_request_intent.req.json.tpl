@@ -6,5 +6,6 @@
     "uri": "@CONFIG_FIRMWARE_UPDATE_CHECK_URL@",
     "headers": []
   },
-  "desired_format": "FullResponseBody"
+  "desired_format": "FullResponseBody",
+  "retries": 5
 }

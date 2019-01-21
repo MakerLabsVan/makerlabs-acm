@@ -10,5 +10,7 @@
     "body": [],
   },
   "desired_format": "JsonPath",
-  "object_path": ".access_token"
+  "object_path": ".access_token",
+  "timeout_microseconds": 30000000,
+  "retries": 5
 }
