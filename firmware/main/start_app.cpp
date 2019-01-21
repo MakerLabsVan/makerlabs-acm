@@ -27,6 +27,7 @@
 #include "wifi_actor.h"
 
 // requests
+#include "queued_endpoint_actor.h"
 #include "requests.h"
 
 #include <chrono>
@@ -40,12 +41,14 @@
 #include "trace.h"
 
 using Requests::set_request_body;
+using Requests::update_request_intent_ids;
 
 // ActorModel behaviours:
 using NetworkManager::network_check_actor_behaviour;
 using NetworkManager::ntp_actor_behaviour;
 using NetworkManager::wifi_actor_behaviour;
 using FirmwareUpdate::firmware_update_actor_behaviour;
+using Requests::queued_endpoint_actor_behaviour;
 
 using string_view = std::experimental::string_view;
 using string = std::string;
@@ -94,6 +97,7 @@ auto start_app()
     auto combined_actor_pid = spawn(
       {
         auth_actor_behaviour,
+        queued_endpoint_actor_behaviour,
         rfid_reader_actor_behaviour,
         app_actor_behaviour,
         machine_actor_behaviour,
@@ -118,6 +122,9 @@ auto start_app()
     register_name("rfid_reader", combined_actor_pid);
     register_name("machine", combined_actor_pid);
     register_name("app", combined_actor_pid);
+
+    // requests features
+    register_name("permissions_check_endpoint", combined_actor_pid);
 
     // network_manager features
     register_name("network_manager", combined_actor_pid);
@@ -350,6 +357,30 @@ auto start_app()
     0,
     30s
   );
+
+  auto display_actor_pid = *(whereis("display"));
+  send(display_actor_pid, "ProgressBar", progress_bar);
+
+  // Send endpoint request_intent template
+  {
+    auto app_actor_pid = *(whereis("app"));
+    auto permissions_check_request_intent_template_buf = filesystem_read(
+      "/spiflash/permissions_check_request_intent.req.fb"
+    );
+    update_request_intent_ids(
+      permissions_check_request_intent_template_buf,
+      app_actor_pid
+    );
+
+    auto permissions_check_endpoint_actor_pid = *(
+      whereis("permissions_check_endpoint")
+    );
+    send(
+      permissions_check_endpoint_actor_pid,
+      "request_template",
+      permissions_check_request_intent_template_buf
+    );
+  }
 
   // Send periodic auth message
   {
