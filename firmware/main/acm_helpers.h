@@ -35,3 +35,10 @@ auto generate_progress_bar(
   const TimeDuration duration,
   const Display::Icon icon = Display::Icon::None
 ) -> DisplayIntentFlatbuffer;
+
+auto generate_show_user_details(
+  const std::experimental::string_view message,
+  const std::experimental::string_view email,
+  const std::experimental::string_view makerlabs_id,
+  const std::experimental::string_view tag_id
+) -> DisplayIntentFlatbuffer;

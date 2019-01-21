@@ -110,3 +110,31 @@ auto generate_progress_bar(
 
   return fbb.Release();
 }
+
+auto generate_show_user_details(
+  const std::experimental::string_view message,
+  const std::experimental::string_view email,
+  const std::experimental::string_view makerlabs_id,
+  const std::experimental::string_view tag_id
+) -> DisplayIntentFlatbuffer
+{
+  flatbuffers::FlatBufferBuilder fbb;
+
+  auto display_loc = CreateShowUserDetails(
+    fbb,
+    fbb.CreateString(message),
+    fbb.CreateString(email),
+    fbb.CreateString(makerlabs_id),
+    fbb.CreateString(tag_id)
+  );
+
+  auto display_intent_loc = CreateDisplayIntent(
+    fbb,
+    DisplayAction::ShowUserDetails,
+    display_loc.Union()
+  );
+
+  fbb.Finish(display_intent_loc, DisplayIntentIdentifier());
+
+  return fbb.Release();
+}
