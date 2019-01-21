@@ -1,10 +1,10 @@
 #pragma once
 
-#include "wiegand_reader.h"
 #include "hid_global_tag_id.h"
+#include "wiegand_reader.h"
 
-#include <experimental/optional>
 #include <atomic>
+#include <experimental/optional>
 
 class HIDGlobalReader
 : private WiegandReader
