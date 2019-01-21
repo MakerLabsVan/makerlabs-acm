@@ -126,44 +126,34 @@ auto start_app()
   // DisplayActor
   {
     auto display_actor_pid = spawn(
-      static_cast<ActorBehaviour>(display_actor_behaviour),
+      static_cast<Behaviour>(display_behaviour),
       // Override the default execution config settings
       [](ProcessExecutionConfigBuilder& builder)
       {
         builder.add_task_stack_size(4096);
+        builder.add_send_timeout_microseconds(0);
+        builder.add_receive_timeout_microseconds(0);
+        builder.add_receive_lock_timeout_microseconds(0);
       }
     );
     register_name("display", display_actor_pid);
 
     // Show version details on OLED display
-    flatbuffers::FlatBufferBuilder fbb;
-
     auto version_str = string(
       "v" + std::to_string(get_current_firmware_version())
     );
 
-    const auto& version_fbstr = fbb.CreateString(version_str);
-    auto display_loc = CreateShowUserDetails(
-      fbb,
-      fbb.CreateString("MakerLabs ACM"),
-      version_fbstr,
-      version_fbstr,
-      version_fbstr
-    );
-
-    fbb.Finish(
-      CreateDisplayIntent(
-        fbb,
-        DisplayAction::ShowUserDetails,
-        display_loc.Union()
-      ),
-      DisplayIntentIdentifier()
+    const auto version_details = generate_show_user_details(
+      "MakerLabs ACM",
+      version_str,
+      version_str,
+      version_str
     );
 
     send(
       display_actor_pid,
       "ShowUserDetails",
-      fbb.Release()
+      version_details
     );
   }
 
@@ -338,6 +328,13 @@ auto start_app()
     auto local_now_str = NetworkManager::format_time(local_now, "%c");
     printf("local:   %s\n", local_now_str.c_str());
   }
+
+  // Update progress bar
+  auto progress_bar = generate_progress_bar(
+    "Logging in",
+    0,
+    30s
+  );
 
   // Send periodic auth message
   {

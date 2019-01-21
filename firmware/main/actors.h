@@ -2,13 +2,14 @@
 
 #include "actor_model.h"
 
-auto app_actor_behaviour(
+// superloop behaviours
+auto display_behaviour(
   const ActorModel::Pid& self,
-  ActorModel::StatePtr& _state,
-  const ActorModel::Message& message
+  ActorModel::Mailbox& mailbox
 ) -> ActorModel::ResultUnion;
 
-auto display_actor_behaviour(
+// actor behaviours
+auto app_actor_behaviour(
   const ActorModel::Pid& self,
   ActorModel::StatePtr& _state,
   const ActorModel::Message& message
