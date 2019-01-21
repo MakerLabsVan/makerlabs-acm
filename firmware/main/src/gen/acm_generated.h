@@ -52,6 +52,7 @@ inline const char * const *EnumNamesActivityType() {
 }
 
 inline const char *EnumNameActivityType(ActivityType e) {
+  if (e < ActivityType::Signed_In || e > ActivityType::CNC_Job) return "";
   const size_t index = static_cast<int>(e);
   return EnumNamesActivityType()[index];
 }
@@ -96,6 +97,7 @@ inline const char * const *EnumNamesLogSeverity() {
 }
 
 inline const char *EnumNameLogSeverity(LogSeverity e) {
+  if (e < LogSeverity::Fatal || e > LogSeverity::Trace) return "";
   const size_t index = static_cast<int>(e);
   return EnumNamesLogSeverity()[index];
 }
