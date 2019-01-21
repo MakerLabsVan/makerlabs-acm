@@ -35,15 +35,14 @@ function triggerActivitySendUsageEmails(e) {
       activityFilter
     );
 
-    const emailTo = "paul@p-rimes.net";
+    var emailTo = "";
     const emailSubject = "MakerLabs Activity / Machine Usage Notification";
     const emailBodyTitle = "Thanks For Making With Us!";
-    const emailCcList = ["paul@p-rimes.net"];
+    const emailCcList = ["hello@makerlabs.com"];
     var emailFooterTemplate = HtmlService.createTemplateFromFile(
       "templates/thank-you-footer.html"
     );
-    var emailFooter = emailFooterTemplate.evaluate().getContent()
-
+    var emailFooter = emailFooterTemplate.evaluate().getContent();
 
     if (activityByUser) {
       var makerLabsIds = Object.keys(activityByUser);
@@ -51,6 +50,9 @@ function triggerActivitySendUsageEmails(e) {
         var makerLabsId = makerLabsIds[i];
         var activityForThisUser = {};
         activityForThisUser[makerLabsId] = activityByUser[makerLabsId];
+        emailTo = activityForThisUser[makerLabsId].hasOwnProperty("Email")
+          ? activityForThisUser[makerLabsId]["Email"]
+          : "";
         sendActivitySummaryEmail(
           sheet,
           activityForThisUser,
@@ -111,10 +113,10 @@ function triggerActivitySendBillingEmails(e) {
       activityFilter
     );
 
-    const emailTo = "paul@p-rimes.net";
+    const emailTo = "hello@makerlabs.com";
     const emailSubject = "Weekly Member Billing For Machine Usage";
     const emailBodyTitle = "Weekly Member Billing For Machine Usage";
-    const emailCcList = ["paulreimer@gmail.com"];
+    const emailCcList = [];
 
     var emailFooter = null;
 
