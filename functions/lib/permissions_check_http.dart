@@ -45,8 +45,6 @@ const String SPREADSHEET_ACTIVITY_SHEET_NAME = "Activity";
 // This global value will persist across function invocations
 String USER_COLUMNS_DATATABLE;
 
-http.NodeClient HTTP_CLIENT;
-
 FirebaseAdmin FIREBASE_admin;
 App FIREBASE_app;
 Database FIREBASE_database;
@@ -66,13 +64,6 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
 
   // Return 500 error for any unhandled exceptions
   try {
-    if (HTTP_CLIENT == null) {
-      print("Initialize HTTP_CLIENT");
-      HTTP_CLIENT = new http.NodeClient(keepAlive: true);
-    } else {
-      print("Use cached HTTP_CLIENT");
-    }
-
     // Google Sheets ACM Spreadsheet ID
     String SPREADSHEET_ID;
 
@@ -153,7 +144,7 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
     }
 
     // Extract the latest Sheets API from the generated APIs
-    final sheets = spreadsheet_client(access_token, HTTP_CLIENT);
+    final sheets = spreadsheet_client(access_token);
 
     // Check for cached User sheet columns, fetch them if not present
     if (USER_COLUMNS_DATATABLE == null) {
@@ -192,7 +183,7 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
     };
 
     print("Search for matching User...");
-    final queryResponse = await HTTP_CLIENT.get(uri, headers: queryHeaders);
+    final queryResponse = await http.get(uri, headers: queryHeaders);
     print("Search for matching User complete.");
 
     // Check for valid query response
