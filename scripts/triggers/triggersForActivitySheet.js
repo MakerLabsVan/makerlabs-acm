@@ -1,5 +1,6 @@
 function triggerActivitySendUsageEmails(e) {
-  const sheetName = "Activity";
+  //  const sheetName = "Activity";
+  const sheetName = "Activity, De-duped";
 
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = spreadsheet.getSheetByName(sheetName);
@@ -66,7 +67,8 @@ function triggerActivitySendUsageEmails(e) {
 }
 
 function triggerActivitySendBillingEmails(e) {
-  const sheetName = "Activity";
+  //  const sheetName = "Activity";
+  const sheetName = "Activity, De-duped";
 
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = spreadsheet.getSheetByName(sheetName);
