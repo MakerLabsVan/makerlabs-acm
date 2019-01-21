@@ -21,6 +21,11 @@ F 0 "J1" H 1380 1642 50  0000 L CNN
 F 1 "HID Reader" H 1380 1551 50  0000 L CNN
 F 2 "TerminalBlock_Phoenix_PTSM:TerminalBlock_Phoenix_PTSM-0,5-8-HV-2.5-SMD_1x08_P2.50mm_Vertical" H 1300 1650 50  0001 C CNN
 F 3 "~" H 1300 1650 50  0001 C CNN
+F 4 "https://media.digikey.com/pdf/Data%20Sheets/Phoenix%20Contact%20PDFs/1771088.pdf" H 1300 1650 50  0001 C CNN "Datasheet Link"
+F 5 "Phoenix Contact" H 1300 1650 50  0001 C CNN "MFN"
+F 6 "1771088 " H 1300 1650 50  0001 C CNN "MFP"
+F 7 "277-2071-1-ND" H 1300 1650 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/phoenix-contact/1771088/277-2071-1-ND/2192481" H 1300 1650 50  0001 C CNN "S1PL"
 	1    1300 1650
 	-1   0    0    1   
 $EndComp
@@ -32,6 +37,11 @@ F 0 "J2" H 10429 1592 50  0000 L CNN
 F 1 "Interlock" H 10429 1501 50  0000 L CNN
 F 2 "TerminalBlock_Phoenix_PTSM:TerminalBlock_Phoenix_PTSM-0,5-2-HV-2.5-SMD_1x02_P2.50mm_Vertical" H 10350 1600 50  0001 C CNN
 F 3 "~" H 10350 1600 50  0001 C CNN
+F 4 "https://media.digikey.com/PDF/Data%20Sheets/Phoenix%20Contact%20PDFs/1778764.pdf" H 10350 1600 50  0001 C CNN "Datasheet Link"
+F 5 "Phoenix Contact" H 10350 1600 50  0001 C CNN "MFN"
+F 6 "1778764 " H 10350 1600 50  0001 C CNN "MFP"
+F 7 "277-2315-1-ND" H 10350 1600 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/phoenix-contact/1778764/277-2315-1-ND/2625585" H 10350 1600 50  0001 C CNN "S1PL"
 	1    10350 1600
 	1    0    0    -1  
 $EndComp
@@ -43,6 +53,11 @@ F 0 "J3" H 10429 2442 50  0000 L CNN
 F 1 "Motors" H 10429 2351 50  0000 L CNN
 F 2 "TerminalBlock_Phoenix_PTSM:TerminalBlock_Phoenix_PTSM-0,5-4-HV-2.5-SMD_1x06_P2.50mm_Vertical" H 10350 2450 50  0001 C CNN
 F 3 "~" H 10350 2450 50  0001 C CNN
+F 4 "https://media.digikey.com/PDF/Data%20Sheets/Phoenix%20Contact%20PDFs/1778780.pdf" H 10350 2450 50  0001 C CNN "Datasheet Link"
+F 5 "Phoenix Contact" H 10350 2450 50  0001 C CNN "MFN"
+F 6 "1778780 " H 10350 2450 50  0001 C CNN "MFP"
+F 7 "277-2317-1-ND" H 10350 2450 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/phoenix-contact/1778780/277-2317-1-ND/2625587" H 10350 2450 50  0001 C CNN "S1PL"
 	1    10350 2450
 	1    0    0    -1  
 $EndComp
@@ -53,7 +68,12 @@ P 8250 1650
 F 0 "U2" H 8250 1975 50  0000 C CNN
 F 1 "ASSR-1218" H 8250 1884 50  0000 C CNN
 F 2 "Housings_SOIC:SO-4_4.4x4.3mm_Pitch2.54mm" H 8050 1450 50  0001 L CIN
-F 3 "https://docs.broadcom.com/docs/AV02-0173EN" H 8200 1650 50  0001 L CNN
+F 3 "" H 8200 1650 50  0001 L CNN
+F 4 "http://www.vishay.com/docs/84724/vo1400aeftr.pdf" H 8250 1650 50  0001 C CNN "Datasheet Link"
+F 5 "Broadcom Limited" H 8250 1650 50  0001 C CNN "MFN"
+F 6 "ASSR-1218-003E " H 8250 1650 50  0001 C CNN "MFP"
+F 7 "516-2189-5-ND" H 8250 1650 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/broadcom-limited/ASSR-1218-003E/516-2189-5-ND/2211230" H 8250 1650 50  0001 C CNN "S1PL"
 	1    8250 1650
 	1    0    0    -1  
 $EndComp
@@ -196,9 +216,14 @@ L Device:C C5
 U 1 1 5A8D8C9E
 P 7250 2450
 F 0 "C5" H 7365 2496 50  0000 L CNN
-F 1 "C" H 7365 2405 50  0000 L CNN
+F 1 "0.1uF" H 7365 2405 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 7288 2300 50  0001 C CNN
 F 3 "" H 7250 2450 50  0001 C CNN
+F 4 "https://api.kemet.com/component-edge/download/specsheet/C0603C104K5RACAUTO.pdf" H 7250 2450 50  0001 C CNN "Datasheet Link"
+F 5 "KEMET" H 7250 2450 50  0001 C CNN "MFN"
+F 6 "C0603C104K5RACAUTO " H 7250 2450 50  0001 C CNN "MFP"
+F 7 "399-6856-1-ND" H 7250 2450 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/kemet/C0603C104K5RACAUTO/399-6856-1-ND/3314369" H 7250 2450 50  0001 C CNN "S1PL"
 	1    7250 2450
 	1    0    0    -1  
 $EndComp
@@ -281,11 +306,12 @@ P 8250 2450
 F 0 "U3" H 8250 1935 50  0000 C CNN
 F 1 "TLP2161" H 8250 2026 50  0000 C CNN
 F 2 "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm" H 8250 2450 50  0001 C CNN
-F 3 "https://toshiba.semicon-storage.com/info/docget.jsp?did=14455&prodName=TLP2161" H 8250 2450 50  0001 C CNN
-F 4 "Toshiba Semiconductor and Storage" H 8250 2450 50  0001 C CNN "MFN"
-F 5 "TLP2161(F)" H 8250 2450 50  0001 C CNN "MFP"
-F 6 "TLP2161(F)-ND" H 8250 2450 50  0001 C CNN "S1PN"
-F 7 "https://www.digikey.ca/product-detail/en/toshiba-semiconductor-and-storage/TLP2161(F)/TLP2161(F)-ND/5189879" H 8250 2450 50  0001 C CNN "S1PL"
+F 3 "" H 8250 2450 50  0001 C CNN
+F 4 "https://toshiba.semicon-storage.com/info/docget.jsp?did=14455&prodName=TLP2161" H 8250 2450 50  0001 C CNN "Datasheet Link"
+F 5 "Toshiba Semiconductor and Storage" H 8250 2450 50  0001 C CNN "MFN"
+F 6 "TLP2161(F)" H 8250 2450 50  0001 C CNN "MFP"
+F 7 "TLP2161(F)-ND" H 8250 2450 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/toshiba-semiconductor-and-storage/TLP2161(F)/TLP2161(F)-ND/5189879" H 8250 2450 50  0001 C CNN "S1PL"
 	1    8250 2450
 	-1   0    0    1   
 $EndComp
@@ -322,11 +348,12 @@ P 8250 4900
 F 0 "U4" H 8250 5415 50  0000 C CNN
 F 1 "SMDA15-6" H 8250 5324 50  0000 C CNN
 F 2 "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm" H 8250 4900 50  0001 C CNN
-F 3 "http://www.smc-diodes.com/propdf/SMDA03-6%20THRU%20SMDA24-6%20N0295%20REV.A.pdf" H 8250 4900 50  0001 C CNN
-F 4 "SMC Diode Solutions" H 8250 4900 50  0001 C CNN "MFN"
-F 5 "SMDA15-6TR" H 8250 4900 50  0001 C CNN "MFP"
-F 6 "1655-1915-1-ND" H 8250 4900 50  0001 C CNN "S1PN"
-F 7 "https://www.digikey.ca/product-detail/en/smc-diode-solutions/SMDA15-6TR/1655-1915-1-ND/8019617" H 8250 4900 50  0001 C CNN "S1PL"
+F 3 "" H 8250 4900 50  0001 C CNN
+F 4 "http://www.smc-diodes.com/propdf/SMDA03-6%20THRU%20SMDA24-6%20N0295%20REV.A.pdf" H 8250 4900 50  0001 C CNN "Datasheet Link"
+F 5 "SMC Diode Solutions" H 8250 4900 50  0001 C CNN "MFN"
+F 6 "SMDA15-6TR" H 8250 4900 50  0001 C CNN "MFP"
+F 7 "1655-1915-1-ND" H 8250 4900 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/smc-diode-solutions/SMDA15-6TR/1655-1915-1-ND/8019617" H 8250 4900 50  0001 C CNN "S1PL"
 	1    8250 4900
 	1    0    0    -1  
 $EndComp
@@ -338,6 +365,11 @@ F 0 "C2" H 4918 6796 50  0000 L CNN
 F 1 "10uF" H 4918 6705 50  0000 L CNN
 F 2 "Capacitors_SMD:C_1206" H 4838 6600 50  0001 C CNN
 F 3 "" H 4800 6750 50  0001 C CNN
+F 4 "https://api.kemet.com/component-edge/download/datasheet/T491A106M020AT.pdf" H 4800 6750 50  0001 C CNN "Datasheet Link"
+F 5 "KEMET" H 4800 6750 50  0001 C CNN "MFN"
+F 6 "T491A106M020AT  " H 4800 6750 50  0001 C CNN "MFP"
+F 7 "399-5152-1-ND" H 4800 6750 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/kemet/T491A106M020AT/399-5152-1-ND/1739488" H 4800 6750 50  0001 C CNN "S1PL"
 	1    4800 6750
 	1    0    0    -1  
 $EndComp
@@ -349,6 +381,11 @@ F 0 "C3" H 5368 6796 50  0000 L CNN
 F 1 "10uF" H 5368 6705 50  0000 L CNN
 F 2 "Capacitors_SMD:C_1206" H 5288 6600 50  0001 C CNN
 F 3 "" H 5250 6750 50  0001 C CNN
+F 4 "https://api.kemet.com/component-edge/download/datasheet/T491A106M020AT.pdf" H 5250 6750 50  0001 C CNN "Datasheet Link"
+F 5 "KEMET" H 5250 6750 50  0001 C CNN "MFN"
+F 6 "T491A106M020AT " H 5250 6750 50  0001 C CNN "MFP"
+F 7 "399-5152-1-ND" H 5250 6750 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/kemet/T491A106M020AT/399-5152-1-ND/1739488" H 5250 6750 50  0001 C CNN "S1PL"
 	1    5250 6750
 	1    0    0    -1  
 $EndComp
@@ -375,6 +412,11 @@ F 0 "C1" H 4415 6796 50  0000 L CNN
 F 1 "0.1uF" H 4415 6705 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 4338 6600 50  0001 C CNN
 F 3 "" H 4300 6750 50  0001 C CNN
+F 4 "https://api.kemet.com/component-edge/download/specsheet/C0603C104K5RACAUTO.pdf" H 4300 6750 50  0001 C CNN "Datasheet Link"
+F 5 "KEMET" H 4300 6750 50  0001 C CNN "MFN"
+F 6 "C0603C104K5RACAUTO " H 4300 6750 50  0001 C CNN "MFP"
+F 7 "399-6856-1-ND" H 4300 6750 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/kemet/C0603C104K5RACAUTO/399-6856-1-ND/3314369" H 4300 6750 50  0001 C CNN "S1PL"
 	1    4300 6750
 	1    0    0    -1  
 $EndComp
@@ -386,6 +428,11 @@ F 0 "C4" H 5865 6796 50  0000 L CNN
 F 1 "0.1uF" H 5865 6705 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 5788 6600 50  0001 C CNN
 F 3 "" H 5750 6750 50  0001 C CNN
+F 4 "https://api.kemet.com/component-edge/download/specsheet/C0603C104K5RACAUTO.pdf" H 5750 6750 50  0001 C CNN "Datasheet Link"
+F 5 "KEMET" H 5750 6750 50  0001 C CNN "MFN"
+F 6 "C0603C104K5RACAUTO " H 5750 6750 50  0001 C CNN "MFP"
+F 7 "399-6856-1-ND" H 5750 6750 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/kemet/C0603C104K5RACAUTO/399-6856-1-ND/3314369" H 5750 6750 50  0001 C CNN "S1PL"
 	1    5750 6750
 	1    0    0    -1  
 $EndComp
@@ -425,6 +472,12 @@ F 0 "MNT1" H 1878 3618 79  0000 L CNN
 F 1 "iClass_SE_R10_Backplate" H 1878 3483 79  0000 L CNN
 F 2 "iClass_SE_R10:iClass_SE_R10_Backplate" H 1350 3550 79  0001 C CNN
 F 3 "" H 1350 3550 79  0001 C CNN
+F 4 "https://www.hidglobal.com/doclib/files/resource_files/plt-01579-a.4_iclass_se_multiclass_se_installaton_guide.pdf" H 1350 3550 50  0001 C CNN "Datasheet Link"
+F 5 "HID" H 1350 3550 50  0001 C CNN "MFN"
+F 6 "iClass SE R10" H 1350 3550 50  0001 C CNN "MFP"
+F 7 "hid iclass se r10" H 1350 3550 50  0001 C CNN "S1PN"
+F 8 "https://www.ebay.com/sch/i.html?_nkw=hid+iclass+se+r10&_sop=15" H 1350 3550 50  0001 C CNN "S1PL"
+F 9 "Y" H 1350 3550 50  0001 C CNN "Critical"
 	1    1350 3550
 	1    0    0    -1  
 $EndComp
@@ -440,6 +493,12 @@ F 0 "U1" H 4300 3465 50  0000 C CNN
 F 1 "ESP32_TTGO" H 4300 3374 50  0000 C CNN
 F 2 "ESP32_TTGO:ESP32_TTGO" H 4300 2250 50  0001 C CNN
 F 3 "DOCUMENTATION" H 4300 2250 50  0001 C CNN
+F 4 "TTGO" H 4300 2250 50  0001 C CNN "MFN"
+F 5 "TTGO ESP32 LoRa SX1278 OLED module" H 4300 2250 50  0001 C CNN "MFP"
+F 6 "esp32 ttgo oled lora" H 4300 2250 50  0001 C CNN "S1PN"
+F 7 "https://www.ebay.com/sch/i.html?_nkw=esp32+ttgo+oled+lora&_sop=15" H 4300 2250 50  0001 C CNN "S1PL"
+F 8 "Y" H 4300 2250 50  0001 C CNN "Critical"
+F 9 "MUST de-solder SX1276 IC & remove pin 12" H 4300 2250 50  0001 C CNN "Notes"
 	1    4300 2250
 	1    0    0    -1  
 $EndComp
@@ -510,13 +569,18 @@ Wire Notes Line
 Wire Notes Line
 	6850 7650 2150 7650
 $Comp
-L Connector_Specialized:Barrel_Jack J4
+L Connector:Barrel_Jack_Switch J4
 U 1 1 5A900A58
 P 2850 6750
 F 0 "J4" H 2928 7075 50  0000 C CNN
 F 1 "Barrel_Jack" H 2928 6984 50  0000 C CNN
 F 2 "Connectors:Barrel_Jack_CUI_PJ-036AH-SMT" H 2900 6710 50  0001 C CNN
 F 3 "~" H 2900 6710 50  0001 C CNN
+F 4 "https://www.cui.com/product/resource/digikeypdf/pj-036ah-smt-tr.pdf" H 2850 6750 50  0001 C CNN "Datasheet Link"
+F 5 "CUI Inc." H 2850 6750 50  0001 C CNN "MFN"
+F 6 "PJ-036AH-SMT-TR" H 2850 6750 50  0001 C CNN "MFP"
+F 7 "CP-036AHPJCT-ND" H 2850 6750 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/cui-inc/PJ-036AH-SMT-TR/CP-036AHPJCT-ND/1530994" H 2850 6750 50  0001 C CNN "S1PL"
 	1    2850 6750
 	1    0    0    -1  
 $EndComp
@@ -569,6 +633,11 @@ F 0 "R4" H 9080 2654 50  0000 R CNN
 F 1 "680" H 9080 2745 50  0000 R CNN
 F 2 "Resistors_SMD:R_0603" V 9080 2700 50  0001 C CNN
 F 3 "" H 9150 2700 50  0001 C CNN
+F 4 "http://www.yageo.com/documents/recent/PYu-RT_1-to-0.01_RoHS_L_9.pdf" H 9150 2700 50  0001 C CNN "Datasheet Link"
+F 5 "Yageo" H 9150 2700 50  0001 C CNN "MFN"
+F 6 "RT0603FRE07680RL " H 9150 2700 50  0001 C CNN "MFP"
+F 7 "YAG3356CT-ND" H 9150 2700 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/yageo/RT0603FRE07680RL/YAG3356CT-ND/5418061" H 9150 2700 50  0001 C CNN "S1PL"
 	1    9150 2700
 	-1   0    0    1   
 $EndComp
@@ -580,6 +649,11 @@ F 0 "R3" H 9080 2154 50  0000 R CNN
 F 1 "680" H 9080 2245 50  0000 R CNN
 F 2 "Resistors_SMD:R_0603" V 9080 2200 50  0001 C CNN
 F 3 "" H 9150 2200 50  0001 C CNN
+F 4 "http://www.yageo.com/documents/recent/PYu-RT_1-to-0.01_RoHS_L_9.pdf" H 9150 2200 50  0001 C CNN "Datasheet Link"
+F 5 "Yageo" H 9150 2200 50  0001 C CNN "MFN"
+F 6 "RT0603FRE07680RL" H 9150 2200 50  0001 C CNN "MFP"
+F 7 "YAG3356CT-ND" H 9150 2200 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/yageo/RT0603FRE07680RL/YAG3356CT-ND/5418061" H 9150 2200 50  0001 C CNN "S1PL"
 	1    9150 2200
 	-1   0    0    1   
 $EndComp
@@ -621,6 +695,11 @@ F 0 "R5" H 9330 2154 50  0000 R CNN
 F 1 "470" H 9330 2245 50  0000 R CNN
 F 2 "Resistors_SMD:R_0603" V 9330 2200 50  0001 C CNN
 F 3 "" H 9400 2200 50  0001 C CNN
+F 4 "http://www.yageo.com/documents/recent/PYu-RC_Group_51_RoHS_L_10.pdf" H 9400 2200 50  0001 C CNN "Datasheet Link"
+F 5 "Yageo" H 9400 2200 50  0001 C CNN "MFN"
+F 6 "RC0603FR-07470RL" H 9400 2200 50  0001 C CNN "MFP"
+F 7 "311-470HRCT-ND" H 9400 2200 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/yageo/RC0603FR-07470RL/311-470HRCT-ND/730203" H 9400 2200 50  0001 C CNN "S1PL"
 	1    9400 2200
 	-1   0    0    1   
 $EndComp
@@ -636,6 +715,11 @@ F 0 "R6" H 9330 2654 50  0000 R CNN
 F 1 "470" H 9330 2745 50  0000 R CNN
 F 2 "Resistors_SMD:R_0603" V 9330 2700 50  0001 C CNN
 F 3 "" H 9400 2700 50  0001 C CNN
+F 4 "http://www.yageo.com/documents/recent/PYu-RC_Group_51_RoHS_L_10.pdf" H 9400 2700 50  0001 C CNN "Datasheet Link"
+F 5 "Yageo" H 9400 2700 50  0001 C CNN "MFN"
+F 6 "RC0603FR-07470RL" H 9400 2700 50  0001 C CNN "MFP"
+F 7 "311-470HRCT-ND" H 9400 2700 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/yageo/RC0603FR-07470RL/311-470HRCT-ND/730203" H 9400 2700 50  0001 C CNN "S1PL"
 	1    9400 2700
 	-1   0    0    1   
 $EndComp
@@ -653,6 +737,11 @@ F 0 "J5" H 10430 3442 50  0000 L CNN
 F 1 "Relay" H 10430 3351 50  0000 L CNN
 F 2 "Connectors_Phoenix:PhoenixContact_PTSM0,5_3-HV-2,5_SMD" H 10350 3400 50  0001 C CNN
 F 3 "~" H 10350 3400 50  0001 C CNN
+F 4 "https://media.digikey.com/PDF/Data%20Sheets/Phoenix%20Contact%20PDFs/1778777.pdf" H 10350 3400 50  0001 C CNN "Datasheet Link"
+F 5 "Phoenix Contact" H 10350 3400 50  0001 C CNN "MFN"
+F 6 "1778777 " H 10350 3400 50  0001 C CNN "MFP"
+F 7 "277-2316-1-ND" H 10350 3400 50  0001 C CNN "S1PN"
+F 8 "https://www.digikey.ca/product-detail/en/phoenix-contact/1778777/277-2316-1-ND/2625586" H 10350 3400 50  0001 C CNN "S1PL"
 	1    10350 3400
 	1    0    0    -1  
 $EndComp
