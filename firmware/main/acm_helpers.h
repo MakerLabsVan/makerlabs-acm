@@ -3,6 +3,8 @@
 #include "acm_generated.h"
 #include "display_generated.h"
 
+#include "timestamp.h"
+
 #include <experimental/string_view>
 
 using DisplayIntentFlatbuffer = flatbuffers::DetachedBuffer;
@@ -30,5 +32,6 @@ auto generate_show_user_details_from_user(
 auto generate_progress_bar(
   const std::experimental::string_view message,
   const uint32_t progress,
+  const TimeDuration duration,
   const Display::Icon icon = Display::Icon::None
 ) -> DisplayIntentFlatbuffer;

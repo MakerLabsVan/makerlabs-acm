@@ -86,6 +86,7 @@ auto generate_show_user_details_from_user(
 auto generate_progress_bar(
   const std::experimental::string_view message,
   const uint32_t progress,
+  const TimeDuration duration,
   const Icon icon
 ) -> DisplayIntentFlatbuffer
 {
@@ -95,6 +96,7 @@ auto generate_progress_bar(
     fbb,
     fbb.CreateString(message),
     progress,
+    get_interval_microseconds(duration),
     icon
   );
 
