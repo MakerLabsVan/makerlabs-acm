@@ -85,7 +85,7 @@ auto IRAM_ATTR HIDGlobalReader::scanning_fsm()
       set_hold(0);
       scan_state = ScanState::IsScanningTag;
       alarm_value = (
-        500 // from millis
+        1000 // from millis
         * (TIMER_BASE_CLK / TIMER_DIVIDER / 1000) // to seconds
       );
       break;
