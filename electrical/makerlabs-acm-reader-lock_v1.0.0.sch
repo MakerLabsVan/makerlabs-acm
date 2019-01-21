@@ -503,7 +503,7 @@ F 9 "MUST de-solder SX1276 IC & remove pin 12" H 4300 2250 50  0001 C CNN "Notes
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Mounting_Hole MK1
+L Mechanical:MountingHole MK1
 U 1 1 5A8E23EC
 P 1000 6200
 F 0 "MK1" H 1100 6246 50  0000 L CNN
@@ -514,7 +514,7 @@ F 3 "" H 1000 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Mounting_Hole MK2
+L Mechanical:MountingHole MK2
 U 1 1 5A8E245F
 P 1000 6450
 F 0 "MK2" H 1100 6496 50  0000 L CNN
@@ -525,7 +525,7 @@ F 3 "" H 1000 6450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Mounting_Hole MK3
+L Mechanical:MountingHole MK3
 U 1 1 5A8E2490
 P 1000 6700
 F 0 "MK3" H 1100 6746 50  0000 L CNN
@@ -536,7 +536,7 @@ F 3 "" H 1000 6700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Mounting_Hole MK4
+L Mechanical:MountingHole MK4
 U 1 1 5A8E24C5
 P 1000 6950
 F 0 "MK4" H 1100 6996 50  0000 L CNN
