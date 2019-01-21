@@ -34,16 +34,5 @@ module.exports = {
       urlPattern: /\/google_apps_script_proxy\/.*?href=users-fields/,
       handler: "fastest",
     },
-    {
-      urlPattern: /https:\/\/drive.google.com\//,
-      handler: "cacheFirst",
-      options: {
-        cache: {
-          maxEntries: 1000,
-          name: "profile-photos-cache",
-          maxAgeSeconds: 604800,
-        },
-      },
-    },
   ],
 };
