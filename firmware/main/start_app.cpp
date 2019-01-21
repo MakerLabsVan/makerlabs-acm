@@ -8,6 +8,7 @@
 
 // actor_model
 #include "actor_model.h"
+#include "oom_killer_actor_behaviour.h"
 #include "supervisor_actor_behaviour.h"
 
 // utils
@@ -99,6 +100,7 @@ auto start_app()
         ntp_actor_behaviour,
         wifi_actor_behaviour,
         network_check_actor_behaviour,
+        oom_killer_actor_behaviour,
       },
       // Override the default execution config settings to increase mailbox size
       [](ProcessExecutionConfigBuilder& builder)
@@ -107,6 +109,9 @@ auto start_app()
         builder.add_mailbox_size(4096);
       }
     );
+
+    // actor_model features
+    register_name("oom_killer", combined_actor_pid);
 
     // app features
     register_name("auth", combined_actor_pid);
@@ -264,13 +269,23 @@ auto start_app()
   heap_check("after firmware_update");
 
   //heap_check("after spawn all actors");
-  // Send periodic heap check message
+/*
+  // Send periodic heap check message to OOM killer
   {
-    auto heap_check_interval = 30s;
+    auto heap_check_interval = 10s;
+    auto oom_killer_actor_pid = *(whereis("oom_killer"));
+
+    // Schedule periodic ping requests (re-using previous metadata)
+    send_interval(heap_check_interval, oom_killer_actor_pid, "heap_check");
+  }
+*/
+  // Send periodic uptime status message to app
+  {
+    auto uptime_interval = 1min;
     auto app_actor_pid = *(whereis("app"));
 
     // Schedule periodic ping requests (re-using previous metadata)
-    send_interval(heap_check_interval, app_actor_pid, "heap_check");
+    send_interval(uptime_interval, app_actor_pid, "uptime");
   }
 
   // Start Wifi in STA mode
