@@ -2,13 +2,16 @@
 
 #include "requests.h"
 
-#include "esp_log.h"
-
-#include <string>
+#include <chrono>
 #include <experimental/string_view>
+#include <string>
+
+#include "esp_log.h"
 
 using namespace ActorModel;
 using namespace Requests;
+
+using namespace std::chrono_literals;
 
 constexpr char TAG[] = "auth_actor";
 
@@ -93,7 +96,26 @@ auto auth_actor_behaviour(
     );
     if (matches(message, "response_error", response, auth_request_intent_id))
     {
-      ESP_LOGE(TAG, "got error (%d): '%.*s'\n", response->code(), response->body()->size(), response->body()->data());
+      if (response->code() < 0)
+      {
+        ESP_LOGE(
+          TAG,
+          "Internal error, re-queueing (%d): '%.*s'\n",
+          response->code(),
+          response->body()->size(),
+          response->body()->data()
+        );
+        send_after(100ms, self, "auth");
+      }
+      else {
+        ESP_LOGE(
+          TAG,
+          "Response error (%d): '%.*s'\n",
+          response->code(),
+          response->body()->size(),
+          response->body()->data()
+        );
+      }
 
       return {Result::Ok};
     }
