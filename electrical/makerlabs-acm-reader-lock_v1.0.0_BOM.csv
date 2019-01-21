@@ -1,0 +1,36 @@
+Component,References,Value,Quantity Per PCB,MFP,S1PN,MFN,S1PL,Datasheet Link,Critical,Notes
+1,C1 C4 C5,0.1uF,3,C0603C104K5RACAUTO,399-6856-1-ND,KEMET,https://www.digikey.ca/product-detail/en/kemet/C0603C104K5RACAUTO/399-6856-1-ND/3314369,https://api.kemet.com/component-edge/download/specsheet/C0603C104K5RACAUTO.pdf,,
+2,C2 C3,10uF,2,T491A106M020AT,399-5152-1-ND,KEMET,https://www.digikey.ca/product-detail/en/kemet/T491A106M020AT/399-5152-1-ND/1739488,https://api.kemet.com/component-edge/download/datasheet/T491A106M020AT.pdf,,
+3,CON1,Interlock Conn.,1,1778832,277-2322-ND,Phoenix Contact,https://www.digikey.ca/product-detail/en/phoenix-contact/1778832/277-2322-ND/2625556,https://media.digikey.com/PDF/Data%20Sheets/Phoenix%20Contact%20PDFs/1778832.pdf,,
+4,CON2,Motors Conn.,1,1778858,277-2324-ND,Phoenix Contact,https://www.digikey.ca/product-detail/en/phoenix-contact/1778858/277-2324-ND/2625558,https://media.digikey.com/PDF/Data%20Sheets/Phoenix%20Contact%20PDFs/1778858.pdf,,
+5,CON3,Relay Conn.,1,1778845,277-2323-ND,Phoenix Contact,https://www.digikey.ca/product-detail/en/phoenix-contact/1778845/277-2323-ND/2625557,https://media.digikey.com/PDF/Data%20Sheets/Phoenix%20Contact%20PDFs/1778845.pdf,,
+6,J4,Barrel_Jack,1,PJ-036AH-SMT-TR,CP-036AHPJCT-ND,CUI Inc.,https://www.digikey.ca/product-detail/en/cui-inc/PJ-036AH-SMT-TR/CP-036AHPJCT-ND/1530994,https://www.cui.com/product/resource/digikeypdf/pj-036ah-smt-tr.pdf,,
+7,J6 J7,Conn_01x19_Female,2,PPTC181LFBN-RC,S7016-ND,Sullins Connector Solutions,https://www.digikey.ca/product-detail/en/sullins-connector-solutions/PPTC181LFBN-RC/S7016-ND/810156,https://drawings-pdf.s3.amazonaws.com/10492.pdf,,
+8,J1,HID Reader,1,1771088,277-2071-1-ND,Phoenix Contact,https://www.digikey.ca/product-detail/en/phoenix-contact/1771088/277-2071-1-ND/2192481,https://media.digikey.com/pdf/Data%20Sheets/Phoenix%20Contact%20PDFs/1771088.pdf,,
+9,J2,Interlock,1,1778764,277-2315-1-ND,Phoenix Contact,https://www.digikey.ca/product-detail/en/phoenix-contact/1778764/277-2315-1-ND/2625585,https://media.digikey.com/PDF/Data%20Sheets/Phoenix%20Contact%20PDFs/1778764.pdf,,
+10,J3,Motors,1,1778780,277-2317-1-ND,Phoenix Contact,https://www.digikey.ca/product-detail/en/phoenix-contact/1778780/277-2317-1-ND/2625587,https://media.digikey.com/PDF/Data%20Sheets/Phoenix%20Contact%20PDFs/1778780.pdf,,
+11,J5,Relay,1,1778777,277-2316-1-ND,Phoenix Contact,https://www.digikey.ca/product-detail/en/phoenix-contact/1778777/277-2316-1-ND/2625586,https://media.digikey.com/PDF/Data%20Sheets/Phoenix%20Contact%20PDFs/1778777.pdf,,
+12,MNT1,iClass_SE_R10_Backplate,1,iClass SE R10,hid iclass se r10,HID,https://www.ebay.com/sch/i.html?_nkw=hid+iclass+se+r10&_sop=15,https://www.hidglobal.com/doclib/files/resource_files/plt-01579-a.4_iclass_se_multiclass_se_installaton_guide.pdf,Y,
+13,R5 R6,470,2,RC0603FR-07470RL,311-470HRCT-ND,Yageo,https://www.digikey.ca/product-detail/en/yageo/RC0603FR-07470RL/311-470HRCT-ND/730203,http://www.yageo.com/documents/recent/PYu-RC_Group_51_RoHS_L_10.pdf,,
+14,R3 R4,680,2,RT0603FRE07680RL,YAG3356CT-ND,Yageo,https://www.digikey.ca/product-detail/en/yageo/RT0603FRE07680RL/YAG3356CT-ND/5418061,http://www.yageo.com/documents/recent/PYu-RT_1-to-0.01_RoHS_L_9.pdf,,
+15,R1,IR1,1,,,,,,,
+16,R2,IR2,1,,,,,,,
+17,U2,ASSR-1218,1,ASSR-1218-003E,516-2189-5-ND,Broadcom Limited,https://www.digikey.ca/product-detail/en/broadcom-limited/ASSR-1218-003E/516-2189-5-ND/2211230,http://www.vishay.com/docs/84724/vo1400aeftr.pdf,,
+18,U1,ESP32_TTGO,1,TTGO ESP32 LoRa SX1278 OLED module,esp32 ttgo oled lora,TTGO,https://www.ebay.com/sch/i.html?_nkw=esp32+ttgo+oled+lora&_sop=15,,Y,MUST de-solder SX1276 IC & remove pin 12
+19,U4,SMDA15-6,1,SMDA15-6TR,1655-1915-1-ND,SMC Diode Solutions,https://www.digikey.ca/product-detail/en/smc-diode-solutions/SMDA15-6TR/1655-1915-1-ND/8019617,http://www.smc-diodes.com/propdf/SMDA03-6%20THRU%20SMDA24-6%20N0295%20REV.A.pdf,,
+20,U3,TLP2161,1,TLP2161(F),TLP2161(F)-ND,Toshiba Semiconductor and Storage,https://www.digikey.ca/product-detail/en/toshiba-semiconductor-and-storage/TLP2161(F)/TLP2161(F)-ND/5189879,https://toshiba.semicon-storage.com/info/docget.jsp?did=14455&prodName=TLP2161,,
+
+
+
+
+
+Component Groups:,20
+Component Count:,26
+Fitted Components:,26
+Number of PCBs:,1
+Total components:,26
+Schematic Version:,
+Schematic Date:,
+BoM Date:,"Monday, January 21, 2019 at 11:41:54 am"
+Schematic Source:,/Users/paulreimer/Development/projects/makerlabs-acm/electrical/makerlabs-acm-reader-lock_v1.0.0.sch
+KiCad Version:,Eeschema (5.0.1-3-g963ef8bb5)

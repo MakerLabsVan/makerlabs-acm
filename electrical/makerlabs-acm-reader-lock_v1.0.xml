@@ -1,0 +1,1040 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>/Users/paulreimer/Development/projects/makerlabs-acm/electrical/makerlabs-acm-reader-lock_v1.0.0.sch</source>
+    <date>Monday, January 21, 2019 at 11:41:54 am</date>
+    <tool>Eeschema (5.0.1-3-g963ef8bb5)</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>makerlabs-acm-reader-lock_v1.0.0.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="J1">
+      <value>HID Reader</value>
+      <footprint>TerminalBlock_Phoenix_PTSM:TerminalBlock_Phoenix_PTSM-0,5-8-HV-2.5-SMD_1x08_P2.50mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Datasheet Link">https://media.digikey.com/pdf/Data%20Sheets/Phoenix%20Contact%20PDFs/1771088.pdf</field>
+        <field name="MFN">Phoenix Contact</field>
+        <field name="MFP">1771088 </field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/phoenix-contact/1771088/277-2071-1-ND/2192481</field>
+        <field name="S1PN">277-2071-1-ND</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x08" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8CC39C</tstamp>
+    </comp>
+    <comp ref="J2">
+      <value>Interlock</value>
+      <footprint>TerminalBlock_Phoenix_PTSM:TerminalBlock_Phoenix_PTSM-0,5-2-HV-2.5-SMD_1x02_P2.50mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Datasheet Link">https://media.digikey.com/PDF/Data%20Sheets/Phoenix%20Contact%20PDFs/1778764.pdf</field>
+        <field name="MFN">Phoenix Contact</field>
+        <field name="MFP">1778764 </field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/phoenix-contact/1778764/277-2315-1-ND/2625585</field>
+        <field name="S1PN">277-2315-1-ND</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8CC48A</tstamp>
+    </comp>
+    <comp ref="J3">
+      <value>Motors</value>
+      <footprint>TerminalBlock_Phoenix_PTSM:TerminalBlock_Phoenix_PTSM-0,5-4-HV-2.5-SMD_1x06_P2.50mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Datasheet Link">https://media.digikey.com/PDF/Data%20Sheets/Phoenix%20Contact%20PDFs/1778780.pdf</field>
+        <field name="MFN">Phoenix Contact</field>
+        <field name="MFP">1778780 </field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/phoenix-contact/1778780/277-2317-1-ND/2625587</field>
+        <field name="S1PN">277-2317-1-ND</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x04" description="Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8CC55D</tstamp>
+    </comp>
+    <comp ref="U2">
+      <value>ASSR-1218</value>
+      <footprint>Housings_SOIC:SO-4_4.4x4.3mm_Pitch2.54mm</footprint>
+      <fields>
+        <field name="Datasheet Link">http://www.vishay.com/docs/84724/vo1400aeftr.pdf</field>
+        <field name="MFN">Broadcom Limited</field>
+        <field name="MFP">ASSR-1218-003E </field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/broadcom-limited/ASSR-1218-003E/516-2189-5-ND/2211230</field>
+        <field name="S1PN">516-2189-5-ND</field>
+      </fields>
+      <libsource lib="Relay_SolidState" part="ASSR-1218" description="Form A, Solid State Relay (Photo MOSFET) 60V, 0.2A, 10Ohm, SO-4"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8CCB95</tstamp>
+    </comp>
+    <comp ref="C5">
+      <value>0.1uF</value>
+      <footprint>Capacitors_SMD:C_0603</footprint>
+      <fields>
+        <field name="Datasheet Link">https://api.kemet.com/component-edge/download/specsheet/C0603C104K5RACAUTO.pdf</field>
+        <field name="MFN">KEMET</field>
+        <field name="MFP">C0603C104K5RACAUTO </field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/kemet/C0603C104K5RACAUTO/399-6856-1-ND/3314369</field>
+        <field name="S1PN">399-6856-1-ND</field>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8D8C9E</tstamp>
+    </comp>
+    <comp ref="U3">
+      <value>TLP2161</value>
+      <footprint>Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm</footprint>
+      <fields>
+        <field name="Datasheet Link">https://toshiba.semicon-storage.com/info/docget.jsp?did=14455&amp;prodName=TLP2161</field>
+        <field name="MFN">Toshiba Semiconductor and Storage</field>
+        <field name="MFP">TLP2161(F)</field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/toshiba-semiconductor-and-storage/TLP2161(F)/TLP2161(F)-ND/5189879</field>
+        <field name="S1PN">TLP2161(F)-ND</field>
+      </fields>
+      <libsource lib="TLP2161" part="TLP2161" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A904523</tstamp>
+    </comp>
+    <comp ref="U4">
+      <value>SMDA15-6</value>
+      <footprint>Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm</footprint>
+      <fields>
+        <field name="Datasheet Link">http://www.smc-diodes.com/propdf/SMDA03-6%20THRU%20SMDA24-6%20N0295%20REV.A.pdf</field>
+        <field name="MFN">SMC Diode Solutions</field>
+        <field name="MFP">SMDA15-6TR</field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/smc-diode-solutions/SMDA15-6TR/1655-1915-1-ND/8019617</field>
+        <field name="S1PN">1655-1915-1-ND</field>
+      </fields>
+      <libsource lib="SMDA15-6" part="SMDA15-6" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A908DD1</tstamp>
+    </comp>
+    <comp ref="C2">
+      <value>10uF</value>
+      <footprint>Capacitors_SMD:C_1206</footprint>
+      <fields>
+        <field name="Datasheet Link">https://api.kemet.com/component-edge/download/datasheet/T491A106M020AT.pdf</field>
+        <field name="MFN">KEMET</field>
+        <field name="MFP">T491A106M020AT  </field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/kemet/T491A106M020AT/399-5152-1-ND/1739488</field>
+        <field name="S1PN">399-5152-1-ND</field>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A90D87B</tstamp>
+    </comp>
+    <comp ref="C3">
+      <value>10uF</value>
+      <footprint>Capacitors_SMD:C_1206</footprint>
+      <fields>
+        <field name="Datasheet Link">https://api.kemet.com/component-edge/download/datasheet/T491A106M020AT.pdf</field>
+        <field name="MFN">KEMET</field>
+        <field name="MFP">T491A106M020AT </field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/kemet/T491A106M020AT/399-5152-1-ND/1739488</field>
+        <field name="S1PN">399-5152-1-ND</field>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A90D930</tstamp>
+    </comp>
+    <comp ref="C1">
+      <value>0.1uF</value>
+      <footprint>Capacitors_SMD:C_0603</footprint>
+      <fields>
+        <field name="Datasheet Link">https://api.kemet.com/component-edge/download/specsheet/C0603C104K5RACAUTO.pdf</field>
+        <field name="MFN">KEMET</field>
+        <field name="MFP">C0603C104K5RACAUTO </field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/kemet/C0603C104K5RACAUTO/399-6856-1-ND/3314369</field>
+        <field name="S1PN">399-6856-1-ND</field>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A913F98</tstamp>
+    </comp>
+    <comp ref="C4">
+      <value>0.1uF</value>
+      <footprint>Capacitors_SMD:C_0603</footprint>
+      <fields>
+        <field name="Datasheet Link">https://api.kemet.com/component-edge/download/specsheet/C0603C104K5RACAUTO.pdf</field>
+        <field name="MFN">KEMET</field>
+        <field name="MFP">C0603C104K5RACAUTO </field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/kemet/C0603C104K5RACAUTO/399-6856-1-ND/3314369</field>
+        <field name="S1PN">399-6856-1-ND</field>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A91400E</tstamp>
+    </comp>
+    <comp ref="MNT1">
+      <value>iClass_SE_R10_Backplate</value>
+      <footprint>iClass_SE_R10:iClass_SE_R10_Backplate</footprint>
+      <fields>
+        <field name="Critical">Y</field>
+        <field name="Datasheet Link">https://www.hidglobal.com/doclib/files/resource_files/plt-01579-a.4_iclass_se_multiclass_se_installaton_guide.pdf</field>
+        <field name="MFN">HID</field>
+        <field name="MFP">iClass SE R10</field>
+        <field name="S1PL">https://www.ebay.com/sch/i.html?_nkw=hid+iclass+se+r10&amp;_sop=15</field>
+        <field name="S1PN">hid iclass se r10</field>
+      </fields>
+      <libsource lib="iClass_SE_R10" part="iClass_SE_R10_Backplate" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A91F017</tstamp>
+    </comp>
+    <comp ref="U1">
+      <value>ESP32_TTGO</value>
+      <footprint>ESP32_TTGO:ESP32_TTGO</footprint>
+      <datasheet>DOCUMENTATION</datasheet>
+      <fields>
+        <field name="Critical">Y</field>
+        <field name="MFN">TTGO</field>
+        <field name="MFP">TTGO ESP32 LoRa SX1278 OLED module</field>
+        <field name="Notes">MUST de-solder SX1276 IC &amp; remove pin 12</field>
+        <field name="S1PL">https://www.ebay.com/sch/i.html?_nkw=esp32+ttgo+oled+lora&amp;_sop=15</field>
+        <field name="S1PN">esp32 ttgo oled lora</field>
+      </fields>
+      <libsource lib="ESP32_TTGO" part="ESP32_TTGO" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8E416B</tstamp>
+    </comp>
+    <comp ref="MK1">
+      <value>Mounting_Hole</value>
+      <footprint>Mounting_Holes:MountingHole_3.2mm_M3</footprint>
+      <libsource lib="Mechanical" part="MountingHole" description="Mounting Hole without connection"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8E23EC</tstamp>
+    </comp>
+    <comp ref="MK2">
+      <value>Mounting_Hole</value>
+      <footprint>Mounting_Holes:MountingHole_3.2mm_M3</footprint>
+      <libsource lib="Mechanical" part="MountingHole" description="Mounting Hole without connection"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8E245F</tstamp>
+    </comp>
+    <comp ref="MK3">
+      <value>Mounting_Hole</value>
+      <footprint>Mounting_Holes:MountingHole_3.2mm_M3</footprint>
+      <libsource lib="Mechanical" part="MountingHole" description="Mounting Hole without connection"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8E2490</tstamp>
+    </comp>
+    <comp ref="MK4">
+      <value>Mounting_Hole</value>
+      <footprint>Mounting_Holes:MountingHole_3.2mm_M3</footprint>
+      <libsource lib="Mechanical" part="MountingHole" description="Mounting Hole without connection"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8E24C5</tstamp>
+    </comp>
+    <comp ref="J4">
+      <value>Barrel_Jack</value>
+      <footprint>Connectors:Barrel_Jack_CUI_PJ-036AH-SMT</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Datasheet Link">https://www.cui.com/product/resource/digikeypdf/pj-036ah-smt-tr.pdf</field>
+        <field name="MFN">CUI Inc.</field>
+        <field name="MFP">PJ-036AH-SMT-TR</field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/cui-inc/PJ-036AH-SMT-TR/CP-036AHPJCT-ND/1530994</field>
+        <field name="S1PN">CP-036AHPJCT-ND</field>
+      </fields>
+      <libsource lib="Connector" part="Barrel_Jack_Switch" description="DC Barrel Jack with an internal switch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A900A58</tstamp>
+    </comp>
+    <comp ref="R2">
+      <value>IR2</value>
+      <footprint>Resistors_SMD:R_0603</footprint>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8F8E59</tstamp>
+    </comp>
+    <comp ref="R1">
+      <value>IR1</value>
+      <footprint>Resistors_SMD:R_0603</footprint>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8F8EAC</tstamp>
+    </comp>
+    <comp ref="R4">
+      <value>680</value>
+      <footprint>Resistors_SMD:R_0603</footprint>
+      <fields>
+        <field name="Datasheet Link">http://www.yageo.com/documents/recent/PYu-RT_1-to-0.01_RoHS_L_9.pdf</field>
+        <field name="MFN">Yageo</field>
+        <field name="MFP">RT0603FRE07680RL </field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/yageo/RT0603FRE07680RL/YAG3356CT-ND/5418061</field>
+        <field name="S1PN">YAG3356CT-ND</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A914A94</tstamp>
+    </comp>
+    <comp ref="R3">
+      <value>680</value>
+      <footprint>Resistors_SMD:R_0603</footprint>
+      <fields>
+        <field name="Datasheet Link">http://www.yageo.com/documents/recent/PYu-RT_1-to-0.01_RoHS_L_9.pdf</field>
+        <field name="MFN">Yageo</field>
+        <field name="MFP">RT0603FRE07680RL</field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/yageo/RT0603FRE07680RL/YAG3356CT-ND/5418061</field>
+        <field name="S1PN">YAG3356CT-ND</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A914C23</tstamp>
+    </comp>
+    <comp ref="R5">
+      <value>470</value>
+      <footprint>Resistors_SMD:R_0603</footprint>
+      <fields>
+        <field name="Datasheet Link">http://www.yageo.com/documents/recent/PYu-RC_Group_51_RoHS_L_10.pdf</field>
+        <field name="MFN">Yageo</field>
+        <field name="MFP">RC0603FR-07470RL</field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/yageo/RC0603FR-07470RL/311-470HRCT-ND/730203</field>
+        <field name="S1PN">311-470HRCT-ND</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A92D63A</tstamp>
+    </comp>
+    <comp ref="R6">
+      <value>470</value>
+      <footprint>Resistors_SMD:R_0603</footprint>
+      <fields>
+        <field name="Datasheet Link">http://www.yageo.com/documents/recent/PYu-RC_Group_51_RoHS_L_10.pdf</field>
+        <field name="MFN">Yageo</field>
+        <field name="MFP">RC0603FR-07470RL</field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/yageo/RC0603FR-07470RL/311-470HRCT-ND/730203</field>
+        <field name="S1PN">311-470HRCT-ND</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A92FE38</tstamp>
+    </comp>
+    <comp ref="J5">
+      <value>Relay</value>
+      <footprint>Connectors_Phoenix:PhoenixContact_PTSM0,5_3-HV-2,5_SMD</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Datasheet Link">https://media.digikey.com/PDF/Data%20Sheets/Phoenix%20Contact%20PDFs/1778777.pdf</field>
+        <field name="MFN">Phoenix Contact</field>
+        <field name="MFP">1778777 </field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/phoenix-contact/1778777/277-2316-1-ND/2625586</field>
+        <field name="S1PN">277-2316-1-ND</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5AA0340C</tstamp>
+    </comp>
+    <comp ref="CON1">
+      <value>Interlock Conn.</value>
+      <footprint>TerminalBlock_Phoenix_PTSM:TerminalBlock_Phoenix_PTSM-0,5-2-HV-2.5-SMD_1x02_P2.50mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Datasheet Link">https://media.digikey.com/PDF/Data%20Sheets/Phoenix%20Contact%20PDFs/1778832.pdf</field>
+        <field name="MFN">Phoenix Contact</field>
+        <field name="MFP">1778832</field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/phoenix-contact/1778832/277-2322-ND/2625556</field>
+        <field name="S1PN">277-2322-ND</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C46308C</tstamp>
+    </comp>
+    <comp ref="CON2">
+      <value>Motors Conn.</value>
+      <footprint>TerminalBlock_Phoenix_PTSM:TerminalBlock_Phoenix_PTSM-0,5-4-HV-2.5-SMD_1x06_P2.50mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Datasheet Link">https://media.digikey.com/PDF/Data%20Sheets/Phoenix%20Contact%20PDFs/1778858.pdf</field>
+        <field name="MFN">Phoenix Contact</field>
+        <field name="MFP">1778858 </field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/phoenix-contact/1778858/277-2324-ND/2625558</field>
+        <field name="S1PN">277-2324-ND</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x04" description="Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C4696D8</tstamp>
+    </comp>
+    <comp ref="CON3">
+      <value>Relay Conn.</value>
+      <footprint>Connectors_Phoenix:PhoenixContact_PTSM0,5_3-HV-2,5_SMD</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Datasheet Link">https://media.digikey.com/PDF/Data%20Sheets/Phoenix%20Contact%20PDFs/1778845.pdf</field>
+        <field name="MFN">Phoenix Contact</field>
+        <field name="MFP"> 1778845</field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/phoenix-contact/1778845/277-2323-ND/2625557</field>
+        <field name="S1PN">277-2323-ND</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C46C674</tstamp>
+    </comp>
+    <comp ref="J6">
+      <value>Conn_01x19_Female</value>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Datasheet Link">https://drawings-pdf.s3.amazonaws.com/10492.pdf</field>
+        <field name="MFN">Sullins Connector Solutions</field>
+        <field name="MFP">PPTC181LFBN-RC</field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/sullins-connector-solutions/PPTC181LFBN-RC/S7016-ND/810156</field>
+        <field name="S1PN">S7016-ND</field>
+      </fields>
+      <libsource lib="Connector" part="Conn_01x19_Female" description="Generic connector, single row, 01x19, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C4637FA</tstamp>
+    </comp>
+    <comp ref="J7">
+      <value>Conn_01x19_Female</value>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Datasheet Link">https://drawings-pdf.s3.amazonaws.com/10492.pdf</field>
+        <field name="MFN">Sullins Connector Solutions</field>
+        <field name="MFP">PPTC181LFBN-RC</field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/sullins-connector-solutions/PPTC181LFBN-RC/S7016-ND/810156</field>
+        <field name="S1PN">S7016-ND</field>
+      </fields>
+      <libsource lib="Connector" part="Conn_01x19_Female" description="Generic connector, single row, 01x19, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C484229</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="Connector" part="Barrel_Jack_Switch">
+      <description>DC Barrel Jack with an internal switch</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>BarrelJack*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Barrel_Jack_Switch</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+        <pin num="3" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector" part="Conn_01x19_Female">
+      <description>Generic connector, single row, 01x19, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x19_Female</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+        <pin num="9" name="Pin_9" type="passive"/>
+        <pin num="10" name="Pin_10" type="passive"/>
+        <pin num="11" name="Pin_11" type="passive"/>
+        <pin num="12" name="Pin_12" type="passive"/>
+        <pin num="13" name="Pin_13" type="passive"/>
+        <pin num="14" name="Pin_14" type="passive"/>
+        <pin num="15" name="Pin_15" type="passive"/>
+        <pin num="16" name="Pin_16" type="passive"/>
+        <pin num="17" name="Pin_17" type="passive"/>
+        <pin num="18" name="Pin_18" type="passive"/>
+        <pin num="19" name="Pin_19" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x02">
+      <description>Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x02</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x03">
+      <description>Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x03</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x04">
+      <description>Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x04</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x08">
+      <description>Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x08</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="C">
+      <description>Unpolarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="R">
+      <description>Resistor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="ESP32_TTGO" part="ESP32_TTGO">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">ESP32_TTGO</field>
+        <field name="Footprint">MODULE</field>
+        <field name="Datasheet">DOCUMENTATION</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="power_in"/>
+        <pin num="2" name="5V" type="power_in"/>
+        <pin num="3" name="3.3V" type="power_out"/>
+        <pin num="4" name="GND" type="BiDi"/>
+        <pin num="5" name="RX" type="BiDi"/>
+        <pin num="6" name="TX" type="BiDi"/>
+        <pin num="7" name="RST" type="BiDi"/>
+        <pin num="8" name="0" type="BiDi"/>
+        <pin num="9" name="22" type="BiDi"/>
+        <pin num="10" name="LoRA_MISO" type="unspc"/>
+        <pin num="11" name="23" type="BiDi"/>
+        <pin num="12" name="LoRA_CS" type="unspc"/>
+        <pin num="13" name="LoRA_SCK" type="unspc"/>
+        <pin num="14" name="OLED_SCL" type="unspc"/>
+        <pin num="15" name="2" type="BiDi"/>
+        <pin num="16" name="OLED_SDA" type="unspc"/>
+        <pin num="17" name="17" type="BiDi"/>
+        <pin num="18" name="OLED_RST" type="unspc"/>
+        <pin num="19" name="21" type="BiDi"/>
+        <pin num="20" name="13" type="BiDi"/>
+        <pin num="21" name="12" type="BiDi"/>
+        <pin num="22" name="LoRA_RST" type="unspc"/>
+        <pin num="23" name="LoRA_MOSI" type="unspc"/>
+        <pin num="24" name="LoRA_IRQ" type="unspc"/>
+        <pin num="25" name="25" type="BiDi"/>
+        <pin num="26" name="33" type="BiDi"/>
+        <pin num="27" name="32" type="BiDi"/>
+        <pin num="28" name="35" type="BiDi"/>
+        <pin num="29" name="34" type="BiDi"/>
+        <pin num="30" name="39" type="BiDi"/>
+        <pin num="31" name="38" type="BiDi"/>
+        <pin num="32" name="37" type="BiDi"/>
+        <pin num="33" name="36" type="BiDi"/>
+        <pin num="34" name="3.3V" type="power_out"/>
+        <pin num="35" name="5V" type="power_in"/>
+        <pin num="36" name="GND" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Mechanical" part="MountingHole">
+      <description>Mounting Hole without connection</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>MountingHole*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">H</field>
+        <field name="Value">MountingHole</field>
+      </fields>
+    </libpart>
+    <libpart lib="Relay_SolidState" part="ASSR-1218">
+      <description>Form A, Solid State Relay (Photo MOSFET) 60V, 0.2A, 10Ohm, SO-4</description>
+      <docs>https://docs.broadcom.com/docs/AV02-0173EN</docs>
+      <footprints>
+        <fp>SO*4.4x4.3mm*P2.54mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">ASSR-1218</field>
+        <field name="Footprint">Package_SO:SO-4_4.4x4.3mm_P2.54mm</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+        <pin num="3" name="~" type="passive"/>
+        <pin num="4" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SMDA15-6" part="SMDA15-6">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">SMDA15-6</field>
+        <field name="Footprint">MODULE</field>
+        <field name="Datasheet">DOCUMENTATION</field>
+        <field name="Datasheet">http://www.smc-diodes.com/propdf/SMDA03-6%20THRU%20SMDA24-6%20N0295%20REV.A.pdf</field>
+        <field name="MFN">SMC Diode Solutions</field>
+        <field name="MFP">SMDA15-6TR</field>
+        <field name="S1PN">1655-1915-1-ND</field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/smc-diode-solutions/SMDA15-6TR/1655-1915-1-ND/8019617</field>
+      </fields>
+      <pins>
+        <pin num="1" name="ESD1" type="input"/>
+        <pin num="2" name="ESD2" type="input"/>
+        <pin num="3" name="ESD3" type="input"/>
+        <pin num="4" name="ESD4" type="input"/>
+        <pin num="5" name="ESD5" type="input"/>
+        <pin num="6" name="GND" type="power_in"/>
+        <pin num="7" name="GND" type="power_in"/>
+        <pin num="8" name="ESD6" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="TLP2161" part="TLP2161">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">TLP2161</field>
+        <field name="Footprint">MODULE</field>
+        <field name="Datasheet">DOCUMENTATION</field>
+        <field name="Datasheet">https://toshiba.semicon-storage.com/info/docget.jsp?did=14455&amp;prodName=TLP2161</field>
+        <field name="MFN">Toshiba Semiconductor and Storage</field>
+        <field name="MFP">TLP2161(F)</field>
+        <field name="S1PN">TLP2161(F)-ND</field>
+        <field name="S1PL">https://www.digikey.ca/product-detail/en/toshiba-semiconductor-and-storage/TLP2161(F)/TLP2161(F)-ND/5189879</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Anode1" type="input"/>
+        <pin num="2" name="Cathode1" type="input"/>
+        <pin num="3" name="Cathode2" type="input"/>
+        <pin num="4" name="Anode2" type="input"/>
+        <pin num="5" name="GND" type="power_in"/>
+        <pin num="6" name="VO2" type="output"/>
+        <pin num="7" name="VO1" type="output"/>
+        <pin num="8" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="iClass_SE_R10" part="iClass_SE_R10_Backplate">
+      <fields>
+        <field name="Reference">MNT</field>
+        <field name="Value">iClass_SE_R10_Backplate</field>
+      </fields>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="Connector">
+      <uri>/Library/Application Support/kicad/library//Connector.lib</uri>
+    </library>
+    <library logical="Connector_Generic">
+      <uri>/Library/Application Support/kicad/library//Connector_Generic.lib</uri>
+    </library>
+    <library logical="Device">
+      <uri>/Library/Application Support/kicad/library//Device.lib</uri>
+    </library>
+    <library logical="ESP32_TTGO">
+      <uri>/Users/paulreimer/Development/projects/makerlabs-acm/electrical/parts/ESP32_TTGO/ESP32_TTGO.lib</uri>
+    </library>
+    <library logical="Mechanical">
+      <uri>/Library/Application Support/kicad/library//Mechanical.lib</uri>
+    </library>
+    <library logical="Relay_SolidState">
+      <uri>/Library/Application Support/kicad/library//Relay_SolidState.lib</uri>
+    </library>
+    <library logical="SMDA15-6">
+      <uri>/Users/paulreimer/Development/projects/makerlabs-acm/electrical/parts/SMDA15-6/SMDA15-6.lib</uri>
+    </library>
+    <library logical="TLP2161">
+      <uri>/Users/paulreimer/Development/projects/makerlabs-acm/electrical/parts/TLP2161/TLP2161.lib</uri>
+    </library>
+    <library logical="iClass_SE_R10">
+      <uri>/Users/paulreimer/Development/projects/makerlabs-acm/electrical/parts/iClass_SE_R10/iClass_SE_R10.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="/Interlock_H">
+      <node ref="U4" pin="5"/>
+      <node ref="U2" pin="3"/>
+      <node ref="J2" pin="2"/>
+    </net>
+    <net code="2" name="/Interlock_L">
+      <node ref="J2" pin="1"/>
+      <node ref="U4" pin="8"/>
+      <node ref="U2" pin="4"/>
+    </net>
+    <net code="3" name="Net-(U1-Pad5)">
+      <node ref="U1" pin="5"/>
+    </net>
+    <net code="4" name="Net-(U1-Pad6)">
+      <node ref="U1" pin="6"/>
+    </net>
+    <net code="5" name="Net-(U1-Pad18)">
+      <node ref="U1" pin="18"/>
+    </net>
+    <net code="6" name="Net-(U1-Pad16)">
+      <node ref="U1" pin="16"/>
+    </net>
+    <net code="7" name="Net-(U1-Pad14)">
+      <node ref="U1" pin="14"/>
+    </net>
+    <net code="8" name="Net-(U1-Pad13)">
+      <node ref="U1" pin="13"/>
+    </net>
+    <net code="9" name="Net-(U1-Pad12)">
+      <node ref="U1" pin="12"/>
+    </net>
+    <net code="10" name="Net-(U1-Pad10)">
+      <node ref="U1" pin="10"/>
+    </net>
+    <net code="11" name="Net-(U1-Pad24)">
+      <node ref="U1" pin="24"/>
+    </net>
+    <net code="12" name="Net-(U1-Pad23)">
+      <node ref="U1" pin="23"/>
+    </net>
+    <net code="13" name="Net-(U1-Pad22)">
+      <node ref="U1" pin="22"/>
+    </net>
+    <net code="14" name="Net-(U1-Pad8)">
+      <node ref="U1" pin="8"/>
+    </net>
+    <net code="15" name="Net-(U1-Pad7)">
+      <node ref="U1" pin="7"/>
+    </net>
+    <net code="16" name="Net-(U1-Pad33)">
+      <node ref="U1" pin="33"/>
+    </net>
+    <net code="17" name="Net-(U1-Pad32)">
+      <node ref="U1" pin="32"/>
+    </net>
+    <net code="18" name="Net-(U1-Pad31)">
+      <node ref="U1" pin="31"/>
+    </net>
+    <net code="19" name="Net-(U1-Pad30)">
+      <node ref="U1" pin="30"/>
+    </net>
+    <net code="20" name="Net-(U1-Pad29)">
+      <node ref="U1" pin="29"/>
+    </net>
+    <net code="21" name="Net-(U1-Pad28)">
+      <node ref="U1" pin="28"/>
+    </net>
+    <net code="22" name="/DATA0">
+      <node ref="J1" pin="6"/>
+      <node ref="U1" pin="27"/>
+    </net>
+    <net code="23" name="/DATA1">
+      <node ref="U1" pin="26"/>
+      <node ref="J1" pin="7"/>
+    </net>
+    <net code="24" name="GND">
+      <node ref="J1" pin="8"/>
+      <node ref="U4" pin="7"/>
+      <node ref="U4" pin="6"/>
+      <node ref="J4" pin="3"/>
+      <node ref="U1" pin="1"/>
+      <node ref="J5" pin="3"/>
+      <node ref="J5" pin="2"/>
+      <node ref="C2" pin="2"/>
+      <node ref="C3" pin="2"/>
+      <node ref="C5" pin="1"/>
+      <node ref="J4" pin="2"/>
+      <node ref="C4" pin="2"/>
+      <node ref="C1" pin="2"/>
+      <node ref="U2" pin="2"/>
+      <node ref="R2" pin="2"/>
+      <node ref="U1" pin="4"/>
+      <node ref="U1" pin="36"/>
+      <node ref="U3" pin="5"/>
+    </net>
+    <net code="25" name="/Beeper">
+      <node ref="U1" pin="11"/>
+      <node ref="J1" pin="2"/>
+    </net>
+    <net code="26" name="/Green_LED">
+      <node ref="J1" pin="4"/>
+      <node ref="U1" pin="15"/>
+    </net>
+    <net code="27" name="/Red_LED">
+      <node ref="J1" pin="3"/>
+      <node ref="U1" pin="17"/>
+    </net>
+    <net code="28" name="/MotorX_Safe">
+      <node ref="U3" pin="6"/>
+      <node ref="U1" pin="20"/>
+    </net>
+    <net code="29" name="/MotorY_Safe">
+      <node ref="U1" pin="21"/>
+      <node ref="U3" pin="7"/>
+    </net>
+    <net code="30" name="+3V3">
+      <node ref="U1" pin="3"/>
+      <node ref="U1" pin="34"/>
+      <node ref="U3" pin="8"/>
+      <node ref="C1" pin="1"/>
+      <node ref="C2" pin="1"/>
+      <node ref="C5" pin="2"/>
+    </net>
+    <net code="31" name="+5V">
+      <node ref="C3" pin="1"/>
+      <node ref="J4" pin="1"/>
+      <node ref="C4" pin="1"/>
+      <node ref="U1" pin="35"/>
+      <node ref="U1" pin="2"/>
+      <node ref="J1" pin="1"/>
+    </net>
+    <net code="32" name="/Read_Hold">
+      <node ref="U1" pin="9"/>
+      <node ref="J1" pin="5"/>
+    </net>
+    <net code="33" name="/Interlock_Safe">
+      <node ref="U1" pin="19"/>
+      <node ref="R1" pin="1"/>
+    </net>
+    <net code="34" name="Net-(R1-Pad2)">
+      <node ref="U2" pin="1"/>
+      <node ref="R1" pin="2"/>
+      <node ref="R2" pin="1"/>
+    </net>
+    <net code="35" name="/MotorY_L">
+      <node ref="U4" pin="3"/>
+      <node ref="R4" pin="2"/>
+      <node ref="U3" pin="2"/>
+      <node ref="J3" pin="3"/>
+    </net>
+    <net code="36" name="/MotorX_L">
+      <node ref="J3" pin="1"/>
+      <node ref="U4" pin="1"/>
+      <node ref="U3" pin="3"/>
+      <node ref="R3" pin="1"/>
+    </net>
+    <net code="37" name="/MotorX_H">
+      <node ref="J3" pin="2"/>
+      <node ref="U4" pin="2"/>
+      <node ref="R5" pin="1"/>
+    </net>
+    <net code="38" name="Net-(R3-Pad2)">
+      <node ref="U3" pin="4"/>
+      <node ref="R3" pin="2"/>
+      <node ref="R5" pin="2"/>
+    </net>
+    <net code="39" name="Net-(R4-Pad1)">
+      <node ref="R4" pin="1"/>
+      <node ref="U3" pin="1"/>
+      <node ref="R6" pin="1"/>
+    </net>
+    <net code="40" name="/MotorY_H">
+      <node ref="R6" pin="2"/>
+      <node ref="U4" pin="4"/>
+      <node ref="J3" pin="4"/>
+    </net>
+    <net code="41" name="/Relay">
+      <node ref="J5" pin="1"/>
+      <node ref="U1" pin="25"/>
+    </net>
+    <net code="42" name="Net-(CON1-Pad1)">
+      <node ref="CON1" pin="1"/>
+    </net>
+    <net code="43" name="Net-(CON1-Pad2)">
+      <node ref="CON1" pin="2"/>
+    </net>
+    <net code="44" name="Net-(CON2-Pad1)">
+      <node ref="CON2" pin="1"/>
+    </net>
+    <net code="45" name="Net-(CON2-Pad2)">
+      <node ref="CON2" pin="2"/>
+    </net>
+    <net code="46" name="Net-(CON2-Pad3)">
+      <node ref="CON2" pin="3"/>
+    </net>
+    <net code="47" name="Net-(CON2-Pad4)">
+      <node ref="CON2" pin="4"/>
+    </net>
+    <net code="48" name="Net-(CON3-Pad1)">
+      <node ref="CON3" pin="1"/>
+    </net>
+    <net code="49" name="Net-(CON3-Pad2)">
+      <node ref="CON3" pin="2"/>
+    </net>
+    <net code="50" name="Net-(CON3-Pad3)">
+      <node ref="CON3" pin="3"/>
+    </net>
+    <net code="51" name="Net-(J6-Pad1)">
+      <node ref="J6" pin="1"/>
+    </net>
+    <net code="52" name="Net-(J6-Pad10)">
+      <node ref="J6" pin="10"/>
+    </net>
+    <net code="53" name="Net-(J6-Pad11)">
+      <node ref="J6" pin="11"/>
+    </net>
+    <net code="54" name="Net-(J6-Pad12)">
+      <node ref="J6" pin="12"/>
+    </net>
+    <net code="55" name="Net-(J6-Pad13)">
+      <node ref="J6" pin="13"/>
+    </net>
+    <net code="56" name="Net-(J6-Pad14)">
+      <node ref="J6" pin="14"/>
+    </net>
+    <net code="57" name="Net-(J6-Pad15)">
+      <node ref="J6" pin="15"/>
+    </net>
+    <net code="58" name="Net-(J6-Pad16)">
+      <node ref="J6" pin="16"/>
+    </net>
+    <net code="59" name="Net-(J6-Pad17)">
+      <node ref="J6" pin="17"/>
+    </net>
+    <net code="60" name="Net-(J6-Pad18)">
+      <node ref="J6" pin="18"/>
+    </net>
+    <net code="61" name="Net-(J6-Pad19)">
+      <node ref="J6" pin="19"/>
+    </net>
+    <net code="62" name="Net-(J6-Pad2)">
+      <node ref="J6" pin="2"/>
+    </net>
+    <net code="63" name="Net-(J6-Pad3)">
+      <node ref="J6" pin="3"/>
+    </net>
+    <net code="64" name="Net-(J6-Pad4)">
+      <node ref="J6" pin="4"/>
+    </net>
+    <net code="65" name="Net-(J6-Pad5)">
+      <node ref="J6" pin="5"/>
+    </net>
+    <net code="66" name="Net-(J6-Pad6)">
+      <node ref="J6" pin="6"/>
+    </net>
+    <net code="67" name="Net-(J6-Pad7)">
+      <node ref="J6" pin="7"/>
+    </net>
+    <net code="68" name="Net-(J6-Pad8)">
+      <node ref="J6" pin="8"/>
+    </net>
+    <net code="69" name="Net-(J6-Pad9)">
+      <node ref="J6" pin="9"/>
+    </net>
+    <net code="70" name="Net-(J7-Pad1)">
+      <node ref="J7" pin="1"/>
+    </net>
+    <net code="71" name="Net-(J7-Pad10)">
+      <node ref="J7" pin="10"/>
+    </net>
+    <net code="72" name="Net-(J7-Pad11)">
+      <node ref="J7" pin="11"/>
+    </net>
+    <net code="73" name="Net-(J7-Pad12)">
+      <node ref="J7" pin="12"/>
+    </net>
+    <net code="74" name="Net-(J7-Pad13)">
+      <node ref="J7" pin="13"/>
+    </net>
+    <net code="75" name="Net-(J7-Pad14)">
+      <node ref="J7" pin="14"/>
+    </net>
+    <net code="76" name="Net-(J7-Pad15)">
+      <node ref="J7" pin="15"/>
+    </net>
+    <net code="77" name="Net-(J7-Pad16)">
+      <node ref="J7" pin="16"/>
+    </net>
+    <net code="78" name="Net-(J7-Pad17)">
+      <node ref="J7" pin="17"/>
+    </net>
+    <net code="79" name="Net-(J7-Pad18)">
+      <node ref="J7" pin="18"/>
+    </net>
+    <net code="80" name="Net-(J7-Pad19)">
+      <node ref="J7" pin="19"/>
+    </net>
+    <net code="81" name="Net-(J7-Pad2)">
+      <node ref="J7" pin="2"/>
+    </net>
+    <net code="82" name="Net-(J7-Pad3)">
+      <node ref="J7" pin="3"/>
+    </net>
+    <net code="83" name="Net-(J7-Pad4)">
+      <node ref="J7" pin="4"/>
+    </net>
+    <net code="84" name="Net-(J7-Pad5)">
+      <node ref="J7" pin="5"/>
+    </net>
+    <net code="85" name="Net-(J7-Pad6)">
+      <node ref="J7" pin="6"/>
+    </net>
+    <net code="86" name="Net-(J7-Pad7)">
+      <node ref="J7" pin="7"/>
+    </net>
+    <net code="87" name="Net-(J7-Pad8)">
+      <node ref="J7" pin="8"/>
+    </net>
+    <net code="88" name="Net-(J7-Pad9)">
+      <node ref="J7" pin="9"/>
+    </net>
+  </nets>
+</export>
