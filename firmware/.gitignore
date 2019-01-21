@@ -4,3 +4,4 @@ main/secrets/
 sdkconfig*
 !sdkconfig.defaults
 xtensa-esp32-elf*
+compile_commands.json
