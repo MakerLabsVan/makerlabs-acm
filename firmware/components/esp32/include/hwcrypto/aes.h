@@ -233,7 +233,6 @@ int esp_aes_crypt_ctr( esp_aes_context *ctx,
                        const unsigned char *input,
                        unsigned char *output );
 
-
 /**
  * \brief           Internal AES block encryption function
  *                  (Only exposed to allow overriding it,

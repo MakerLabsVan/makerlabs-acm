@@ -88,6 +88,8 @@ void esp_aes_free( esp_aes_context *ctx )
     bzero( ctx, sizeof( esp_aes_context ) );
 }
 
+
+
 /*
  * AES key schedule (same for encryption or decryption, as hardware handles schedule)
  *

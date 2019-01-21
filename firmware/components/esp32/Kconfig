@@ -41,7 +41,7 @@ config SPIRAM_BOOT_INIT
 config SPIRAM_IGNORE_NOTFOUND
     bool "Ignore PSRAM when not found"
     default "n"
-    depends on SPIRAM_BOOT_INIT
+    depends on SPIRAM_BOOT_INIT && !SPIRAM_ALLOW_BSS_SEG_EXTERNAL_MEMORY
     help
         Normally, if psram initialization is enabled during compile time but not found at runtime, it
         is seen as an error making the ESP32 panic. If this is enabled, the ESP32 will keep on
@@ -67,15 +67,24 @@ endchoice
 
 choice SPIRAM_TYPE
     prompt "Type of SPI RAM chip in use"
-    default SPIRAM_TYPE_ESPPSRAM32
+    default SPIRAM_TYPE_AUTO
+
+config SPIRAM_TYPE_AUTO
+    bool "Auto-detect"
 
 config SPIRAM_TYPE_ESPPSRAM32
     bool "ESP-PSRAM32 or IS25WP032"
+
+config SPIRAM_TYPE_ESPPSRAM64
+    bool "ESP-PSRAM64 or LY68L6400"
+
 endchoice
 
 config SPIRAM_SIZE
     int
+    default -1 if SPIRAM_TYPE_AUTO
     default 4194304 if SPIRAM_TYPE_ESPPSRAM32
+    default 8388608 if SPIRAM_TYPE_ESPPSRAM64
     default 0
 
 choice SPIRAM_SPEED
@@ -120,6 +129,29 @@ config SPIRAM_CACHE_WORKAROUND
         This will also not use any bits of newlib that are located in ROM, opting for a version that is compiled
         with the workaround and located in flash instead.
 
+config SPIRAM_BANKSWITCH_ENABLE
+    bool "Enable bank switching for >4MiB external RAM"
+    default y
+    depends on SPIRAM_USE_MEMMAP || SPIRAM_USE_CAPS_ALLOC || SPIRAM_USE_MALLOC
+    help
+        The ESP32 only supports 4MiB of external RAM in its address space. The hardware does support larger
+        memories, but these have to be bank-switched in and out of this address space. Enabling this allows you
+        to reserve some MMU pages for this, which allows the use of the esp_himem api to manage these banks.
+
+#Note that this is limited to 62 banks, as esp_spiram_writeback_cache needs some kind of mapping of some banks
+#below that mark to work. We cannot at this moment guarantee this to exist when himem is enabled.
+config SPIRAM_BANKSWITCH_RESERVE
+    int "Amount of 32K pages to reserve for bank switching"
+    depends on SPIRAM_BANKSWITCH_ENABLE
+    default 8
+    range 1 62
+    help
+        Select the amount of banks reserved for bank switching. Note that the amount of RAM allocatable with 
+        malloc/esp_heap_alloc_caps will decrease by 32K for each page reserved here.
+        
+        Note that this reservation is only actually done if your program actually uses the himem API. Without
+        any himem calls, the reservation is not done and the original amount of memory will be available
+        to malloc/esp_heap_alloc_caps.
 
 config SPIRAM_MALLOC_ALWAYSINTERNAL
     int "Maximum malloc() size, in bytes, to always put in internal memory"
@@ -171,6 +203,15 @@ config SPIRAM_ALLOW_STACK_EXTERNAL_MEMORY
         to it is in internal memory. If you have a task that needs a large amount of stack and does not call on
         ROM code in any way (no direct calls, but also no Bluetooth/WiFi), you can try to disable this and use
         xTaskCreateStatic to create the tasks stack in external memory.
+
+config SPIRAM_ALLOW_BSS_SEG_EXTERNAL_MEMORY
+    bool "Allow .bss segment placed in external memory"
+    default n
+    depends on SPIRAM_SUPPORT
+    help
+        If enabled the option,and add EXT_RAM_ATTR defined your variable,then your variable will be placed
+        in PSRAM instead of internal memory, and placed most of variables of lwip,net802.11,pp,bluedroid library
+        to external memory defaultly. 
 
 endmenu
 
@@ -867,6 +908,16 @@ config ESP_ERR_TO_NAME_LOOKUP
         order to save memory but this comes at the price of sacrificing
         distinguishable (meaningful) output string representations.
 
+config ESP32_RTCDATA_IN_FAST_MEM
+    bool "Place RTC_DATA_ATTR and RTC_RODATA_ATTR variables into RTC fast memory segment"
+    default n
+    depends on FREERTOS_UNICORE
+    help
+        This option allows to place .rtc_data and .rtc_rodata sections into
+        RTC fast memory segment to free the slow memory region for ULP programs.
+        This option depends on the CONFIG_FREERTOS_UNICORE option because RTC fast memory 
+        can be accessed only by PRO_CPU core.
+
 endmenu  # ESP32-Specific
 
 menu Wi-Fi
@@ -1059,6 +1110,25 @@ config ESP32_WIFI_TASK_PINNED_TO_CORE_1
     bool "Core 1"
 endchoice
 
+config ESP32_WIFI_SOFTAP_BEACON_MAX_LEN
+    int "Max length of WiFi SoftAP Beacon"
+    range 752 1256
+    default 752
+    help
+        ESP-MESH utilizes beacon frames to detect and resolve root node conflicts (see documentation). However the default
+        length of a beacon frame can simultaneously hold only five root node identifier structures, meaning that a root node
+        conflict of up to five nodes can be detected at one time. In the occurence of more root nodes conflict involving more
+        than five root nodes, the conflict resolution process will detect five of the root nodes, resolve the conflict, and 
+        re-detect more root nodes. This process will repeat until all root node conflicts are resolved. However this process
+        can generally take a very long time.
+        
+        To counter this situation, the beacon frame length can be increased such that more root nodes can be detected simultaneously.
+        Each additional root node will require 36 bytes and should be added ontop of the default beacon frame length of
+        752 bytes. For example, if you want to detect 10 root nodes simultaneously, you need to set the beacon frame length as 
+        932 (752+36*5).
+        
+        Setting a longer beacon length also assists with debugging as the conflicting root nodes can be identified more quickly.
+        
 endmenu  # Wi-Fi
 
 menu PHY

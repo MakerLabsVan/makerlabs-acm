@@ -159,7 +159,9 @@ static void IRAM_ATTR suspend_uarts()
 {
     for (int i = 0; i < 3; ++i) {
         REG_SET_BIT(UART_FLOW_CONF_REG(i), UART_FORCE_XOFF);
-        uart_tx_wait_idle(i);
+        while (REG_GET_FIELD(UART_STATUS_REG(i), UART_ST_UTX_OUT) != 0) {
+            ;
+        }
     }
 }
 
@@ -637,15 +639,11 @@ static uint32_t get_power_down_flags()
     // If there is any data placed into .rtc.data or .rtc.bss segments, and
     // RTC_SLOW_MEM is Auto, keep it powered up as well.
 
-    // These labels are defined in the linker script:
-    extern int _rtc_data_start, _rtc_data_end,
-               _rtc_bss_start, _rtc_bss_end,
-               _rtc_noinit_start, _rtc_noinit_end;
+    // Labels are defined in the linker script, see esp32.ld.
+    extern int _rtc_slow_length;
 
     if ((s_config.pd_options[ESP_PD_DOMAIN_RTC_SLOW_MEM] == ESP_PD_OPTION_AUTO) &&
-            (&_rtc_data_end > &_rtc_data_start ||
-             &_rtc_bss_end > &_rtc_bss_start ||
-             &_rtc_noinit_end > &_rtc_noinit_start ||
+            ((size_t) &_rtc_slow_length > 0 ||
              (s_config.wakeup_triggers & RTC_ULP_TRIG_EN))) {
         s_config.pd_options[ESP_PD_DOMAIN_RTC_SLOW_MEM] = ESP_PD_OPTION_ON;
     }

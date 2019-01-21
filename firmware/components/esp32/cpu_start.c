@@ -93,6 +93,10 @@ extern int _bss_start;
 extern int _bss_end;
 extern int _rtc_bss_start;
 extern int _rtc_bss_end;
+#if CONFIG_SPIRAM_ALLOW_BSS_SEG_EXTERNAL_MEMORY
+extern int _ext_ram_bss_start;
+extern int _ext_ram_bss_end;
+#endif
 extern int _init_start;
 extern void (*__init_array_start)(void);
 extern void (*__init_array_end)(void);
@@ -154,6 +158,11 @@ void IRAM_ATTR call_start_cpu0()
 #if CONFIG_SPIRAM_BOOT_INIT
     esp_spiram_init_cache();
     if (esp_spiram_init() != ESP_OK) {
+#if CONFIG_SPIRAM_ALLOW_BSS_SEG_EXTERNAL_MEMORY
+        ESP_EARLY_LOGE(TAG, "Failed to init external RAM, needed for external .bss segment");
+        abort();
+#endif
+
 #if CONFIG_SPIRAM_IGNORE_NOTFOUND
         ESP_EARLY_LOGI(TAG, "Failed to init external RAM; continuing without it.");
         s_spiram_okay = false;
@@ -207,7 +216,9 @@ void IRAM_ATTR call_start_cpu0()
         }
     }
 #endif
-
+#if CONFIG_SPIRAM_ALLOW_BSS_SEG_EXTERNAL_MEMORY
+    memset(&_ext_ram_bss_start, 0, (&_ext_ram_bss_end - &_ext_ram_bss_start) * sizeof(_ext_ram_bss_start));
+#endif
     /* Initialize heap allocator. WARNING: This *needs* to happen *after* the app cpu has booted.
        If the heap allocator is initialized first, it will put free memory linked list items into
        memory also used by the ROM. Starting the app cpu will let its ROM initialize that memory,
@@ -350,7 +361,6 @@ void start_cpu0_default(void)
 #endif
     esp_cache_err_int_init();
     esp_crosscore_int_init();
-    esp_ipc_init();
 #ifndef CONFIG_FREERTOS_UNICORE
     esp_dport_access_int_init();
 #endif
@@ -455,23 +465,23 @@ static void main_task(void* args)
 
     //Initialize task wdt if configured to do so
 #ifdef CONFIG_TASK_WDT_PANIC
-    ESP_ERROR_CHECK(esp_task_wdt_init(CONFIG_TASK_WDT_TIMEOUT_S, true))
+    ESP_ERROR_CHECK(esp_task_wdt_init(CONFIG_TASK_WDT_TIMEOUT_S, true));
 #elif CONFIG_TASK_WDT
-    ESP_ERROR_CHECK(esp_task_wdt_init(CONFIG_TASK_WDT_TIMEOUT_S, false))
+    ESP_ERROR_CHECK(esp_task_wdt_init(CONFIG_TASK_WDT_TIMEOUT_S, false));
 #endif
 
     //Add IDLE 0 to task wdt
 #ifdef CONFIG_TASK_WDT_CHECK_IDLE_TASK_CPU0
     TaskHandle_t idle_0 = xTaskGetIdleTaskHandleForCPU(0);
     if(idle_0 != NULL){
-        ESP_ERROR_CHECK(esp_task_wdt_add(idle_0))
+        ESP_ERROR_CHECK(esp_task_wdt_add(idle_0));
     }
 #endif
     //Add IDLE 1 to task wdt
 #ifdef CONFIG_TASK_WDT_CHECK_IDLE_TASK_CPU1
     TaskHandle_t idle_1 = xTaskGetIdleTaskHandleForCPU(1);
     if(idle_1 != NULL){
-        ESP_ERROR_CHECK(esp_task_wdt_add(idle_1))
+        ESP_ERROR_CHECK(esp_task_wdt_add(idle_1));
     }
 #endif
 
