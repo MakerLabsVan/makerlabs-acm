@@ -440,5 +440,12 @@ auto start_app()
     );
   }
 
+  // Ready to RFID scan!
+  {
+    auto rfid_scan_interval = 500ms;
+    auto rfid_reader_actor_pid = *(whereis("rfid_reader"));
+    send_interval(rfid_scan_interval, rfid_reader_actor_pid, "scan");
+  }
+
   return true;
 }
