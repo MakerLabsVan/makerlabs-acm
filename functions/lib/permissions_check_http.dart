@@ -223,12 +223,12 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
       }
     }
 
-    response.end();
-
     print("Append Activity to spreadsheet...");
     await append_activity_to_spreadsheet(sheets, SPREADSHEET_ID,
         SPREADSHEET_ACTIVITY_SHEET_NAME, activity, user);
     print("Append Activity to spreadsheet complete.");
+
+    response.end();
   } catch (e, s) {
     // In case of general failure, return response with exception text
     print("Trapped exception: ${e}");
