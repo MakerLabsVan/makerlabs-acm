@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["manifest.json","49506f0f8bb3a04a7fa3ef5d8acfa1fc"],["node_modules/@material/layout-grid/dist/mdc.layout-grid.min.css","1188a8aabb72a3814ede0272f15bfdba"],["node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js","d42dd0732b85d5efa9e1660a1747b05c"],["node_modules/fetch-jsonp/build/fetch-jsonp.js","79758ccaf7bd1291573eccbb2b18974a"],["node_modules/web-animations-js/web-animations-next.min.js","26a87bbc4392cfdc6a684665a0a02ff5"],["src/app-shell.js","27f4601431e813b72063919fa4b8f4c9"],["view-user-page.html","4a6166fddae8ec39819ebbb434e69644"]];
+var precacheConfig = [["manifest.json","49506f0f8bb3a04a7fa3ef5d8acfa1fc"],["node_modules/@material/layout-grid/dist/mdc.layout-grid.min.css","8d1ad7dc00082cded2eb6efc1b3cec56"],["node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js","d42dd0732b85d5efa9e1660a1747b05c"],["node_modules/fetch-jsonp/build/fetch-jsonp.js","e7fe30660f97158aeb2008ad50e89ec0"],["node_modules/web-animations-js/web-animations-next.min.js","631ddeec6f5b42b6cc11c83650f4c64c"],["src/app-shell.js","1ba78ab41a6817eb348d046c1e767840"],["src/beep.js","7f82449a376684f2db4054ec35df97d3"],["src/google-signin-button.js","189df75fa6e51e612149de68cd9a17ab"],["src/image-file-uploader.js","3eb49435e9e08f1b7eac97dd5702f39f"],["src/user-search-bar.js","d9fcd6102823e93ed4ae9c082a143edc"],["src/view-user-form.js","ababbc269da2c4a32ff4fef1f0f0bf81"],["view-user-page.html","54476e12d8ccdad038d9bd32d30bbf21"]];
 var cacheName = 'sw-precache-v3--' + (self.registration ? self.registration.scope : '');
 
 
@@ -289,7 +289,6 @@ toolbox.router.get(/\/__\/firebase\//, toolbox.cacheFirst, {});
 toolbox.router.get(/^https:\/\/apis.google.com\/js\/api.js/, toolbox.fastest, {});
 toolbox.router.get(/^https:\/\/fonts.gstatic.com\//, toolbox.fastest, {});
 toolbox.router.get(/\/google_apps_script_proxy\/.*?href=users-fields/, toolbox.fastest, {});
-toolbox.router.get(/https:\/\/drive.google.com\//, toolbox.cacheFirst, {"cache":{"maxEntries":1000,"name":"profile-photos-cache","maxAgeSeconds":604800}});
 
 
 

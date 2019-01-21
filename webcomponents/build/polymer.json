@@ -27,17 +27,17 @@
         "es2015"
       ],
       "js": {
-        "minify": true,
-        "compile": "es2015",
+        "minify": false,
+        "compile": false,
         "transformModulesToAmd": true
       },
       "css": {
-        "minify": true
+        "minify": false
       },
       "html": {
-        "minify": true
+        "minify": false
       },
-      "bundle": true,
+      "bundle": false,
       "addServiceWorker": true,
       "addPushManifest": false,
       "preset": "es6-bundled"
