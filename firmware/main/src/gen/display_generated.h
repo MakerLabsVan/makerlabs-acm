@@ -115,6 +115,7 @@ inline const char * const *EnumNamesDisplayAction() {
 }
 
 inline const char *EnumNameDisplayAction(DisplayAction e) {
+  if (e < DisplayAction::NONE || e > DisplayAction::ProgressBar) return "";
   const size_t index = static_cast<int>(e);
   return EnumNamesDisplayAction()[index];
 }
@@ -632,7 +633,8 @@ struct ProgressBar FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum {
     VT_MESSAGE = 4,
     VT_PROGRESS = 6,
-    VT_ICON = 8
+    VT_DURATION_MICROSECONDS = 8,
+    VT_ICON = 10
   };
   const flatbuffers::String *message() const {
     return GetPointer<const flatbuffers::String *>(VT_MESSAGE);
@@ -646,6 +648,12 @@ struct ProgressBar FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   bool mutate_progress(uint32_t _progress) {
     return SetField<uint32_t>(VT_PROGRESS, _progress, 0);
   }
+  int64_t duration_microseconds() const {
+    return GetField<int64_t>(VT_DURATION_MICROSECONDS, 0);
+  }
+  bool mutate_duration_microseconds(int64_t _duration_microseconds) {
+    return SetField<int64_t>(VT_DURATION_MICROSECONDS, _duration_microseconds, 0);
+  }
   Icon icon() const {
     return static_cast<Icon>(GetField<int16_t>(VT_ICON, 0));
   }
@@ -657,6 +665,7 @@ struct ProgressBar FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyOffset(verifier, VT_MESSAGE) &&
            verifier.VerifyString(message()) &&
            VerifyField<uint32_t>(verifier, VT_PROGRESS) &&
+           VerifyField<int64_t>(verifier, VT_DURATION_MICROSECONDS) &&
            VerifyField<int16_t>(verifier, VT_ICON) &&
            verifier.EndTable();
   }
@@ -670,6 +679,9 @@ struct ProgressBarBuilder {
   }
   void add_progress(uint32_t progress) {
     fbb_.AddElement<uint32_t>(ProgressBar::VT_PROGRESS, progress, 0);
+  }
+  void add_duration_microseconds(int64_t duration_microseconds) {
+    fbb_.AddElement<int64_t>(ProgressBar::VT_DURATION_MICROSECONDS, duration_microseconds, 0);
   }
   void add_icon(Icon icon) {
     fbb_.AddElement<int16_t>(ProgressBar::VT_ICON, static_cast<int16_t>(icon), 0);
@@ -690,8 +702,10 @@ inline flatbuffers::Offset<ProgressBar> CreateProgressBar(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<flatbuffers::String> message = 0,
     uint32_t progress = 0,
+    int64_t duration_microseconds = 0,
     Icon icon = Icon::None) {
   ProgressBarBuilder builder_(_fbb);
+  builder_.add_duration_microseconds(duration_microseconds);
   builder_.add_progress(progress);
   builder_.add_message(message);
   builder_.add_icon(icon);
@@ -702,11 +716,13 @@ inline flatbuffers::Offset<ProgressBar> CreateProgressBarDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const char *message = nullptr,
     uint32_t progress = 0,
+    int64_t duration_microseconds = 0,
     Icon icon = Icon::None) {
   return Display::CreateProgressBar(
       _fbb,
       message ? _fbb.CreateString(message) : 0,
       progress,
+      duration_microseconds,
       icon);
 }
 
@@ -883,7 +899,7 @@ inline const flatbuffers::TypeTable *IconTypeTable() {
   static const flatbuffers::TypeFunction type_refs[] = {
     IconTypeTable
   };
-  static const int32_t values[] = { 0, 1, 2, 3, 10004 };
+  static const int64_t values[] = { 0, 1, 2, 3, 10004 };
   static const char * const names[] = {
     "None",
     "Healthy",
@@ -1022,6 +1038,7 @@ inline const flatbuffers::TypeTable *ProgressBarTypeTable() {
   static const flatbuffers::TypeCode type_codes[] = {
     { flatbuffers::ET_STRING, 0, -1 },
     { flatbuffers::ET_UINT, 0, -1 },
+    { flatbuffers::ET_LONG, 0, -1 },
     { flatbuffers::ET_SHORT, 0, 0 }
   };
   static const flatbuffers::TypeFunction type_refs[] = {
@@ -1030,10 +1047,11 @@ inline const flatbuffers::TypeTable *ProgressBarTypeTable() {
   static const char * const names[] = {
     "message",
     "progress",
+    "duration_microseconds",
     "icon"
   };
   static const flatbuffers::TypeTable tt = {
-    flatbuffers::ST_TABLE, 3, type_codes, type_refs, nullptr, names
+    flatbuffers::ST_TABLE, 4, type_codes, type_refs, nullptr, names
   };
   return &tt;
 }
