@@ -32,7 +32,7 @@ struct MachineActorState
     int _interlock_pin = 21,
     int _relay_pin = 25,
     int _motor_x_pin = 13,
-    int _motor_y_pin = 12
+    int _motor_y_pin = 14
   )
   : interlock_pin(_interlock_pin)
   , relay_pin(_relay_pin)
@@ -88,11 +88,14 @@ struct MachineActorState
     gpio_install_isr_service(esp_intr_flag_default);
 
     // Add ISR handlers
+    // X-axis
     gpio_isr_handler_add(
       static_cast<gpio_num_t>(motor_x_pin),
       motors_gpio_isr_handler,
       this
     );
+
+    // Y-axis
     gpio_isr_handler_add(
       static_cast<gpio_num_t>(motor_y_pin),
       motors_gpio_isr_handler,
@@ -138,7 +141,8 @@ struct MachineActorState
   TimeDuration last_motor_activity_timestamp = 0s;
   int last_motor_pulse_count = 0;
   int motor_activity_seconds = 0;
-  TimeDuration max_job_interval = 5s;
+  TimeDuration max_job_start_interval = 25s;
+  TimeDuration max_job_end_interval = 5s;
 
   int max_motor_pulse_count = 1024;
   int threshold_motor_pulse_count = 5;
@@ -253,31 +257,57 @@ auto machine_actor_behaviour(
       bool motor_activity = (
         state.last_motor_pulse_count >= state.threshold_motor_pulse_count
       );
-      printf("Check pulse count over threshold: %d / %d = %d\n", state.last_motor_pulse_count, state.threshold_motor_pulse_count, motor_activity);
+      auto elapsed_since_last_activity = (now - state.last_motor_activity_timestamp);
+      auto max_job_start_seconds = std::chrono::duration_cast<std::chrono::seconds>(
+        state.max_job_start_interval
+      ).count();
+      auto max_job_end_seconds = std::chrono::duration_cast<std::chrono::seconds>(
+        state.max_job_end_interval
+      ).count();
+
       if (motor_activity)
       {
-        if ((now - state.last_motor_activity_timestamp) > state.max_job_interval)
+        if (state.motor_activity_seconds == max_job_start_seconds)
         {
           printf("Begin job\n");
+
+          auto display_actor_pid = *(whereis("display"));
+          send(display_actor_pid, "BeginJobTimer");
         }
 
-        state.last_motor_activity_timestamp = now;
         state.motor_activity_seconds++;
+
+        state.last_motor_activity_timestamp = now;
       }
       else if (
-        ((now - state.last_motor_activity_timestamp) > state.max_job_interval)
+        (elapsed_since_last_activity > state.max_job_end_interval)
         and (state.motor_activity_seconds > 0)
       )
       {
-        flatbuffers::FlatBufferBuilder fbb;
+        if (state.motor_activity_seconds > max_job_start_seconds)
+        {
+          flatbuffers::FlatBufferBuilder fbb;
 
-        auto cnc_job_loc = CreateCNC_Job(fbb, state.motor_activity_seconds);
-        fbb.Finish(cnc_job_loc, ActivityIdentifier());
+          auto billable_seconds = (
+            state.motor_activity_seconds
+            - max_job_start_seconds
+            + max_job_end_seconds
+          );
 
-        //printf("End job, usage seconds = %d\n", state.motor_activity_seconds);
-        auto main_actor_pid = *(whereis("app"));
-        send(main_actor_pid, "cnc_job", fbb.Release());
+          auto cnc_job_loc = CreateCNC_Job(fbb, billable_seconds);
+          fbb.Finish(cnc_job_loc, ActivityIdentifier());
+
+          printf("End job, usage seconds = %d\n", state.motor_activity_seconds);
+
+          auto main_actor_pid = *(whereis("app"));
+          send(main_actor_pid, "cnc_job", fbb.Release());
+
+          auto display_actor_pid = *(whereis("display"));
+          send(display_actor_pid, "StopJobTimer");
+        }
+
         state.motor_activity_seconds = 0;
+        state.last_motor_activity_timestamp = 0s;
       }
 
       state.last_motor_pulse_count = 0;
