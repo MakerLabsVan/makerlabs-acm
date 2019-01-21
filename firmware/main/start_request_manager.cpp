@@ -63,7 +63,6 @@ auto start_request_manager(const Pid& sup_pid, const Message& message)
     );
   }
 
-  send_after(15s, request_manager_actor_pid, "crash");
 
   return {Result::Ok, request_manager_actor_pid};
 }
