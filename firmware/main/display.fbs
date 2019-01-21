@@ -63,6 +63,7 @@ table ProgressBar
 {
   message:string;
   progress:uint = 0;
+  duration_microseconds:int64;
   icon:Icon;
 }
 
