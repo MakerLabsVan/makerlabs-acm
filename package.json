@@ -14,28 +14,13 @@
     "scripts": "cd \"scripts\" && yarn deploy",
     "build": "yarn webcomponents && yarn functions",
     "predeploy": "yarn build && yarn scripts",
-    "deploy": "firebase deploy",
-    "precommit": "yarn lint-staged"
-  },
-  "lint-staged": {
-    "scripts/*.js": [
-      "prettier --trailing-comma=es5 --arrow-parens=always --no-bracket-spacing --write",
-      "git add"
-    ]
-  },
-  "dependencies": {
-    "eslint-plugin-prettier": "^2.3.1"
+    "deploy": "firebase deploy"
   },
   "devDependencies": {
     "@google/clasp": "^1.4.1",
     "bower": "^1.8.4",
-    "eslint": "^4.18.1",
-    "eslint-config-prettier": "^2.9.0",
     "firebase-tools": "^4.0.0",
-    "husky": "^0.14.3",
-    "lint-staged": "^7.2.0",
-    "polymer-cli": "^1.7.7",
-    "prettier": "^1.7.4"
+    "polymer-cli": "^1.7.7"
   },
   "private": true
 }
