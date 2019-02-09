@@ -31,21 +31,22 @@ var NAVTREE =
       [ "API Reference", "md__docs_firmware.html#autotoc_md19", null ]
     ] ],
     [ "functions/", "md__docs_functions.html", [
-      [ "Design", "md__docs_functions.html#autotoc_md24", null ],
-      [ "Configuration", "md__docs_functions.html#autotoc_md25", null ],
-      [ "Deployment", "md__docs_functions.html#autotoc_md26", null ],
-      [ "API Reference", "md__docs_functions.html#autotoc_md27", null ]
+      [ "Overview", "md__docs_functions.html#autotoc_md24", null ],
+      [ "Design", "md__docs_functions.html#autotoc_md25", null ],
+      [ "Configuration", "md__docs_functions.html#autotoc_md26", null ],
+      [ "Deployment", "md__docs_functions.html#autotoc_md27", null ],
+      [ "API Reference", "md__docs_functions.html#autotoc_md28", null ]
     ] ],
     [ "scripts/", "md__docs_scripts.html", [
-      [ "COMING SOON", "md__docs_scripts.html#autotoc_md45", null ],
-      [ "API Reference", "md__docs_scripts.html#autotoc_md46", null ]
+      [ "COMING SOON", "md__docs_scripts.html#autotoc_md48", null ],
+      [ "API Reference", "md__docs_scripts.html#autotoc_md49", null ]
     ] ],
     [ "webcomponents/", "md__docs_webcomponents.html", [
-      [ "Overview", "md__docs_webcomponents.html#autotoc_md51", null ],
-      [ "Design", "md__docs_webcomponents.html#autotoc_md52", null ],
-      [ "Configuration", "md__docs_webcomponents.html#autotoc_md53", null ],
-      [ "Deployment", "md__docs_webcomponents.html#autotoc_md54", null ],
-      [ "API Reference", "md__docs_webcomponents.html#autotoc_md55", null ]
+      [ "Overview", "md__docs_webcomponents.html#autotoc_md54", null ],
+      [ "Design", "md__docs_webcomponents.html#autotoc_md55", null ],
+      [ "Configuration", "md__docs_webcomponents.html#autotoc_md56", null ],
+      [ "Deployment", "md__docs_webcomponents.html#autotoc_md57", null ],
+      [ "API Reference", "md__docs_webcomponents.html#autotoc_md58", null ]
     ] ],
     [ "Deprecated List", "deprecated.html", null ],
     [ "API Documentation", "modules.html", "modules" ],
@@ -58,7 +59,7 @@ var NAVTREEINDEX =
 "_8clasp_8json.html",
 "doxy-boot_8js.html#a97f3d48f13b4954f411db82c789f3bcd",
 "group__functions.html#gadf08cae88ae7cedf87abc0c11e180f8e",
-"struct_display_actor_state.html#a5b2de2ddcdfcbf63c2ec56544e44e532"
+"struct_display_actor_state.html#a44d88d0361012dc1c8bec6190fcd8e3a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

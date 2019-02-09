@@ -104,13 +104,16 @@ $(document).ready(function(){initNavTree('md__docs_functions.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="autotoc_md24"></a>
-Design</h1>
-<h2>Overview</h2>
+Overview</h1>
 <p>There are two Serverless function handlers used by the ACM:</p><ul>
 <li><a class="el" href="group__functions.html#ga3a34d1983ca24bf3375f128701142f4a">/permissions_check</a>, used by the Reader, which receives an <code>ACM</code>.<code><a class="el" href="struct_activity.html" title="Flatbuffer which represents tag scan activity on a specific machine.">Activity</a></code> binary flatbuffer, determines which <code>MakerLabs ID</code> it belongs to, and returns details for the matching user (including current permissions list) as an <code>ACM</code>.<code><a class="el" href="struct_user.html" title="Flatbuffer which represents metadata from a user.">User</a></code> flatbuffer. <dl class="section note"><dt>Note</dt><dd>Located in AWS Lambda, as this made a significant latency improvement resulting in faster scan times. The performance benefit was large enough that this handler was moved to AWS <code>us-west-2</code>. As a result, Firebase credentials must be provided to the handler including which Google Cloud project to use, and a private key for a locked-down Firebase service account which can only access the Firebase Database for that project.</dd></dl>
 </li>
 <li><a class="el" href="group__functions.html#gacdc4b56953435dee1ff6ffa58a4c00e7">/google_apps_script_proxy</a>, used by the website, which forwards any requests to Google Apps Script and proxies the response so Google Spreadsheets data by be loaded by the website (outside of Google Apps Script hosting limits). <dl class="section note"><dt>Note</dt><dd>This is a Firebase <a class="el" href="struct_function.html">Function</a> deployed to the same project as the website (Firebase Hosting). It is also mapped via URL rewrite to <code>/google_apps_script_proxy</code> on the same domain as the website, so it may be accessed without configuring cross-domain CORS access.</dd></dl>
-The functions are written in <a href="https://www.dartlang.org/">Dart 2.x</a>, which is converted to Javascript code and uploaded to a "serverless" environment. In this case, two such environments are used:</li>
+</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md25"></a>
+Design</h1>
+<p>The functions are written in <a href="https://www.dartlang.org/">Dart 2.x</a>, which is converted to Javascript code and uploaded to a "serverless" environment. In this case, two such environments are used:</p><ul>
 <li><a href="https://aws.amazon.com/lambda/">AWS Lambda</a> is used for performance critical request/response to Reader unit tag scans (<a class="el" href="group__functions.html#ga3a34d1983ca24bf3375f128701142f4a">/permissions_check</a>).</li>
 <li><a href="https://firebase.google.com/docs/functions/">Cloud Functions For Firebase</a> is used for simple request proxying from Firebase Hosting website to access Google Apps Script data such as the form <code>fields</code> JSON (<a class="el" href="group__functions.html#gacdc4b56953435dee1ff6ffa58a4c00e7">/google_apps_script_proxy</a>).</li>
 </ul>
@@ -125,18 +128,18 @@ The functions are written in <a href="https://www.dartlang.org/">Dart 2.x</a>, w
 <h3>/google_apps_script_proxy (Firebase Functions)</h3>
 <p>These logs can be found from the Firebase Console under the Functions section. Logs from multiple execution units are combined together. The same data can also be viewed in Google Cloud Functions dashboard, including metadata regarding when the execution units are restarted.</p>
 <dl class="section note"><dt>Note</dt><dd>Advanced function settings such as runtime version (e.g Node 8.x) and memory limits must be configured in Google Cloud Functions console, with the target Firebase Project selected as the Google Platform project.</dd></dl>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h1><a class="anchor" id="autotoc_md26"></a>
 Configuration</h1>
 <h2>Dependencies</h2>
 <p>The Dart dependencies used at runtime are configured in the <code><a class="el" href="pubspec_8yaml.html" title="Configure Dart metadata and package dependencies.">pubspec.yaml</a></code> file. The JS dependencies used by the build/deploy tooling are configured in the <code><a class="el" href="webcomponents_2package_8json.html" title="Runnable targets: serve, build, deploy. LitElement/Polymer npm dependencies.">webcomponents/package.json</a></code> file.</p>
 <h2>Google Spreadsheet, Google Cloud Project / Firebase details</h2>
 <p>Common customizations such as changing the Spreadsheet ID, Google Cloud/Firebase project name, and Firebase Database credentials for use outside Google (e.g. in AWS Lambda) are configured separately for <code>production</code> and <code>dev</code>/<code>test</code> environments in the <code><a class="el" href="config_8production_8yml.html" title="Environment variables / settings for /permissions_check production environment.">config.production.yml</a></code> and <code><a class="el" href="config_8dev_8yml.html" title="Environment variables / settings for /permissions_check dev/test environment.">config.dev.yml</a></code> files, respectively (and deploying with either the <code>--stage production</code> or <code>--stage dev</code> (the default) deploy flag).</p>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<h1><a class="anchor" id="autotoc_md27"></a>
 Deployment</h1>
 <h2>Build</h2>
 <p>Dart code must first be converted to Javascript code through the <code>Dart2JS</code> tool. The build process can be invoked via: </p><div class="fragment"><div class="line">yarn build</div></div><!-- fragment --><p>The results are packaged into the <code>functions/build</code> directory.</p>
 <h2>Deploy</h2>
-<p>The deployment process can be invoked (it will trigger a rebuild first) via: </p><div class="fragment"><div class="line"># Deploy to the test environment</div><div class="line">yarn deploy</div><div class="line"></div><div class="line"># Deploy to the production environment</div><div class="line"># yarn build</div><div class="line"># firebase deploy --only functions -P production</div><div class="line"># sls deploy --stage production</div></div><!-- fragment --><h1><a class="anchor" id="autotoc_md27"></a>
+<p>The deployment process can be invoked (it will trigger a rebuild first) via: </p><div class="fragment"><div class="line"># Deploy to the test environment</div><div class="line">yarn deploy</div><div class="line"></div><div class="line"># Deploy to the production environment</div><div class="line"># yarn build</div><div class="line"># firebase deploy --only functions -P production</div><div class="line"># sls deploy --stage production</div></div><!-- fragment --><h1><a class="anchor" id="autotoc_md28"></a>
 API Reference</h1>
 <p><a class="el" href="group__functions.html">functions/ API Documentation</a> </p>
 </div></div><!-- PageDoc -->

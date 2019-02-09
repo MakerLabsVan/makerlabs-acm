@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('md__docs_webcomponents.html','');});
 <div class="title">webcomponents/ </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md51"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md54"></a>
 Overview</h1>
 <h2>/view-user-page.html</h2>
 <h3>App Startup, Initial CM Login, Fetch Form/Search Data</h3>
@@ -151,7 +151,33 @@ Overview</h1>
     end
 </div>
 </p>
-<h1><a class="anchor" id="autotoc_md52"></a>
+<p>### Search For Specific <a class="el" href="struct_user.html" title="Flatbuffer which represents metadata from a user.">User</a>  
+<div class="mermaid">
+   sequenceDiagram
+      participant CM User
+      participant Web Frontend
+      participant Google Auth
+      participant Firebase
+      participant Google Proxy
+      participant Users Sheet
+      participant Activity Sheet
+      CM User->>Web Frontend: Search For Specific User Name
+</div>
+</p>
+<p>### Search For Front Desk / Specific Machine, Latest Scans  
+<div class="mermaid">
+   sequenceDiagram
+      participant CM User
+      participant Web Frontend
+      participant Google Auth
+      participant Firebase
+      participant Google Proxy
+      participant Users Sheet
+      participant Activity Sheet
+      CM User->>Web Frontend: Search For Specific Machine (Front Desk)
+</div>
+</p>
+<h1><a class="anchor" id="autotoc_md55"></a>
 Design</h1>
 <p>A single HTML page (<code><a class="el" href="view-user-page_8html.html" title="Configure webapp details (icon, caching), HTML dependencies, and create the top-level &lt;app-shell /&gt;.">view-user-page.html</a></code>) provides the entrypoint for the main <a href="https://makerlabs-acm.firebaseapp.com/view-user-page.html">ACM search/view/edit Maker page</a>.</p>
 <h2>WebComponents</h2>
@@ -177,7 +203,7 @@ Color-highlighted HTML elements used on /view-user-page</div></div>
 <dl class="section note"><dt>Note</dt><dd>Updates to the "Users" sheet directly through Google Sheets, and/or from other users making changes through the form, will not be updated automatically. A page refresh (via e.g. Cmd-Shift-R) is required to fully sync the search bar.</dd></dl>
 <h2>Automatic "Next MakerLabs ID"</h2>
 <p>Clicking the "+" floating-action-button at the bottom-right of the screen will clear the form fields, and triggers populating the <code>MakerLabs ID</code> column with the next available <code>MakerLabs ID</code> based on a request to the <code>?href=next-makerlabs-id</code> handler in Google Apps Script.</p>
-<h1><a class="anchor" id="autotoc_md53"></a>
+<h1><a class="anchor" id="autotoc_md56"></a>
 Configuration</h1>
 <h2>Google Spreadsheet, Google Drive, Google Login details</h2>
 <p>Common customizations such as changing the Spreadsheet ID, or Google Drive profile photo folder ID, requires changing the properties on the <code>&lt;app-shell&gt;</code>, set at the bottom of <code><a class="el" href="view-user-page_8html.html" title="Configure webapp details (icon, caching), HTML dependencies, and create the top-level &lt;app-shell /&gt;.">view-user-page.html</a></code>.</p>
@@ -187,14 +213,14 @@ Configuration</h1>
 <p>The Firebase projects (and environments used by the <code>deploy -P &lt;env&gt;</code> command) are configure at the top-level of this repository in the <a href="https://firebase.google.com/docs/cli/#managing_project_aliases"><code>.firebaserc</code> file</a></p>
 <h3>Hard-coded Spreadsheet Details</h3>
 <p>It is possible to modify the hard-coded strings which the Google Spreadsheet uses and should be expected to match those in <a class="el" href="class_view_user_form.html">&lt;view-user-form&gt;</a>. These include constants such as Sheet names ("Users" / "Activity"), as well as which columns are fetched for search, and which section title (Row 1 text) is used for critical fields such as "MakerLabs ID".</p>
-<h1><a class="anchor" id="autotoc_md54"></a>
+<h1><a class="anchor" id="autotoc_md57"></a>
 Deployment</h1>
 <h2>Build</h2>
 <p>The <a href="https://github.com/Polymer/tools/tree/master/packages/cli">Polymer build system</a> is used to package all Javascript and assets into a single minified bundle. As well it can be used to run a local development server which uses the WebComponent JS files directly and serves them as they are edited.</p>
 <p>The <a href="https://polymer-library.polymer-project.org/3.0/docs/tools/polymer-json"><code>polymer.json</code> file</a> is used by the <code>polymer</code> command to configure the build.</p>
 <p>The build process can be invoked via: </p><div class="fragment"><div class="line">yarn build</div></div><!-- fragment --><h2>Deploy</h2>
 <p>Running the Polymer build process packages the HTML, JS, and Service Worker configuration files into the <code>build</code> directory. The <code>build/es6-bundled</code> directory is uploaded to Firebase Hosting as the root of the site.</p>
-<p>The deployment process can be invoked (it will rebuild first) via: </p><div class="fragment"><div class="line"># Deploy to the test environment (https://makerlabs-acm-test.firebaseapp.com)</div><div class="line">yarn deploy -P dev</div><div class="line"></div><div class="line"># Deploy to the production environment (https://makerlabs-acm.firebaseapp.com)</div><div class="line"># yarn deploy -P production</div></div><!-- fragment --><h1><a class="anchor" id="autotoc_md55"></a>
+<p>The deployment process can be invoked (it will rebuild first) via: </p><div class="fragment"><div class="line"># Deploy to the test environment (https://makerlabs-acm-test.firebaseapp.com)</div><div class="line">yarn deploy -P dev</div><div class="line"></div><div class="line"># Deploy to the production environment (https://makerlabs-acm.firebaseapp.com)</div><div class="line"># yarn deploy -P production</div></div><!-- fragment --><h1><a class="anchor" id="autotoc_md58"></a>
 API Reference</h1>
 <p><a class="el" href="group__webcomponents.html">webcomponents/ API Documentation</a> </p>
 </div></div><!-- PageDoc -->

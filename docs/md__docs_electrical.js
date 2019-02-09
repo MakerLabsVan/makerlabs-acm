@@ -7,6 +7,6 @@ var md__docs_electrical =
     ] ],
     [ "Project Files Overview", "md__docs_electrical.html#autotoc_md9", null ],
     [ "Generate Reader Bill-Of-Materials (BOM)", "generate_bom.html", [
-      [ "COMING SOON", "generate_bom.html#autotoc_md36", null ]
+      [ "COMING SOON", "generate_bom.html#autotoc_md39", null ]
     ] ]
 ];
