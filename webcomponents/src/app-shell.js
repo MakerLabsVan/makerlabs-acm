@@ -1,3 +1,7 @@
+/// @addtogroup webcomponents
+/// @{
+/// @file
+/// @brief Define WebComponent: AppShell, register it as <app-shell />
 import {LitElement, html} from "@polymer/lit-element";
 import {
   setPassiveTouchGestures,
@@ -36,7 +40,69 @@ setPassiveTouchGestures(true);
 // in `index.html`.
 setRootPath(AppGlobals.rootPath);
 
+/// @brief Top-level WebComponent which has auth sidebar, search box, and form.
+///
+/// Properties on this component are used to specify configuration values such
+/// as for Google Spreadsheet / Google Drive settings, as well as endpoint URLs.
+///
+/// Field descriptions are loaded dynamically via a Google Apps
+/// Script handler which lists the Google Spreadsheet `Users` sheet columns
+/// and validations, and returns a JSON description of metadata for all fields.
+/// The `fields` metadata is provided to the `<view-user-form>` as an input
+/// property.
 class AppShell extends LitElement {
+  /// @brief WebComponent properties that can be used as HTML attributes.
+  ///
+  /// @param sheetId
+  /// Google Apps Sheet ID
+  ///
+  /// @param machineId
+  /// Currently selected machine ID (e.g. Front Desk)
+  ///
+  /// @param accessToken
+  /// OAuth access token (time-limited) for accessing Google Spreadsheets, Drive
+  /// services on behalf of the logged-in user
+  ///
+  /// @param idToken
+  /// OAuth OIDC ID token (time-limited) for accessing Firebase
+  /// services on behalf of the logged-in user
+  ///
+  /// @param oauthClientId
+  /// OAuth Application Client ID
+  ///
+  /// @param oauthScopes
+  /// Space-separated list of OAuth scopes / permissions to be requested
+  ///
+  /// @param fieldsUrl
+  /// URL for endpoint which returns Spreadsheet Columns as Fields JSON
+  ///
+  /// @param nextMakerLabsIdUrl
+  /// URL for endpoint which returns next MakerLabs ID (ML___)
+  ///
+  /// @param fields
+  /// Form fields JSON (obtained by querying Users Sheet Columns)
+  ///
+  /// @param userName
+  /// User name of currently selected user
+  ///
+  /// @param usersSearchColumns
+  /// Comma-separated list of Users sheet column letters needed for search
+  ///
+  /// @param defaultPhotoUrl
+  /// Default URL for placeholder image to use for Maker without a profile image
+  ///
+  /// @param profilePhotosFolderId
+  /// Google Drive Folder ID to be used as the parent for uploaded images
+  /// (defaults to "root")
+  ///
+  /// @param query
+  /// Optional user name to load into form immediately upon loading page
+  ///
+  /// @param emptyImageData
+  /// Default image data to display if no image data is provided (a blank PNG)
+  ///
+  /// @param dialogMetadata
+  /// Optional object describing dialog popup which should be shown (if any)
   static get properties() {
     return {
       sheetId: {
@@ -99,6 +165,8 @@ class AppShell extends LitElement {
     this.accessToken = "";
   }
 
+  /// @brief LitElement lifecycle hook. Re-rendered after any update().
+  /// @returns LitElement `html``` literal, containing desired DOM state.
   render() {
     return html`
     <style>
@@ -220,7 +288,13 @@ class AppShell extends LitElement {
 `;
   }
 
+  /// @brief LitElement lifecycle hook. Called whenever the element's DOM has
+  /// been updated and rendered.
+  ///
+  /// @param changedProperties
+  /// JS Map containing properties which have changed
   async updated(changedProperties) {
+    /// If the `fields` property has changed and is non-empty:
     if (
       changedProperties &&
       changedProperties.has("fields") &&
@@ -231,6 +305,8 @@ class AppShell extends LitElement {
       if (form) {
         form.fields = this.fields;
         var queryStr;
+        /// - If initial search query was supplied (e.g. in the URL),
+        /// fetch initial form data by `Name` or `MakerLabs ID`
         if (form.query) {
           if (form.query["Name"]) {
             form.userName = form.query["Name"];
@@ -252,7 +328,7 @@ class AppShell extends LitElement {
           }
         }
 
-        // Select all machines for the top entries in the search bar
+        /// - Query all machines, use as the top entries in the search bar
         const machinesDatatable = await form.queryActivity(
           "select max(" +
             form.activityMachineIdColumn +
@@ -290,7 +366,7 @@ class AppShell extends LitElement {
           }
         }
 
-        // Select all users and update the search bar
+        /// - Query all users and add to the search bar
         const usersDatatable = await form.queryUsers(
           `select ${this.usersSearchColumns}`
         );
@@ -356,10 +432,17 @@ class AppShell extends LitElement {
     }
   }
 
+  /// @brief LitElement lifecycle hook. Called after the element's DOM has been
+  /// updated the first time, immediately before updated() is called.
+  ///
+  /// @param changedProperties
+  /// JS Map containing properties which have changed
   firstUpdated(changedProperties) {
+    /// Setup event listeners:
     const database = firebase.database();
 
     const auth = this.shadowRoot.getElementById("auth");
+    /// - When `auth` element sends `currentUser` event, handle sign-in/sign-out
     auth.addEventListener("currentUser", async (e) => {
       if (e.detail) {
         this.handleAuthSignIn();
@@ -371,10 +454,13 @@ class AppShell extends LitElement {
     const form = this.shadowRoot.getElementById("form");
     const search = this.shadowRoot.getElementById("search");
 
+    /// - When `form` component sends `reset-form` event, clear the search bar
     form.addEventListener("reset-form", async (e) => {
       search.resetSelectedItem();
     });
 
+    /// - When `form` component sends `updated-user` event, merge new user
+    /// details into the search bar
     form.addEventListener("updated-user", async (e) => {
       if (e.detail) {
         const user = e.detail;
@@ -395,13 +481,16 @@ class AppShell extends LitElement {
       }
     });
 
+    /// - When `search` component sends `search` event:
     search.addEventListener("search", async (e) => {
       if (e.detail) {
         const item = e.detail;
 
         switch (item.type) {
           case "user": {
-            // Clear existing activity poll loop, if currently running
+            /// - If `item.type` is `"user"`:
+            /// - Clear Firebase Database machine Activity subscription,
+            /// if currently running
             if (this.onActivityCallback) {
               const latestUserRef = database.ref(
                 `readers/${this.machineId}/latestUser`
@@ -410,9 +499,10 @@ class AppShell extends LitElement {
               this.onActivityCallback = null;
             }
 
+            /// - Reset form values
             form.resetValues();
 
-            // Search for this user by row, and display the values
+            /// - Search for this user by row, and display the values
             const row = parseInt(item.Row, 10);
             const datatable = await form.queryUsers(`where A = ${row}`);
             const values = form.getFirstRowValuesFromDatatable(datatable);
@@ -422,14 +512,16 @@ class AppShell extends LitElement {
             break;
           }
           case "machine": {
+            /// - If `item.type` is `"machine"`:
             this.machineId = item.Name;
 
-            // Search the activity list periodically, update the user form accordingly
             const latestUserRef = database.ref(
               `readers/${this.machineId}/latestUser`
             );
 
             var pollActivityIntervalMillis = 2000;
+            /// - Unsubscribe from previous Firebase Database path:
+            /// `readers/{machineId}/latestUser`
             if (this.pollActivityIntervalId) {
               latestUserRef.off("value", this.onActivityCallback);
               this.onActivityCallback = null;
@@ -437,7 +529,8 @@ class AppShell extends LitElement {
 
             form.resetValues();
 
-            // Subscribe to activity events
+            /// - Subscribe to Firebase Database path:
+            /// `readers/{machineId}/latestUser`, if `value` is updated:
             this.onActivityCallback = latestUserRef.on(
               "value",
               function(data) {
@@ -446,11 +539,11 @@ class AppShell extends LitElement {
                 if (form && user) {
                   const makerLabsId = user.makerlabsId;
 
-                  // Clear form and update with Firebase values immediately
+                  /// - Clear form and update with Firebase values immediately
                   form.resetValues();
                   form.showUserObj(user);
 
-                  // Fetch full user row to update all form fields
+                  /// - Fetch full user row to update all form fields
                   form.updateFormFromMakerLabsId(makerLabsId);
                 }
               }.bind(this)
@@ -461,6 +554,10 @@ class AppShell extends LitElement {
     });
   }
 
+  /// @brief Update dialog metadata, and open a popup dialog immediately.
+  ///
+  /// @param dialogMetadata
+  /// Use the following fields for the dialog: {title, helpText, errorText}
   displayDialog(dialogMetadata) {
     this.dialogMetadata = dialogMetadata;
     const dialog = this.shadowRoot.getElementById("dialog");
@@ -469,6 +566,7 @@ class AppShell extends LitElement {
     }
   }
 
+  /// @brief Fetch a new OAuth token, valid for 1 hour.
   populateAuthTokens() {
     const authInstance =
       typeof gapi === "object" && gapi.auth2 && gapi.auth2.getAuthInstance();
@@ -482,6 +580,7 @@ class AppShell extends LitElement {
       if (currentUser) {
         const authResponse = currentUser.getAuthResponse(true);
         if (authResponse) {
+          /// - Extract the `accessToken` and `idToken`.
           if ("access_token" in authResponse) {
             this.accessToken = authResponse["access_token"];
           } else {
@@ -491,6 +590,7 @@ class AppShell extends LitElement {
           }
           if ("id_token" in authResponse) {
             this.idToken = authResponse["id_token"];
+            /// - Use the `idToken` to trigger loginFirebase().
             this.loginFirebase();
           } else {
             console.log("Could not find id_token in Google Sign-In response");
@@ -500,6 +600,8 @@ class AppShell extends LitElement {
     }
   }
 
+  /// @brief Fetch and parse fields JSON from `fieldsUrl` (using user's OAuth
+  /// `accessToken`).
   async fetchUserFields() {
     if (
       this.fieldsUrl &&
@@ -526,6 +628,7 @@ class AppShell extends LitElement {
     }
   }
 
+  /// @brief Use users OAuth `idToken` to login to Firebase directly.
   loginFirebase() {
     // Build Firebase credential with the Google ID token.
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
@@ -555,13 +658,17 @@ class AppShell extends LitElement {
       });
   }
 
+  /// @brief Update `currentUser` from Firebase User object.
   handleFirebaseAuthStateChange(user) {
     this.currentUser = user;
   }
 
+  /// @brief Handle sign-in tasks
   async handleAuthSignIn() {
+    /// - Fetch new OAuth token (valid for 1 hour)
     this.populateAuthTokens();
 
+    /// - Set a timer to renew OAuth token every 20 minutes
     const intervalId = setInterval(
       () => {
         this.populateAuthTokens();
@@ -570,13 +677,16 @@ class AppShell extends LitElement {
       20 * (60 * 1000) // 20min
     );
 
+    /// - Fetch Google Spreadsheet `Users` fields JSON
     this.fetchUserFields();
 
+    /// - Subscribe to Firebase Auth state changes to store logged-in user info
     firebase
       .auth()
       .onAuthStateChanged(this.handleFirebaseAuthStateChange.bind(this));
   }
 
+  /// @brief Trigger Firebase sign-out
   handleAuthSignOut() {
     this.currentUser = null;
     firebase.auth().signOut();
@@ -584,3 +694,4 @@ class AppShell extends LitElement {
 }
 
 customElements.define("app-shell", AppShell);
+/// @}

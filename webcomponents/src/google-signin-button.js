@@ -1,3 +1,8 @@
+/// @addtogroup webcomponents
+/// @{
+/// @file
+/// @brief Define WebComponent: GoogleSigninButton, register it as
+/// <google-signin-button />
 import {LitElement, html} from "@polymer/lit-element";
 
 // Material Design Components
@@ -6,7 +11,25 @@ import "@polymer/paper-icon-button/paper-icon-button.js";
 
 var _gapiLoaded = false;
 
+/// @brief WebComponent which shows a sign-in / sign-out button and triggers a
+/// Google Auth popup flow.
+///
+/// Emits `auth-error` event if Google Auth API cannot be initialized.<br>
+/// Emits `currentUser` event with details of current user (name, email, photo).
 class GoogleSigninButton extends LitElement {
+  /// @brief WebComponent properties that can be used as HTML attributes.
+  ///
+  /// @param signedIn
+  /// Boolean to set whether a valid Google Auth user has been logged in
+  ///
+  /// @param oauthClientId
+  /// OAuth Application Client ID
+  ///
+  /// @param oauthScopes
+  /// Space-separated list of OAuth scopes / permissions to be requested
+  ///
+  /// @param googleAuthInitialized
+  /// Boolean to set whether Google Auth library has been loaded
   static get properties() {
     return {
       signedIn: {
@@ -24,6 +47,8 @@ class GoogleSigninButton extends LitElement {
     };
   }
 
+  /// @brief Create a dynamic <script /> element to load Google `gapi` client
+  /// library and wait for it to be loaded.
   static async loadGapi() {
     if (!_gapiLoaded) {
       const script = document.createElement("script");
@@ -48,6 +73,8 @@ class GoogleSigninButton extends LitElement {
     this.googleAuthInitialized = false;
   }
 
+  /// @brief LitElement lifecycle hook. Re-rendered after any update().
+  /// @returns LitElement `html``` literal, containing desired DOM state.
   render() {
     return this.signedIn
       ? html`
@@ -65,6 +92,10 @@ class GoogleSigninButton extends LitElement {
       `;
   }
 
+  /// @brief Returns details to be shown in a dialog to the user regarding
+  /// enabling 3rd-party cookies support for `accounts.google.com`.
+  ///
+  /// @return Object describing the `title` and `helpText` of the dialog.
   get cookieWarningDialogMetadata() {
     return {
       title: "3rd-party Cookies Must Be Enabled",
@@ -73,10 +104,19 @@ class GoogleSigninButton extends LitElement {
     };
   }
 
+  /// @brief LitElement lifecycle hook. Called whenever the element's DOM has
+  /// been updated and rendered.
+  ///
+  /// @param changedProperties
+  /// JS Map containing properties which have changed
   async updated(changedProperties) {
     if (!this.googleAuthInitialized && this.oauthClientId && this.oauthScopes) {
+      /// If Google Auth API has not been initialized, and OAuth client app
+      /// settings are present:
+      /// - Attempt to load the API.
       await GoogleSigninButton.loadGapi();
 
+      /// - Initialize with OAuth client app details (and scopes).
       const googleAuthInitializedPromise = new Promise((resolve, reject) => {
         gapi.client
           .init({
@@ -90,7 +130,7 @@ class GoogleSigninButton extends LitElement {
             (error) => {
               resolve(false);
 
-              // Emit event with details of error
+              /// - (Dispatch `auth-error` event with details in case of error).
               this.dispatchEvent(
                 new CustomEvent("auth-error", {
                   detail: {
@@ -106,6 +146,8 @@ class GoogleSigninButton extends LitElement {
 
       const googleAuth = gapi.auth2.getAuthInstance();
       if (googleAuth) {
+        /// - If Google Auth API initialization was successful, trigger reload
+        /// current login state.
         googleAuth.isSignedIn.listen(this.handleAuthStateChanged.bind(this));
         const signedIn = googleAuth.isSignedIn.get();
         this.handleAuthStateChanged(signedIn);
@@ -117,6 +159,7 @@ class GoogleSigninButton extends LitElement {
     }
   }
 
+  /// @brief Trigger a Google Auth popup.
   async handleLogin() {
     if (!gapi) {
       await GoogleSigninButton.loadGapi();
@@ -130,11 +173,15 @@ class GoogleSigninButton extends LitElement {
     }
   }
 
+  /// @brief Trigger Google Auth sign-out.
   async handleLogout() {
     const googleAuth = gapi.auth2.getAuthInstance();
     await googleAuth.signOut();
   }
 
+  /// @brief Extract user details (name, email, photo) from logged-in user.
+  ///
+  /// @param signedIn Boolean to describe whether user is currently signed-in
   async handleAuthStateChanged(signedIn) {
     this.signedIn = signedIn;
     var currentUser = null;
@@ -159,7 +206,9 @@ class GoogleSigninButton extends LitElement {
       console.log("gapi/auth2 library not loaded");
     }
 
+    /// Dispatch `currentUser` event with extracted user details.
     this.dispatchEvent(new CustomEvent("currentUser", {detail: currentUser}));
   }
 }
 customElements.define("google-signin-button", GoogleSigninButton);
+/// @}

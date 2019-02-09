@@ -1,6 +1,27 @@
+/// @addtogroup webcomponents
+/// @{
+/// @file
+/// @brief Define WebComponent: ImageFileUploader, register it as
+/// <image-file-uploader />
 import {LitElement, html} from "@polymer/lit-element";
 
+/// @brief WebComponent which displays an image, and also supports uploading a
+/// new image to Google Drive via drag n' drop, or a file picker window.
 class ImageFileUploader extends LitElement {
+  /// @brief WebComponent properties that can be used as HTML attributes.
+  ///
+  /// @param src
+  /// Array of User/Machine info for searching and displaying a popup window
+  ///
+  /// @param name
+  /// Array of User/Machine info for searching and displaying a popup window
+  ///
+  /// @param emptyImageData
+  /// Default image data to display if no image data is provided (a blank PNG)
+  ///
+  /// @param parentFolderId
+  /// Google Drive Folder ID to be used as the parent for uploaded images
+  /// (defaults to "root")
   static get properties() {
     return {
       src: {
@@ -26,6 +47,8 @@ class ImageFileUploader extends LitElement {
     this.parentFolderId = "root";
   }
 
+  /// @brief LitElement lifecycle hook. Re-rendered after any update().
+  /// @returns LitElement `html``` literal, containing desired DOM state.
   render() {
     return html`
       <style>
@@ -61,16 +84,22 @@ class ImageFileUploader extends LitElement {
     `;
   }
 
+  /// @brief LitElement lifecycle hook. Called after the element's DOM has been
+  /// updated the first time, immediately before updated() is called.
+  ///
+  /// @param changedProperties
+  /// JS Map containing properties which have changed
   firstUpdated(changedProperties) {
-    // Wire up drag & drop listeners once page loads
+    /// Setup event listeners:
     const el = this.shadowRoot.getElementById("drop_zone");
-    // Draw a border around the drop zone when dragged over
+    /// - On `dragover`, draw a border around the drop zone.
     el.addEventListener("dragover", this.handleDragOver.bind(this), false);
-    // Cancel the border when no longer dragged over
+    /// - On `dragleave`, cancel the border when no longer dragged over.
     el.addEventListener("dragleave", this.handleDragLeave.bind(this), false);
-    // Begin the file upload immediately after dropping a file
+    /// - On `drop`, begin the file upload immediately.
     el.addEventListener("drop", this.handleDraggedFileUpload.bind(this), false);
-    // Begin the file upload after selecting a file with the chooser dialog
+    /// - On `change`, begin the file upload after selecting a file with the
+    /// chooser dialog
     el.addEventListener(
       "change",
       this.handleSelectedFileUpload.bind(this),
@@ -78,6 +107,10 @@ class ImageFileUploader extends LitElement {
     );
   }
 
+  /// @brief Check if Google Auth user is currently logged-in, and extract the
+  /// OAuth `accessToken` for Google Drive access.
+  ///
+  /// @return OAuth `accessToken`
   get accessToken() {
     var accessToken = null;
 
@@ -104,10 +137,11 @@ class ImageFileUploader extends LitElement {
     return accessToken;
   }
 
-  // Uploads the content to Drive & displays the results when complete.
+  /// @brief Uploads the content to Drive & displays the results when complete.
   uploadFiles(files) {
     if (this.accessToken && files) {
       for (var i = 0, f; (f = files[i]); i++) {
+        /// Trigger a file upload via Google Drive `MediaUploader`, then:
         const uploader = new MediaUploader({
           file: f,
           metadata: {
@@ -119,15 +153,16 @@ class ImageFileUploader extends LitElement {
           onComplete: (json) => {
             this.handleDragLeave();
 
-            // Parse the uploaded file response metadata
+            /// - Parse the uploaded file response metadata
             const data = JSON.parse(json);
 
-            // Check if a valid web content link was created/found
+            /// - Check if a valid web content link was created/found
             if (data && data.id) {
+              /// - Determine the URL for a 300px thumbnail image
               var src = `https://drive.google.com/thumbnail?id=${
                 data.id
               }&sz=w300-c`;
-              // Update displayed image
+              /// - Update displayed image
               this.src = src;
 
               this.clearUploadedFiles();
@@ -141,6 +176,7 @@ class ImageFileUploader extends LitElement {
     }
   }
 
+  /// @brief Clear the temporary data storage of the uploaded file.
   clearUploadedFiles() {
     const el = this.shadowRoot.getElementById("file-input");
     if (el && el.value) {
@@ -148,7 +184,7 @@ class ImageFileUploader extends LitElement {
     }
   }
 
-  // Called when files are uploaded via drag n' drop
+  /// @brief Called when files are uploaded via drag n' drop.
   handleDraggedFileUpload(evt) {
     evt.stopPropagation();
     evt.preventDefault();
@@ -156,7 +192,7 @@ class ImageFileUploader extends LitElement {
     this.uploadFiles(evt.dataTransfer.files);
   }
 
-  // Called when files are uploaded via the OS file picker dialog
+  /// @brief Called when files are uploaded via the OS file picker dialog.
   handleSelectedFileUpload(evt) {
     evt.stopPropagation();
     evt.preventDefault();
@@ -164,7 +200,7 @@ class ImageFileUploader extends LitElement {
     this.uploadFiles(evt.target.files);
   }
 
-  // Dragover handler to set the drop effect.
+  /// @brief `dragover` handler to set the drop effect.
   handleDragOver(evt) {
     const el = this.shadowRoot.getElementById("drop_zone");
     if (el) {
@@ -183,7 +219,7 @@ class ImageFileUploader extends LitElement {
     }
   }
 
-  // Dragover handler to set the drop effect.
+  /// @brief `dragleave` handler to clear the drop effect.
   handleDragLeave(evt) {
     const el = this.shadowRoot.getElementById("drop_zone");
     if (el) {
@@ -203,8 +239,9 @@ class ImageFileUploader extends LitElement {
 }
 
 customElements.define("image-file-uploader", ImageFileUploader);
+/// @}
 
-/**
+/*
  * Helper for implementing retries with backoff. Initial retry
  * delay is 1 second, increasing by 2x (+jitter) for subsequent retries
  *
@@ -215,7 +252,7 @@ var RetryHandler = function() {
   this.maxInterval = 60 * 1000; // Don't wait longer than a minute
 };
 
-/**
+/*
  * Invoke the function after waiting
  *
  * @param {function} fn Function to invoke
@@ -225,14 +262,14 @@ RetryHandler.prototype.retry = function(fn) {
   this.interval = this.nextInterval_();
 };
 
-/**
+/*
  * Reset the counter (e.g. after successful request.)
  */
 RetryHandler.prototype.reset = function() {
   this.interval = 1000;
 };
 
-/**
+/*
  * Calculate the next wait time.
  * @return {number} Next wait interval, in milliseconds
  *
@@ -243,7 +280,7 @@ RetryHandler.prototype.nextInterval_ = function() {
   return Math.min(interval, this.maxInterval);
 };
 
-/**
+/*
  * Get a random int in the range of min to max. Used to add jitter to wait times.
  *
  * @param {number} min Lower bounds
@@ -254,7 +291,7 @@ RetryHandler.prototype.getRandomInt_ = function(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-/**
+/*
  * Helper class for resumable uploads using XHR/CORS. Can upload any Blob-like item, whether
  * files or in-memory constructs.
  *
@@ -306,7 +343,7 @@ var MediaUploader = function(options) {
   this.httpMethod = options.fileId ? "PUT" : "POST";
 };
 
-/**
+/*
  * Initiate the upload.
  */
 MediaUploader.prototype.upload = function() {
@@ -332,7 +369,7 @@ MediaUploader.prototype.upload = function() {
   xhr.send(JSON.stringify(this.metadata));
 };
 
-/**
+/*
  * Send the actual file content.
  *
  * @private
@@ -365,7 +402,7 @@ MediaUploader.prototype.sendFile_ = function() {
   xhr.send(content);
 };
 
-/**
+/*
  * Query for the state of the file for resumption.
  *
  * @private
@@ -383,7 +420,7 @@ MediaUploader.prototype.resume_ = function() {
   xhr.send();
 };
 
-/**
+/*
  * Extract the last saved range if available in the request.
  *
  * @param {XMLHttpRequest} xhr Request object
@@ -395,7 +432,7 @@ MediaUploader.prototype.extractRange_ = function(xhr) {
   }
 };
 
-/**
+/*
  * Handle successful responses for uploads. Depending on the context,
  * may continue with uploading the next chunk of the file or, if complete,
  * invokes the caller's callback.
@@ -415,7 +452,7 @@ MediaUploader.prototype.onContentUploadSuccess_ = function(e) {
   }
 };
 
-/**
+/*
  * Handles errors for uploads. Either retries or aborts depending
  * on the error.
  *
@@ -430,7 +467,7 @@ MediaUploader.prototype.onContentUploadError_ = function(e) {
   }
 };
 
-/**
+/*
  * Handles errors for the initial request.
  *
  * @private
@@ -440,7 +477,7 @@ MediaUploader.prototype.onUploadError_ = function(e) {
   this.onError(e.target.response); // TODO - Retries for initial upload
 };
 
-/**
+/*
  * Construct a query string from a hash/object
  *
  * @private
@@ -456,7 +493,7 @@ MediaUploader.prototype.buildQuery_ = function(params) {
     .join("&");
 };
 
-/**
+/*
  * Build the drive upload URL
  *
  * @private
