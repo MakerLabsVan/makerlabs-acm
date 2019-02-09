@@ -32,7 +32,7 @@ var NAVTREE =
       [ "Bill of Materials (BOM)", "md__docs_electrical.html#autotoc_md9", [
         [ "makerlabs-acm-reader-lock-v1.0.0 - BOM", "md__docs_electrical.html#bom_csv", null ]
       ] ],
-      [ "Project Files Overview", "md__docs_electrical.html#autotoc_md10", null ]
+      [ "API Reference", "md__docs_electrical.html#autotoc_md10", null ]
     ] ],
     [ "firmware/", "md__docs_firmware.html", [
       [ "COMING SOON", "md__docs_firmware.html#autotoc_md21", null ],
