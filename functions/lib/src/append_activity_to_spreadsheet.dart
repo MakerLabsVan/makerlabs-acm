@@ -6,6 +6,11 @@
 // or send a letter to
 // Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 
+/// @addtogroup functions
+/// @{
+/// @file
+/// @brief Use Google Sheets API to append a new `Activity` row from provided
+/// Activity and User.
 import "dart:async";
 
 // Google APIs (Sheets)
@@ -14,6 +19,17 @@ import "package:googleapis/sheets/v4.dart";
 // Local packages
 import "gen/acm_a_c_m_generated.dart" as ACM;
 
+/// @brief  Use Google Sheets API to append a new `Activity` row from provided
+/// Activity and User.
+///
+/// @param sheets Google Sheets API Handle
+/// @param spreadsheetId Google Sheets Spreadsheet ID
+/// @param sheetName Name of sheet to append to (e.g. `Activity`)
+/// @param activity `ACM.Activity` flatbuffer
+/// @param user `ACM.User` flatbuffer (used for `MakerLabs ID` and
+/// `Maker Status`)
+///
+/// @return Future that completes when row insertion is done.
 Future append_activity_to_spreadsheet(SheetsApi sheets, String spreadsheetId,
     String sheetName, ACM.Activity activity, ACM.User user) {
   final String activityTypeStr =
@@ -50,3 +66,5 @@ Future append_activity_to_spreadsheet(SheetsApi sheets, String spreadsheetId,
     insertDataOption: "INSERT_ROWS",
   );
 }
+
+/// @}

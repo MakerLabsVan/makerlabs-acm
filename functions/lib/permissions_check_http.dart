@@ -6,6 +6,11 @@
 // or send a letter to
 // Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 
+/// @addtogroup functions
+/// @{
+/// @file
+/// @brief HTTPS handler to query Google Spreadsheet for `ACM`.`User` which
+/// matches `ACM`.`Activity` flatbuffer supplied in request payload.
 import "dart:async";
 import "dart:core";
 import "dart:convert";
@@ -34,25 +39,42 @@ import "src/http_response_exception.dart";
 import "src/push_latest_user_to_firebase.dart";
 import "src/spreadsheet_client.dart";
 
+/// @name /permissions_check constants
+/// @{
 final String SPREADSHEET_QUERY_AUTHORITY = "docs.google.com";
 
-// Users permissions check query:
+/// Sheet used for permissions check query
 const String SPREADSHEET_USERS_SHEET_NAME = "Users";
 
-// Activity row append:
+/// Sheet used for Activity row append
 const String SPREADSHEET_ACTIVITY_SHEET_NAME = "Activity";
 
-// This global value will persist across function invocations
+/// @}
+
+/// @name /permissions_check global variables
+/// @{
+/// These global values will persist across function invocations.
 String USER_COLUMNS_DATATABLE;
 
 FirebaseAdmin FIREBASE_admin;
 App FIREBASE_app;
 Database FIREBASE_database;
 
-// Firebase Function HTTPS handler
+/// @}
+
+/// @brief HTTPS handler to query Google Spreadsheet for `ACM`.`User` which
+/// matches `ACM`.`Activity` flatbuffer supplied in request payload.
+///
+/// @param GoogleCloudFunctionsRequest request
+/// @param GoogleCloudFunctionsResponse response
+///
+/// @return
+///   Future which is fulfilled when all child subrequests are complete
+///   and `ACM.User` payload is ready
 Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
     GoogleCloudFunctionsResponse response) async {
-  // Early exit for external ping check to keep function "warm"
+  /// Steps:
+  /// - (Check for external ping to keep function "warm", exit 200 immediately)
   final uri = Uri.parse(request.url);
   if (uri.queryParameters.containsKey("ping")) {
     print("ping");
@@ -94,10 +116,11 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
       }
     }
 
-    // Extract OAuth access_token from request, use it for Google API requests
+    /// -# Extract OAuth `access_token` from received request headers, use it
+    ///for Google API requests
     String access_token = extract_access_token(authorization);
 
-    // Expect a binary ACM.Activity flatbuffer in request body
+    /// -# Parse request body as ACM.Activity flatbuffer
     final activity = new ACM.Activity(request.body);
 
     // Check that the Activity flatbuffer has the expected fields
@@ -112,6 +135,7 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
 
     print("Record Activity: ${activity}");
 
+    /// -# Prepare Firebase Database connection: `latestUserRef`, `activityRef`
     // Firebase RTDB Activity ref
     if (FIREBASE_admin == null) {
       FIREBASE_admin = FirebaseAdmin.instance;
@@ -146,7 +170,7 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
     // Extract the latest Sheets API from the generated APIs
     final sheets = spreadsheet_client(access_token);
 
-    // Check for cached User sheet columns, fetch them if not present
+    /// -# Check for cached `User` sheet columns, fetch them if not present
     if (USER_COLUMNS_DATATABLE == null) {
       USER_COLUMNS_DATATABLE = await fetch_sheet_columns(
           SPREADSHEET_QUERY_AUTHORITY,
@@ -158,6 +182,7 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
       print("Use cached USER_COLUMNS_DATATABLE");
     }
 
+    /// -# Generate permissions check query in Google Visualization SQL format
     final Map usersColumnsDatatable = json.decode(USER_COLUMNS_DATATABLE);
 
     final List<List<String>> selectColumnLabels = [
@@ -173,6 +198,7 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
     String query = generate_permissions_check_query(
         usersColumnsDatatable, selectColumnLabels, activity.tagId);
 
+    /// -# Send the query, set `"X-DataSource-Auth"` header to force JSON format
     final uri = Uri.https(SPREADSHEET_QUERY_AUTHORITY, spreadsheetQueryPath, {
       "sheet": SPREADSHEET_USERS_SHEET_NAME,
       "tq": query,
@@ -186,7 +212,7 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
     final queryResponse = await http.get(uri, headers: queryHeaders);
     print("Search for matching User complete.");
 
-    // Check for valid query response
+    /// -# Check for valid query response
     if (queryResponse.statusCode != HttpStatus.ok) {
       throw new HttpResponseException("Google Query operation failed",
           statusCode: queryResponse.statusCode);
@@ -208,6 +234,7 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
 
     final Map datatable = json.decode(datatableJson);
 
+    /// -# Extract `User` details from query results
     final userBytes = datatable_to_user(datatable);
     if (userBytes != null) {
       user = new ACM.User(userBytes);
@@ -216,13 +243,17 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
         print("Matched User: ${user}");
 
         if (latestUserRef != null) {
+          /// -# Push matching `User` details to Firebase
           push_latest_user_to_firebase(latestUserRef, user);
         }
 
+        /// -# Return matching `ACM.User` flatbuffer (including permissions
+        /// info) in response
         response.write(Buffer.from(userBytes));
       }
     }
 
+    /// -# Append `Activity` to Google Spreadsheet
     print("Append Activity to spreadsheet...");
     await append_activity_to_spreadsheet(sheets, SPREADSHEET_ID,
         SPREADSHEET_ACTIVITY_SHEET_NAME, activity, user);
@@ -230,11 +261,11 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
 
     response.end();
   } catch (e, s) {
-    // In case of general failure, return response with exception text
+    /// - (In case of failure, return response with exception text. Use the
+    /// error code from the upstream response if available, otherwise use 500.)
     print("Trapped exception: ${e}");
     print("Stack trace: ${s}");
 
-    // If a specific error code has not been set, send a general error
     response.statusCode = (e is HttpResponseException)
         ? e.statusCode
         : HttpStatus.internalServerError;
@@ -244,3 +275,5 @@ Future<void> permissions_check_http(GoogleCloudFunctionsRequest request,
       ..end();
   }
 }
+
+/// @}

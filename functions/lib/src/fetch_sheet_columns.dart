@@ -6,6 +6,10 @@
 // or send a letter to
 // Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 
+/// @addtogroup functions
+/// @{
+/// @file
+/// @brief Fetch IDs/labels of Google Spreadsheet columns for specified sheet.
 import "dart:async";
 
 // Dart / NodeJS interop
@@ -13,6 +17,17 @@ import "package:node_http/node_http.dart" as http;
 
 import "http_response_exception.dart";
 
+/// @brief Fetch IDs/labels of Google Spreadsheet columns for specified sheet.
+///
+/// @param authority Host portion of Google Visualization Query URL
+/// (e.g. `"docs.google.com"`)
+/// @param path Path portion of Google Visualization Query URL
+/// (e.g. `"/spreadsheets/d/{spreadsheetId}/gviz/tq"`)
+/// @param sheetName Name of sheet to query (e.g. `Users`)
+/// @param accessToken Google OAuth token to use for query
+///
+/// @returns Future that completes when query result DataTable JSON has been
+/// parsed
 Future<String> fetch_sheet_columns(
     String authority, String path, String sheetName, String accessToken) {
   // Extract all columns but do not return any rows
@@ -46,3 +61,5 @@ Future<String> fetch_sheet_columns(
     return datatableJson;
   });
 }
+
+/// @}

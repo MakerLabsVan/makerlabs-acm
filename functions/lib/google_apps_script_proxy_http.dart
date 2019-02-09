@@ -6,6 +6,10 @@
 // or send a letter to
 // Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 
+/// @addtogroup functions
+/// @{
+/// @file
+/// @brief HTTPS handler for /google_apps_script_proxy
 import "dart:async";
 import "dart:core";
 import "dart:io" show HttpStatus;
@@ -19,11 +23,14 @@ import "google_cloud_functions.dart";
 // Local packages
 import "src/http_response_exception.dart";
 
-// Firebase Function HTTPS handler
-//Future<void> google_apps_script_proxy(ExpressHttpRequest request) async {
+/// @brief Firebase Function HTTPS handler
+///
+/// @param request HTTP request
+/// @param response HTTP response
 void google_apps_script_proxy_http(GoogleCloudFunctionsRequest request,
     GoogleCloudFunctionsResponse response) async {
-  // Early exit for external ping check to keep function "warm"
+  /// Steps:
+  /// - (Check for external ping to keep function "warm", exit 200 immediately)
   final uri = Uri.parse(request.url);
   if (uri.queryParameters.containsKey("ping")) {
     print("ping");
@@ -33,7 +40,7 @@ void google_apps_script_proxy_http(GoogleCloudFunctionsRequest request,
     return;
   }
 
-  // Early exit for CORS preflight check
+  /// - (Check for CORS preflight check, exit 200 immediately)
   if (request.method == "OPTIONS") {
     response
       ..setHeader("Access-Control-Allow-Origin", "*")
@@ -48,8 +55,8 @@ void google_apps_script_proxy_http(GoogleCloudFunctionsRequest request,
     Map<String, String> proxy_query = new Map.from(uri.queryParameters);
     Map<String, String> proxy_headers = {};
 
-    // Parse request headers
-    // Extract OAuth access_token from request, use it for Google API requests
+    /// -# Extract OAuth `access_token` from received request headers, use it
+    /// for Google API requests
     String access_token;
     {
       String auth;
@@ -84,10 +91,12 @@ void google_apps_script_proxy_http(GoogleCloudFunctionsRequest request,
       }
     }
 
+    /// -# Strip `/google_apps_script_proxy` from received URL path
     final proxy_path = uri.path.startsWith("/google_apps_script_proxy")
         ? uri.path.substring("/google_apps_script_proxy".length)
         : uri.path;
 
+    /// -# Create upstream URL path as `https://script.google.com/{path}`
     final proxy_uri = uri.replace(
         scheme: "https",
         host: "script.google.com",
@@ -96,6 +105,8 @@ void google_apps_script_proxy_http(GoogleCloudFunctionsRequest request,
 
     print("Proxy URI: ${proxy_uri}");
 
+    /// -# Send the request, copy upstream response headers to the proxied
+    /// response
     http.get(proxy_uri, headers: proxy_headers).then((proxyResponse) {
       // Copy upstream response headers to response
       for (String k in proxyResponse.headers.keys) {
@@ -104,6 +115,9 @@ void google_apps_script_proxy_http(GoogleCloudFunctionsRequest request,
       }
 
       print("Proxy response status code: ${proxyResponse.statusCode}");
+
+      /// -# Return the body of the upstream response as the body of the proxied
+      /// response
       response
         ..statusCode = proxyResponse.statusCode
         ..write(proxyResponse.body)
@@ -114,10 +128,10 @@ void google_apps_script_proxy_http(GoogleCloudFunctionsRequest request,
       throw e;
     });
   } catch (e) {
-    // In case of general failure, return response with exception text
     print("Trapped exception: ${e.toString()}");
 
-    // If a specific error code has not been set, send a general error
+    /// - (In case of failure, return response with exception text. Use the
+    /// error code from the upstream response if available, otherwise use 500.)
     response.statusCode = (e is HttpResponseException)
         ? e.statusCode
         : HttpStatus.internalServerError;
@@ -127,3 +141,5 @@ void google_apps_script_proxy_http(GoogleCloudFunctionsRequest request,
       ..end();
   }
 }
+
+/// @}

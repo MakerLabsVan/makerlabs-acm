@@ -6,10 +6,21 @@
 // or send a letter to
 // Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 
+/// @addtogroup functions
+/// @{
+/// @file
+/// @brief Parse HTTP Authorization header to extract an OAuth access token.
 import "dart:io" show HttpStatus;
 
 import "http_response_exception.dart";
 
+/// @brief Parse HTTP Authorization header to extract an OAuth access token.
+///
+/// @param auth_header HTTP Authorization header in format
+/// `"Authorization: Bearer {token}"``
+///
+/// @returns OAuth access token string
+/// @throws HttpResponseException if header is missing or invalid
 String extract_access_token(auth_header) {
   // Check for valid Authorization header
   if (auth_header == null) {
@@ -30,3 +41,5 @@ String extract_access_token(auth_header) {
   String access_token = auth_parts[1];
   return access_token;
 }
+
+/// @}

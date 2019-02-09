@@ -6,6 +6,10 @@
 // or send a letter to
 // Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 
+/// @addtogroup functions
+/// @{
+/// @file
+/// @brief Main entrypoint for HTTP handlers, Dart -> JS interop
 import 'package:firebase_functions_interop/firebase_functions_interop.dart';
 import "package:js/js.dart";
 import "package:node_interop/node.dart";
@@ -13,7 +17,7 @@ import "package:node_interop/node.dart";
 import "package:makerlabs_acm_functions/permissions_check_http.dart";
 import "package:makerlabs_acm_functions/google_apps_script_proxy_http.dart";
 
-// Establish Dart -> JS module exports
+/// @brief Establish Dart -> JS module exports
 void main() {
   final config = FirebaseFunctions.config;
 
@@ -21,3 +25,5 @@ void main() {
   setExport("google_apps_script_proxy_http",
       allowInterop(google_apps_script_proxy_http));
 }
+
+/// @}

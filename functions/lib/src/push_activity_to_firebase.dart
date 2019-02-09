@@ -6,12 +6,24 @@
 // or send a letter to
 // Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 
+/// @addtogroup functions
+/// @{
+/// @file
+/// @brief Append Activity details to Firebase to provided Database Reference
+
 // Dart / Firebase Functions interop
 import 'package:firebase_functions_interop/firebase_functions_interop.dart';
 
 // Local packages
 import "gen/acm_a_c_m_generated.dart" as ACM;
 
+/// @brief Append Activity details to Firebase to provided Database Reference
+///
+/// @param activityRef Firebase Database Reference
+/// (e.g. `readers/{machineId}/activity`)
+/// @param activity `ACM.Activity` flatbuffer
+///
+/// @return Future that completes when write to Firebase Database is done.
 FutureReference push_activity_to_firebase(
     Reference activityRef, ACM.Activity activity) {
   final Map activityMap = {
@@ -24,3 +36,5 @@ FutureReference push_activity_to_firebase(
 
   return activityRef.push(activityMap);
 }
+
+/// @}

@@ -1,3 +1,8 @@
+## @addtogroup functions
+## @{
+## @file
+## @brief Configure Dart metadata and package dependencies
+## @}
 name: makerlabs_acm_functions
 description: ACM Serverless Functions with a Flatbuffers API and connecting to Google APIs
 version: 0.0.1

@@ -1,3 +1,8 @@
+## @addtogroup functions
+## @{
+## @file
+## @brief Configure Dart 2.x build_runner including files and Dart2JS options
+## @}
 targets:
   $default:
     sources:

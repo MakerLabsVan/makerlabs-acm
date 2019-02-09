@@ -1,3 +1,8 @@
+## @addtogroup functions
+## @{
+## @file
+## @brief Configure Serverless framework for /permissions_check on AWS Lambda
+## @}
 service:
   name: makerlabs-acm-functions
   publish: false
@@ -50,8 +55,8 @@ functions:
 
 ################################################################################
 package:
-  # Layout generated from Dart -> JS (using build_node_compilers/node_interop):
-  # From running: `pub run build_runner watch --output=build/`
+  ## Layout generated from Dart -> JS (using build_node_compilers/node_interop):
+  ## From running: `pub run build_runner watch --output=build/`
   exclude:
     - '*.*'
     # No git files

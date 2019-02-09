@@ -6,6 +6,16 @@
 // or send a letter to
 // Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 
+/// @addtogroup functions
+/// @{
+/// @file
+/// @brief Custom `Exception` class which has an optional `statusCode` and `uri`
+/// to indicate details of a failed HTTP request.
+
+/// @class HttpResponseException
+///
+/// @brief Custom `Exception` class which has an optional `statusCode` and `uri`
+/// to indicate details of a failed HTTP request.
 class HttpResponseException implements Exception {
   final String reasonPhrase;
   final int statusCode;
@@ -15,3 +25,5 @@ class HttpResponseException implements Exception {
 
   String toString() => "$uri: $statusCode $reasonPhrase";
 }
+
+/// @}
