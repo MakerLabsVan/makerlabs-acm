@@ -109,20 +109,20 @@ Assembly Notes</h1>
 <p>The following hardware modifications are required before/during assembling each reader unit.</p>
 <ul>
 <li>Remove LoRa IC (SX1278) from ESP32 TTGO dev board:<ol type="1">
-<li>Remove OLED screen screws</li>
-<li>Use hot air / reflow tool to remove the SX1278 IC from the board and clean the traces</li>
-<li>Replace the OLED screen screws</li>
+<li>Remove OLED screen screws.</li>
+<li>Use hot air / reflow tool to remove the SX1278 IC from the board and clean the traces.</li>
+<li>Replace the OLED screen screws.</li>
 </ol>
 </li>
 <li>Disable pin 12 for Y-axis input GPIO, use pin 14 instead:<ol type="1">
-<li>When soldering the male header pins to the ESP32 TTGO dev board, cut/remove the header pin for pin 12</li>
-<li>Make a solder bridge on the bottom of the PCB, shorting pin 12 and pin 14.</li>
+<li>When soldering the male header pins to the ESP32 TTGO dev board, cut/remove the header pin for pin 12.</li>
+<li>Make a solder bridge on the bottom of the PCB, shorting pin 12 and pin 14..</li>
 </ol>
 </li>
 <li>Disable automatic card read beep on new RFID readers:<ol type="1">
-<li>Obtain the HID Global configuration card from the ACM parts kit</li>
-<li>Power off the new RFID reader unit</li>
-<li>Place the configuration card within scanning range of the reader (still off)</li>
+<li>Obtain the HID Global configuration card from the ACM parts kit.</li>
+<li>Power off the new RFID reader unit.</li>
+<li>Place the configuration card within scanning range of the reader (still off).</li>
 <li>Apply power to the system while holding the card in position, and wait for the RFID reader to begin flashing red/purple (may require several seconds).</li>
 </ol>
 </li>
@@ -147,8 +147,23 @@ makerlabs-acm-reader-lock-v1.0.1 - Top PCB Layer</div></div>
 makerlabs-acm-reader-lock-v1.0.1 - Bottom PCB Layer</div></div>
 <h1><a class="anchor" id="autotoc_md9"></a>
 Bill of Materials (BOM)</h1>
-<h2>Generating from KiCad / KiBoM</h2>
-<p>COMING SOON</p>
+<h2>Generating from KiCad / KiBOM</h2>
+<p>The <a href="https://github.com/SchrodingersGat/KiBOM">KiBOM</a> KiCad (Python) plugin is used from within the KiCad schematic editor to generate a BOM file in CSV format. The values are stored in the schematic part libraries for each part.</p>
+<dl class="section note"><dt>Note</dt><dd>The special fields used within each part (e.g. <code>MFN</code>/<code>MFP</code>, <code>S1PN</code>/<code>S1PL</code>) come from the following KiCad BOM article: <a href="https://rheingoldheavy.com/kicad-bom-management-part-1-detailed-components/">https://rheingoldheavy.com/kicad-bom-management-part-1-detailed-components/</a></dd></dl>
+<p>To (re)generate the BOM CSV file:</p><ol type="1">
+<li>Clone the KiBOM Python plugin: <div class="fragment"><div class="line">git clone https://github.com/SchrodingersGat/KiBoM</div></div><!-- fragment --></li>
+<li>Open the KiCad schematic editor, and the target schematic.</li>
+<li>Click the BOM icon near the top-right<ul>
+<li>If <code>KiBOM_CLI</code> is not yet in the <code>Plugins:</code> list<ol type="a">
+<li>Click <code>Add Plugin</code></li>
+<li>Navigate to the <code>KiBOM_CLI.py</code> from the git repo cloned in step 1.</li>
+<li>Ensure the <code>Command line:</code> setting is similar to the following, noting that the output file should end in <code>_BOM.csv</code> <div class="fragment"><div class="line">python &quot;&lt;full/path/to/KiBoM&gt;/KiBOM_CLI.py&quot; &quot;%I&quot; &quot;%O_BOM.csv&quot;</div></div><!-- fragment --></li>
+</ol>
+</li>
+</ul>
+</li>
+<li>Click the "Generate" button to generate a new CSV file.</li>
+</ol>
 <h2>BOM CSV</h2>
 <h2><a class="anchor" id="bom_csv"></a>
 makerlabs-acm-reader-lock-v1.0.0 - BOM</h2>
