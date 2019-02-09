@@ -1,0 +1,106 @@
+PROJECT_NAME = "MakerLabs ACM"
+
+MARKDOWN_SUPPORT = YES
+
+# gh-pages only supports top-level `docs/` folder in `master` branch
+HTML_OUTPUT = docs
+
+GENERATE_HTML   = YES
+GENERATE_XML    = NO
+GENERATE_LATEX  = NO
+GENERATE_MAN    = NO
+GENERATE_RTF    = NO
+
+ENABLE_PREPROCESSING  = YES
+MACRO_EXPANSION       = YES
+EXPAND_ONLY_PREDEF    = YES
+PREDEFINED            ="IRAM_ATTR=" "RTC_DATA_ATTR=" "table=struct"
+
+RECURSIVE = YES
+FILE_PATTERNS = \
+  *.cpp \
+  *.dart \
+  *.fbs \
+  *.h \
+  *.js \
+  *.json \
+  *.md \
+  *.yaml \
+  *.yml \
+  \
+  */webcomponents/*.html \
+  */scripts/templates/*.html \
+  */electrical/* \
+  */.firebaserc \
+  */.claspignore
+
+EXTENSION_MAPPING = \
+  dart=IDL \
+  fbs=Csharp \
+  js=Javascript \
+  yml=Python \
+  yaml=Python
+
+EXCLUDE_PATTERNS = \
+  */.DS_Store \
+  */.gitignore \
+  */*.bak \
+  */*.wrl \
+  */*.zip \
+  */*.png \
+  */jquery.js \
+  */compile_commands.json \
+  */docs/* \
+  */build/* \
+  */build-*/* \
+  */_build/* \
+  */node_modules/* \
+  */webcomponents/__/* \
+  */webcomponents/modulizer_workspace/* \
+  */webcomponents/lib/drive-utils/upload/upload.js \
+  */gen/*_generated.h \
+  */gen/*_generated.dart \
+  \
+  */firmware/esp-idf/* \
+  */firmware/xtensa-esp32-elf/* \
+  \
+  */firmware/components/esp32/* \
+  */firmware/components/mbedtls/* \
+  */firmware/components/nvs_flash/* \
+  */firmware/components/u8g2/* \
+  \
+  */firmware/esp32-network-lib/*.h \
+  */firmware/esp32-network-lib/*.c \
+  */firmware/esp32-network-lib/*.cpp \
+  */firmware/esp32-network-lib/*/lib/* \
+  */firmware/esp32-network-lib/*/src/* \
+  \
+  */functions_js/* \
+  */workers/*
+
+EXCLUDE_SYMBOLS="import" "__pad0__" "define" "setPassiveTouchGestures*" "setRootPath*" "std::*" "input" "js" "exports" "info" "JS" "all"
+
+DISABLE_INDEX=YES
+GENERATE_TREEVIEW=YES
+TOC_INCLUDE_HEADINGS=1
+
+CALL_GRAPH=YES
+EXTRACT_ALL=YES
+EXTRACT_STATIC=YES
+HAVE_DOT=YES
+COLLABORATION_GRAPH=NO
+INCLUDE_GRAPH=NO
+INCLUDED_BY_GRAPH=NO
+MAX_DOT_GRAPH_DEPTH=3
+
+# Layout
+LAYOUT_FILE=_docs/theme/layoutfilename.xml
+
+# Images
+IMAGE_PATH=_docs/images
+
+# Theme
+# https://github.com/Velron/doxygen-bootstrapped
+HTML_HEADER=_docs/theme/header.html
+HTML_FOOTER=_docs/theme/footer.html
+HTML_EXTRA_STYLESHEET=_docs/theme/customdoxygen.css
