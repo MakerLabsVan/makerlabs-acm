@@ -1762,3 +1762,6 @@ u {
 	text-decoration: underline;
 }
 
+div.image img {
+  max-width: 1100px;
+}
