@@ -6,3 +6,4 @@ sdkconfig*
 !sdkconfig.defaults
 xtensa-esp32-elf*
 compile_commands.json
+fs/
