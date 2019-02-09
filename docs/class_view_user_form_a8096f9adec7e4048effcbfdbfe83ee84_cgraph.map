@@ -1,0 +1,6 @@
+<map id="ViewUserForm::queryActivity" name="ViewUserForm::queryActivity">
+<area shape="rect" id="node1" title="Query the Google Spreadsheet Activity sheet." alt="" coords="5,55,198,80"/>
+<area shape="rect" id="node2" href="$class_view_user_form.html#a454275fdf90236b5e3dce9bd240b6ec1" title="Perform a Google Visualization query on a specific sheet." alt="" coords="267,5,452,31"/>
+<area shape="rect" id="node3" href="$class_view_user_form.html#a6400cefce68a4b1d115437aa94eaaaad" title="Get the Google Spreadsheet activity sheet name." alt="" coords="246,55,473,80"/>
+<area shape="rect" id="node4" href="$class_view_user_form.html#a6b46d06df58e9a88a9980813b1b14605" title="Get the Google Spreadsheet activity sheet number of header rows." alt="" coords="263,104,456,143"/>
+</map>

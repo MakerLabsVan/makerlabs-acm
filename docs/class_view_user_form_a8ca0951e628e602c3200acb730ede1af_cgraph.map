@@ -1,0 +1,4 @@
+<map id="ViewUserForm::getFirstRowValuesFromDatatable" name="ViewUserForm::getFirstRowValuesFromDatatable">
+<area shape="rect" id="node1" title="Extract the first row from a Google Visualization query result." alt="" coords="5,5,193,44"/>
+<area shape="rect" id="node2" href="$class_view_user_form.html#aa945e3104b65a7d40185613ea91ad8a5" title="Convert Google Spreadsheets Query result into JSON array." alt="" coords="241,5,447,44"/>
+</map>

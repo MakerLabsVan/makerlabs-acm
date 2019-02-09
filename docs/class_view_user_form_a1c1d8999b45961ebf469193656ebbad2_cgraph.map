@@ -1,0 +1,21 @@
+<map id="ViewUserForm::handleSubmit" name="ViewUserForm::handleSubmit">
+<area shape="rect" id="node1" title="Handle submitting latest form data to Google Spreadsheet, replacing the data for an existing (matchin..." alt="" coords="5,494,204,519"/>
+<area shape="rect" id="node2" href="$class_view_user_form.html#ae88c06e6489f2bef5f49abe0e6a34e08" title="Check whether form field should be rendered as a checkbox." alt="" coords="519,19,759,44"/>
+<area shape="rect" id="node4" href="$class_view_user_form.html#a4a7796273f88f0916f5ccafb0f908f26" title="Check whether form field should be rendered as a radio group." alt="" coords="546,120,732,159"/>
+<area shape="rect" id="node5" href="$class_view_user_form.html#adb71a119d08c8979e397a7ff15646ac8" title="Check whether form field should be rendered as a drop&#45;down menu." alt="" coords="533,183,745,222"/>
+<area shape="rect" id="node6" href="$class_view_user_form.html#a9c33888330f48bf362f1934c4383fdc7" title="Check whether form field should be rendered as a date&#45;picker." alt="" coords="549,462,729,500"/>
+<area shape="rect" id="node7" href="$class_view_user_form.html#a8dc7eb66c434878d283a194a163fe43f" title="Check whether form field should be rendered as a text input." alt="" coords="551,399,727,438"/>
+<area shape="rect" id="node8" href="$class_view_user_form.html#af13d16eb98ab1118390a2f6da3fe85e1" title="Check whether form field should be rendered as a special&#45;case &quot;Tag ID&quot;." alt="" coords="828,304,1001,343"/>
+<area shape="rect" id="node11" href="$class_view_user_form.html#a88480cf685ec71871f0965692624a0dd" title="Check whether form field should be rendered as a special&#45;case &quot;Alerts&quot;." alt="" coords="807,406,1021,431"/>
+<area shape="rect" id="node13" href="$class_view_user_form.html#abe7bba53e9161bafbbac807d0f0c6c3f" title="Check whether form field should be rendered as an image." alt="" coords="530,524,748,550"/>
+<area shape="rect" id="node14" href="$class_view_user_form.html#a6a79ab7cb31dce641cf9123b5563c584" title="Disable form field inputs if new form data is still being saved." alt="" coords="269,676,454,702"/>
+<area shape="rect" id="node15" href="$class_view_user_form.html#a3a299a86d2bb2933976a4eaf23a34cba" title="Get the Google Spreadsheet user sheet name." alt="" coords="252,726,471,751"/>
+<area shape="rect" id="node16" href="$class_view_user_form.html#a4c30b2cc8564aecef825c65682ce2cf8" title="LitElement lifecycle hook. Called whenever the element&#39;s DOM has been updated and rendered." alt="" coords="279,775,444,800"/>
+<area shape="rect" id="node17" href="$class_view_user_form.html#a25278e0ff4a7cc1acbb5f734364271d5" title="Extract the field metadata for the provided column letter." alt="" coords="252,824,470,850"/>
+<area shape="rect" id="node18" href="$class_view_user_form.html#a1097d5d48d2ce7adf63ad5a848cc6e68" title="Get the column letter for the users sheet &quot;Row&quot; column." alt="" coords="1069,543,1291,568"/>
+<area shape="rect" id="node19" href="$class_view_user_form.html#aa528ea1195f6010e5b33e39bbdeabc7e" title="Update the value for the provided field, and display the new value." alt="" coords="268,323,455,348"/>
+<area shape="rect" id="node3" href="$class_view_user_form.html#a1602668de2c5924a6b129839d94c3117" title="Check whether a given string represents &quot;yes&quot; (&quot;☑&quot;, &quot;t&quot;, &quot;y&quot;, etc)" alt="" coords="828,235,1000,260"/>
+<area shape="rect" id="node9" href="$class_view_user_form.html#a3b68ee1525aa381e32b6e0f2cfcc7f32" title="Get the column letter for the users sheet &quot;Tag ID&quot; column." alt="" coords="1089,320,1271,359"/>
+<area shape="rect" id="node10" href="$class_view_user_form.html#a6cb6701995029821132764f2360fff69" title="Determine column letter for column title (and optional section)" alt="" coords="1339,399,1535,438"/>
+<area shape="rect" id="node12" href="$class_view_user_form.html#a1464919f41ce9aa5f65917aa04b32ca4" title="Get the column letter for the users sheet &quot;Alerts&quot; column." alt="" coords="1089,399,1272,438"/>
+</map>

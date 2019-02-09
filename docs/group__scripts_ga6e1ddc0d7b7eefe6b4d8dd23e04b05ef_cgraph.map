@@ -1,0 +1,8 @@
+<map id="triggerUsersEnforceFormattingOnEdit" name="triggerUsersEnforceFormattingOnEdit">
+<area shape="rect" id="node1" title="Inspect rows within provided Range, ensure it is for the &quot;Users&quot; sheet, limit range to data&#45;rows only..." alt="" coords="5,24,209,63"/>
+<area shape="rect" id="node2" href="$group__scripts.html#ga4419ef7f246848c1e619fb97bb08fef5" title="Given an arbitrary Range, return an adjusted range so that no header/frozen rows are included." alt="" coords="257,5,445,31"/>
+<area shape="rect" id="node3" href="$group__scripts.html#gaccccb69110472d3a7861b2d198345425" title="Given a Range in any sheet, extract the template row (first non&#45;header row) from that sheet and copy ..." alt="" coords="261,55,441,80"/>
+<area shape="rect" id="node4" href="$group__scripts.html#ga014df1a552412aa52e96a0ce20c44eca" title="Given the name of a sheet in the Google Spreadsheet, return a Range which represents all non&#45;header r..." alt="" coords="503,5,659,31"/>
+<area shape="rect" id="node5" href="$group__scripts.html#ga08019da022e667efa4e2541b0ed4aa1f" title="Given two Ranges, return their intersection (the rows and columns they share in common)." alt="" coords="507,55,655,80"/>
+<area shape="rect" id="node6" href="$group__scripts.html#ga6ca2f66aa89e291716707d80c8f8f9d2" title="Given the name of a sheet within the Google Spreadsheet, return a Range which represents the template..." alt="" coords="493,104,669,129"/>
+</map>

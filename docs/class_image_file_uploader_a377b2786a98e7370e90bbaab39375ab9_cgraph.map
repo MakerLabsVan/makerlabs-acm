@@ -1,0 +1,6 @@
+<map id="ImageFileUploader::uploadFiles" name="ImageFileUploader::uploadFiles">
+<area shape="rect" id="node1" title="Uploads the content to Drive &amp; displays the results when complete." alt="" coords="5,68,147,107"/>
+<area shape="rect" id="node2" href="$class_image_file_uploader.html#a924ae3bc6442aad649b92e676969a241" title="Check if Google Auth user is currently logged&#45;in, and extract the OAuth accessToken for Google Drive ..." alt="" coords="195,5,336,44"/>
+<area shape="rect" id="node3" href="$class_image_file_uploader.html#a25e1245e6dfb39c4ad948bb77125fb01" title="dragleave handler to clear the drop effect." alt="" coords="195,68,336,107"/>
+<area shape="rect" id="node4" href="$class_image_file_uploader.html#a47111323c521c20b0f6490f5fa2e370f" title="Clear the temporary data storage of the uploaded file." alt="" coords="195,131,336,169"/>
+</map>

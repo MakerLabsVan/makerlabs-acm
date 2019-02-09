@@ -1,0 +1,4 @@
+<map id="GoogleSigninButton" name="GoogleSigninButton">
+<area shape="rect" id="node1" title="WebComponent which shows a sign&#45;in / sign&#45;out button and triggers a Google Auth popup flow." alt="" coords="5,79,145,104"/>
+<area shape="rect" id="node2" title=" " alt="" coords="33,5,117,31"/>
+</map>

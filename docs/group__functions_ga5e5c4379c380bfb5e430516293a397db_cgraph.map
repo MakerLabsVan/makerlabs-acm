@@ -1,0 +1,5 @@
+<map id="datatable_to_user" name="datatable_to_user">
+<area shape="rect" id="node1" title="Convert DataTable from result of Users query to ACM.User flatbuffer." alt="" coords="5,31,133,56"/>
+<area shape="rect" id="node2" href="$group__functions.html#ga8044e1203d8b07c6026c8f6e568e8b57" title="Check whether a given string represents &quot;yes&quot; (&quot;☑&quot;, &quot;t&quot;, &quot;y&quot;, etc)" alt="" coords="202,5,279,31"/>
+<area shape="rect" id="node3" href="$group__functions.html#ga66102b5249aa0cef030d8e0571d7ae3e" title="Get the label string of the Nth column from a DataTable." alt="" coords="181,55,300,80"/>
+</map>

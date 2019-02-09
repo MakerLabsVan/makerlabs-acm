@@ -1,0 +1,21 @@
+<map id="ViewUserForm::updateFormFromMostRecentScan" name="ViewUserForm::updateFormFromMostRecentScan">
+<area shape="rect" id="node1" title="Dynamically update the form when users are signing in to the selected machine." alt="" coords="5,252,194,291"/>
+<area shape="rect" id="node2" href="$class_view_user_form.html#aa8ed7e3cf2460491f0b7c435c047f6b9" title="Get the column letter for the users sheet &quot;MakerLabs ID&quot; column." alt="" coords="534,169,720,208"/>
+<area shape="rect" id="node4" href="$class_view_user_form.html#a8096f9adec7e4048effcbfdbfe83ee84" title="Query the Google Spreadsheet Activity sheet." alt="" coords="257,56,449,81"/>
+<area shape="rect" id="node8" href="$class_view_user_form.html#a55f397d74f468a6d330f02abb160bb12" title="Get the column letter for the activity sheet &quot;MakerLabs ID&quot; column." alt="" coords="256,157,451,196"/>
+<area shape="rect" id="node9" href="$class_view_user_form.html#a616b92b71c5d0c42c602b3bff2cf2250" title="Get the column letter for the activity sheet &quot;Activity Type&quot; column." alt="" coords="260,220,446,259"/>
+<area shape="rect" id="node10" href="$class_view_user_form.html#a0e1967feb8f60e2de965d05c3aca10f1" title="Get the column letter for the activity sheet &quot;Machine ID&quot; column." alt="" coords="249,283,457,321"/>
+<area shape="rect" id="node11" href="$class_view_user_form.html#a5dc0cd9378e584963ab088e519559ba4" title="Get the column letter for the activity sheet &quot;Timestamp&quot; column." alt="" coords="242,345,465,384"/>
+<area shape="rect" id="node12" href="$class_view_user_form.html#aa945e3104b65a7d40185613ea91ad8a5" title="Convert Google Spreadsheets Query result into JSON array." alt="" coords="795,445,1001,484"/>
+<area shape="rect" id="node13" href="$class_view_user_form.html#aa1dca4d7516d481628aaf9ec4aa5703a" title="Query for a specific MakerLabs ID and update the form with their details." alt="" coords="259,408,448,447"/>
+<area shape="rect" id="node3" href="$class_view_user_form.html#a6cb6701995029821132764f2360fff69" title="Determine column letter for column title (and optional section)" alt="" coords="801,161,996,200"/>
+<area shape="rect" id="node5" href="$class_view_user_form.html#a454275fdf90236b5e3dce9bd240b6ec1" title="Perform a Google Visualization query on a specific sheet." alt="" coords="806,224,991,249"/>
+<area shape="rect" id="node6" href="$class_view_user_form.html#a6400cefce68a4b1d115437aa94eaaaad" title="Get the Google Spreadsheet activity sheet name." alt="" coords="513,5,741,31"/>
+<area shape="rect" id="node7" href="$class_view_user_form.html#a6b46d06df58e9a88a9980813b1b14605" title="Get the Google Spreadsheet activity sheet number of header rows." alt="" coords="531,107,723,145"/>
+<area shape="rect" id="node14" href="$class_view_user_form.html#a8c9dc4a871280f03c88f9bcc4216d3fe" title="Query the Google Spreadsheet Users sheet." alt="" coords="534,299,719,324"/>
+<area shape="rect" id="node17" href="$class_view_user_form.html#a8ca0951e628e602c3200acb730ede1af" title="Extract the first row from a Google Visualization query result." alt="" coords="533,425,721,464"/>
+<area shape="rect" id="node18" href="$class_view_user_form.html#aab7cde4915dba5b483198e60509016b5" title="Display provided User details on form." alt="" coords="525,376,728,401"/>
+<area shape="rect" id="node15" href="$class_view_user_form.html#a3a299a86d2bb2933976a4eaf23a34cba" title="Get the Google Spreadsheet user sheet name." alt="" coords="789,336,1008,361"/>
+<area shape="rect" id="node16" href="$class_view_user_form.html#a728a8212abb62095688028bf98cd0246" title="Get the Google Spreadsheet user sheet number of header rows." alt="" coords="806,273,990,312"/>
+<area shape="rect" id="node19" href="$class_view_user_form.html#aa528ea1195f6010e5b33e39bbdeabc7e" title="Update the value for the provided field, and display the new value." alt="" coords="805,385,992,411"/>
+</map>

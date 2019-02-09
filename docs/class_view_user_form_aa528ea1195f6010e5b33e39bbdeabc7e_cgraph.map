@@ -1,0 +1,14 @@
+<map id="ViewUserForm::updateField" name="ViewUserForm::updateField">
+<area shape="rect" id="node1" title="Update the value for the provided field, and display the new value." alt="" coords="5,239,192,264"/>
+<area shape="rect" id="node2" href="$class_view_user_form.html#ae88c06e6489f2bef5f49abe0e6a34e08" title="Check whether form field should be rendered as a checkbox." alt="" coords="240,5,479,31"/>
+<area shape="rect" id="node3" href="$class_view_user_form.html#a1602668de2c5924a6b129839d94c3117" title="Check whether a given string represents &quot;yes&quot; (&quot;☑&quot;, &quot;t&quot;, &quot;y&quot;, etc)" alt="" coords="548,31,721,56"/>
+<area shape="rect" id="node4" href="$class_view_user_form.html#a4a7796273f88f0916f5ccafb0f908f26" title="Check whether form field should be rendered as a radio group." alt="" coords="266,107,453,145"/>
+<area shape="rect" id="node5" href="$class_view_user_form.html#adb71a119d08c8979e397a7ff15646ac8" title="Check whether form field should be rendered as a drop&#45;down menu." alt="" coords="253,169,466,208"/>
+<area shape="rect" id="node6" href="$class_view_user_form.html#a9c33888330f48bf362f1934c4383fdc7" title="Check whether form field should be rendered as a date&#45;picker." alt="" coords="270,232,449,271"/>
+<area shape="rect" id="node7" href="$class_view_user_form.html#a8dc7eb66c434878d283a194a163fe43f" title="Check whether form field should be rendered as a text input." alt="" coords="272,347,448,385"/>
+<area shape="rect" id="node8" href="$class_view_user_form.html#af13d16eb98ab1118390a2f6da3fe85e1" title="Check whether form field should be rendered as a special&#45;case &quot;Tag ID&quot;." alt="" coords="548,315,721,353"/>
+<area shape="rect" id="node10" href="$class_view_user_form.html#a88480cf685ec71871f0965692624a0dd" title="Check whether form field should be rendered as a special&#45;case &quot;Alerts&quot;." alt="" coords="527,397,742,423"/>
+<area shape="rect" id="node12" href="$class_view_user_form.html#abe7bba53e9161bafbbac807d0f0c6c3f" title="Check whether form field should be rendered as an image." alt="" coords="251,461,468,487"/>
+<area shape="rect" id="node9" href="$class_view_user_form.html#a3b68ee1525aa381e32b6e0f2cfcc7f32" title="Get the column letter for the users sheet &quot;Tag ID&quot; column." alt="" coords="791,315,972,353"/>
+<area shape="rect" id="node11" href="$class_view_user_form.html#a1464919f41ce9aa5f65917aa04b32ca4" title="Get the column letter for the users sheet &quot;Alerts&quot; column." alt="" coords="790,391,973,429"/>
+</map>

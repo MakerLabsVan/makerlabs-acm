@@ -1,0 +1,6 @@
+<map id="GoogleSigninButton::render" name="GoogleSigninButton::render">
+<area shape="rect" id="node1" title="LitElement lifecycle hook. Re&#45;rendered after any update()." alt="" coords="5,37,145,76"/>
+<area shape="rect" id="node2" href="$class_google_signin_button.html#a2a2a583a50fa6217517139ebd432eb5f" title="Trigger Google Auth sign&#45;out." alt="" coords="193,5,333,44"/>
+<area shape="rect" id="node3" href="$class_google_signin_button.html#a2f321cb132676fd1beb7607569faa582" title="Trigger a Google Auth popup." alt="" coords="193,68,333,107"/>
+<area shape="rect" id="node4" href="$class_google_signin_button.html#a8808379fd0e37ca03be80d71478eaf0f" title="Create a dynamic &lt;script&gt; element to load Google gapi client library and wait for it to be loaded." alt="" coords="381,68,521,107"/>
+</map>

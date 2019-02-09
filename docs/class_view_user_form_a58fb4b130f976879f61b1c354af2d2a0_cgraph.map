@@ -1,0 +1,14 @@
+<map id="ViewUserForm::firstUpdated" name="ViewUserForm::firstUpdated">
+<area shape="rect" id="node1" title="LitElement lifecycle hook. Called after the element&#39;s DOM has been updated the first time,..." alt="" coords="5,180,194,205"/>
+<area shape="rect" id="node2" href="$class_view_user_form.html#a68c7f49dbfc787d2893fa64f943ab9b1" title="Select the 5 most recently scanned Tag IDs in the last 2 minutes, update the Tag ID drop&#45;down." alt="" coords="242,173,442,212"/>
+<area shape="rect" id="node3" href="$class_view_user_form.html#a3b68ee1525aa381e32b6e0f2cfcc7f32" title="Get the column letter for the users sheet &quot;Tag ID&quot; column." alt="" coords="510,17,692,56"/>
+<area shape="rect" id="node5" href="$class_view_user_form.html#a8096f9adec7e4048effcbfdbfe83ee84" title="Query the Google Spreadsheet Activity sheet." alt="" coords="505,92,697,117"/>
+<area shape="rect" id="node9" href="$class_view_user_form.html#a32608e063ab23f4b0a5a736930e061c8" title="Get the column letter for the activity sheet &quot;Tag ID&quot; column." alt="" coords="512,141,690,180"/>
+<area shape="rect" id="node10" href="$class_view_user_form.html#a55f397d74f468a6d330f02abb160bb12" title="Get the column letter for the activity sheet &quot;MakerLabs ID&quot; column." alt="" coords="504,204,698,243"/>
+<area shape="rect" id="node11" href="$class_view_user_form.html#a5dc0cd9378e584963ab088e519559ba4" title="Get the column letter for the activity sheet &quot;Timestamp&quot; column." alt="" coords="490,267,712,305"/>
+<area shape="rect" id="node12" href="$class_view_user_form.html#aa945e3104b65a7d40185613ea91ad8a5" title="Convert Google Spreadsheets Query result into JSON array." alt="" coords="498,329,704,368"/>
+<area shape="rect" id="node4" href="$class_view_user_form.html#a6cb6701995029821132764f2360fff69" title="Determine column letter for column title (and optional section)" alt="" coords="777,5,972,44"/>
+<area shape="rect" id="node6" href="$class_view_user_form.html#a454275fdf90236b5e3dce9bd240b6ec1" title="Perform a Google Visualization query on a specific sheet." alt="" coords="782,68,967,93"/>
+<area shape="rect" id="node7" href="$class_view_user_form.html#a6400cefce68a4b1d115437aa94eaaaad" title="Get the Google Spreadsheet activity sheet name." alt="" coords="760,117,988,143"/>
+<area shape="rect" id="node8" href="$class_view_user_form.html#a6b46d06df58e9a88a9980813b1b14605" title="Get the Google Spreadsheet activity sheet number of header rows." alt="" coords="778,167,970,205"/>
+</map>

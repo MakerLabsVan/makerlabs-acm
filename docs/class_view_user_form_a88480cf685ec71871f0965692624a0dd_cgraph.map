@@ -1,0 +1,5 @@
+<map id="ViewUserForm::fieldIsAlertsType" name="ViewUserForm::fieldIsAlertsType">
+<area shape="rect" id="node1" title="Check whether form field should be rendered as a special&#45;case &quot;Alerts&quot;." alt="" coords="5,12,220,37"/>
+<area shape="rect" id="node2" href="$class_view_user_form.html#a1464919f41ce9aa5f65917aa04b32ca4" title="Get the column letter for the users sheet &quot;Alerts&quot; column." alt="" coords="268,5,451,44"/>
+<area shape="rect" id="node3" href="$class_view_user_form.html#a6cb6701995029821132764f2360fff69" title="Determine column letter for column title (and optional section)" alt="" coords="499,5,694,44"/>
+</map>

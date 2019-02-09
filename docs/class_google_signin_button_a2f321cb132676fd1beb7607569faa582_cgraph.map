@@ -1,0 +1,4 @@
+<map id="GoogleSigninButton::handleLogin" name="GoogleSigninButton::handleLogin">
+<area shape="rect" id="node1" title="Trigger a Google Auth popup." alt="" coords="5,5,145,44"/>
+<area shape="rect" id="node2" href="$class_google_signin_button.html#a8808379fd0e37ca03be80d71478eaf0f" title="Create a dynamic &lt;script&gt; element to load Google gapi client library and wait for it to be loaded." alt="" coords="193,5,333,44"/>
+</map>

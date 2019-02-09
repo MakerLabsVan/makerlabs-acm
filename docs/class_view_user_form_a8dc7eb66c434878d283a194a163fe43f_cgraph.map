@@ -1,0 +1,8 @@
+<map id="ViewUserForm::fieldIsTextInputType" name="ViewUserForm::fieldIsTextInputType">
+<area shape="rect" id="node1" title="Check whether form field should be rendered as a text input." alt="" coords="5,37,181,76"/>
+<area shape="rect" id="node2" href="$class_view_user_form.html#af13d16eb98ab1118390a2f6da3fe85e1" title="Check whether form field should be rendered as a special&#45;case &quot;Tag ID&quot;." alt="" coords="250,8,423,47"/>
+<area shape="rect" id="node5" href="$class_view_user_form.html#a88480cf685ec71871f0965692624a0dd" title="Check whether form field should be rendered as a special&#45;case &quot;Alerts&quot;." alt="" coords="229,72,444,97"/>
+<area shape="rect" id="node3" href="$class_view_user_form.html#a3b68ee1525aa381e32b6e0f2cfcc7f32" title="Get the column letter for the users sheet &quot;Tag ID&quot; column." alt="" coords="493,5,674,44"/>
+<area shape="rect" id="node4" href="$class_view_user_form.html#a6cb6701995029821132764f2360fff69" title="Determine column letter for column title (and optional section)" alt="" coords="723,37,918,76"/>
+<area shape="rect" id="node6" href="$class_view_user_form.html#a1464919f41ce9aa5f65917aa04b32ca4" title="Get the column letter for the users sheet &quot;Alerts&quot; column." alt="" coords="492,68,675,107"/>
+</map>

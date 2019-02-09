@@ -1,0 +1,6 @@
+<map id="ViewUserForm::queryUsers" name="ViewUserForm::queryUsers">
+<area shape="rect" id="node1" title="Query the Google Spreadsheet Users sheet." alt="" coords="5,55,190,80"/>
+<area shape="rect" id="node2" href="$class_view_user_form.html#a454275fdf90236b5e3dce9bd240b6ec1" title="Perform a Google Visualization query on a specific sheet." alt="" coords="256,5,440,31"/>
+<area shape="rect" id="node3" href="$class_view_user_form.html#a3a299a86d2bb2933976a4eaf23a34cba" title="Get the Google Spreadsheet user sheet name." alt="" coords="238,55,458,80"/>
+<area shape="rect" id="node4" href="$class_view_user_form.html#a728a8212abb62095688028bf98cd0246" title="Get the Google Spreadsheet user sheet number of header rows." alt="" coords="256,104,440,143"/>
+</map>

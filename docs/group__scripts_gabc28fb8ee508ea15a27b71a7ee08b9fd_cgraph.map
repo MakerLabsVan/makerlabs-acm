@@ -1,0 +1,6 @@
+<map id="convertUrlsToImagesInRange" name="convertUrlsToImagesInRange">
+<area shape="rect" id="node1" title="Detect an entry in a cell with a URL beginning with &quot;http://&quot; or &quot;https://&quot;, convert it to a formula,..." alt="" coords="5,55,202,80"/>
+<area shape="rect" id="node2" href="$group__scripts.html#ga014df1a552412aa52e96a0ce20c44eca" title="Given the name of a sheet in the Google Spreadsheet, return a Range which represents all non&#45;header r..." alt="" coords="250,5,407,31"/>
+<area shape="rect" id="node3" href="$group__scripts.html#ga08019da022e667efa4e2541b0ed4aa1f" title="Given two Ranges, return their intersection (the rows and columns they share in common)." alt="" coords="254,55,402,80"/>
+<area shape="rect" id="node4" href="$group__scripts.html#ga4121df8d5d9ca93653bf33f93e28f086" title="Replace any instagram.com URL with something like the following: https://www.instagram...." alt="" coords="252,104,405,129"/>
+</map>

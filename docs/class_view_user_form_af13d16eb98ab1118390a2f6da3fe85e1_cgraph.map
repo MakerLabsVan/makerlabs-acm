@@ -1,0 +1,5 @@
+<map id="ViewUserForm::fieldIsTagIdType" name="ViewUserForm::fieldIsTagIdType">
+<area shape="rect" id="node1" title="Check whether form field should be rendered as a special&#45;case &quot;Tag ID&quot;." alt="" coords="5,5,178,44"/>
+<area shape="rect" id="node2" href="$class_view_user_form.html#a3b68ee1525aa381e32b6e0f2cfcc7f32" title="Get the column letter for the users sheet &quot;Tag ID&quot; column." alt="" coords="226,5,408,44"/>
+<area shape="rect" id="node3" href="$class_view_user_form.html#a6cb6701995029821132764f2360fff69" title="Determine column letter for column title (and optional section)" alt="" coords="456,5,651,44"/>
+</map>

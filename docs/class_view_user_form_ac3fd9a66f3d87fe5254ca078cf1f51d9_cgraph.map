@@ -1,0 +1,14 @@
+<map id="ViewUserForm::resetValues" name="ViewUserForm::resetValues">
+<area shape="rect" id="node1" title="Reset all form values to defaults / empty." alt="" coords="5,239,191,264"/>
+<area shape="rect" id="node2" href="$class_view_user_form.html#aab7cde4915dba5b483198e60509016b5" title="Display provided User details on form." alt="" coords="239,239,442,264"/>
+<area shape="rect" id="node3" href="$class_view_user_form.html#aa528ea1195f6010e5b33e39bbdeabc7e" title="Update the value for the provided field, and display the new value." alt="" coords="490,239,676,264"/>
+<area shape="rect" id="node4" href="$class_view_user_form.html#ae88c06e6489f2bef5f49abe0e6a34e08" title="Check whether form field should be rendered as a checkbox." alt="" coords="724,5,964,31"/>
+<area shape="rect" id="node5" href="$class_view_user_form.html#a1602668de2c5924a6b129839d94c3117" title="Check whether a given string represents &quot;yes&quot; (&quot;☑&quot;, &quot;t&quot;, &quot;y&quot;, etc)" alt="" coords="1033,31,1206,56"/>
+<area shape="rect" id="node6" href="$class_view_user_form.html#a4a7796273f88f0916f5ccafb0f908f26" title="Check whether form field should be rendered as a radio group." alt="" coords="751,107,937,145"/>
+<area shape="rect" id="node7" href="$class_view_user_form.html#adb71a119d08c8979e397a7ff15646ac8" title="Check whether form field should be rendered as a drop&#45;down menu." alt="" coords="738,169,950,208"/>
+<area shape="rect" id="node8" href="$class_view_user_form.html#a9c33888330f48bf362f1934c4383fdc7" title="Check whether form field should be rendered as a date&#45;picker." alt="" coords="754,232,934,271"/>
+<area shape="rect" id="node9" href="$class_view_user_form.html#a8dc7eb66c434878d283a194a163fe43f" title="Check whether form field should be rendered as a text input." alt="" coords="756,347,932,385"/>
+<area shape="rect" id="node10" href="$class_view_user_form.html#af13d16eb98ab1118390a2f6da3fe85e1" title="Check whether form field should be rendered as a special&#45;case &quot;Tag ID&quot;." alt="" coords="1033,319,1206,357"/>
+<area shape="rect" id="node11" href="$class_view_user_form.html#a88480cf685ec71871f0965692624a0dd" title="Check whether form field should be rendered as a special&#45;case &quot;Alerts&quot;." alt="" coords="1012,381,1227,407"/>
+<area shape="rect" id="node12" href="$class_view_user_form.html#abe7bba53e9161bafbbac807d0f0c6c3f" title="Check whether form field should be rendered as an image." alt="" coords="736,461,953,487"/>
+</map>

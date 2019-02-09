@@ -1,0 +1,17 @@
+<map id="main" name="main">
+<area shape="rect" id="node1" title="Establish Dart &#45;&gt; JS module exports." alt="" coords="5,188,56,213"/>
+<area shape="rect" id="node2" href="$group__functions.html#ga3a34d1983ca24bf3375f128701142f4a" title="HTTPS handler to query Google Spreadsheet for ACM.User which matches ACM.Activity flatbuffer supplied..." alt="" coords="104,160,268,185"/>
+<area shape="rect" id="node15" href="$group__functions.html#gacdc4b56953435dee1ff6ffa58a4c00e7" title="Firebase Function HTTPS handler." alt="" coords="117,209,254,248"/>
+<area shape="rect" id="node3" href="$group__functions.html#gaccb181c53562c248eb6aca1b5df212f4" title="Parse HTTP Authorization header to extract an OAuth access token." alt="" coords="317,5,467,31"/>
+<area shape="rect" id="node4" href="$group__functions.html#gac4dd7ed724e462e3f71781ea9ba39465" title="Create a Google SheetsApi handle using a provided OAuth access token." alt="" coords="326,55,459,80"/>
+<area shape="rect" id="node5" href="$group__functions.html#ga376b2844c6a0a91ac0378a5a75f46c3b" title="Fetch IDs/labels of Google Spreadsheet columns for specified sheet." alt="" coords="319,104,466,129"/>
+<area shape="rect" id="node6" href="$group__functions.html#ga90994699c57941ef4b06de42a3aa9c3a" title="Generate a query to return all permissions (and optional additional columns) for a specific user by T..." alt="" coords="316,153,468,192"/>
+<area shape="rect" id="node10" href="$group__functions.html#ga5e5c4379c380bfb5e430516293a397db" title="Convert DataTable from result of Users query to ACM.User flatbuffer." alt="" coords="328,216,456,241"/>
+<area shape="rect" id="node13" href="$group__functions.html#gacfbd61c98301248898acaaf0b1bfa3b9" title="Write User details to Firebase at provided Database Reference." alt="" coords="321,265,463,304"/>
+<area shape="rect" id="node14" href="$group__functions.html#gab19b1051be255e07c164622126e7e6a2" title="Use Google Sheets API to append a new Activity row from provided Activity and User." alt="" coords="326,328,458,367"/>
+<area shape="rect" id="node7" href="$group__functions.html#gaeddff912842f7bcf7fd5e040966f018a" title="Get column number from column letter." alt="" coords="524,68,630,93"/>
+<area shape="rect" id="node8" href="$group__functions.html#ga432a9e774f8941560716fe4b31e1fd50" title="Get the column letter for a specific label (with optional prefix)" alt="" coords="516,117,637,143"/>
+<area shape="rect" id="node9" href="$group__functions.html#ga4a3bcfe69f739417055f12eecb9ad9d5" title="Get column letter from column index." alt="" coords="520,167,634,192"/>
+<area shape="rect" id="node11" href="$group__functions.html#ga8044e1203d8b07c6026c8f6e568e8b57" title="Check whether a given string represents &quot;yes&quot; (&quot;☑&quot;, &quot;t&quot;, &quot;y&quot;, etc)" alt="" coords="538,216,615,241"/>
+<area shape="rect" id="node12" href="$group__functions.html#ga66102b5249aa0cef030d8e0571d7ae3e" title="Get the label string of the Nth column from a DataTable." alt="" coords="518,265,636,291"/>
+</map>

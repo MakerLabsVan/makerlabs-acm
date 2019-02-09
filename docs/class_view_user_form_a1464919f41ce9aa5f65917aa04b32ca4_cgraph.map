@@ -1,0 +1,4 @@
+<map id="ViewUserForm::usersAlertsColumn" name="ViewUserForm::usersAlertsColumn">
+<area shape="rect" id="node1" title="Get the column letter for the users sheet &quot;Alerts&quot; column." alt="" coords="5,5,189,44"/>
+<area shape="rect" id="node2" href="$class_view_user_form.html#a6cb6701995029821132764f2360fff69" title="Determine column letter for column title (and optional section)" alt="" coords="237,5,432,44"/>
+</map>

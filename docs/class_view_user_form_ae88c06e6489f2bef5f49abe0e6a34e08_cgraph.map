@@ -1,0 +1,4 @@
+<map id="ViewUserForm::fieldIsCheckboxType" name="ViewUserForm::fieldIsCheckboxType">
+<area shape="rect" id="node1" title="Check whether form field should be rendered as a checkbox." alt="" coords="5,5,245,31"/>
+<area shape="rect" id="node2" href="$class_view_user_form.html#a1602668de2c5924a6b129839d94c3117" title="Check whether a given string represents &quot;yes&quot; (&quot;☑&quot;, &quot;t&quot;, &quot;y&quot;, etc)" alt="" coords="293,5,466,31"/>
+</map>

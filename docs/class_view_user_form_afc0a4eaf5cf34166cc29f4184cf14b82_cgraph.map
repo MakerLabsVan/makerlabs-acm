@@ -1,0 +1,4 @@
+<map id="ViewUserForm::sectionIsHidden" name="ViewUserForm::sectionIsHidden">
+<area shape="rect" id="node1" title="Check whether form field section should be hidden." alt="" coords="5,12,217,37"/>
+<area shape="rect" id="node2" href="$class_view_user_form.html#a4383787c97983ab78440416035dae4ab" title="Get the list of section titles which will skip display on the form." alt="" coords="265,5,466,44"/>
+</map>
