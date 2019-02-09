@@ -25,28 +25,36 @@ var NAVTREE =
 [
   [ "MakerLabs ACM", "index.html", [
     [ "docs/", "index.html", "index" ],
-    [ "electrical/", "md__docs_electrical.html", "md__docs_electrical" ],
+    [ "electrical/", "md__docs_electrical.html", [
+      [ "Assembly Notes", "md__docs_electrical.html#autotoc_md6", null ],
+      [ "Schematic", "md__docs_electrical.html#autotoc_md7", null ],
+      [ "PCB", "md__docs_electrical.html#autotoc_md8", null ],
+      [ "Bill of Materials (BOM)", "md__docs_electrical.html#autotoc_md9", [
+        [ "makerlabs-acm-reader-lock-v1.0.0 - BOM", "md__docs_electrical.html#bom_csv", null ]
+      ] ],
+      [ "Project Files Overview", "md__docs_electrical.html#autotoc_md10", null ]
+    ] ],
     [ "firmware/", "md__docs_firmware.html", [
-      [ "COMING SOON", "md__docs_firmware.html#autotoc_md18", null ],
-      [ "API Reference", "md__docs_firmware.html#autotoc_md19", null ]
+      [ "COMING SOON", "md__docs_firmware.html#autotoc_md21", null ],
+      [ "API Reference", "md__docs_firmware.html#autotoc_md22", null ]
     ] ],
     [ "functions/", "md__docs_functions.html", [
-      [ "Overview", "md__docs_functions.html#autotoc_md24", null ],
-      [ "Design", "md__docs_functions.html#autotoc_md25", null ],
-      [ "Configuration", "md__docs_functions.html#autotoc_md26", null ],
-      [ "Deployment", "md__docs_functions.html#autotoc_md27", null ],
-      [ "API Reference", "md__docs_functions.html#autotoc_md28", null ]
+      [ "Overview", "md__docs_functions.html#autotoc_md27", null ],
+      [ "Design", "md__docs_functions.html#autotoc_md28", null ],
+      [ "Configuration", "md__docs_functions.html#autotoc_md29", null ],
+      [ "Deployment", "md__docs_functions.html#autotoc_md30", null ],
+      [ "API Reference", "md__docs_functions.html#autotoc_md31", null ]
     ] ],
     [ "scripts/", "md__docs_scripts.html", [
-      [ "COMING SOON", "md__docs_scripts.html#autotoc_md48", null ],
-      [ "API Reference", "md__docs_scripts.html#autotoc_md49", null ]
+      [ "COMING SOON", "md__docs_scripts.html#autotoc_md50", null ],
+      [ "API Reference", "md__docs_scripts.html#autotoc_md51", null ]
     ] ],
     [ "webcomponents/", "md__docs_webcomponents.html", [
-      [ "Overview", "md__docs_webcomponents.html#autotoc_md54", null ],
-      [ "Design", "md__docs_webcomponents.html#autotoc_md55", null ],
-      [ "Configuration", "md__docs_webcomponents.html#autotoc_md56", null ],
-      [ "Deployment", "md__docs_webcomponents.html#autotoc_md57", null ],
-      [ "API Reference", "md__docs_webcomponents.html#autotoc_md58", null ]
+      [ "Overview", "md__docs_webcomponents.html#autotoc_md56", null ],
+      [ "Design", "md__docs_webcomponents.html#autotoc_md57", null ],
+      [ "Configuration", "md__docs_webcomponents.html#autotoc_md58", null ],
+      [ "Deployment", "md__docs_webcomponents.html#autotoc_md59", null ],
+      [ "API Reference", "md__docs_webcomponents.html#autotoc_md60", null ]
     ] ],
     [ "Deprecated List", "deprecated.html", null ],
     [ "API Documentation", "modules.html", "modules" ],
@@ -58,8 +66,8 @@ var NAVTREEINDEX =
 [
 "_8clasp_8json.html",
 "doxy-boot_8js.html#a97f3d48f13b4954f411db82c789f3bcd",
-"group__functions.html#gadf08cae88ae7cedf87abc0c11e180f8e",
-"struct_display_actor_state.html#a44d88d0361012dc1c8bec6190fcd8e3a"
+"group__functions.html#gae872217e7a6a99a9333d9302b00ca36d",
+"struct_display_actor_state.html#a5b2de2ddcdfcbf63c2ec56544e44e532"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

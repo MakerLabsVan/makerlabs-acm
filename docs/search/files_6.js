@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['generate_5fbom_2emd',['generate_bom.md',['../generate__bom_8md.html',1,'']]],
   ['generate_5fpermissions_5fcheck_5fquery_2edart',['generate_permissions_check_query.dart',['../generate__permissions__check__query_8dart.html',1,'']]],
   ['getactivitysummarybyuser_2ejs',['getActivitySummaryByUser.js',['../get_activity_summary_by_user_8js.html',1,'']]],
   ['getdatarowsforsheet_2ejs',['getDataRowsForSheet.js',['../get_data_rows_for_sheet_8js.html',1,'']]],

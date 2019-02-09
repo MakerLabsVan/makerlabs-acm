@@ -104,12 +104,35 @@ $(document).ready(function(){initNavTree('md__docs_electrical.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="autotoc_md6"></a>
+Assembly Notes</h1>
+<h2>Required Modifications</h2>
+<p>The following hardware modifications are required before/during assembling each reader unit.</p>
+<ul>
+<li>Remove LoRa IC (SX1276) from ESP32 TTGO dev board:<ol type="1">
+<li>Remove OLED screen screws</li>
+</ol>
+<ol type="1">
+<li>Use hot air / reflow tool to remove the SX1276 IC from the board and clean the traces</li>
+</ol>
+<ol type="1">
+<li>Replace the OLED screen screws</li>
+</ol>
+</li>
+<li>Disable pin 12 for Y-axis input GPIO, use pin 14 instead:<ol type="1">
+<li>When soldering the male header pins to the ESP32 TTGO dev board, cut/remove the header pin for pin 12</li>
+</ol>
+<ol type="1">
+<li>Make a solder bridge on the bottom of the PCB, shorting pin 12 and pin 14.</li>
+</ol>
+</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md7"></a>
 Schematic</h1>
 <div class="image">
 <img src="makerlabs-acm-reader-lock_v1.0.1_schematic.png" alt="makerlabs-acm-reader-lock_v1.0.1_schematic.png"/>
 <div class="caption">
 makerlabs-acm-reader-lock-v1.0.1 - Schematic</div></div>
-<h1><a class="anchor" id="autotoc_md7"></a>
+<h1><a class="anchor" id="autotoc_md8"></a>
 PCB</h1>
 <h2>Top Layer</h2>
 <div class="image">
@@ -121,10 +144,10 @@ makerlabs-acm-reader-lock-v1.0.1 - Top PCB Layer</div></div>
 <img src="makerlabs-acm-reader-lock_v1.0.1_pcb_bottom.png" alt="makerlabs-acm-reader-lock_v1.0.1_pcb_bottom.png"/>
 <div class="caption">
 makerlabs-acm-reader-lock-v1.0.1 - Bottom PCB Layer</div></div>
-<h1><a class="anchor" id="autotoc_md8"></a>
+<h1><a class="anchor" id="autotoc_md9"></a>
 Bill of Materials (BOM)</h1>
 <h2>Generating from KiCad / KiBoM</h2>
-<p><a class="el" href="generate_bom.html">Generate Reader Bill-Of-Materials (BOM)</a></p>
+<p>COMING SOON</p>
 <h2>BOM CSV</h2>
 <h2><a class="anchor" id="bom_csv"></a>
 makerlabs-acm-reader-lock-v1.0.0 - BOM</h2>
@@ -163,7 +186,7 @@ d3.text("./makerlabs-acm-reader-lock_v1.0.0_BOM.csv", function(data) {
 });
 </script>
 </p>
-<h1><a class="anchor" id="autotoc_md9"></a>
+<h1><a class="anchor" id="autotoc_md10"></a>
 Project Files Overview</h1>
 <p><a class="el" href="group__electrical.html">KiCad Project Files Overview</a> </p>
 </div></div><!-- PageDoc -->

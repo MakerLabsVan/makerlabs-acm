@@ -1,8 +1,6 @@
 var searchData=
 [
   ['generate_5factivity',['generate_activity',['../group__firmware.html#ga8bf5f9a386f7a7d080fefca52359234f',1,'generate_activity(const string_view machine_id_str, const ActivityType activity_type, const string_view tag_id_str, const int usage_seconds) -&gt; ActivityFlatbuffer:&#160;acm_helpers.cpp'],['../group__firmware.html#gac9d3483c43167d351b2b0d9989a3e587',1,'generate_activity(const std::experimental::string_view machine_id_str, const ACM::ActivityType activity_type, const std::experimental::string_view tag_id_str, const int usage_seconds=0) -&gt; ActivityFlatbuffer:&#160;acm_helpers.h']]],
-  ['generate_20reader_20bill_2dof_2dmaterials_20_28bom_29',['Generate Reader Bill-Of-Materials (BOM)',['../generate_bom.html',1,'md__docs_electrical']]],
-  ['generate_5fbom_2emd',['generate_bom.md',['../generate__bom_8md.html',1,'']]],
   ['generate_5flog',['generate_log',['../group__firmware.html#gac9e4be877af07f2a75c4e568cbae4256',1,'generate_log(const string_view machine_id_str, const LogSeverity severity, const string_view message_str) -&gt; LogFlatbuffer:&#160;acm_helpers.cpp'],['../group__firmware.html#ga04d2987521d80af3aec4fa9ede78411c',1,'generate_log(const std::experimental::string_view machine_id_str, const ACM::LogSeverity severity, const std::experimental::string_view message_str) -&gt; LogFlatbuffer:&#160;acm_helpers.h']]],
   ['generate_5fpermissions_5fcheck_5fquery',['generate_permissions_check_query',['../group__functions.html#ga90994699c57941ef4b06de42a3aa9c3a',1,'generate_permissions_check_query.dart']]],
   ['generate_5fpermissions_5fcheck_5fquery_2edart',['generate_permissions_check_query.dart',['../generate__permissions__check__query_8dart.html',1,'']]],
