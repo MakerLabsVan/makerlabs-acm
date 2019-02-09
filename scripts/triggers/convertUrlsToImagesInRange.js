@@ -1,7 +1,17 @@
-// Detect an entry in a cell with a URL beginning with "http://" or "https://"
-// Convert it to a formula, "=IMAGE(...)"
-// Optionally select a valid low-res image if an Instagram link is detected
-// Store the user-provider text in a (hidden) column to the right of this one
+/// @addtogroup scripts
+/// @{
+/// @file
+/// @brief Detect an entry in a cell with a URL beginning with "http://" or
+/// "https://", convert it to a formula, "=IMAGE(...)"
+
+/// @brief Detect an entry in a cell with a URL beginning with "http://" or
+/// "https://", convert it to a formula, "=IMAGE(...)"
+///
+/// Optionally select a valid low-res image if an Instagram link is detected.
+/// Store the user-provider text in a (hidden) column to the right of this one.
+///
+/// @param providedRange `Range` object containing some row(s)/column(s) to
+/// convert.
 function convertUrlsToImagesInRange(providedRange) {
   const sheet = providedRange.getSheet();
   const dataRowsRange = getDataRowsForSheet(sheet.getName());
@@ -48,3 +58,4 @@ function convertUrlsToImagesInRange(providedRange) {
     }
   }
 }
+/// @}

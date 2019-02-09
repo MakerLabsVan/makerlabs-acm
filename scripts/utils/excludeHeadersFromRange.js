@@ -1,3 +1,15 @@
+/// @addtogroup scripts
+/// @{
+/// @file
+/// @brief Given an arbitrary `Range`, return an adjusted range so that no
+/// header/frozen rows are included.
+
+/// @brief Given an arbitrary `Range`, return an adjusted range so that no
+/// header/frozen rows are included.
+///
+/// @param fullRange `Range` which may contain header/frozen rows.
+///
+/// @return The input range adjusted so that no header/frozen rows are included.
 function excludeHeadersFromRange(fullRange) {
   // Extract sheet which holds the provided range
   const sheet = fullRange.getSheet();
@@ -34,3 +46,4 @@ function excludeHeadersFromRange(fullRange) {
   // Return the input directly, if it didn't include any header rows
   return fullRange;
 }
+/// @}

@@ -1,3 +1,18 @@
+/// @addtogroup scripts
+/// @{
+/// @file
+/// @brief Search through the "users_makerlabs_id" `NamedRange` in the "Users"
+/// sheet, parse the `MakerLabs ID`s (e.g. "ML123") in that column and return
+/// the next largest `MakerLabs ID` (e.g. "ML124").
+
+/// @brief Search through the "users_makerlabs_id" `NamedRange` in the "Users"
+/// sheet, parse the `MakerLabs ID`s (e.g. "ML123") in that column and return
+/// the next largest `MakerLabs ID` (e.g. "ML124").
+///
+/// @param previousMakerLabsId (optional) String of previous known highest
+/// `MakerLabs ID` (e.g. "ML123") to use instead of scanning the "Users" sheet.
+///
+/// @return String of next `MakerLabs ID` (e.g. "ML124")
 function getNextMakerLabsId(previousMakerLabsId) {
   const makerLabsIdPrefix = "ML";
   var maxMakerLabsIdNum = -1;
@@ -33,7 +48,8 @@ function getNextMakerLabsId(previousMakerLabsId) {
   const nextMakerLabsIdNum = maxMakerLabsIdNum + 1;
 
   // Pad with 00s (e.g. 001.)
-  // Does allow extra digits without padding if the number is large enough (e.g. 1000)
+  // Does allow extra digits without padding if the number is large enough
+  // (e.g. 1000)
   const paddedIdSize = 3; // E.g. 001
   var paddedId = String(nextMakerLabsIdNum);
   while (paddedId.length < paddedIdSize) {
@@ -45,3 +61,4 @@ function getNextMakerLabsId(previousMakerLabsId) {
 
   return nextMakerLabsId;
 }
+/// @}

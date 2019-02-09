@@ -1,3 +1,16 @@
+/// @addtogroup scripts
+/// @{
+/// @file
+/// @brief Trigger functions (based on time-intervals) for sending MakerLabs
+/// branded e-mails based on the "Activity, De-duped" sheet.
+
+/// @brief Use the `activity_usage_email_sent_time` `NamedRange` on the
+/// "Activity, De-duped" sheet to determine the list of activity rows which have
+/// not been used in a usage e-mail, and send a summary e-mail to the member's
+/// e-mail address from their row in "Users", and CC the e-mail to
+/// `hello@makerlabs.com`.
+///
+/// @param e Google Apps Script trigger event object
 function triggerActivitySendUsageEmails(e) {
   //  const sheetName = "Activity";
   const sheetName = "Activity, De-duped";
@@ -68,6 +81,12 @@ function triggerActivitySendUsageEmails(e) {
   }
 }
 
+/// @brief Use the `activity_billing_email_sent_time` `NamedRange` on the
+/// "Activity, De-duped" sheet to determine the list of activity rows which have
+/// not been used in a billing e-mail, and which match this week's billing date,
+/// and send a summary e-mail to `hello@makerlabs.com`.
+///
+/// @param e Google Apps Script trigger event object
 function triggerActivitySendBillingEmails(e) {
   //  const sheetName = "Activity";
   const sheetName = "Activity, De-duped";
@@ -134,3 +153,4 @@ function triggerActivitySendBillingEmails(e) {
     }
   }
 }
+/// @}

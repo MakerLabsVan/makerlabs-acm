@@ -1,3 +1,13 @@
+/// @addtogroup scripts
+/// @{
+/// @file
+/// @brief Display a popup/toast message in the Spreadsheet website UI,
+/// suggesting to undo a previous change.
+
+/// @brief Display a popup/toast message in the Spreadsheet website UI,
+/// suggesting to undo a previous change.
+///
+/// @param e Google Apps Script trigger event object (unused)
 function popupOnUnsafeChanges(e) {
   // Details of toast notification
   const toastTitle = "UNDO that change! Please use ⌘-z ASAP";
@@ -8,3 +18,4 @@ function popupOnUnsafeChanges(e) {
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   spreadsheet.toast(toastBody, toastTitle, toastTimeout);
 }
+/// @}

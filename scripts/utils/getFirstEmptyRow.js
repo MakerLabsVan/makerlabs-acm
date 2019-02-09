@@ -1,3 +1,16 @@
+/// @addtogroup scripts
+/// @{
+/// @file
+/// @brief Search the provided `Range` for the first row which has no data in
+/// all columns from the range, and return the index of that row.
+
+/// @brief Search the provided `Range` for the first row which has no data in
+/// all columns from the range, and return the index of that row.
+///
+/// @param range `Range` which should be checked for empty row (at least all
+/// columns in range begin empty)
+///
+/// @return 1-based index of first empty row, or `null` if all rows have data.
 function getFirstEmptyRow(range) {
   const batchSize = 10;
   if (range) {
@@ -54,3 +67,4 @@ function getFirstEmptyRow(range) {
 
   return null;
 }
+/// @}

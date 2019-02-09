@@ -1,5 +1,17 @@
-// Replace any instagram.com URL with something like the following:
-// https://www.instagram.com/p/<shortcode>/media/?size=m
+/// @addtogroup scripts
+/// @{
+/// @file
+/// @brief Replace any instagram.com URL with something like the following:
+/// `https://www.instagram.com/p/<shortcode>/media/?size=m`
+
+/// @brief Replace any instagram.com URL with something like the following:
+/// `https://www.instagram.com/p/<shortcode>/media/?size=m`
+///
+/// @param originalPhotoUrl String of a regular URL (which may be a regular
+/// Instagram URL)
+///
+/// @return Original URL, or direct Instagram image URL if a regular Instagram
+/// URL was detected.
 function getInstagramMediaUrl(originalPhotoUrl) {
   var photoUrl = originalPhotoUrl;
 
@@ -22,3 +34,4 @@ function getInstagramMediaUrl(originalPhotoUrl) {
 
   return photoUrl;
 }
+/// @}

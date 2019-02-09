@@ -1,3 +1,16 @@
+/// @addtogroup scripts
+/// @{
+/// @file
+/// @brief Return the `Range` corresponding to the specified `NamedRange` name
+/// in a specific Google Spreadsheet sheet name.
+
+/// @brief Return the `Range` corresponding to the specified `NamedRange` name
+/// in a specific Google Spreadsheet sheet name.
+///
+/// @param sheetName String of the target Google Spreadsheet sheet name.
+/// @param namedRangeName String of the target `NamedRange` within the sheet.
+///
+/// @return `Range` object representing the contents of the named range.
 function getNamedRange(sheetName, namedRangeName) {
   var namedRange = null;
 
@@ -14,3 +27,4 @@ function getNamedRange(sheetName, namedRangeName) {
 
   return namedRange;
 }
+/// @}

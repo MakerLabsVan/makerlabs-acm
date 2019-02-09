@@ -1,3 +1,16 @@
+/// @addtogroup scripts
+/// @{
+/// @file
+/// @brief Use `NamedRange`s on the "Users" sheet to determine the section title
+/// and column title for each column/field and include its associated metadata.
+
+/// @brief Use `NamedRange`s on the "Users" sheet to determine the section title
+/// and column title for each column/field and include its associated metadata.
+///
+/// Use the following `NamedRange`s on the "Users" sheet ({"users_section_headers", "users_column_headers", "users_template_row"})
+///
+/// @return Object representing each section of columns/fields, with each
+/// column/field including its column letter, field type and validation choices.
 function getUsersFields() {
   const sheetName = "Users";
 
@@ -62,3 +75,4 @@ function getUsersFields() {
 
   return fields;
 }
+/// @}

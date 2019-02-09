@@ -1,3 +1,16 @@
+/// @addtogroup scripts
+/// @{
+/// @file
+/// @brief Given the name of a sheet in the Google Spreadsheet, return a `Range`
+/// which represents all non-header rows based on # of frozen rows.
+
+/// @brief Given the name of a sheet in the Google Spreadsheet, return a `Range`
+/// which represents all non-header rows based on # of frozen rows.
+///
+/// @param sheetName Name of the target sheet (e.g. "Users")
+///
+/// @return `Range` which represents the all non-header rows for the provided
+/// `sheetName`.
 function getDataRowsForSheet(sheetName) {
   // Select the correct spreadsheet (the one this script is attached to)
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
@@ -20,3 +33,4 @@ function getDataRowsForSheet(sheetName) {
   );
   return dataRowsRange;
 }
+/// @}

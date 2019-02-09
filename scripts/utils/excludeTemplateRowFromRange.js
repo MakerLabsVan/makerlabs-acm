@@ -1,3 +1,17 @@
+/// @addtogroup scripts
+/// @{
+/// @file
+/// @brief Given an arbitrary `Range`, return an adjusted range so that no
+/// header/frozen rows or template row (first non-frozen row) is included.
+
+/// @brief Given an arbitrary `Range`, return an adjusted range so that no
+/// header/frozen rows or template row (first non-frozen row) is included.
+///
+/// @param fullRange `Range` which may contain header/frozen and/or template
+/// rows.
+///
+/// @return The input range adjusted so that no header/frozen rows, or the
+/// template row, is included.
 function excludeTemplateRowFromRange(fullRange) {
   // Extract sheet which holds the provided range
   const sheet = fullRange.getSheet();
@@ -34,6 +48,7 @@ function excludeTemplateRowFromRange(fullRange) {
     return excludedRange;
   }
 
-  // Return the input directly, if it didn't include any header rows
+  // Return the input directly, if it didn't include the template row
   return fullRange;
 }
+/// @}

@@ -1,3 +1,17 @@
+/// @addtogroup scripts
+/// @{
+/// @file
+/// @brief Given two `Range`s, return their intersection (the rows and columns
+/// they share in common).
+
+/// @brief Given two `Range`s, return their intersection (the rows and columns
+/// they share in common).
+///
+/// @param range1 `Range` to check
+/// @param range2 `Range` to check
+///
+/// @return `Range` representing the intersection/overlap of the provided
+/// `Range`s
 function getRangeIntersection(range1, range2) {
   if (range1.getSheet().getSheetId() === range2.getSheet().getSheetId()) {
     const sheet = range1.getSheet();
@@ -35,3 +49,4 @@ function getRangeIntersection(range1, range2) {
   // Two ranges in distinct sheets have no valid overlap
   return null;
 }
+/// @}
