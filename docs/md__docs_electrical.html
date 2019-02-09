@@ -105,24 +105,25 @@ $(document).ready(function(){initNavTree('md__docs_electrical.html','');});
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="autotoc_md6"></a>
 Assembly Notes</h1>
-<h2>Required Modifications</h2>
+<h2>Required Hardware Modifications</h2>
 <p>The following hardware modifications are required before/during assembling each reader unit.</p>
 <ul>
 <li>Remove LoRa IC (SX1276) from ESP32 TTGO dev board:<ol type="1">
 <li>Remove OLED screen screws</li>
-</ol>
-<ol type="1">
 <li>Use hot air / reflow tool to remove the SX1276 IC from the board and clean the traces</li>
-</ol>
-<ol type="1">
 <li>Replace the OLED screen screws</li>
 </ol>
 </li>
 <li>Disable pin 12 for Y-axis input GPIO, use pin 14 instead:<ol type="1">
 <li>When soldering the male header pins to the ESP32 TTGO dev board, cut/remove the header pin for pin 12</li>
-</ol>
-<ol type="1">
 <li>Make a solder bridge on the bottom of the PCB, shorting pin 12 and pin 14.</li>
+</ol>
+</li>
+<li>Disable automatic card read beep on new RFID readers:<ol type="1">
+<li>Obtain the HID Global configuration card from the ACM parts kit</li>
+<li>Power off the new RFID reader unit</li>
+<li>Place the configuration card within scanning range of the reader (still off)</li>
+<li>Apply power to the system while holding the card in position, and wait for the RFID reader to begin flashing red/purple (may require several seconds).</li>
 </ol>
 </li>
 </ul>
