@@ -151,38 +151,12 @@ Overview</h1>
     end
 </div>
 </p>
-<p>### Search For Specific <a class="el" href="struct_user.html" title="Flatbuffer which represents metadata from a user.">User</a>  
-<div class="mermaid">
-   sequenceDiagram
-      participant CM User
-      participant Web Frontend
-      participant Google Auth
-      participant Firebase
-      participant Google Proxy
-      participant Users Sheet
-      participant Activity Sheet
-      CM User->>Web Frontend: Search For Specific User Name
-</div>
-</p>
-<p>### Search For Front Desk / Specific Machine, Latest Scans  
-<div class="mermaid">
-   sequenceDiagram
-      participant CM User
-      participant Web Frontend
-      participant Google Auth
-      participant Firebase
-      participant Google Proxy
-      participant Users Sheet
-      participant Activity Sheet
-      CM User->>Web Frontend: Search For Specific Machine (Front Desk)
-</div>
-</p>
 <h1><a class="anchor" id="autotoc_md52"></a>
 Design</h1>
 <p>A single HTML page (<code><a class="el" href="view-user-page_8html.html" title="Configure webapp details (icon, caching), HTML dependencies, and create the top-level &lt;app-shell /&gt;.">view-user-page.html</a></code>) provides the entrypoint for the main <a href="https://makerlabs-acm.firebaseapp.com/view-user-page.html">ACM search/view/edit Maker page</a>.</p>
 <h2>WebComponents</h2>
-<p>The page is composed of <a href="https://www.webcomponents.org/introduction">WebComponents</a> using Javascript classes which inherit from <a href="https://github.com/Polymer/lit-element">LitElement</a>. This allows registering and creating custom HTML elements (e.g. <code>&lt;my-element&gt;</code>) without needing a web framework (although the Polymer framework build tool is used here to minify all JS into a single bundle).</p>
-<h2>Custom WebComponents</h2>
+<p>The page is composed of <a href="https://www.webcomponents.org/introduction">WebComponents</a> using Javascript classes which inherit from <a href="https://github.com/Polymer/lit-element">LitElement</a>. This allows registering and creating custom HTML elements (e.g. <code>&lt;my-element&gt;</code>) without needing a web framework (although the Polymer framework build tool is used here to minify all JS into a single bundle for uploading to Firebase Hosting).</p>
+<h3>Custom WebComponents</h3>
 <p>The following WebComponents classes / elements are defined:</p><ul>
 <li><a class="el" href="class_app_shell.html">AppShell / &lt;app-shell&gt;</a></li>
 <li><a class="el" href="class_google_signin_button.html">GoogleSigninButton / &lt;google-signin-button&gt;</a></li>
@@ -194,6 +168,15 @@ Design</h1>
 <img src="view-user-page_annotated.png" alt="view-user-page_annotated.png"/>
 <div class="caption">
 Color-highlighted HTML elements used on /view-user-page</div></div>
+<h2>Dynamic Maker Form / Fields</h2>
+<p>The form displayed on <code><a class="el" href="view-user-page_8html.html" title="Configure webapp details (icon, caching), HTML dependencies, and create the top-level &lt;app-shell /&gt;.">view-user-page.html</a></code> &ndash; using the <code>&lt;view-user-form&gt;</code> WebComponent &ndash; is based on the current columns in the "Users" sheet of the ACM spreadsheet. This data is loaded dynamically when the page is loaded and a valid user is signed-in. Each section title in the first row of the sheet creates a separate Material Design "panel" in the form. Each column within that section will render as a suitable form control, based on the type of formatting/validation applied to the spreadsheet column. This latest set of form fields is fetched via a request to the <code>?href=users-fields</code> handler in Google Apps Script, which runs the <code>viewUsersFields</code> view to create a JSON blob describing the fields.</p>
+<dl class="section note"><dt>Note</dt><dd>Accessing Google Apps Script endpoints requires a valid Google Auth, so no fields can be displayed if the user is not logged in. After logging in, and/or when refreshing the page, the latest set of fields should be rendered (e.g. after adding, removing, renaming or reordering columns).</dd></dl>
+<h2>Maker Search Bar</h2>
+<p>The search bar is populated from via a Google Visualization API query which extracts all data rows from the "Users" sheet when the page is loaded.</p>
+<p>Whenever a new Maker is added or edited through the form, the corresponding user details should be changed in the search bar after saving has completed.</p>
+<dl class="section note"><dt>Note</dt><dd>Updates to the "Users" sheet directly through Google Sheets, and/or from other users making changes through the form, will not be updated automatically. A page refresh (via e.g. Cmd-Shift-R) is required to fully sync the search bar.</dd></dl>
+<h2>Automatic "Next MakerLabs ID"</h2>
+<p>Clicking the "+" floating-action-button at the bottom-right of the screen will clear the form fields, and triggers populating the <code>MakerLabs ID</code> column with the next available <code>MakerLabs ID</code> based on a request to the <code>?href=next-makerlabs-id</code> handler in Google Apps Script.</p>
 <h1><a class="anchor" id="autotoc_md53"></a>
 Configuration</h1>
 <h2>Google Spreadsheet, Google Drive, Google Login details</h2>
@@ -211,7 +194,7 @@ Deployment</h1>
 <p>The <a href="https://polymer-library.polymer-project.org/3.0/docs/tools/polymer-json"><code>polymer.json</code> file</a> is used by the <code>polymer</code> command to configure the build.</p>
 <p>The build process can be invoked via: </p><div class="fragment"><div class="line">yarn build</div></div><!-- fragment --><h2>Deploy</h2>
 <p>Running the Polymer build process packages the HTML, JS, and Service Worker configuration files into the <code>build</code> directory. The <code>build/es6-bundled</code> directory is uploaded to Firebase Hosting as the root of the site.</p>
-<p>The deployment process can be invoked (it will rebuild first) via: </p><div class="fragment"><div class="line"># Deploy to the test environment (https://makerlabs-acm-test.firebaseapp.com)</div><div class="line">yarn deploy -P dev</div><div class="line"># Deploy to the production environment (https://makerlabs-acm.firebaseapp.com)</div><div class="line"># yarn deploy -P production</div></div><!-- fragment --><h1><a class="anchor" id="autotoc_md55"></a>
+<p>The deployment process can be invoked (it will rebuild first) via: </p><div class="fragment"><div class="line"># Deploy to the test environment (https://makerlabs-acm-test.firebaseapp.com)</div><div class="line">yarn deploy -P dev</div><div class="line"></div><div class="line"># Deploy to the production environment (https://makerlabs-acm.firebaseapp.com)</div><div class="line"># yarn deploy -P production</div></div><!-- fragment --><h1><a class="anchor" id="autotoc_md55"></a>
 API Reference</h1>
 <p><a class="el" href="group__webcomponents.html">webcomponents/ API Documentation</a> </p>
 </div></div><!-- PageDoc -->
