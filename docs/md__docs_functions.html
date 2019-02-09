@@ -114,6 +114,17 @@ The functions are written in <a href="https://www.dartlang.org/">Dart 2.x</a>, w
 <li><a href="https://aws.amazon.com/lambda/">AWS Lambda</a> is used for performance critical request/response to Reader unit tag scans (<a class="el" href="group__functions.html#ga3a34d1983ca24bf3375f128701142f4a">/permissions_check</a>).</li>
 <li><a href="https://firebase.google.com/docs/functions/">Cloud Functions For Firebase</a> is used for simple request proxying from Firebase Hosting website to access Google Apps Script data such as the form <code>fields</code> JSON (<a class="el" href="group__functions.html#gacdc4b56953435dee1ff6ffa58a4c00e7">/google_apps_script_proxy</a>).</li>
 </ul>
+<h2>Form Fields/Columns Caching</h2>
+<dl class="section note"><dt>Note</dt><dd>The fields JSON used by the <a class="el" href="group__functions.html#ga3a34d1983ca24bf3375f128701142f4a">/permissions_check</a> function is cached between invocations to improve performance (the fields are rarely changing). Generally, AWS Lambda execution units get restarted every few hours (or immediately after a re-deploy), so it may take some amount of time for the <a class="el" href="group__functions.html#ga3a34d1983ca24bf3375f128701142f4a">/permissions_check</a> endpoint to sync with any column changes.</dd></dl>
+<h2>Uptime / Ping Check</h2>
+<dl class="section note"><dt>Note</dt><dd>To avoid "cold start" latency issues with serverless functions, a healthcheck via Google Cloud Platform Stackdriver was created to ping the endpoint every few minutes (via HTTPS GET, including the <code>?ping=1</code> query arg).</dd></dl>
+<h2><a class="el" href="struct_function.html">Function</a> Execution Logs</h2>
+<h3>/permissions_check (AWS Lambda)</h3>
+<p>These logs are available under AWS CloudWatch for the Lambda handler in the appropriate environment (<code>dev</code> or <code>production</code>).</p>
+<dl class="section note"><dt>Note</dt><dd>In AWS, a new log bucket is created every few hours &ndash; each time the Lambda execution unit is restarted.</dd></dl>
+<h3>/google_apps_script_proxy (Firebase Functions)</h3>
+<p>These logs can be found from the Firebase Console under the Functions section. Logs from multiple execution units are combined together. The same data can also be viewed in Google Cloud Functions dashboard, including metadata regarding when the execution units are restarted.</p>
+<dl class="section note"><dt>Note</dt><dd>Advanced function settings such as runtime version (e.g Node 8.x) and memory limits must be configured in Google Cloud Functions console, with the target Firebase Project selected as the Google Platform project.</dd></dl>
 <h1><a class="anchor" id="autotoc_md25"></a>
 Configuration</h1>
 <h2>Dependencies</h2>
