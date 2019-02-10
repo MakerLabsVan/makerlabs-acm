@@ -57,7 +57,7 @@ class ImageFileUploader extends LitElement {
   render() {
     return html`
       <style>
-        #drop_zone {
+        div#drop_zone {
           height: 250px;
           border: 0px dashed #bbb;
           -moz-border-radius: 5px;
@@ -159,9 +159,8 @@ class ImageFileUploader extends LitElement {
             /// - Check if a valid web content link was created/found
             if (data && data.id) {
               /// - Determine the URL for a 300px thumbnail image
-              var src = `https://drive.google.com/thumbnail?id=${
-                data.id
-              }&sz=w300-c`;
+              const url = "https://drive.google.com/thumbnail";
+              var src = `${url}?id=${data.id}&sz=w300-c`;
               /// - Update displayed image
               this.src = src;
 
