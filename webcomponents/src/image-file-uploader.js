@@ -3,7 +3,7 @@
 /// @file
 /// @brief Define WebComponent: ImageFileUploader, register it as
 /// <image-file-uploader />
-import {LitElement, html} from "@polymer/lit-element";
+import {LitElement, html} from "lit-element";
 
 /// @brief WebComponent which displays an image, and also supports uploading a
 /// new image to Google Drive via drag n' drop, or a file picker window.

@@ -3,7 +3,7 @@
 /// @file
 /// @brief Define WebComponent: GoogleSigninButton, register it as
 /// <google-signin-button />
-import {LitElement, html} from "@polymer/lit-element";
+import {LitElement, html} from "lit-element";
 
 // Material Design Components
 import "@polymer/paper-button/paper-button.js";

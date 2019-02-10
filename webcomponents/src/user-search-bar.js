@@ -3,7 +3,7 @@
 /// @file
 /// @brief Define WebComponent: UserSearchBar, register it as
 /// <user-search-bar />
-import {LitElement, html} from "@polymer/lit-element";
+import {LitElement, html} from "lit-element";
 import "@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box.js";
 
 /// @brief WebComponent which uses <a href="https://vaadin.com/components/vaadin-combo-box">

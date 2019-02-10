@@ -3,7 +3,7 @@
 /// @file
 /// @brief Define WebComponent: ViewUserForm, register it as
 /// <view-user-form />
-import {LitElement, html} from "@polymer/lit-element";
+import {LitElement, html} from "lit-element";
 
 // Prereqs
 import "@polymer/iron-icons/iron-icons.js";

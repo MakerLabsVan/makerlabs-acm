@@ -2,7 +2,7 @@
 /// @{
 /// @file
 /// @brief Define WebComponent: AppShell, register it as <app-shell />
-import {LitElement, html} from "@polymer/lit-element";
+import {LitElement, html} from "lit-element";
 import {
   setPassiveTouchGestures,
   setRootPath,
