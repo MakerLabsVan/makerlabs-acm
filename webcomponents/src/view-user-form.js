@@ -114,6 +114,14 @@ class ViewUserForm extends LitElement {
 
   constructor() {
     super();
+    this.populateNewUser = this.populateNewUser.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderSection = this.renderSection.bind(this);
+    this.renderField = this.renderField.bind(this);
+    this.renderChoiceRadioButton = this.renderChoiceRadioButton.bind(this);
+    this.renderChoiceItem = this.renderChoiceItem.bind(this);
+    this.updateRecentTagIds = this.updateRecentTagIds.bind(this);
+
     this.fields = [];
     this.query = {};
 
@@ -209,95 +217,95 @@ class ViewUserForm extends LitElement {
   /// @returns LitElement `html``` literal, containing desired DOM state.
   render() {
     return html`
-    <link rel="stylesheet" href="../node_modules/@material/layout-grid/dist/mdc.layout-grid.min.css">
-    <style>
-      .full-width {
-        width: 100%;
-      }
+      <link
+        rel="stylesheet"
+        href="../node_modules/@material/layout-grid/dist/mdc.layout-grid.min.css"
+      />
+      <style>
+        .full-width {
+          width: 100%;
+        }
 
-      .content-wrapper {
-        position: relative;
-      }
+        .content-wrapper {
+          position: relative;
+        }
 
-      .tool-bar {
-        position: fixed;
-        height: 50px;
-        bottom: 10px;
-        right: 16px;
-        z-index: 1;
-      }
+        .tool-bar {
+          position: fixed;
+          height: 50px;
+          bottom: 10px;
+          right: 16px;
+          z-index: 1;
+        }
 
-      .tool-bar .tool-bar-action {
-        display: inline-block;
-      }
+        .tool-bar .tool-bar-action {
+          display: inline-block;
+        }
 
-      paper-fab {
-        --paper-fab-background: #1E88E5;
-      }
+        paper-fab {
+          --paper-fab-background: #1e88e5;
+        }
+      </style>
 
-      #input {
-        padding-top: 5px;
-      }
-    </style>
+      <google-client-loader
+        id="sheets"
+        name="sheets"
+        version="v4"
+      ></google-client-loader>
 
-    <google-client-loader
-      id="sheets"
-      name="sheets"
-      version="v4"
-    ></google-client-loader>
+      <div class="content-wrapper">
+        <form onsubmit="return false;" id="viewUserForm">
+          <div class="tool-bar">
+            <div class="tool-bar-action">
+              <paper-spinner-lite id="is-saving-spinner"></paper-spinner-lite>
+            </div>
+            <div class="tool-bar-action">
+              <paper-fab
+                mini
+                icon="add"
+                @tap="${this.populateNewUser}"
+              ></paper-fab>
+              <paper-tooltip position="top" animation-delay="0"
+                >Add new user</paper-tooltip
+              >
+            </div>
 
-    <div class="content-wrapper">
-      <form onsubmit="return false;" id="viewUserForm">
-        <div class="tool-bar">
-          <div class="tool-bar-action">
-            <paper-spinner-lite
-              id="is-saving-spinner"
-            ></paper-spinner-lite>
+            <div class="tool-bar-action">
+              <paper-fab
+                mini
+                icon="save"
+                @tap="${this.handleSubmit}"
+              ></paper-fab>
+              <paper-tooltip position="top" animation-delay="0"
+                >Save changes</paper-tooltip
+              >
+            </div>
           </div>
-          <div class="tool-bar-action">
-            <paper-fab
-              mini
-              icon="add"
-              @tap="${this.populateNewUser.bind(this)}"
-            ></paper-fab>
-            <paper-tooltip
-              position="top"
-              animation-delay="0"
-            >Add new user</paper-tooltip>
-          </div>
 
-          <div class="tool-bar-action">
-            <paper-fab
-              mini
-              icon="save"
-              @tap="${this.handleSubmit.bind(this)}"
-            ></paper-fab>
-            <paper-tooltip
-              position="top"
-              animation-delay="0"
-            >Save changes</paper-tooltip>
+          <div class="mdc-layout-grid">
+            <div class="mdc-layout-grid__inner">
+              ${this.fields.map(this.renderSection)}
+            </div>
           </div>
+        </form>
+      </div>
+    `;
+  }
+
+  /// @brief General method to render a collection of form fields in a "panel".
+  ///
+  /// @param section Object with a `title` and array of `fields[]`.
+  renderSection(section) {
+    return html`
+      <paper-card
+        heading="${section.title}"
+        class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3"
+        ?hidden="${this.sectionIsHidden(section)}"
+      >
+        <div class="card-content style-scope form">
+          ${section.fields.map(this.renderField)}
         </div>
-
-        <div class="mdc-layout-grid">
-          <div class="mdc-layout-grid__inner">
-            ${this.fields.map(
-              (section) => html`
-                <paper-card
-                  heading="${section.title}"
-                  class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3"
-                  ?hidden="${this.sectionIsHidden(section)}"
-                >
-                  <div class="card-content style-scope form">
-                    ${section.fields.map(this.renderField.bind(this))}
-                  </div>
-                </paper-card>
-              `
-            )}
-          </div>
-        </div>
-      </form>
-    </div>
+      </paper-card>
     `;
   }
 
@@ -311,10 +319,9 @@ class ViewUserForm extends LitElement {
       /// - checkbox
       return html`
         <div>
-          <paper-checkbox
-            name="${field.name}"
-            id="${field.name}"
-          >${field.title}</paper-checkbox>
+          <paper-checkbox name="${field.name}" id="${field.name}"
+            >${field.title}</paper-checkbox
+          >
         </div>
       `;
     }
@@ -330,13 +337,7 @@ class ViewUserForm extends LitElement {
             items="${field.choices}"
             selected="0"
           >
-            ${field.choices.map(
-              (choice) => html`
-                <paper-radio-button
-                  name="${choice}"
-                >${choice}</paper-radio-button>
-              `
-            )}
+            ${field.choices.map(this.renderChoiceRadioButton)}
           </paper-radio-group>
         </div>
       `;
@@ -351,15 +352,8 @@ class ViewUserForm extends LitElement {
           id="${field.name}"
           class="full-width"
         >
-          <paper-listbox
-            slot="dropdown-content"
-            selected="0"
-          >
-            ${field.choices.map(
-              (choice) => html`
-                <paper-item>${choice}</paper-item>
-              `
-            )}
+          <paper-listbox slot="dropdown-content" selected="0">
+            ${field.choices.map(this.renderChoiceItem)}
           </paper-listbox>
         </paper-dropdown-menu>
       `;
@@ -368,7 +362,8 @@ class ViewUserForm extends LitElement {
     if (this.fieldIsDatePickerType(field)) {
       /// - date-picker
       return html`
-        <vaadin-date-picker class="full-width"
+        <vaadin-date-picker
+          class="full-width"
           label="${field.title}"
           name="${field.name}"
           id="${field.name}"
@@ -404,7 +399,8 @@ class ViewUserForm extends LitElement {
       return html`
         <paper-input
           always-float-label
-          auto-validate pattern=""
+          auto-validate
+          pattern=""
           error-message="Resolve at Front Desk"
           label="${field.title}"
           id="${field.name}"
@@ -436,6 +432,24 @@ class ViewUserForm extends LitElement {
         </vaadin-combo-box>
       `;
     }
+  }
+
+  /// @brief Render a choice name as a `<paper-radio-button>`
+  ///
+  /// @param choice String name of choice.
+  renderChoiceRadioButton(choice) {
+    return html`
+      <paper-radio-button name="${choice}">${choice}</paper-radio-button>
+    `;
+  }
+
+  /// @brief Render a choice name as a `<paper-item>`
+  ///
+  /// @param choice String name of choice.
+  renderChoiceItem(choice) {
+    return html`
+      <paper-item>${choice}</paper-item>
+    `;
   }
 
   /// @brief Get the Google Spreadsheet user sheet name
@@ -748,10 +762,8 @@ class ViewUserForm extends LitElement {
     /// - Periodically update the Tag ID dropdown with recently scanned tags
     /// every 10 seconds
     var pollRecentTagIdsIntervalMillis = 10000;
-    window.setInterval(
-      this.updateRecentTagIds.bind(this),
-      pollRecentTagIdsIntervalMillis
-    ); // repeat forever
+    // repeat forever
+    window.setInterval(this.updateRecentTagIds, pollRecentTagIdsIntervalMillis);
   }
 
   /// @brief Dynamically update the form when users are signing in to the

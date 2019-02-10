@@ -23,6 +23,8 @@ class UserSearchBar extends LitElement {
 
   constructor() {
     super();
+    this.handleSearchChanged = this.handleSearchChanged.bind(this);
+
     this.items = [];
   }
 
@@ -41,7 +43,7 @@ class UserSearchBar extends LitElement {
         style="width: 100%"
         item-value-path="Name"
         item-label-path="Name"
-        @change="${this.handleSearchChanged.bind(this)}"
+        @change="${this.handleSearchChanged}"
         items="${JSON.stringify(this.items)}"
       >
         <template>
@@ -50,7 +52,7 @@ class UserSearchBar extends LitElement {
               src="[[item.Photo]]"
               style="border-radius: 50%; width: 48px; height: 48px; [[item.imageStyle]]"
               slot="item-icon"
-            >
+            />
             <iron-icon
               icon="inbox"
               class="big"
@@ -64,10 +66,9 @@ class UserSearchBar extends LitElement {
               </div>
             </paper-item-body>
           </paper-icon-item>
-
         </template>
       </vaadin-combo-box>
-      `;
+    `;
   }
 
   /// @brief Dispatch `search` event with current `searchbox.selectedItem`.

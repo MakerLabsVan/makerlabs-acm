@@ -69,6 +69,10 @@ class GoogleSigninButton extends LitElement {
 
   constructor() {
     super();
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+    this.handleAuthStateChanged = this.handleAuthStateChanged.bind(this);
+
     this.signedIn = false;
     this.googleAuthInitialized = false;
   }
@@ -78,18 +82,24 @@ class GoogleSigninButton extends LitElement {
   render() {
     return this.signedIn
       ? html`
-      <paper-button raised style="width: 100%"
-        id="logout"
-        @tap=${this.handleLogout.bind(this)}
-      >Logout</paper-button>
-      `
+          <paper-button
+            raised
+            style="width: 100%"
+            id="logout"
+            @tap=${this.handleLogout}
+            >Logout</paper-button
+          >
+        `
       : html`
-      <paper-button raised style="width: 100%"
-        id="login"
-        @tap=${this.handleLogin.bind(this)}
-        ?disabled=${!this.googleAuthInitialized}
-      >Login</paper-button>
-      `;
+          <paper-button
+            raised
+            style="width: 100%"
+            id="login"
+            @tap=${this.handleLogin}
+            ?disabled=${!this.googleAuthInitialized}
+            >Login</paper-button
+          >
+        `;
   }
 
   /// @brief Returns details to be shown in a dialog to the user regarding
@@ -148,7 +158,7 @@ class GoogleSigninButton extends LitElement {
       if (googleAuth) {
         /// - If Google Auth API initialization was successful, trigger reload
         /// current login state.
-        googleAuth.isSignedIn.listen(this.handleAuthStateChanged.bind(this));
+        googleAuth.isSignedIn.listen(this.handleAuthStateChanged);
         const signedIn = googleAuth.isSignedIn.get();
         this.handleAuthStateChanged(signedIn);
       } else {

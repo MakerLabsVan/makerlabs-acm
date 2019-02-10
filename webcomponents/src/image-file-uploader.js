@@ -41,6 +41,11 @@ class ImageFileUploader extends LitElement {
 
   constructor() {
     super();
+    this.handleDragOver = this.handleDragOver.bind(this);
+    this.handleDragLeave = this.handleDragLeave.bind(this);
+    this.handleDraggedFileUpload = this.handleDraggedFileUpload.bind(this);
+    this.handleSelectedFileUpload = this.handleSelectedFileUpload.bind(this);
+
     this.emptyImageData =
       "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=";
     this.src = this.emptyImageData;
@@ -67,18 +72,17 @@ class ImageFileUploader extends LitElement {
           background-repeat: no-repeat;
           background-position: center;
         }
-        #drop_hint {
+        span#drop_hint {
           display: none;
         }
         input[type="file"] {
           display: none;
         }
       </style>
-
       <label for="file-upload">
         <div id="drop_zone" style="background-image: url(${this.src});">
           <span id="drop_hint">Drop files here</span>
-          <input id="file-upload" type="file" accept="image/*">
+          <input id="file-upload" type="file" accept="image/*" />
         </div>
       </label>
     `;
@@ -93,18 +97,14 @@ class ImageFileUploader extends LitElement {
     /// Setup event listeners:
     const el = this.shadowRoot.getElementById("drop_zone");
     /// - On `dragover`, draw a border around the drop zone.
-    el.addEventListener("dragover", this.handleDragOver.bind(this), false);
+    el.addEventListener("dragover", this.handleDragOver, false);
     /// - On `dragleave`, cancel the border when no longer dragged over.
-    el.addEventListener("dragleave", this.handleDragLeave.bind(this), false);
+    el.addEventListener("dragleave", this.handleDragLeave, false);
     /// - On `drop`, begin the file upload immediately.
-    el.addEventListener("drop", this.handleDraggedFileUpload.bind(this), false);
+    el.addEventListener("drop", this.handleDraggedFileUpload, false);
     /// - On `change`, begin the file upload after selecting a file with the
     /// chooser dialog
-    el.addEventListener(
-      "change",
-      this.handleSelectedFileUpload.bind(this),
-      false
-    );
+    el.addEventListener("change", this.handleSelectedFileUpload, false);
   }
 
   /// @brief Check if Google Auth user is currently logged-in, and extract the

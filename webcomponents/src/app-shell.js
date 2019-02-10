@@ -158,6 +158,11 @@ class AppShell extends LitElement {
 
   constructor() {
     super();
+    this.handleFirebaseAuthStateChange = this.handleFirebaseAuthStateChange.bind(
+      this
+    );
+    this.handleActivityCallback = this.handleActivityCallback.bind(this);
+
     this.emptyImageData =
       "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=";
     this.fields = [];
@@ -169,123 +174,114 @@ class AppShell extends LitElement {
   /// @returns LitElement `html``` literal, containing desired DOM state.
   render() {
     return html`
-    <style>
-      app-toolbar {
-        background-color: #1E88E5;
-        font-family: "Roboto", Helvetica, sans-serif;
-        color: white;
-        --app-toolbar-font-size: 24px;
-      }
-      .search-bar {
-        width: 50%;
-      }
-      .overlay {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(0, 0, 0, 0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .avatar {
-        display: inline-block;
-        box-sizing: border-box;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: var(--paper-grey-600);
-      }
-      .listbox-button,
-      .listbox-button google-signin-button {
-        width: 95%;
-      }
-    </style>
+      <style>
+        app-toolbar {
+          background-color: #1e88e5;
+          font-family: "Roboto", Helvetica, sans-serif;
+          color: white;
+          --app-toolbar-font-size: 24px;
+        }
+        .search-bar {
+          width: 50%;
+        }
+        .overlay {
+          position: fixed;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: rgba(0, 0, 0, 0.2);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .avatar {
+          display: inline-block;
+          box-sizing: border-box;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: var(--paper-grey-600);
+        }
+        .listbox-button,
+        .listbox-button google-signin-button {
+          width: 95%;
+        }
+      </style>
 
-    <!-- App Layout -->
-    <app-drawer-layout fullbleed force-narrow>
-      <app-drawer slot="drawer" id="drawer">
-        <div role="listbox">
-          ${
-            this.currentUser
+      <!-- App Layout -->
+      <app-drawer-layout fullbleed force-narrow>
+        <app-drawer slot="drawer" id="drawer">
+          <div role="listbox">
+            ${this.currentUser
               ? html`
-            <paper-icon-item>
-              <img
-                class="avatar"
-                slot="item-icon"
-                src="${this.currentUser.photoURL}"
-              />
-              <paper-item-body two-line>
-                <div>${this.currentUser.displayName}</div>
-                <div secondary>${this.currentUser.email}</div>
-              </paper-item-body>
-            </paper-icon-item>
-          `
-              : html``
-          }
-          <hr />
-          <div class="listbox-button">
-            <google-signin-button
-              id="auth"
-              .oauthClientId="${this.oauthClientId}"
-              .oauthScopes="${this.oauthScopes}"
-              @auth-error="${(e) => this.displayDialog(e.detail)}"
-            ></google-signin-button>
+                  <paper-icon-item>
+                    <img
+                      class="avatar"
+                      slot="item-icon"
+                      src="${this.currentUser.photoURL}"
+                    />
+                    <paper-item-body two-line>
+                      <div>${this.currentUser.displayName}</div>
+                      <div secondary>${this.currentUser.email}</div>
+                    </paper-item-body>
+                  </paper-icon-item>
+                `
+              : html``}
+            <hr />
+            <div class="listbox-button">
+              <google-signin-button
+                id="auth"
+                .oauthClientId="${this.oauthClientId}"
+                .oauthScopes="${this.oauthScopes}"
+                @auth-error="${(e) => this.displayDialog(e.detail)}"
+              ></google-signin-button>
+            </div>
           </div>
-        </div>
-      </app-drawer>
-      <app-header-layout fullbleed>
-        <app-header slot="header" fixed>
-          <app-toolbar>
-            <paper-icon-button
-              icon="account-box"
-              drawer-toggle
-            ></paper-icon-button>
-            <div main-title>MakerLabs ACM</div>
-            <user-search-bar
-              id="search"
-              class="search-bar"
-            ></user-search-bar>
-          </app-toolbar>
-        </app-header>
+        </app-drawer>
+        <app-header-layout fullbleed>
+          <app-header slot="header" fixed>
+            <app-toolbar>
+              <paper-icon-button
+                icon="account-box"
+                drawer-toggle
+              ></paper-icon-button>
+              <div main-title>MakerLabs ACM</div>
+              <user-search-bar id="search" class="search-bar"></user-search-bar>
+            </app-toolbar>
+          </app-header>
 
-        <!-- User Form -->
-        ${
-          this.fields && this.fields.length > 0
+          <!-- User Form -->
+          ${this.fields && this.fields.length > 0
             ? ""
             : html`
-            <div class="overlay">
-              <paper-spinner-lite active></paper-spinner-lite>
-            </div>
-          `
-        }
-        <view-user-form
-          id="form"
-          .sheetId=${this.sheetId}
-          .machineId=${this.machineId}
-          .accessToken=${this.accessToken}
-          .query=${this.query}
-          .defaultPhotoUrl=${this.defaultPhotoUrl}
-          .nextMakerLabsIdUrl=${this.nextMakerLabsIdUrl}
-          .profilePhotosFolderId=${this.profilePhotosFolderId}
-        ></view-user-form>
+                <div class="overlay">
+                  <paper-spinner-lite active></paper-spinner-lite>
+                </div>
+              `}
+          <view-user-form
+            id="form"
+            .sheetId=${this.sheetId}
+            .machineId=${this.machineId}
+            .accessToken=${this.accessToken}
+            .query=${this.query}
+            .defaultPhotoUrl=${this.defaultPhotoUrl}
+            .nextMakerLabsIdUrl=${this.nextMakerLabsIdUrl}
+            .profilePhotosFolderId=${this.profilePhotosFolderId}
+          ></view-user-form>
+        </app-header-layout>
+      </app-drawer-layout>
 
-      </app-header-layout>
-    </app-drawer-layout>
-
-    <!-- Error Dialog (hidden until opened) -->
-    <paper-dialog id="dialog" with-backdrop>
-      <h2>${this.dialogMetadata.title}</h2>
-      <p>${this.dialogMetadata.helpText}</p>
-      <p>Internal Error: <i>"${this.dialogMetadata.errorText}"</i></p>
-      <div class="buttons">
-        <paper-button dialog-confirm autofocus>OK</paper-button>
-      </div>
-    </paper-dialog>
-
-`;
+      <!-- Error Dialog (hidden until opened) -->
+      <paper-dialog id="dialog" with-backdrop>
+        <h2>${this.dialogMetadata.title}</h2>
+        <p>${this.dialogMetadata.helpText}</p>
+        <p>Internal Error: <i>"${this.dialogMetadata.errorText}"</i></p>
+        <div class="buttons">
+          <paper-button dialog-confirm autofocus>OK</paper-button>
+        </div>
+      </paper-dialog>
+    `;
   }
 
   /// @brief LitElement lifecycle hook. Called whenever the element's DOM has
@@ -533,25 +529,27 @@ class AppShell extends LitElement {
             /// `readers/{machineId}/latestUser`, if `value` is updated:
             this.onActivityCallback = latestUserRef.on(
               "value",
-              function(data) {
-                const form = this.shadowRoot.getElementById("form");
-                const user = data.toJSON();
-                if (form && user) {
-                  const makerLabsId = user.makerlabsId;
-
-                  /// - Clear form and update with Firebase values immediately
-                  form.resetValues();
-                  form.showUserObj(user);
-
-                  /// - Fetch full user row to update all form fields
-                  form.updateFormFromMakerLabsId(makerLabsId);
-                }
-              }.bind(this)
+              this.handleActivityCallback
             );
           }
         }
       }
     });
+  }
+
+  handleActivityCallback(data) {
+    const form = this.shadowRoot.getElementById("form");
+    const user = data.toJSON();
+    if (form && user) {
+      const makerLabsId = user.makerlabsId;
+
+      /// - Clear form and update with Firebase values immediately
+      form.resetValues();
+      form.showUserObj(user);
+
+      /// - Fetch full user row to update all form fields
+      form.updateFormFromMakerLabsId(makerLabsId);
+    }
   }
 
   /// @brief Update dialog metadata, and open a popup dialog immediately.
@@ -681,9 +679,7 @@ class AppShell extends LitElement {
     this.fetchUserFields();
 
     /// - Subscribe to Firebase Auth state changes to store logged-in user info
-    firebase
-      .auth()
-      .onAuthStateChanged(this.handleFirebaseAuthStateChange.bind(this));
+    firebase.auth().onAuthStateChanged(this.handleFirebaseAuthStateChange);
   }
 
   /// @brief Trigger Firebase sign-out
