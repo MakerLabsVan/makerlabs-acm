@@ -40,7 +40,6 @@ abstract class GoogleCloudFunctionsRequest implements _http.IncomingMessage {
 /// Add JS interop types for Google Cloud Functions response object
 @JS()
 @anonymous
-abstract class GoogleCloudFunctionsResponse implements _http.ServerResponse {
-}
+abstract class GoogleCloudFunctionsResponse implements _http.ServerResponse {}
 
 /// @}
