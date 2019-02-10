@@ -515,7 +515,6 @@ class AppShell extends LitElement {
               `readers/${this.machineId}/latestUser`
             );
 
-            var pollActivityIntervalMillis = 2000;
             /// - Unsubscribe from previous Firebase Database path:
             /// `readers/{machineId}/latestUser`
             if (this.pollActivityIntervalId) {

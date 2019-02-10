@@ -142,7 +142,12 @@ class ViewUserForm extends LitElement {
   updated(changedProperties) {
     super.updated(changedProperties);
     /// If the `fields` property has changed and is non-empty:
-    if (changedProperties.has("fields")) {
+    if (
+      changedProperties &&
+      changedProperties.has("fields") &&
+      this.fields &&
+      this.fields.length > 0
+    ) {
       /// - Iterate through all `vaadin-date-picker` elements, force them to be
       /// yyyy-mm-dd
       var datepickers = this.shadowRoot.querySelectorAll(
