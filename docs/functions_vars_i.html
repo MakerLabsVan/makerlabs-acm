@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -102,6 +110,9 @@ $(document).ready(function(){initNavTree('functions_vars_i.html','');});
 &#160;
 
 <h3><a id="index_i"></a>- i -</h3><ul>
+<li>id
+: <a class="el" href="struct_actor_model_1_1_result_union.html#ad8d64719a19da300938d2e5c39d96e2a">ActorModel::ResultUnion</a>
+</li>
 <li>idle_timeout
 : <a class="el" href="struct_display_actor_state.html#af439d8ca2a5ddf9be42e5ec2234d4dbf">DisplayActorState</a>
 </li>
@@ -110,6 +121,9 @@ $(document).ready(function(){initNavTree('functions_vars_i.html','');});
 </li>
 <li>initial_progress
 : <a class="el" href="struct_display_actor_state.html#af6d637447d86412e923412f68a58b6e9">DisplayActorState</a>
+</li>
+<li>initial_update_check_request_sent
+: <a class="el" href="struct_firmware_update_1_1_firmware_update_actor_state.html#a6784cc1efa9915d2e1e4c95922c321ac">FirmwareUpdate::FirmwareUpdateActorState</a>
 </li>
 <li>INTERLOCK_OFF
 : <a class="el" href="struct_machine_actor_state.html#aee6b5239fb0695c6d949d296c5a61ae4">MachineActorState</a>
@@ -120,8 +134,14 @@ $(document).ready(function(){initNavTree('functions_vars_i.html','');});
 <li>interlock_pin
 : <a class="el" href="struct_machine_actor_state.html#a81393c6cf0b2b461b65d5a7a81d96dbb">MachineActorState</a>
 </li>
+<li>ip
+: <a class="el" href="struct_network_manager_1_1_network_interface_details.html#add9fdb3478dece745f322808316bc20d">NetworkManager::NetworkInterfaceDetails</a>
+</li>
 <li>is_data1
 : <a class="el" href="struct_wiegand_reader_1_1_callback_info.html#ae08de32beada0ae538bd7031338da85b">WiegandReader::CallbackInfo</a>
+</li>
+<li>is_recurring
+: <a class="el" href="class_actor_model_1_1_timed_buffer_delivery.html#ad689e011a8867bd3e3c7167ae605b127">ActorModel::TimedBufferDelivery</a>
 </li>
 </ul>
 </div><!-- contents -->

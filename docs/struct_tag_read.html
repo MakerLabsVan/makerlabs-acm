@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -113,7 +121,7 @@ $(document).ready(function(){initNavTree('struct_tag_read.html','');});
 Public Attributes</h2></td></tr>
 <tr class="memitem:af45f3bd589ce94478b0cb6558839bf71"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tag_read.html#af45f3bd589ce94478b0cb6558839bf71">tag_id</a></td></tr>
 <tr class="separator:af45f3bd589ce94478b0cb6558839bf71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f0067092c8b347407d3a964655084cc"><td class="memItemLeft" align="right" valign="top">TimeDuration&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tag_read.html#a8f0067092c8b347407d3a964655084cc">timestamp</a></td></tr>
+<tr class="memitem:a8f0067092c8b347407d3a964655084cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_tag_read.html#a8f0067092c8b347407d3a964655084cc">timestamp</a></td></tr>
 <tr class="separator:a8f0067092c8b347407d3a964655084cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -138,7 +146,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">TimeDuration TagRead::timestamp</td>
+          <td class="memname"><a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a> TagRead::timestamp</td>
         </tr>
       </table>
 </div><div class="memdoc">

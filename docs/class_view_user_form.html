@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -144,9 +152,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac032c505e3ee6f61b8e7f3a4c37feaae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view_user_form.html#ac032c505e3ee6f61b8e7f3a4c37feaae">render</a> ()</td></tr>
 <tr class="memdesc:ac032c505e3ee6f61b8e7f3a4c37feaae"><td class="mdescLeft">&#160;</td><td class="mdescRight">LitElement lifecycle hook. Re-rendered after any update().  <a href="#ac032c505e3ee6f61b8e7f3a4c37feaae">More...</a><br /></td></tr>
 <tr class="separator:ac032c505e3ee6f61b8e7f3a4c37feaae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21a0ef4f92c20237957770f469013294"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view_user_form.html#a21a0ef4f92c20237957770f469013294">renderSection</a> (section)</td></tr>
+<tr class="memdesc:a21a0ef4f92c20237957770f469013294"><td class="mdescLeft">&#160;</td><td class="mdescRight">General method to render a collection of form fields in a "panel".  <a href="#a21a0ef4f92c20237957770f469013294">More...</a><br /></td></tr>
+<tr class="separator:a21a0ef4f92c20237957770f469013294"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83ca9754e2d85274aa5e8beae4f6c117"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view_user_form.html#a83ca9754e2d85274aa5e8beae4f6c117">renderField</a> (field)</td></tr>
 <tr class="memdesc:a83ca9754e2d85274aa5e8beae4f6c117"><td class="mdescLeft">&#160;</td><td class="mdescRight">General method to render any type of form field.  <a href="#a83ca9754e2d85274aa5e8beae4f6c117">More...</a><br /></td></tr>
 <tr class="separator:a83ca9754e2d85274aa5e8beae4f6c117"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6602c412e04cccf129e8c7b88b37dd7c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view_user_form.html#a6602c412e04cccf129e8c7b88b37dd7c">renderChoiceRadioButton</a> (choice)</td></tr>
+<tr class="memdesc:a6602c412e04cccf129e8c7b88b37dd7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render a choice name as a <code>&lt;paper-radio-button&gt;</code>  <a href="#a6602c412e04cccf129e8c7b88b37dd7c">More...</a><br /></td></tr>
+<tr class="separator:a6602c412e04cccf129e8c7b88b37dd7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50869d3b8070c4002f22774abbb5ff7a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view_user_form.html#a50869d3b8070c4002f22774abbb5ff7a">renderChoiceItem</a> (choice)</td></tr>
+<tr class="memdesc:a50869d3b8070c4002f22774abbb5ff7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render a choice name as a <code>&lt;paper-item&gt;</code>  <a href="#a50869d3b8070c4002f22774abbb5ff7a">More...</a><br /></td></tr>
+<tr class="separator:a50869d3b8070c4002f22774abbb5ff7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a299a86d2bb2933976a4eaf23a34cba"><td class="memItemLeft" align="right" valign="top">get&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view_user_form.html#a3a299a86d2bb2933976a4eaf23a34cba">usersSheetName</a> ()</td></tr>
 <tr class="memdesc:a3a299a86d2bb2933976a4eaf23a34cba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Google Spreadsheet user sheet name.  <a href="#a3a299a86d2bb2933976a4eaf23a34cba">More...</a><br /></td></tr>
 <tr class="separator:a3a299a86d2bb2933976a4eaf23a34cba"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -235,13 +252,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a936d580372c022a6927a3cb44c71286f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dynamically update the form when users are signing in to the selected machine.  <a href="#a936d580372c022a6927a3cb44c71286f">More...</a><br /></td></tr>
 <tr class="separator:a936d580372c022a6927a3cb44c71286f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1dca4d7516d481628aaf9ec4aa5703a"><td class="memItemLeft" align="right" valign="top">async&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view_user_form.html#aa1dca4d7516d481628aaf9ec4aa5703a">updateFormFromMakerLabsId</a> (makerLabsId)</td></tr>
-<tr class="memdesc:aa1dca4d7516d481628aaf9ec4aa5703a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="struct_query.html">Query</a> for a specific <code>MakerLabs ID</code> and update the form with their details.  <a href="#aa1dca4d7516d481628aaf9ec4aa5703a">More...</a><br /></td></tr>
+<tr class="memdesc:aa1dca4d7516d481628aaf9ec4aa5703a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query for a specific <code>MakerLabs ID</code> and update the form with their details.  <a href="#aa1dca4d7516d481628aaf9ec4aa5703a">More...</a><br /></td></tr>
 <tr class="separator:aa1dca4d7516d481628aaf9ec4aa5703a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68c7f49dbfc787d2893fa64f943ab9b1"><td class="memItemLeft" align="right" valign="top">async&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view_user_form.html#a68c7f49dbfc787d2893fa64f943ab9b1">updateRecentTagIds</a> ()</td></tr>
 <tr class="memdesc:a68c7f49dbfc787d2893fa64f943ab9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select the 5 most recently scanned <code>Tag IDs</code> in the last 2 minutes, update the <code>Tag ID</code> drop-down.  <a href="#a68c7f49dbfc787d2893fa64f943ab9b1">More...</a><br /></td></tr>
 <tr class="separator:a68c7f49dbfc787d2893fa64f943ab9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa945e3104b65a7d40185613ea91ad8a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view_user_form.html#aa945e3104b65a7d40185613ea91ad8a5">getValuesFromDatatable</a> (datatable, limit)</td></tr>
-<tr class="memdesc:aa945e3104b65a7d40185613ea91ad8a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert Google Spreadsheets <a class="el" href="struct_query.html">Query</a> result into JSON array.  <a href="#aa945e3104b65a7d40185613ea91ad8a5">More...</a><br /></td></tr>
+<tr class="memdesc:aa945e3104b65a7d40185613ea91ad8a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert Google Spreadsheets Query result into JSON array.  <a href="#aa945e3104b65a7d40185613ea91ad8a5">More...</a><br /></td></tr>
 <tr class="separator:aa945e3104b65a7d40185613ea91ad8a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ca0951e628e602c3200acb730ede1af"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view_user_form.html#a8ca0951e628e602c3200acb730ede1af">getFirstRowValuesFromDatatable</a> (datatable)</td></tr>
 <tr class="memdesc:a8ca0951e628e602c3200acb730ede1af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract the first row from a Google Visualization query result.  <a href="#a8ca0951e628e602c3200acb730ede1af">More...</a><br /></td></tr>
@@ -259,10 +276,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a454275fdf90236b5e3dce9bd240b6ec1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a Google Visualization query on a specific sheet.  <a href="#a454275fdf90236b5e3dce9bd240b6ec1">More...</a><br /></td></tr>
 <tr class="separator:a454275fdf90236b5e3dce9bd240b6ec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c9dc4a871280f03c88f9bcc4216d3fe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view_user_form.html#a8c9dc4a871280f03c88f9bcc4216d3fe">queryUsers</a> (query)</td></tr>
-<tr class="memdesc:a8c9dc4a871280f03c88f9bcc4216d3fe"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="struct_query.html">Query</a> the Google Spreadsheet <code>Users</code> sheet.  <a href="#a8c9dc4a871280f03c88f9bcc4216d3fe">More...</a><br /></td></tr>
+<tr class="memdesc:a8c9dc4a871280f03c88f9bcc4216d3fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query the Google Spreadsheet <code>Users</code> sheet.  <a href="#a8c9dc4a871280f03c88f9bcc4216d3fe">More...</a><br /></td></tr>
 <tr class="separator:a8c9dc4a871280f03c88f9bcc4216d3fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8096f9adec7e4048effcbfdbfe83ee84"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view_user_form.html#a8096f9adec7e4048effcbfdbfe83ee84">queryActivity</a> (query)</td></tr>
-<tr class="memdesc:a8096f9adec7e4048effcbfdbfe83ee84"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="struct_query.html">Query</a> the Google Spreadsheet <code><a class="el" href="struct_activity.html" title="Flatbuffer which represents tag scan activity on a specific machine.">Activity</a></code> sheet.  <a href="#a8096f9adec7e4048effcbfdbfe83ee84">More...</a><br /></td></tr>
+<tr class="memdesc:a8096f9adec7e4048effcbfdbfe83ee84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query the Google Spreadsheet <code><a class="el" href="struct_activity.html" title="Flatbuffer which represents tag scan activity on a specific machine.">Activity</a></code> sheet.  <a href="#a8096f9adec7e4048effcbfdbfe83ee84">More...</a><br /></td></tr>
 <tr class="separator:a8096f9adec7e4048effcbfdbfe83ee84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3fd9a66f3d87fe5254ca078cf1f51d9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view_user_form.html#ac3fd9a66f3d87fe5254ca078cf1f51d9">resetValues</a> ()</td></tr>
 <tr class="memdesc:ac3fd9a66f3d87fe5254ca078cf1f51d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset all form values to defaults / empty.  <a href="#ac3fd9a66f3d87fe5254ca078cf1f51d9">More...</a><br /></td></tr>
@@ -564,6 +581,48 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_view_user_form_a1b5cede261895921c4831def844f2293_cgraph.png" border="0" usemap="#class_view_user_form_a1b5cede261895921c4831def844f2293_cgraph" alt=""/></div>
+<map name="class_view_user_form_a1b5cede261895921c4831def844f2293_cgraph" id="class_view_user_form_a1b5cede261895921c4831def844f2293_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,730,188,756"/>
+<area shape="rect"  href="class_view_user_form.html#a41028c1a43e2167d93bbca667ff617c2" title="Clear the form and populate the MakersLabs ID field with the next available version not used in the G..." alt="" coords="236,276,459,301"/>
+<area shape="rect"  href="class_view_user_form.html#a1c1d8999b45961ebf469193656ebbad2" title="Handle submitting latest form data to Google Spreadsheet, replacing the data for an existing (matchin..." alt="" coords="519,428,717,453"/>
+<area shape="rect"  href="class_view_user_form.html#a21a0ef4f92c20237957770f469013294" title="General method to render a collection of form fields in a &quot;panel&quot;." alt="" coords="247,730,447,756"/>
+<area shape="rect"  href="class_view_user_form.html#a83ca9754e2d85274aa5e8beae4f6c117" title="General method to render any type of form field." alt="" coords="799,680,983,705"/>
+<area shape="rect"  href="class_view_user_form.html#a6602c412e04cccf129e8c7b88b37dd7c" title="Render a choice name as a &lt;paper&#45;radio&#45;button&gt;" alt="" coords="1075,778,1271,817"/>
+<area shape="rect"  href="class_view_user_form.html#a50869d3b8070c4002f22774abbb5ff7a" title="Render a choice name as a &lt;paper&#45;item&gt;" alt="" coords="1062,893,1284,918"/>
+<area shape="rect"  href="class_view_user_form.html#a68c7f49dbfc787d2893fa64f943ab9b1" title="Select the 5 most recently scanned Tag IDs in the last 2 minutes, update the Tag ID drop&#45;down." alt="" coords="247,1089,447,1128"/>
+<area shape="rect"  href="class_view_user_form.html#aab7cde4915dba5b483198e60509016b5" title="Display provided User details on form." alt="" coords="517,276,719,301"/>
+<area shape="rect"  href="class_view_user_form.html#a1efe43059d50bd86112a18c03fc6deb3" title="Request the next available MakerLabs ID for the Users sheet." alt="" coords="520,140,716,178"/>
+<area shape="rect"  href="class_view_user_form.html#aa528ea1195f6010e5b33e39bbdeabc7e" title="Update the value for the provided field, and display the new value." alt="" coords="798,276,985,301"/>
+<area shape="rect"  href="class_view_user_form.html#ae88c06e6489f2bef5f49abe0e6a34e08" title="Check whether form field should be rendered as a checkbox." alt="" coords="1053,500,1293,525"/>
+<area shape="rect"  href="class_view_user_form.html#a4a7796273f88f0916f5ccafb0f908f26" title="Check whether form field should be rendered as a radio group." alt="" coords="1080,549,1266,588"/>
+<area shape="rect"  href="class_view_user_form.html#adb71a119d08c8979e397a7ff15646ac8" title="Check whether form field should be rendered as a drop&#45;down menu." alt="" coords="1067,273,1279,312"/>
+<area shape="rect"  href="class_view_user_form.html#a9c33888330f48bf362f1934c4383fdc7" title="Check whether form field should be rendered as a date&#45;picker." alt="" coords="1083,388,1263,426"/>
+<area shape="rect"  href="class_view_user_form.html#a8dc7eb66c434878d283a194a163fe43f" title="Check whether form field should be rendered as a text input." alt="" coords="1085,664,1261,702"/>
+<area shape="rect"  href="class_view_user_form.html#af13d16eb98ab1118390a2f6da3fe85e1" title="Check whether form field should be rendered as a special&#45;case &quot;Tag ID&quot;." alt="" coords="1365,410,1538,449"/>
+<area shape="rect"  href="class_view_user_form.html#a88480cf685ec71871f0965692624a0dd" title="Check whether form field should be rendered as a special&#45;case &quot;Alerts&quot;." alt="" coords="1345,698,1559,724"/>
+<area shape="rect"  href="class_view_user_form.html#abe7bba53e9161bafbbac807d0f0c6c3f" title="Check whether form field should be rendered as an image." alt="" coords="1064,450,1282,476"/>
+<area shape="rect"  href="class_view_user_form.html#a3b68ee1525aa381e32b6e0f2cfcc7f32" title="Get the column letter for the users sheet &quot;Tag ID&quot; column." alt="" coords="1613,410,1795,449"/>
+<area shape="rect"  href="class_view_user_form.html#a6cb6701995029821132764f2360fff69" title="Determine column letter for column title (and optional section)" alt="" coords="1845,114,2040,153"/>
+<area shape="rect"  href="class_view_user_form.html#a25278e0ff4a7cc1acbb5f734364271d5" title="Extract the field metadata for the provided column letter." alt="" coords="782,70,1000,96"/>
+<area shape="rect"  href="class_view_user_form.html#aa8ed7e3cf2460491f0b7c435c047f6b9" title="Get the column letter for the users sheet &quot;MakerLabs ID&quot; column." alt="" coords="1611,36,1797,74"/>
+<area shape="rect"  href="class_view_user_form.html#a6a79ab7cb31dce641cf9123b5563c584" title="Disable form field inputs if new form data is still being saved." alt="" coords="799,428,984,453"/>
+<area shape="rect"  href="class_view_user_form.html#a3a299a86d2bb2933976a4eaf23a34cba" title="Get the Google Spreadsheet user sheet name." alt="" coords="782,477,1001,502"/>
+<area shape="rect"  href="class_view_user_form.html#a4c30b2cc8564aecef825c65682ce2cf8" title="LitElement lifecycle hook. Called whenever the element&#39;s DOM has been updated and rendered." alt="" coords="809,578,974,604"/>
+<area shape="rect"  href="class_view_user_form.html#a1097d5d48d2ce7adf63ad5a848cc6e68" title="Get the column letter for the users sheet &quot;Row&quot; column." alt="" coords="1341,121,1563,146"/>
+<area shape="rect"  href="class_view_user_form.html#a8096f9adec7e4048effcbfdbfe83ee84" title="Query the Google Spreadsheet Activity sheet." alt="" coords="522,982,714,1008"/>
+<area shape="rect"  href="class_view_user_form.html#a32608e063ab23f4b0a5a736930e061c8" title="Get the column letter for the activity sheet &quot;Tag ID&quot; column." alt="" coords="529,1032,707,1070"/>
+<area shape="rect"  href="class_view_user_form.html#a55f397d74f468a6d330f02abb160bb12" title="Get the column letter for the activity sheet &quot;MakerLabs ID&quot; column." alt="" coords="521,1146,715,1185"/>
+<area shape="rect"  href="class_view_user_form.html#a5dc0cd9378e584963ab088e519559ba4" title="Get the column letter for the activity sheet &quot;Timestamp&quot; column." alt="" coords="507,1209,729,1248"/>
+<area shape="rect"  href="class_view_user_form.html#aa945e3104b65a7d40185613ea91ad8a5" title="Convert Google Spreadsheets Query result into JSON array." alt="" coords="515,1272,721,1310"/>
+<area shape="rect"  href="class_view_user_form.html#a454275fdf90236b5e3dce9bd240b6ec1" title="Perform a Google Visualization query on a specific sheet." alt="" coords="799,1045,984,1070"/>
+<area shape="rect"  href="class_view_user_form.html#a6400cefce68a4b1d115437aa94eaaaad" title="Get the Google Spreadsheet activity sheet name." alt="" coords="777,933,1005,958"/>
+<area shape="rect"  href="class_view_user_form.html#a6b46d06df58e9a88a9980813b1b14605" title="Get the Google Spreadsheet activity sheet number of header rows." alt="" coords="795,982,988,1021"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -1058,7 +1117,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Convert Google Spreadsheets <a class="el" href="struct_query.html">Query</a> result into JSON array. </p>
+<p>Convert Google Spreadsheets Query result into JSON array. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">datatable</td><td>Google Visualisation query result DataTable JSON </td></tr>
@@ -1468,7 +1527,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="struct_query.html">Query</a> the Google Spreadsheet <code><a class="el" href="struct_activity.html" title="Flatbuffer which represents tag scan activity on a specific machine.">Activity</a></code> sheet. </p>
+<p>Query the Google Spreadsheet <code><a class="el" href="struct_activity.html" title="Flatbuffer which represents tag scan activity on a specific machine.">Activity</a></code> sheet. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">query</td><td>Text to use as Google Visualization query</td></tr>
@@ -1567,7 +1626,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="struct_query.html">Query</a> the Google Spreadsheet <code>Users</code> sheet. </p>
+<p>Query the Google Spreadsheet <code>Users</code> sheet. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">query</td><td>Text to use as Google Visualization query</td></tr>
@@ -1619,19 +1678,89 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_view_user_form_ac032c505e3ee6f61b8e7f3a4c37feaae_cgraph.png" border="0" usemap="#class_view_user_form_ac032c505e3ee6f61b8e7f3a4c37feaae_cgraph" alt=""/></div>
 <map name="class_view_user_form_ac032c505e3ee6f61b8e7f3a4c37feaae_cgraph" id="class_view_user_form_ac032c505e3ee6f61b8e7f3a4c37feaae_cgraph">
-<area shape="rect"  title="LitElement lifecycle hook. Re&#45;rendered after any update()." alt="" coords="5,215,161,240"/>
-<area shape="rect"  href="class_view_user_form.html#a83ca9754e2d85274aa5e8beae4f6c117" title="General method to render any type of form field." alt="" coords="209,215,393,240"/>
-<area shape="rect"  href="class_view_user_form.html#ae88c06e6489f2bef5f49abe0e6a34e08" title="Check whether form field should be rendered as a checkbox." alt="" coords="441,5,680,31"/>
-<area shape="rect"  href="class_view_user_form.html#a4a7796273f88f0916f5ccafb0f908f26" title="Check whether form field should be rendered as a radio group." alt="" coords="467,55,654,93"/>
-<area shape="rect"  href="class_view_user_form.html#adb71a119d08c8979e397a7ff15646ac8" title="Check whether form field should be rendered as a drop&#45;down menu." alt="" coords="454,117,667,156"/>
-<area shape="rect"  href="class_view_user_form.html#a9c33888330f48bf362f1934c4383fdc7" title="Check whether form field should be rendered as a date&#45;picker." alt="" coords="471,180,650,219"/>
-<area shape="rect"  href="class_view_user_form.html#abe7bba53e9161bafbbac807d0f0c6c3f" title="Check whether form field should be rendered as an image." alt="" coords="452,243,669,268"/>
-<area shape="rect"  href="class_view_user_form.html#a8dc7eb66c434878d283a194a163fe43f" title="Check whether form field should be rendered as a text input." alt="" coords="473,344,648,383"/>
-<area shape="rect"  href="class_view_user_form.html#af13d16eb98ab1118390a2f6da3fe85e1" title="Check whether form field should be rendered as a special&#45;case &quot;Tag ID&quot;." alt="" coords="749,316,922,355"/>
-<area shape="rect"  href="class_view_user_form.html#a88480cf685ec71871f0965692624a0dd" title="Check whether form field should be rendered as a special&#45;case &quot;Alerts&quot;." alt="" coords="728,379,943,404"/>
-<area shape="rect"  href="class_view_user_form.html#a1602668de2c5924a6b129839d94c3117" title="Check whether a given string represents &quot;yes&quot; (&quot;â&quot;, &quot;t&quot;, &quot;y&quot;, etc)" alt="" coords="749,5,922,31"/>
+<area shape="rect"  title="LitElement lifecycle hook. Re&#45;rendered after any update()." alt="" coords="5,271,161,296"/>
+<area shape="rect"  href="class_view_user_form.html#a21a0ef4f92c20237957770f469013294" title="General method to render a collection of form fields in a &quot;panel&quot;." alt="" coords="209,271,408,296"/>
+<area shape="rect"  href="class_view_user_form.html#a83ca9754e2d85274aa5e8beae4f6c117" title="General method to render any type of form field." alt="" coords="456,271,640,296"/>
+<area shape="rect"  href="class_view_user_form.html#ae88c06e6489f2bef5f49abe0e6a34e08" title="Check whether form field should be rendered as a checkbox." alt="" coords="688,5,928,31"/>
+<area shape="rect"  href="class_view_user_form.html#a4a7796273f88f0916f5ccafb0f908f26" title="Check whether form field should be rendered as a radio group." alt="" coords="715,55,901,93"/>
+<area shape="rect"  href="class_view_user_form.html#a6602c412e04cccf129e8c7b88b37dd7c" title="Render a choice name as a &lt;paper&#45;radio&#45;button&gt;" alt="" coords="710,117,907,156"/>
+<area shape="rect"  href="class_view_user_form.html#adb71a119d08c8979e397a7ff15646ac8" title="Check whether form field should be rendered as a drop&#45;down menu." alt="" coords="702,180,914,219"/>
+<area shape="rect"  href="class_view_user_form.html#a50869d3b8070c4002f22774abbb5ff7a" title="Render a choice name as a &lt;paper&#45;item&gt;" alt="" coords="697,243,919,268"/>
+<area shape="rect"  href="class_view_user_form.html#a9c33888330f48bf362f1934c4383fdc7" title="Check whether form field should be rendered as a date&#45;picker." alt="" coords="718,292,898,331"/>
+<area shape="rect"  href="class_view_user_form.html#abe7bba53e9161bafbbac807d0f0c6c3f" title="Check whether form field should be rendered as an image." alt="" coords="699,355,917,380"/>
+<area shape="rect"  href="class_view_user_form.html#a8dc7eb66c434878d283a194a163fe43f" title="Check whether form field should be rendered as a text input." alt="" coords="720,456,896,495"/>
+<area shape="rect"  href="class_view_user_form.html#af13d16eb98ab1118390a2f6da3fe85e1" title="Check whether form field should be rendered as a special&#45;case &quot;Tag ID&quot;." alt="" coords="997,428,1170,467"/>
+<area shape="rect"  href="class_view_user_form.html#a88480cf685ec71871f0965692624a0dd" title="Check whether form field should be rendered as a special&#45;case &quot;Alerts&quot;." alt="" coords="976,491,1191,516"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="a50869d3b8070c4002f22774abbb5ff7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50869d3b8070c4002f22774abbb5ff7a">&#9670;&nbsp;</a></span>renderChoiceItem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ViewUserForm::renderChoiceItem </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>choice</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Render a choice name as a <code>&lt;paper-item&gt;</code> </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">choice</td><td>String name of choice. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6602c412e04cccf129e8c7b88b37dd7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6602c412e04cccf129e8c7b88b37dd7c">&#9670;&nbsp;</a></span>renderChoiceRadioButton()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ViewUserForm::renderChoiceRadioButton </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>choice</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Render a choice name as a <code>&lt;paper-radio-button&gt;</code> </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">choice</td><td>String name of choice. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1682,18 +1811,74 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_view_user_form_a83ca9754e2d85274aa5e8beae4f6c117_cgraph.png" border="0" usemap="#class_view_user_form_a83ca9754e2d85274aa5e8beae4f6c117_cgraph" alt=""/></div>
 <map name="class_view_user_form_a83ca9754e2d85274aa5e8beae4f6c117_cgraph" id="class_view_user_form_a83ca9754e2d85274aa5e8beae4f6c117_cgraph">
-<area shape="rect"  title="General method to render any type of form field." alt="" coords="5,215,189,240"/>
+<area shape="rect"  title="General method to render any type of form field." alt="" coords="5,271,189,296"/>
 <area shape="rect"  href="class_view_user_form.html#ae88c06e6489f2bef5f49abe0e6a34e08" title="Check whether form field should be rendered as a checkbox." alt="" coords="237,5,477,31"/>
 <area shape="rect"  href="class_view_user_form.html#a4a7796273f88f0916f5ccafb0f908f26" title="Check whether form field should be rendered as a radio group." alt="" coords="264,55,450,93"/>
-<area shape="rect"  href="class_view_user_form.html#adb71a119d08c8979e397a7ff15646ac8" title="Check whether form field should be rendered as a drop&#45;down menu." alt="" coords="251,117,463,156"/>
-<area shape="rect"  href="class_view_user_form.html#a9c33888330f48bf362f1934c4383fdc7" title="Check whether form field should be rendered as a date&#45;picker." alt="" coords="267,180,447,219"/>
-<area shape="rect"  href="class_view_user_form.html#abe7bba53e9161bafbbac807d0f0c6c3f" title="Check whether form field should be rendered as an image." alt="" coords="249,243,466,268"/>
-<area shape="rect"  href="class_view_user_form.html#a8dc7eb66c434878d283a194a163fe43f" title="Check whether form field should be rendered as a text input." alt="" coords="269,344,445,383"/>
-<area shape="rect"  href="class_view_user_form.html#af13d16eb98ab1118390a2f6da3fe85e1" title="Check whether form field should be rendered as a special&#45;case &quot;Tag ID&quot;." alt="" coords="546,312,719,351"/>
-<area shape="rect"  href="class_view_user_form.html#a88480cf685ec71871f0965692624a0dd" title="Check whether form field should be rendered as a special&#45;case &quot;Alerts&quot;." alt="" coords="525,395,740,420"/>
+<area shape="rect"  href="class_view_user_form.html#a6602c412e04cccf129e8c7b88b37dd7c" title="Render a choice name as a &lt;paper&#45;radio&#45;button&gt;" alt="" coords="259,117,456,156"/>
+<area shape="rect"  href="class_view_user_form.html#adb71a119d08c8979e397a7ff15646ac8" title="Check whether form field should be rendered as a drop&#45;down menu." alt="" coords="251,180,463,219"/>
+<area shape="rect"  href="class_view_user_form.html#a50869d3b8070c4002f22774abbb5ff7a" title="Render a choice name as a &lt;paper&#45;item&gt;" alt="" coords="246,243,469,268"/>
+<area shape="rect"  href="class_view_user_form.html#a9c33888330f48bf362f1934c4383fdc7" title="Check whether form field should be rendered as a date&#45;picker." alt="" coords="267,292,447,331"/>
+<area shape="rect"  href="class_view_user_form.html#abe7bba53e9161bafbbac807d0f0c6c3f" title="Check whether form field should be rendered as an image." alt="" coords="249,355,466,380"/>
+<area shape="rect"  href="class_view_user_form.html#a8dc7eb66c434878d283a194a163fe43f" title="Check whether form field should be rendered as a text input." alt="" coords="269,456,445,495"/>
+<area shape="rect"  href="class_view_user_form.html#af13d16eb98ab1118390a2f6da3fe85e1" title="Check whether form field should be rendered as a special&#45;case &quot;Tag ID&quot;." alt="" coords="546,424,719,463"/>
+<area shape="rect"  href="class_view_user_form.html#a88480cf685ec71871f0965692624a0dd" title="Check whether form field should be rendered as a special&#45;case &quot;Alerts&quot;." alt="" coords="525,507,740,532"/>
 <area shape="rect"  href="class_view_user_form.html#a1602668de2c5924a6b129839d94c3117" title="Check whether a given string represents &quot;yes&quot; (&quot;â&quot;, &quot;t&quot;, &quot;y&quot;, etc)" alt="" coords="546,5,719,31"/>
-<area shape="rect"  href="class_view_user_form.html#a3b68ee1525aa381e32b6e0f2cfcc7f32" title="Get the column letter for the users sheet &quot;Tag ID&quot; column." alt="" coords="788,312,970,351"/>
-<area shape="rect"  href="class_view_user_form.html#a1464919f41ce9aa5f65917aa04b32ca4" title="Get the column letter for the users sheet &quot;Alerts&quot; column." alt="" coords="788,388,971,427"/>
+<area shape="rect"  href="class_view_user_form.html#a3b68ee1525aa381e32b6e0f2cfcc7f32" title="Get the column letter for the users sheet &quot;Tag ID&quot; column." alt="" coords="788,424,970,463"/>
+<area shape="rect"  href="class_view_user_form.html#a1464919f41ce9aa5f65917aa04b32ca4" title="Get the column letter for the users sheet &quot;Alerts&quot; column." alt="" coords="788,500,971,539"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a21a0ef4f92c20237957770f469013294"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21a0ef4f92c20237957770f469013294">&#9670;&nbsp;</a></span>renderSection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ViewUserForm::renderSection </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>section</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>General method to render a collection of form fields in a "panel". </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">section</td><td>Object with a <code>title</code> and array of <code>fields[]</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_view_user_form_a21a0ef4f92c20237957770f469013294_cgraph.png" border="0" usemap="#class_view_user_form_a21a0ef4f92c20237957770f469013294_cgraph" alt=""/></div>
+<map name="class_view_user_form_a21a0ef4f92c20237957770f469013294_cgraph" id="class_view_user_form_a21a0ef4f92c20237957770f469013294_cgraph">
+<area shape="rect"  title="General method to render a collection of form fields in a &quot;panel&quot;." alt="" coords="5,271,205,296"/>
+<area shape="rect"  href="class_view_user_form.html#a83ca9754e2d85274aa5e8beae4f6c117" title="General method to render any type of form field." alt="" coords="253,271,437,296"/>
+<area shape="rect"  href="class_view_user_form.html#ae88c06e6489f2bef5f49abe0e6a34e08" title="Check whether form field should be rendered as a checkbox." alt="" coords="485,5,725,31"/>
+<area shape="rect"  href="class_view_user_form.html#a4a7796273f88f0916f5ccafb0f908f26" title="Check whether form field should be rendered as a radio group." alt="" coords="512,55,698,93"/>
+<area shape="rect"  href="class_view_user_form.html#a6602c412e04cccf129e8c7b88b37dd7c" title="Render a choice name as a &lt;paper&#45;radio&#45;button&gt;" alt="" coords="507,117,703,156"/>
+<area shape="rect"  href="class_view_user_form.html#adb71a119d08c8979e397a7ff15646ac8" title="Check whether form field should be rendered as a drop&#45;down menu." alt="" coords="499,180,711,219"/>
+<area shape="rect"  href="class_view_user_form.html#a50869d3b8070c4002f22774abbb5ff7a" title="Render a choice name as a &lt;paper&#45;item&gt;" alt="" coords="494,243,716,268"/>
+<area shape="rect"  href="class_view_user_form.html#a9c33888330f48bf362f1934c4383fdc7" title="Check whether form field should be rendered as a date&#45;picker." alt="" coords="515,292,695,331"/>
+<area shape="rect"  href="class_view_user_form.html#abe7bba53e9161bafbbac807d0f0c6c3f" title="Check whether form field should be rendered as an image." alt="" coords="496,355,714,380"/>
+<area shape="rect"  href="class_view_user_form.html#a8dc7eb66c434878d283a194a163fe43f" title="Check whether form field should be rendered as a text input." alt="" coords="517,456,693,495"/>
+<area shape="rect"  href="class_view_user_form.html#af13d16eb98ab1118390a2f6da3fe85e1" title="Check whether form field should be rendered as a special&#45;case &quot;Tag ID&quot;." alt="" coords="794,428,967,467"/>
+<area shape="rect"  href="class_view_user_form.html#a88480cf685ec71871f0965692624a0dd" title="Check whether form field should be rendered as a special&#45;case &quot;Alerts&quot;." alt="" coords="773,491,987,516"/>
+<area shape="rect"  href="class_view_user_form.html#a1602668de2c5924a6b129839d94c3117" title="Check whether a given string represents &quot;yes&quot; (&quot;â&quot;, &quot;t&quot;, &quot;y&quot;, etc)" alt="" coords="794,5,966,31"/>
 </map>
 </div>
 
@@ -2064,7 +2249,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="struct_query.html">Query</a> for a specific <code>MakerLabs ID</code> and update the form with their details. </p>
+<p>Query for a specific <code>MakerLabs ID</code> and update the form with their details. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">makerLabsId</td><td><code>MakerLabs ID</code> string (ML___)</td></tr>

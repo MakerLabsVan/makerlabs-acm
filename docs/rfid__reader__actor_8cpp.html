@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -124,7 +132,7 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga1fd070e191561cf7166b9d17e161c940"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga1fd070e191561cf7166b9d17e161c940">rfid_reader_actor_behaviour</a> (const Pid &amp;self, StatePtr &amp;_state, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; ResultUnion</td></tr>
+<tr class="memitem:ga1fd070e191561cf7166b9d17e161c940"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga1fd070e191561cf7166b9d17e161c940">rfid_reader_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;_state, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
 <tr class="separator:ga1fd070e191561cf7166b9d17e161c940"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>

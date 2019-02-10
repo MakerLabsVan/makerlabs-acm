@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -137,6 +145,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae9a4211065d3996fbb0018777672770b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_app_shell.html#ae9a4211065d3996fbb0018777672770b">firstUpdated</a> (changedProperties)</td></tr>
 <tr class="memdesc:ae9a4211065d3996fbb0018777672770b"><td class="mdescLeft">&#160;</td><td class="mdescRight">LitElement lifecycle hook. Called after the element's DOM has been updated the first time, immediately before <a class="el" href="class_app_shell.html#ad4097378f6f2e7569c9c5a8cd7f72b30" title="LitElement lifecycle hook. Called whenever the element&#39;s DOM has been updated and rendered.">updated()</a> is called.  <a href="#ae9a4211065d3996fbb0018777672770b">More...</a><br /></td></tr>
 <tr class="separator:ae9a4211065d3996fbb0018777672770b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ba1b8cb19ff2d56a5eacad0af072980"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_app_shell.html#a0ba1b8cb19ff2d56a5eacad0af072980">handleActivityCallback</a> (data)</td></tr>
+<tr class="separator:a0ba1b8cb19ff2d56a5eacad0af072980"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c827163b7018777f88908b93c85b717"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_app_shell.html#a4c827163b7018777f88908b93c85b717">displayDialog</a> (dialogMetadata)</td></tr>
 <tr class="memdesc:a4c827163b7018777f88908b93c85b717"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update dialog metadata, and open a popup dialog immediately.  <a href="#a4c827163b7018777f88908b93c85b717">More...</a><br /></td></tr>
 <tr class="separator:a4c827163b7018777f88908b93c85b717"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -188,6 +198,16 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_app_shell_a97a545a8b86e18e025d2553fb5242748_cgraph.png" border="0" usemap="#class_app_shell_a97a545a8b86e18e025d2553fb5242748_cgraph" alt=""/></div>
+<map name="class_app_shell_a97a545a8b86e18e025d2553fb5242748_cgraph" id="class_app_shell_a97a545a8b86e18e025d2553fb5242748_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,44,153,69"/>
+<area shape="rect"  href="class_app_shell.html#a3d2cc912d5b36e99426952c108e6629c" title="Update currentUser from Firebase User object." alt="" coords="201,5,375,44"/>
+<area shape="rect"  href="class_app_shell.html#a0ba1b8cb19ff2d56a5eacad0af072980" title=" " alt="" coords="206,68,371,107"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -295,7 +315,35 @@ Static Public Member Functions</h2></td></tr>
 <li>Search for this user by row, and display the values</li>
 <li>If <code>item.type</code> is <code>"machine"</code>:</li>
 <li>Unsubscribe from previous Firebase Database path: <code>readers/{machineId}/latestUser</code></li>
-<li>Subscribe to Firebase Database path: <code>readers/{machineId}/latestUser</code>, if <code>value</code> is updated:</li>
+<li>Subscribe to Firebase Database path: <code>readers/{machineId}/latestUser</code>, if <code>value</code> is updated: </li>
+</ul>
+
+</div>
+</div>
+<a id="a0ba1b8cb19ff2d56a5eacad0af072980"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ba1b8cb19ff2d56a5eacad0af072980">&#9670;&nbsp;</a></span>handleActivityCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">AppShell::handleActivityCallback </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<ul>
 <li>Clear form and update with Firebase values immediately</li>
 <li>Fetch full user row to update all form fields </li>
 </ul>
@@ -576,8 +624,8 @@ Here is the call graph for this function:</div>
 <p>If the <code>fields</code> property has changed and is non-empty:</p>
 <ul>
 <li>If initial search query was supplied (e.g. in the URL), fetch initial form data by <code>Name</code> or <code>MakerLabs ID</code></li>
-<li><a class="el" href="struct_query.html">Query</a> all machines, use as the top entries in the search bar</li>
-<li><a class="el" href="struct_query.html">Query</a> all users and add to the search bar </li>
+<li>Query all machines, use as the top entries in the search bar</li>
+<li>Query all users and add to the search bar </li>
 </ul>
 
 </div>

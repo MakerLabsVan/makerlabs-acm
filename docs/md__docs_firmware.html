@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -103,13 +111,41 @@ $(document).ready(function(){initNavTree('md__docs_firmware.html','');});
 <div class="title">firmware/ </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md21"></a>
-COMING SOON</h1>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md22"></a>
+Overview</h1>
+<p>The ESP32 <a href="https://github.com/espressif/esp-idf">Espressif IoT Development Framework / <code>esp-idf</code></a> based on FreeRTOS is used for the Reader unit firmware.</p>
+<h1><a class="anchor" id="autotoc_md23"></a>
+Design</h1>
+<h2><code>esp32-network-lib</code> Support Library</h2>
+<h2>Pinned <code>esp-idf</code> version, component versions</h2>
+<p>A <a href="https://github.com/paulreimer/mbedtls/tree/new-esp-idf">custom mbedtls component (@paulreimer/mbedtls#new-esp-idf)</a> is used based on a fork that uses dynamic memory allocation for the TLS contexts. This allows multiple concurrent TLS sessions on the ESP32, which would otherwise trigger an out-of-memory condition.</p>
+<p>As a result, the <code>esp-idf</code> repository and several components are pinned to the latest version which supports the custom <code>mbedtls</code> component.</p>
+<p>The following versions are the last-known good ones:</p><ul>
+<li><code>esp-idf</code> @ <a href="https://github.com/espressif/esp-idf/tree/d56a400709a4f6c3c76550da74d61400ba78db8e">d56a400</a></li>
+<li><code>components/mbedtls</code> @ <a href="https://github.com/paulreimer/mbedtls/tree/4a027f797914d33c6046c6c17839ebc8b996c7bc">4a027f7</a></li>
+<li><code>components/esp32</code></li>
+<li><code>components/nvs_flash</code></li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>Where possible, <code>esp-idf</code>'s <code>CMake</code> integration (using <code>CMakeLists.txt</code>) should be used. <code>Makefile</code>s (using <code>component.mk</code>) are still supported but otherwise deprecated.</dd></dl>
+<h2>Custom <code>esp-idf</code> Components</h2>
+<h3><code>u8g2</code> OLED Screen Library</h3>
+<p>The <a href="https://github.com/olikraus/u8g2">u8g2</a> library is used to display text on the OLED display screen. The custom interface between the library and the ESP32 I2C driver is implemented in the <code><a class="el" href="u8g2__esp32__hal_8cpp.html">u8g2_esp32_hal.cpp</a></code> file.</p>
+<h3><code>wiegand_reader</code> HID Global iClass RFID Reader</h3>
+<p>A custom component for extracting the RFID tag bits from an HID Global iClass series reader. These readers use the 2-wire Wiegand protocol, which is mapped to two ESP32 GPIOs.</p>
+<p>The <code>wiegand_reader</code> component is split into three classes:</p><ul>
+<li>A <code><a class="el" href="class_wiegand_reader.html">WiegandReader</a></code> base class, implementing the GPIOs and 26-bit tag read functionality.</li>
+<li>An <code><a class="el" href="class_h_i_d_global_reader.html">HIDGlobalReader</a></code> class extending <code><a class="el" href="class_wiegand_reader.html">WiegandReader</a></code> to support a tag scanning state-machine which uses the HOLD pin to re-trigger a periodic tag read. Also supports toggling the beeper and green/red LEDs through additional GPIO pins.</li>
+<li>An <code><a class="el" href="struct_h_i_d_global_tag_i_d.html">HIDGlobalTagID</a></code> helper class which validates the 26-bit tag read data (via parity check), and extracts the <code>facility_code</code> and <code>card_number</code>.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md24"></a>
+Configuration</h1>
+<h1><a class="anchor" id="autotoc_md25"></a>
+Deployment</h1>
 <p> 
 <div class="mermaid">
 </div>
 </p>
-<h1><a class="anchor" id="autotoc_md22"></a>
+<h1><a class="anchor" id="autotoc_md26"></a>
 API Reference</h1>
 <p><a class="el" href="group__firmware.html">firmware/ API Documentation</a> </p>
 </div></div><!-- PageDoc -->

@@ -6,5 +6,6 @@ var searchData=
   ['image_2dfile_2duploader_2ejs',['image-file-uploader.js',['../image-file-uploader_8js.html',1,'']]],
   ['index_2daws_2ejs',['index-aws.js',['../index-aws_8js.html',1,'']]],
   ['index_2edart',['index.dart',['../index_8dart.html',1,'']]],
-  ['index_2ejs',['index.js',['../functions_2index_8js.html',1,'(Global Namespace)'],['../scripts_2views_2index_8js.html',1,'(Global Namespace)']]]
+  ['index_2ejs',['index.js',['../functions_2index_8js.html',1,'(Global Namespace)'],['../scripts_2views_2index_8js.html',1,'(Global Namespace)']]],
+  ['initial_5fproject_5fsetup_2emd',['initial_project_setup.md',['../initial__project__setup_8md.html',1,'']]]
 ];

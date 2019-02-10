@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -103,30 +111,39 @@ $(document).ready(function(){initNavTree('migration_checklist.html','');});
 <div class="title">Migration/Configuration Changes Checklist </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md46"></a>
-COMING SOON</h1>
-<h1><a class="anchor" id="autotoc_md47"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md56"></a>
 Google Sheets, Drive, Cloud Integration Setup Steps</h1>
 <ul>
-<li>[ ] Be logged in with the target Google Apps user, and logged out of all other users. A Chrome incognito window works best.</li>
+<li>Be logged in with the target Google Apps user, and logged out of all other users. A Chrome incognito window works best.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md48"></a>
+<h1><a class="anchor" id="autotoc_md57"></a>
 Developer / Workstation Setup Steps</h1>
 <ul>
-<li>[ ] Make sure you have followed the steps in the <a class="el" href="_r_e_a_d_m_e_8md.html">README.md</a>, at the minimum installing <code>brew</code>, <code>yarn</code>, and running <code>make deps</code>.</li>
+<li>Make sure you have followed the steps in the <a class="el" href="_r_e_a_d_m_e_8md.html">README.md</a>, at the minimum installing <code>brew</code>, <code>yarn</code>, and running <code>make deps</code>.</li>
 </ul>
 <h2>Google APIs Enable Steps</h2>
 <ul>
-<li>[ ] Enable Google Apps Script API for Google Cloud Platform project: &gt; <a href="https://console.developers.google.com/flows/enableapi?apiid=script">https://console.developers.google.com/flows/enableapi?apiid=script</a></li>
-<li>[ ] Enable Google Drive API for Google Cloud Platform project: &gt; <a href="https://console.developers.google.com/flows/enableapi?apiid=drive">https://console.developers.google.com/flows/enableapi?apiid=drive</a></li>
-<li>[ ] Enable the Google Apps Script API for your personal Google Apps user: &gt; <a href="https://script.google.com/home/usersettings">https://script.google.com/home/usersettings</a></li>
+<li>Enable Google Apps Script API for Google Cloud Platform project: <blockquote class="doxtable">
+<p><a href="https://console.developers.google.com/flows/enableapi?apiid=script">https://console.developers.google.com/flows/enableapi?apiid=script</a> </p>
+</blockquote>
+</li>
+<li>Enable Google Drive API for Google Cloud Platform project: <blockquote class="doxtable">
+<p><a href="https://console.developers.google.com/flows/enableapi?apiid=drive">https://console.developers.google.com/flows/enableapi?apiid=drive</a> </p>
+</blockquote>
+</li>
+<li>Enable the Google Apps Script API for your personal Google Apps user: <blockquote class="doxtable">
+<p><a href="https://script.google.com/home/usersettings">https://script.google.com/home/usersettings</a> </p>
+</blockquote>
+</li>
 </ul>
 <h2>Google OAuth Client Creation Steps</h2>
 <ul>
-<li><p class="startli">[ ] Create a Google Cloud OAuth client: &gt; <a href="https://console.developers.google.com/apis/credentials">https://console.developers.google.com/apis/credentials</a></p>
+<li><p class="startli">Create a Google Cloud OAuth client: </p><blockquote class="doxtable">
+<p><a href="https://console.developers.google.com/apis/credentials">https://console.developers.google.com/apis/credentials</a> </p>
+</blockquote>
 <p class="startli">Use the <code>Create credentials -&gt; OAuth client ID</code> button to create a new 'OAuth client ID' with the following settings:</p><ul>
 <li>Application Type: <code>Web Application</code></li>
-<li>Name: <code>MakerLabs ACM Offline Access Requests</code></li>
+<li>Name: <code>MakerLabs ACM Offline Access <a class="el" href="namespace_requests.html">Requests</a></code></li>
 <li>Authorized JavaScript origins:<ul>
 <li><code><a href="http://127.0.0.1">http://127.0.0.1</a></code></li>
 </ul>
@@ -138,7 +155,7 @@ Developer / Workstation Setup Steps</h1>
 </li>
 </ul>
 </li>
-<li>[ ] Obtain a refresh token (for the user whose Google Drive credentials will be used by the firmware)<ul>
+<li>Obtain a refresh token (for the user whose Google Drive credentials will be used by the firmware)<ul>
 <li>Run the local script: &gt; <code>./bin/oauth_server.sh</code></li>
 <li>When prompted, provide the <code>OAuth Client ID</code> and <code>OAuth Client Secret</code> from the credentials created above.</li>
 <li>A browser window will popup, and the correct Google user should be selected here, logging in/out as necessary.</li>
@@ -151,56 +168,65 @@ Developer / Workstation Setup Steps</h1>
 </ul>
 <h2>Google Drive OTA Firmware Folder Creation Steps</h2>
 <ul>
-<li>[ ] Create or re-use a Google Drive folder within the organization's Drive to hold the firmware files (e.g A new folder named "MakerLabs ACM Firmware")</li>
-<li>[ ] Open the <code>firmware/build</code> directory from this repo:<ul>
+<li>Create or re-use a Google Drive folder within the organization's Drive to hold the firmware files (e.g A new folder named "MakerLabs ACM Firmware")</li>
+<li>Open the <code>firmware/build</code> directory from this repo:<ul>
 <li><code>open firmware/build</code></li>
 </ul>
 </li>
-<li>[ ] Upload two (empty) files from within the <code>firmware/build/</code> directory to the Drive folder used above:<ul>
+<li>Upload two (empty) files from within the <code>firmware/build/</code> directory to the Drive folder used above:<ul>
 <li><code>firmware/build/latest.fw.fb</code></li>
 <li><code>firmware/build/makerlabs-acm-reader-lock.bin</code></li>
 </ul>
 </li>
-<li>[ ] Right-click each file uploaded above, select 'Get Shareable Link&lsquo;, and click the toggle to enable sharing that file. Click the 'Sharing settings&rsquo; link and make sure the permissions are set appropriately (e.g. Organization-only viewing)</li>
+<li>Right-click each file uploaded above, select 'Get Shareable Link`, and click the toggle to enable sharing that file.<ul>
+<li>Click the 'Sharing settings' link and make sure the permissions are set appropriately (e.g. Organization-only viewing)</li>
+</ul>
+</li>
 </ul>
 <h2>Google Apps Script Steps</h2>
 <ul>
-<li>[ ] Create a Google Apps Script project &gt; From inside the Google Drive Spreadsheet, under <code>Tools -&gt; Script Editor</code><ul>
+<li>Create a Google Apps Script project <blockquote class="doxtable">
+<p>From inside the Google Drive Spreadsheet, under <code>Tools -&gt; Script Editor</code> </p>
+</blockquote>
+<ul>
 <li>Select and existing project, or create a new one</li>
 <li>Ensure the Google Apps Script project has a title set, and has been saved</li>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md49"></a>
+<h1><a class="anchor" id="autotoc_md58"></a>
 Configuration Steps</h1>
 <h2>Obtain the following pieces of information:</h2>
 <ul>
-<li>[ ] From the MakerLabs wifi network:<ul>
+<li>From the MakerLabs wifi network:<ul>
 <li><code>Wifi SSID</code> (2.4GHz-only)</li>
 <li><code>Wifi Password</code></li>
 </ul>
 </li>
-<li>[ ] From the GitHub repo:<ul>
+<li>From the GitHub repo:<ul>
 <li><code>GitHub organization/user name</code></li>
 <li><code>GitHub repo name</code></li>
 <li><code>GitHub repo branch</code></li>
 </ul>
 </li>
-<li>[ ] From the OAuth client ID credentials: &gt; <a href="https://console.developers.google.com/apis/credentials">https://console.developers.google.com/apis/credentials</a><ul>
+<li>From the OAuth client ID credentials: <blockquote class="doxtable">
+<p><a href="https://console.developers.google.com/apis/credentials">https://console.developers.google.com/apis/credentials</a> </p>
+</blockquote>
+<ul>
 <li><code>Client ID</code></li>
 <li><code>Client secret</code></li>
 </ul>
 </li>
-<li>[ ] From the Google Drive Spreadsheet:<ul>
+<li>From the Google Drive Spreadsheet:<ul>
 <li><code>Spreadsheet ID</code></li>
 <li><code>Permissions column name</code></li>
 </ul>
 </li>
-<li>[ ] From the Google Apps Script project:<ul>
+<li>From the Google Apps Script project:<ul>
 <li><code>Script ID</code> (from <code>File -&gt; Project Properties -&gt; Script ID</code>)</li>
 </ul>
 </li>
-<li>[ ] From the Google Drive firmware folder:<ul>
+<li>From the Google Drive firmware folder:<ul>
 <li>Drive <code>id</code> of <code>latest.fw.fb</code> file (In Google Drive, right-click the file -&gt; <code>Get Sharable Link</code>. copy the portion <em>after</em> "https://drive.google.com/open?id=")</li>
 <li>Drive <code>id</code> of <code>makerlabs-acm-reader-lock.bin</code> file</li>
 </ul>
@@ -211,23 +237,23 @@ Configuration Steps</h1>
 <p>The following settings are modified in the text GUI available via running <code>yarn firmware menuconfig</code> </p>
 </blockquote>
 <ul>
-<li>[ ] Update the Wifi info where it is used:<ul>
+<li>Update the Wifi info where it is used:<ul>
 <li><code>MakerLabs ACM Configuration -&gt; Wifi SSID</code></li>
 <li><code>MakerLabs ACM Configuration -&gt; Wifi Password</code></li>
 </ul>
 </li>
-<li>[ ] Update the Google Sheets info where it is used:<ul>
+<li>Update the Google Sheets info where it is used:<ul>
 <li><code>MakerLabs ACM Configuration -&gt; Permission Column Label</code></li>
 <li><code>MakerLabs ACM Configuration -&gt; Google Apps Spreadsheet ID</code></li>
 </ul>
 </li>
-<li>[ ] Update the Google OAuth client info where it is used:<ul>
+<li>Update the Google OAuth client info where it is used:<ul>
 <li><code>MakerLabs ACM Configuration -&gt; OAuth Client ID</code></li>
 <li><code>MakerLabs ACM Configuration -&gt; OAuth Client Secret</code></li>
 <li><code>MakerLabs ACM Configuration -&gt; OAuth Refresh Token</code></li>
 </ul>
 </li>
-<li>[ ] Update the Google Drive OTA firmware info where it is used:<ul>
+<li>Update the Google Drive OTA firmware info where it is used:<ul>
 <li><code>Firmware Update / OTA Configuration -&gt; Firmware Update Latest Version URL</code> The full HTTPS download URL to the Google Drive file <code>id</code> for <code>latest.fw.fb</code> found as: <code><a href="https://www.googleapis.com/drive/v3/files/">https://www.googleapis.com/drive/v3/files/</a>&lt;id&gt;?alt=media</code></li>
 <li><code>Firmware Update / OTA Configuration -&gt; Firmware Update Check URL</code> The full HTTPS download URL to the Google Drive file <code>id</code> for <code>makerlabs-acm-reader-lock.bin</code> found as: <code><a href="https://www.googleapis.com/drive/v3/files/">https://www.googleapis.com/drive/v3/files/</a>&lt;id&gt;?alt=media</code></li>
 </ul>
@@ -235,15 +261,16 @@ Configuration Steps</h1>
 </ul>
 <h2>Configure the webapp with the information above:</h2>
 <ul>
-<li>[ ] Update the GitHub repo info where it is used:<ul>
-<li><code>webapp/views/AppLayoutTemplate.html</code> ``` &lt;base href="https://cdn.rawgit.com/&lt;GITHUB_ORG&gt;/&lt;REPO_NAME&gt;/&lt;BRANCH_NAME&gt;/webcomponents/bower_components/"&gt; ``<code> -</code>git add webapp/views/AppLayoutTemplate.html &amp;&amp; git commit`</li>
+<li>Update the GitHub repo info where it is used:<ul>
+<li><code>webapp/views/AppLayoutTemplate.html</code> <div class="fragment"><div class="line">&lt;base href=&quot;https://cdn.rawgit.com/&lt;GITHUB_ORG&gt;/&lt;REPO_NAME&gt;/&lt;BRANCH_NAME&gt;/webcomponents/bower_components/&quot;&gt;</div></div><!-- fragment --></li>
+<li><code>git add webapp/views/AppLayoutTemplate.html &amp;&amp; git commit</code></li>
 </ul>
 </li>
 </ul>
 <h2>Build and upload the firmware</h2>
 <ul>
-<li>[ ] Build the firmware with the above configuration applied: &gt; yarn make erash_flash flash monitor</li>
-<li>[ ] Replace the uploaded firmware files in Google Drive </li>
+<li>Build the firmware with the above configuration applied: &gt; yarn make erash_flash flash monitor</li>
+<li>Replace the uploaded firmware files in Google Drive </li>
 </ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->

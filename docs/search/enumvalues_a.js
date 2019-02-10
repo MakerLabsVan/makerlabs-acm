@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['lessthan',['LessThan',['../visualization_8fbs.html#abebfbc5fafd12c0a9f818752b89138eeac6d9d7bb9939f62f01c80f8b1251501c',1,'visualization.fbs']]],
-  ['lessthanorequalto',['LessThanOrEqualTo',['../visualization_8fbs.html#abebfbc5fafd12c0a9f818752b89138eea67827f79b05c979b2378e9514bb7e741',1,'visualization.fbs']]],
-  ['like',['Like',['../visualization_8fbs.html#abebfbc5fafd12c0a9f818752b89138eea98b82c200a2e309b24cb481970f3fcc4',1,'visualization.fbs']]]
+  ['rest_5ffor_5fone',['rest_for_one',['../actor__model_8fbs.html#a7d1b3b3ea2ce6cad62af1110fa8c9f8fad35cdf48ef6ecab2193a5f6401b15bf9',1,'actor_model.fbs']]]
 ];

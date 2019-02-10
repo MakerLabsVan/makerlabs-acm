@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -103,13 +111,93 @@ $(document).ready(function(){initNavTree('md__docs_scripts.html','');});
 <div class="title">scripts/ </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md50"></a>
-COMING SOON</h1>
-<p> 
-<div class="mermaid">
-</div>
-</p>
-<h1><a class="anchor" id="autotoc_md51"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md59"></a>
+Overview</h1>
+<p><a href="https://developers.google.com/apps-script/">Google Apps Script</a> is used by the ACM to extend the functionality of Google Spreadsheets for the ACM spreadsheet.</p>
+<p>The files in the <code>scripts/</code> directory are synced to the Google Apps Script project using the <a href="https://github.com/google/clasp"><code>clasp</code> command line tool</a>.</p>
+<p>The Google Apps Script project should have time-based triggers enabled in order to send e-mails, and must be published as a web app in order for the ACM website to be able to interact with spreadsheet data.</p>
+<h1><a class="anchor" id="autotoc_md60"></a>
+Design</h1>
+<p>The Javascript functions in <code>scripts/</code> perform three main tasks based on the Google Spreadsheet data:</p><ul>
+<li>send daily usage and weekly billing e-mails,</li>
+<li>provide access to Google Spreadsheet data to outside sources, such as the ACM website,</li>
+<li>extend the Google Spreadsheet UI with additional functionality.</li>
+</ul>
+<p>Each of the functions responsible for the tasks above accesses the Google Spreadsheet data using the the Google Apps Script <a href="https://developers.google.com/apps-script/reference/spreadsheet/sheet"><code>Spreadsheet API</code></a> classes: <a href="https://developers.google.com/apps-script/reference/spreadsheet/range"><code>Range</code></a>, <a href="https://developers.google.com/apps-script/reference/spreadsheet/named-range"><code>NamedRange</code></a>, and <a href="https://developers.google.com/apps-script/reference/spreadsheet/sheet"><code>Sheet</code></a>.</p>
+<h2>Send Usage / Billing E-mails</h2>
+<p>The <a href="https://developers.google.com/apps-script/reference/mail/mail-app"><code>MailApp</code></a> Google Apps Script class is used to send usage e-mails directly to Makers, CC'd to <a href="#" onclick="location.href='mai'+'lto:'+'hel'+'lo'+'@ma'+'ke'+'rla'+'bs'+'.co'+'m'; return false;">hello<span style="display: none;">.nosp@m.</span>@mak<span style="display: none;">.nosp@m.</span>erlab<span style="display: none;">.nosp@m.</span>s.co<span style="display: none;">.nosp@m.</span>m</a>.</p>
+<p>The e-mail sending process is triggered via <a href="https://developers.google.com/apps-script/guides/triggers/installable">time-based Google Apps Script triggers</a> which scan all data rows in the "Activity, De-duped" sheet. Each row has a specific timestamp column (a separate column for each type of e-mail) which must be empty for the row to be processed in the e-mail summary.</p>
+<p>There are two different types of e-mail which share the same e-mail template and processing logic:</p><ul>
+<li>"usage" e-mails, processed daily at 5pm ~ 6pm, which are sent to the Maker's e-mail address and CC'd to <code>hello@makerlabs.com</code>. These summarize the usage for a single Maker, across all machines, in the last day.</li>
+<li>"billing" e-mails, processed weekly on Friday afternoons, which are sent to <code>hello@makerlabs.com</code> and summarize the monthly usage for multiple Makers, across all machines, for all Makers which have their <code>Billing Date</code> in that week.</li>
+</ul>
+<p>Sending of e-mails is performed by the following two trigger functions in <code>scripts/trigger</code>:</p><ul>
+<li><a class="el" href="group__scripts.html#gac6a29586ba9b7e14be41736617385f98">triggerActivitySendUsageEmails</a> sends possibly multiple usage e-mails.</li>
+<li><a class="el" href="group__scripts.html#ga7c72f3c10360ea0f10c5fda8f831baf6">triggerActivitySendBillingEmails</a> sends the billing e-mail.</li>
+</ul>
+<p>Both of these trigger functions rely on the same templates and rendering function <a class="el" href="group__scripts.html#ga8ec0c5ee29de83874b77286202257296">sendActivitySummaryEmail</a>.</p>
+<p>The HTML content for the e-mail is configured in the HTML files in the <code>scripts/templates/</code> directory, as described in the <a href="#branded_email_templates"><code>Branded E-mail Templates</code> configuration section</a>.</p>
+<h2>Web App Handlers To Access Spreadsheet Data From Website</h2>
+<p>In order to provide access to the Google Spreadsheet data from the ACM Website, the <a href="https://developers.google.com/apps-script/guides/web">Web Apps</a> Google Apps Script functionality is used. The <a class="el" href="group__scripts.html#ga690324a39e29f40ffac88f9941274045">doGet</a> function is the entrypoint to all HTTP requests to the handler. Only a single URL path is allowed, so the <code>?href=</code> query string argument is checked to determine which specific view to use.</p>
+<p>The following two views are currently used:</p><ul>
+<li><code>?href=next-makerlabs-id</code>: <a class="el" href="group__scripts.html#ga1563c567e0a569ba0b76a1eae80eb030">viewNextMakerLabsId</a> returns the next available <code>MakerLabs ID</code>.</li>
+<li><code>?href=users-fields</code>: <a class="el" href="group__scripts.html#ga49cf645db900e4b3091b8e21332bbb81">viewUsersFields</a> returns the "Users" sheet section headers, column headers and validation/widget type in JSON format.</li>
+</ul>
+<h2>(Optional) Enforce Formatting In "Users" Sheet</h2>
+<p>The <a class="el" href="group__scripts.html#gaccccb69110472d3a7861b2d198345425">enforceFormattingInRange</a> function checks the formatting for the first data row (non-header/frozen row) in the "Users" sheet, and ensures that formatting changes in other rows are reverted. If this function is configured with the <a class="el" href="group__scripts.html#gaed3fe29954a9d95a8c15d462e127722d">onChange trigger function</a> and/or the <a class="el" href="group__scripts.html#ga6e1ddc0d7b7eefe6b4d8dd23e04b05ef">onEdit trigger function</a> then changing the first data row is the only way to affect formatting and any changes will be applied to all other data rows.</p>
+<h1><a class="anchor" id="autotoc_md61"></a>
+Configuration</h1>
+<h2><a class="anchor" id="branded_email_templates"></a>
+Branded E-mail Templates</h2>
+<p>The e-mail templates are located in <code>scripts/templates/</code>. They are written in HTML, using Google Apps Script <a href="https://developers.google.com/apps-script/guides/html/templates">HTML Service Templated HTML</a> for loading dynamic content generated by the functions in <code>scripts/views/</code>.</p>
+<p>The following three templates are used:</p><ul>
+<li><code><a class="el" href="branded-email_8html.html" title="E-mail template content wrapper/theme, using MUI (Material Design CSS Framework) panels.">branded-email.html</a></code>, (top-level), E-mail template content wrapper/theme, using <a href="https://www.muicss.com/">MUI (Material Design CSS Framework)</a> panels.</li>
+<li><code><a class="el" href="activity-usage-email_8html.html" title="E-mail template to render activitySummary for possibly multiple MakerLabs IDs, showing details,...">activity-usage-email.html</a></code>, E-mail template to render <code>activitySummary</code> for possibly multiple MakerLabs IDs, showing details, summary and usage totals.</li>
+<li><code><a class="el" href="thank-you-footer_8html.html" title="E-mail template footer containing MakerLabs contact info &amp; hours.">thank-you-footer.html</a></code>, E-mail template footer containing MakerLabs contact info &amp; hours.</li>
+</ul>
+<h2>Google Apps Script Triggers</h2>
+<p><a href="https://developers.google.com/apps-script/guides/triggers/installable">Google Apps Script triggers</a> can be configured by:</p><ol type="1">
+<li>Selecting <code>Script Editor</code> from the <code>Tools</code> menu of the Google Sheet. <div class="image">
+<img src="Spreadsheet_Tools_ScriptEditor_cropped.png" alt="Spreadsheet_Tools_ScriptEditor_cropped.png"/>
+<div class="caption">
+Screenshot of opening Google Apps Script 'Script Editor'</div></div>
+</li>
+<li>Selecting the stopwatch icon from the menubar of the <code>Script Editor</code>. ![Screenshot of selecting <code>Triggers</code> in 'Script Editor'](ScriptEditor_Triggers_cropped.png "`Script Editor` -&gt; Triggers (Stopwatch icon)")</li>
+<li>Configure the following triggers as shown in the screenshot below:<ul>
+<li>Time-based: <code>triggerActivitySendUsageEmails</code> (e.g. 5pm~6pm Daily)</li>
+<li>Time-based: <code>triggerActivitySendBillingEmails</code> (e.g. Friday Afternoon) <div class="image">
+<img src="ScriptEditor_Triggers_cropped.png" alt="ScriptEditor_Triggers_cropped.png"/>
+<div class="caption">
+Screenshot of Google Apps Script Triggers Configuration Page</div></div>
+</li>
+</ul>
+</li>
+</ol>
+<h2>Google Apps Script Website Deployment</h2>
+<p>In order to allow the ACM website to access Google Spreadsheet data, the Google Apps Script project must be published as a web app. This enables the <code>?href=users-fields</code> and <code>?href=next-makerlabs-id</code> Web App handlers for public use.</p>
+<p>To deploy the web app (one-time setup), perform the following steps:</p><ol type="1">
+<li>Selecting <code>Script Editor</code> from the <code>Tools</code> menu of the Google Sheet. <div class="image">
+<img src="Spreadsheet_Tools_ScriptEditor_cropped.png" alt="Spreadsheet_Tools_ScriptEditor_cropped.png"/>
+<div class="caption">
+Screenshot of opening Google Apps Script 'Script Editor'</div></div>
+</li>
+<li>Choose <code>Publish</code> -&gt; <code>Deploy as web app</code> from the menubar of the <code>Script Editor</code>. <div class="image">
+<img src="ScriptEditor_DeployAsWebApp_cropped.png" alt="ScriptEditor_DeployAsWebApp_cropped.png"/>
+<div class="caption">
+Screenshot of Selecting `Deploy as web app` in `Script Editor`</div></div>
+</li>
+</ol>
+<h2>Hard-coded Spreadsheet Details</h2>
+<p>The Google Apps Script <code>projectId</code> is stored in the <code>.clasp.json</code> file.</p>
+<h1><a class="anchor" id="autotoc_md62"></a>
+Deployment</h1>
+<p>The <a href="https://github.com/google/clasp"><code>clasp</code> command line tool</a> is used to sync files from the <code>scripts/</code> directory to Google Apps Script.</p>
+<dl class="section note"><dt>Note</dt><dd>The <code>*.gs</code> files should NOT be modified from within the <code>Script Editor</code> UI as they are overwritten by the repo files when using the <code>clasp push</code> command.</dd></dl>
+<h2>Login (one-time setup)</h2>
+<p><code>clasp</code> uses Google credentials to upload files to the Google Apps Script project, so a one-time login process must be performed to login with your Google Account and grant access to <code>clasp</code>.</p>
+<p>To login, run the following: </p><div class="fragment"><div class="line">yarn apps-login</div></div><!-- fragment --><h2>Deploy</h2>
+<p>To sync the current <code>script/</code> files to the Google Apps Script project, run the following: </p><div class="fragment"><div class="line">yarn deploy</div></div><!-- fragment --><dl class="section note"><dt>Note</dt><dd><code>clasp</code> will upload to the Google Apps Script <code>scriptID</code> configured in the <code>.clasp.json</code> config file.</dd></dl>
+<h1><a class="anchor" id="autotoc_md63"></a>
 API Reference</h1>
 <p><a class="el" href="group__scripts.html">scripts/ API Documentation</a> </p>
 </div></div><!-- PageDoc -->

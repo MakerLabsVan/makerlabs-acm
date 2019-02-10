@@ -170,7 +170,6 @@ var group__firmware =
     [ "beep", "group__firmware.html#gaf1f8892fc6a2558575889ff5e3cefb47", null ],
     [ "beep_timer_isr", "group__firmware.html#ga92feef0b3f93c4bd4e20b3ab81877428", null ],
     [ "display_behaviour", "group__firmware.html#ga32cbe146c6f35d870248f5b921f35e78", null ],
-    [ "display_behaviour", "group__firmware.html#gafa385f1054ae6c113aa67d51ad1969ae", null ],
     [ "generate_activity", "group__firmware.html#ga8bf5f9a386f7a7d080fefca52359234f", null ],
     [ "generate_activity", "group__firmware.html#gac9d3483c43167d351b2b0d9989a3e587", null ],
     [ "generate_log", "group__firmware.html#ga04d2987521d80af3aec4fa9ede78411c", null ],

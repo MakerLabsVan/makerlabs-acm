@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -106,14 +114,14 @@ $(document).ready(function(){initNavTree('start__request__manager_8cpp.html','')
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="start__request__manager_8h_source.html">start_request_manager.h</a>&quot;</code><br />
-<code>#include &quot;actor_model.h&quot;</code><br />
-<code>#include &quot;filesystem.h&quot;</code><br />
-<code>#include &quot;request_manager_actor.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="actor__model_8h_source.html">actor_model.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="filesystem_8h_source.html">filesystem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="request__manager__actor_8h_source.html">request_manager_actor.h</a>&quot;</code><br />
 <code>#include &lt;chrono&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga7e4ffb20ac7a308e9693544d2837cdea"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga7e4ffb20ac7a308e9693544d2837cdea">start_request_manager</a> (const Pid &amp;sup_pid, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; ResultUnion</td></tr>
+<tr class="memitem:ga7e4ffb20ac7a308e9693544d2837cdea"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga7e4ffb20ac7a308e9693544d2837cdea">start_request_manager</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;sup_pid, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
 <tr class="separator:ga7e4ffb20ac7a308e9693544d2837cdea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

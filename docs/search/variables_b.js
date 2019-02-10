@@ -7,9 +7,13 @@ var searchData=
   ['last_5fmotor_5factivity_5ftimestamp',['last_motor_activity_timestamp',['../struct_machine_actor_state.html#a56f1deba231b2bd0884e74cf4cf5edcc',1,'MachineActorState']]],
   ['last_5fmotor_5fpulse_5fcount',['last_motor_pulse_count',['../struct_machine_actor_state.html#a827338a6083031a4fa1755415bf7317d',1,'MachineActorState']]],
   ['last_5fmotor_5fpulse_5ftimestamp',['last_motor_pulse_timestamp',['../struct_machine_actor_state.html#ab3535171df308f0e04069257af9ff171',1,'MachineActorState']]],
+  ['last_5fntp_5fconnect_5ftimestamp',['last_ntp_connect_timestamp',['../struct_network_manager_1_1_n_t_p_actor_state.html#adeaded239af4400357cfbb37ce2ae1a1',1,'NetworkManager::NTPActorState']]],
   ['last_5fprogress_5fbar_5fmessage',['last_progress_bar_message',['../struct_display_actor_state.html#ab8bb7a8b6669c59198e5a5ffde2337f4',1,'DisplayActorState']]],
+  ['last_5freset_5fpressed',['last_reset_pressed',['../struct_firmware_update_1_1_firmware_update_actor_state.html#add0be3b1e64245f66c43ca7688e4ea73',1,'FirmwareUpdate::FirmwareUpdateActorState']]],
+  ['last_5freset_5fpressed_5finterval',['last_reset_pressed_interval',['../struct_firmware_update_1_1_firmware_update_actor_state.html#ad72ae254d204f74e1c958e8839b313ff',1,'FirmwareUpdate::FirmwareUpdateActorState']]],
   ['last_5fscanned_5ftag',['last_scanned_tag',['../class_h_i_d_global_reader.html#a778e732b9e037355cd1eff73a0ee7970',1,'HIDGlobalReader']]],
   ['leading_5fbits',['leading_bits',['../struct_h_i_d_global_tag_i_d_1_1_parity_view.html#a680e3e0ac137ba8a53153f624516bf03',1,'HIDGlobalTagID::ParityView']]],
   ['leading_5fparity_5fbit',['leading_parity_bit',['../struct_h_i_d_global_tag_i_d_1_1_tag_format_view.html#ae2a02e118b8581138d493d4c23478708',1,'HIDGlobalTagID::TagFormatView']]],
+  ['links',['links',['../class_actor_model_1_1_process.html#ada64a3482c98c9bbc720a2e836c1bbdd',1,'ActorModel::Process']]],
   ['logged_5fin',['logged_in',['../struct_app_actor_state.html#a18f88dd4d6b4e688b0ee2c61bb7a6fb8',1,'AppActorState']]]
 ];

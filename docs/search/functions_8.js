@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['handleactivitycallback',['handleActivityCallback',['../class_app_shell.html#a0ba1b8cb19ff2d56a5eacad0af072980',1,'AppShell']]],
   ['handleauthsignin',['handleAuthSignIn',['../class_app_shell.html#af5399da2f4d8d4dd9aed4f7ccbb82cbb',1,'AppShell']]],
   ['handleauthsignout',['handleAuthSignOut',['../class_app_shell.html#a5e4fa5553a9277d5f03faa0d1f3a61ea',1,'AppShell']]],
   ['handleauthstatechanged',['handleAuthStateChanged',['../class_google_signin_button.html#a0ef7ce92d7e0faa6328acca857ac67c1',1,'GoogleSigninButton']]],
@@ -13,6 +14,8 @@ var searchData=
   ['handleselectedfileupload',['handleSelectedFileUpload',['../class_image_file_uploader.html#a9d5363e69043a44a8767571c86e3324e',1,'ImageFileUploader']]],
   ['handlesubmit',['handleSubmit',['../class_view_user_form.html#a1c1d8999b45961ebf469193656ebbad2',1,'ViewUserForm']]],
   ['handleusernamechanged',['handleUserNameChanged',['../class_view_user_form.html#a1a8faf90fd767f72e576763242e0a632',1,'ViewUserForm']]],
+  ['has_5fparse_5fstate',['has_parse_state',['../class_json_1_1_json_emitter.html#ae0e44373c70db7ed634f8f04408593cc',1,'Json::JsonEmitter']]],
+  ['heap_5fcheck',['heap_check',['../trace_8cpp.html#ab6464847751fcb8f7ea8b0127c0f0435',1,'heap_check(const std::experimental::string_view msg) -&gt; void:&#160;trace.cpp'],['../trace_8h.html#ab6464847751fcb8f7ea8b0127c0f0435',1,'heap_check(const std::experimental::string_view msg) -&gt; void:&#160;trace.cpp']]],
   ['hiddensectionnames',['hiddenSectionNames',['../class_view_user_form.html#a4383787c97983ab78440416035dae4ab',1,'ViewUserForm']]],
   ['hidglobalreader',['HIDGlobalReader',['../group__firmware.html#ga30a69ce847d3c189237930e9fc37961a',1,'HIDGlobalReader']]],
   ['hidglobaltagid',['HIDGlobalTagID',['../group__firmware.html#gab400d17630e9fdd4321eae457c41b5c9',1,'HIDGlobalTagID']]],

@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -113,6 +121,9 @@ $(document).ready(function(){initNavTree('functions_vars_u.html','');});
 </li>
 <li>uri
 : <a class="el" href="class_exception.html#a374dfd3f93ee9d4c675d10e6633d96cf">Exception</a>
+</li>
+<li>userdata
+: <a class="el" href="structsh2lib__handle.html#ac807588a47908b17141b8072e692098b">sh2lib_handle</a>
 </li>
 </ul>
 </div><!-- contents -->

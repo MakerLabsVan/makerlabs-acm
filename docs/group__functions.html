@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -499,8 +507,8 @@ Here is the call graph for this function:</div>
 <p>Fetch IDs/labels of Google Spreadsheet columns for specified sheet. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">authority</td><td>Host portion of Google Visualization <a class="el" href="struct_query.html">Query</a> URL (e.g. <code>"docs.google.com"</code>) </td></tr>
-    <tr><td class="paramname">path</td><td>Path portion of Google Visualization <a class="el" href="struct_query.html">Query</a> URL (e.g. <code>"/spreadsheets/d/{spreadsheetId}/gviz/tq"</code>) </td></tr>
+    <tr><td class="paramname">authority</td><td>Host portion of Google Visualization Query URL (e.g. <code>"docs.google.com"</code>) </td></tr>
+    <tr><td class="paramname">path</td><td>Path portion of Google Visualization Query URL (e.g. <code>"/spreadsheets/d/{spreadsheetId}/gviz/tq"</code>) </td></tr>
     <tr><td class="paramname">sheetName</td><td>Name of sheet to query (e.g. <code>Users</code>) </td></tr>
     <tr><td class="paramname">accessToken</td><td>Google OAuth token to use for query</td></tr>
   </table>

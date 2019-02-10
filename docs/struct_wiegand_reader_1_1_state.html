@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -115,7 +123,7 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a7c11531dd7b9d0fb448a69610f5fe719"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b0bd7c25db3ad050306c6e984188138"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_wiegand_reader_1_1_state.html#a0b0bd7c25db3ad050306c6e984188138">current_bit</a> = 0</td></tr>
 <tr class="separator:a0b0bd7c25db3ad050306c6e984188138"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52e623a35c1689f1cfa379a7a74aac05"><td class="memItemLeft" align="right" valign="top">TimeDuration&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_wiegand_reader_1_1_state.html#a52e623a35c1689f1cfa379a7a74aac05">last_bit_timestamp</a></td></tr>
+<tr class="memitem:a52e623a35c1689f1cfa379a7a74aac05"><td class="memItemLeft" align="right" valign="top"><a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_wiegand_reader_1_1_state.html#a52e623a35c1689f1cfa379a7a74aac05">last_bit_timestamp</a></td></tr>
 <tr class="separator:a52e623a35c1689f1cfa379a7a74aac05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -154,7 +162,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">TimeDuration WiegandReader::State::last_bit_timestamp</td>
+          <td class="memname"><a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a> WiegandReader::State::last_bit_timestamp</td>
         </tr>
       </table>
 </div><div class="memdoc">

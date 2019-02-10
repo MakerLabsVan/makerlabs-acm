@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -104,6 +112,12 @@ $(document).ready(function(){initNavTree('functions_vars_v.html','');});
 <h3><a id="index_v"></a>- v -</h3><ul>
 <li>valid
 : <a class="el" href="struct_h_i_d_global_tag_i_d.html#a04d90f12904cb68d74d5df21ada81063">HIDGlobalTagID</a>
+</li>
+<li>verified
+: <a class="el" href="class_actor_model_1_1_received_message.html#a30e35ba1c7c0967fa3945726120f0023">ActorModel::ReceivedMessage</a>
+</li>
+<li>verify
+: <a class="el" href="class_actor_model_1_1_received_message.html#a00a675c0cc16f5a4e62681b0e54dd1c2">ActorModel::ReceivedMessage</a>
 </li>
 </ul>
 </div><!-- contents -->

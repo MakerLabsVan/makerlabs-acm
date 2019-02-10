@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['factory_5freset',['factory_reset',['../namespace_firmware_update.html#a5d1ad4be7887f900b0a380046592a1cf',1,'FirmwareUpdate']]],
+  ['fetch',['fetch',['../class_requests_1_1_request_manager.html#ac57d2ee4b46c5e06fd46ee0e2c78069c',1,'Requests::RequestManager']]],
   ['fetch_5fsheet_5fcolumns',['fetch_sheet_columns',['../group__functions.html#ga376b2844c6a0a91ac0378a5a75f46c3b',1,'fetch_sheet_columns.dart']]],
   ['fetchuserfields',['fetchUserFields',['../class_app_shell.html#a967c8b0207203d0dfdfbb1bf35eeb6a7',1,'AppShell']]],
   ['fieldforcolumnid',['fieldForColumnId',['../class_view_user_form.html#a25278e0ff4a7cc1acbb5f734364271d5',1,'ViewUserForm']]],
@@ -11,6 +13,13 @@ var searchData=
   ['fieldisradiogrouptype',['fieldIsRadioGroupType',['../class_view_user_form.html#a4a7796273f88f0916f5ccafb0f908f26',1,'ViewUserForm']]],
   ['fieldistagidtype',['fieldIsTagIdType',['../class_view_user_form.html#af13d16eb98ab1118390a2f6da3fe85e1',1,'ViewUserForm']]],
   ['fieldistextinputtype',['fieldIsTextInputType',['../class_view_user_form.html#a8dc7eb66c434878d283a194a163fe43f',1,'ViewUserForm']]],
+  ['filesystem_5fread',['filesystem_read',['../filesystem_8cpp.html#a8b5ce2c692f7bd271b3c629081357a79',1,'filesystem_read(string_view path) -&gt; std::vector&lt; uint8_t &gt;:&#160;filesystem.cpp'],['../filesystem_8h.html#a04b13c03ab2ca2e592fec410011aa72d',1,'filesystem_read(std::experimental::string_view path) -&gt; std::vector&lt; uint8_t &gt;:&#160;filesystem.cpp']]],
+  ['filesystem_5fwrite',['filesystem_write',['../filesystem_8cpp.html#a19dfdfe1cc83847adea680fd2dbb9789',1,'filesystem_write(string_view path, const std::vector&lt; uint8_t &gt; &amp;contents) -&gt; bool:&#160;filesystem.cpp'],['../filesystem_8cpp.html#af560f8881f7a6596606c67285b37eee2',1,'filesystem_write(string_view path, string_view contents) -&gt; bool:&#160;filesystem.cpp'],['../filesystem_8h.html#a8291c12c77f15b6df3f5c9814999d06f',1,'filesystem_write(std::experimental::string_view path, const std::vector&lt; uint8_t &gt; &amp;contents) -&gt; bool:&#160;filesystem.cpp'],['../filesystem_8h.html#aa2237ed9d63103e9288b155748f7a04a',1,'filesystem_write(std::experimental::string_view path, std::experimental::string_view contents) -&gt; bool:&#160;filesystem.cpp']]],
+  ['find_5flast_5fblank_5fline',['find_last_blank_line',['../namespace_requests.html#a9e5b6cbf6cdcd1cff326309da03f2d79',1,'Requests']]],
+  ['find_5fnext_5fline_5fending',['find_next_line_ending',['../namespace_requests.html#aeef1d028d8c0284588279af5e1497f92',1,'Requests']]],
+  ['finish_5fcallback',['finish_callback',['../struct_requests_1_1_request_handler.html#aa7ef2b05e033914d6f0e056f6b07a16e',1,'Requests::RequestHandler']]],
+  ['firmware_5fupdate_5factor_5fbehaviour',['firmware_update_actor_behaviour',['../namespace_firmware_update.html#af748b87c0003c708482daaefafd842e6',1,'FirmwareUpdate::firmware_update_actor_behaviour(const Pid &amp;self, StatePtr &amp;_state, const Message &amp;message) -&gt; ResultUnion'],['../namespace_firmware_update.html#ab569b48b8d5af8c32722214b8b35f72e',1,'FirmwareUpdate::firmware_update_actor_behaviour(const ActorModel::Pid &amp;self, ActorModel::StatePtr &amp;state, const ActorModel::Message &amp;message) -&gt; ActorModel::ResultUnion']]],
   ['firstupdated',['firstUpdated',['../class_app_shell.html#ae9a4211065d3996fbb0018777672770b',1,'AppShell::firstUpdated()'],['../class_image_file_uploader.html#a4955ca62b0603df9b089c8f3591c168d',1,'ImageFileUploader::firstUpdated()'],['../class_view_user_form.html#a58fb4b130f976879f61b1c354af2d2a0',1,'ViewUserForm::firstUpdated()']]],
+  ['format_5ftime',['format_time',['../namespace_network_manager.html#a46e2fb07b65fc5834b0769d333716c63',1,'NetworkManager::format_time(const TimeZone &amp;tp, const string &amp;fmt) -&gt; string'],['../namespace_network_manager.html#abc9e2fd5ff862ffed693cca35ed94545',1,'NetworkManager::format_time(const std::tm *const &amp;timeinfo, const string &amp;fmt) -&gt; string']]],
   ['from_5funix_5fepoch',['FROM_UNIX_EPOCH',['../group__scripts.html#gaace0c853e119dab2aa6a5e52ac3bc7c2',1,'FROM_UNIX_EPOCH.js']]]
 ];

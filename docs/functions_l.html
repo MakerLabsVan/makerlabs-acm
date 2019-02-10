@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -123,8 +131,17 @@ $(document).ready(function(){initNavTree('functions_l.html','');});
 <li>last_motor_pulse_timestamp
 : <a class="el" href="struct_machine_actor_state.html#ab3535171df308f0e04069257af9ff171">MachineActorState</a>
 </li>
+<li>last_ntp_connect_timestamp
+: <a class="el" href="struct_network_manager_1_1_n_t_p_actor_state.html#adeaded239af4400357cfbb37ce2ae1a1">NetworkManager::NTPActorState</a>
+</li>
 <li>last_progress_bar_message
 : <a class="el" href="struct_display_actor_state.html#ab8bb7a8b6669c59198e5a5ffde2337f4">DisplayActorState</a>
+</li>
+<li>last_reset_pressed
+: <a class="el" href="struct_firmware_update_1_1_firmware_update_actor_state.html#add0be3b1e64245f66c43ca7688e4ea73">FirmwareUpdate::FirmwareUpdateActorState</a>
+</li>
+<li>last_reset_pressed_interval
+: <a class="el" href="struct_firmware_update_1_1_firmware_update_actor_state.html#ad72ae254d204f74e1c958e8839b313ff">FirmwareUpdate::FirmwareUpdateActorState</a>
 </li>
 <li>last_scanned_tag
 : <a class="el" href="class_h_i_d_global_reader.html#a778e732b9e037355cd1eff73a0ee7970">HIDGlobalReader</a>
@@ -134,6 +151,15 @@ $(document).ready(function(){initNavTree('functions_l.html','');});
 </li>
 <li>leading_parity_bit
 : <a class="el" href="struct_h_i_d_global_tag_i_d_1_1_tag_format_view.html#ae2a02e118b8581138d493d4c23478708">HIDGlobalTagID::TagFormatView</a>
+</li>
+<li>link()
+: <a class="el" href="class_actor_model_1_1_process.html#ad8354ae0aba8007ff1f502feffe73590">ActorModel::Process</a>
+</li>
+<li>LinkList
+: <a class="el" href="class_actor_model_1_1_process.html#a42ff613ddc7e41c32d94730e3879b9a1">ActorModel::Process</a>
+</li>
+<li>links
+: <a class="el" href="class_actor_model_1_1_process.html#ada64a3482c98c9bbc720a2e836c1bbdd">ActorModel::Process</a>
 </li>
 <li>loadGapi()
 : <a class="el" href="class_google_signin_button.html#a8808379fd0e37ca03be80d71478eaf0f">GoogleSigninButton</a>

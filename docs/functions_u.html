@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -108,6 +116,12 @@ $(document).ready(function(){initNavTree('functions_u.html','');});
 <li>u8g2_esp32_hal
 : <a class="el" href="struct_display_actor_state.html#a9306da10850e1c61419f7f7e043ebbb5">DisplayActorState</a>
 </li>
+<li>unlink()
+: <a class="el" href="class_actor_model_1_1_process.html#adbcea064f22e79112afb6917bdc0a1b6">ActorModel::Process</a>
+</li>
+<li>unregister()
+: <a class="el" href="class_actor_model_1_1_node.html#a4de91a5e95e4fb5a64aba4c4a5232628">ActorModel::Node</a>
+</li>
 <li>update_display_action()
 : <a class="el" href="struct_display_actor_state.html#a42038e6dd971dec69ca12aa1e64aedb9">DisplayActorState</a>
 </li>
@@ -136,6 +150,9 @@ $(document).ready(function(){initNavTree('functions_u.html','');});
 </li>
 <li>uri
 : <a class="el" href="class_exception.html#a374dfd3f93ee9d4c675d10e6633d96cf">Exception</a>
+</li>
+<li>userdata
+: <a class="el" href="structsh2lib__handle.html#ac807588a47908b17141b8072e692098b">sh2lib_handle</a>
 </li>
 <li>usersAlertsColumn()
 : <a class="el" href="class_view_user_form.html#a1464919f41ce9aa5f65917aa04b32ca4">ViewUserForm</a>

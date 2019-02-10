@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -108,17 +116,17 @@ $(document).ready(function(){initNavTree('display__actor_8cpp.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation of custom-loop actor <a class="el" href="group__firmware.html#gafa385f1054ae6c113aa67d51ad1969ae">display</a>.  
+<p>Implementation of custom-loop actor <a class="el" href="group__firmware.html#ga32cbe146c6f35d870248f5b921f35e78">display</a>.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="actors_8h_source.html">actors.h</a>&quot;</code><br />
 <code>#include &quot;display_generated.h&quot;</code><br />
-<code>#include &quot;u8g2_esp32_hal.h&quot;</code><br />
-<code>#include &quot;delay.h&quot;</code><br />
-<code>#include &quot;timestamp.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="u8g2__esp32__hal_8h_source.html">u8g2_esp32_hal.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="delay_8h_source.html">delay.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="timestamp_8h_source.html">timestamp.h</a>&quot;</code><br />
 <code>#include &lt;chrono&gt;</code><br />
 <code>#include &quot;esp_log.h&quot;</code><br />
 </div><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implementation of custom-loop actor <a class="el" href="group__firmware.html#gafa385f1054ae6c113aa67d51ad1969ae">display</a>. </p>
+<div class="textblock"><p>Implementation of custom-loop actor <a class="el" href="group__firmware.html#ga32cbe146c6f35d870248f5b921f35e78">display</a>. </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -127,8 +135,8 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gafa385f1054ae6c113aa67d51ad1969ae"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gafa385f1054ae6c113aa67d51ad1969ae">display_behaviour</a> (const Pid &amp;self, Mailbox &amp;mailbox) -&gt; ResultUnion</td></tr>
-<tr class="separator:gafa385f1054ae6c113aa67d51ad1969ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga32cbe146c6f35d870248f5b921f35e78"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga32cbe146c6f35d870248f5b921f35e78">display_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;self, <a class="el" href="class_actor_model_1_1_mailbox.html">ActorModel::Mailbox</a> &amp;mailbox) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td></tr>
+<tr class="separator:ga32cbe146c6f35d870248f5b921f35e78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>

@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -101,6 +109,7 @@ $(document).ready(function(){initNavTree('struct_u_u_i_d.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="struct_u_u_i_d-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">UUID Struct Reference</div>  </div>
@@ -111,6 +120,11 @@ $(document).ready(function(){initNavTree('struct_u_u_i_d.html','');});
 Public Attributes</h2></td></tr>
 <tr class="memitem:a5b133f33f94a9e502b6c90609026e949"><td class="memItemLeft" align="right" valign="top">cd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_u_u_i_d.html#a5b133f33f94a9e502b6c90609026e949">__pad1__</a>:ulong</td></tr>
 <tr class="separator:a5b133f33f94a9e502b6c90609026e949"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a01528f58a71d425ba9fdcdb918229d9f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_u_u_i_d.html">UUID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_u_u_i_d.html#a01528f58a71d425ba9fdcdb918229d9f">NullUUID</a> = <a class="el" href="struct_u_u_i_d.html">UUID</a>(0, 0)</td></tr>
+<tr class="separator:a01528f58a71d425ba9fdcdb918229d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a5b133f33f94a9e502b6c90609026e949"></a>
@@ -127,8 +141,31 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+<a id="a01528f58a71d425ba9fdcdb918229d9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01528f58a71d425ba9fdcdb918229d9f">&#9670;&nbsp;</a></span>NullUUID</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_u_u_i_d.html">UUID</a> UUID.NullUUID = <a class="el" href="struct_u_u_i_d.html">UUID</a>(0, 0)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
 <li>firmware/esp32-network-lib/uuid/<a class="el" href="uuid_8fbs.html">uuid.fbs</a></li>
+<li>firmware/esp32-network-lib/uuid/src/<a class="el" href="uuid_8h_source.html">uuid.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

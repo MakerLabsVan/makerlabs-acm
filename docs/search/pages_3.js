@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['known_20issues',['Known Issues',['../known_issues.html',1,'index']]]
+  ['initial_20project_20setup',['Initial Project Setup',['../initial_project_setup.html',1,'index']]]
 ];

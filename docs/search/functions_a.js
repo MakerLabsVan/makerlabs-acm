@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['labeltocolumnid',['labelToColumnId',['../group__functions.html#ga432a9e774f8941560716fe4b31e1fd50',1,'spreadsheet_helpers.dart']]],
-  ['loadgapi',['loadGapi',['../class_google_signin_button.html#a8808379fd0e37ca03be80d71478eaf0f',1,'GoogleSigninButton']]],
-  ['loginfirebase',['loginFirebase',['../class_app_shell.html#a2b18846e9c17a0fa25f574e8a536cf88',1,'AppShell']]]
+  ['jsonemitter',['JsonEmitter',['../class_json_1_1_json_emitter.html#a9c4141224c89b039618d7bd9a9255bec',1,'Json::JsonEmitter::JsonEmitter(const string_view match_path_str)'],['../class_json_1_1_json_emitter.html#a995d256e0edd6606c67eff69a60f2b80',1,'Json::JsonEmitter::JsonEmitter(const JsonPath &amp;_match_path={})']]]
 ];

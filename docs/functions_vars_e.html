@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -102,8 +110,17 @@ $(document).ready(function(){initNavTree('functions_vars_e.html','');});
 &#160;
 
 <h3><a id="index_e"></a>- e -</h3><ul>
+<li>entropy
+: <a class="el" href="structesp__tls.html#a91308c5eee131fee366033ada1c8090f">esp_tls</a>
+</li>
+<li>errbuf
+: <a class="el" href="struct_requests_1_1_request_handler.html#aeee97d256702d7a84bd03e4561414c0e">Requests::RequestHandler</a>
+</li>
 <li>Error
 : <a class="el" href="union_result.html#a1460edc841efe843c01248e8cd8e3932">Result</a>
+</li>
+<li>exit_reason
+: <a class="el" href="class_actor_model_1_1_process.html#a33982bab4239f7230d12ae60dbf01e47">ActorModel::Process</a>
 </li>
 </ul>
 </div><!-- contents -->

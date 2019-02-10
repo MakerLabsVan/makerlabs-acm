@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -188,13 +196,13 @@ Global Functions</h2></td></tr>
 <tr class="separator:gaf24480ac916188ffb4d86cfff7735260"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8707cd2c09ee8841859746e17633babc"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga8707cd2c09ee8841859746e17633babc">wiegand_gpio_isr_handler</a> (void *arg)</td></tr>
 <tr class="separator:ga8707cd2c09ee8841859746e17633babc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8bf5f9a386f7a7d080fefca52359234f"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga8bf5f9a386f7a7d080fefca52359234f">generate_activity</a> (const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">string_view</a> machine_id_str, const <a class="el" href="acm_8fbs.html#ab7798968e0c7238d32b1c719d7dd08cd">ActivityType</a> activity_type, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">string_view</a> tag_id_str, const int usage_seconds) -&gt; <a class="el" href="group__firmware.html#ga701a460b2c909f27e2655d18c4b6203f">ActivityFlatbuffer</a></td></tr>
+<tr class="memitem:ga8bf5f9a386f7a7d080fefca52359234f"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga8bf5f9a386f7a7d080fefca52359234f">generate_activity</a> (const <a class="el" href="filesystem_8cpp.html#a23b57f0b98455f90118efd4a93ca0151">string_view</a> machine_id_str, const <a class="el" href="acm_8fbs.html#ab7798968e0c7238d32b1c719d7dd08cd">ActivityType</a> activity_type, const <a class="el" href="filesystem_8cpp.html#a23b57f0b98455f90118efd4a93ca0151">string_view</a> tag_id_str, const int usage_seconds) -&gt; <a class="el" href="group__firmware.html#ga701a460b2c909f27e2655d18c4b6203f">ActivityFlatbuffer</a></td></tr>
 <tr class="separator:ga8bf5f9a386f7a7d080fefca52359234f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac9e4be877af07f2a75c4e568cbae4256"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gac9e4be877af07f2a75c4e568cbae4256">generate_log</a> (const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">string_view</a> machine_id_str, const LogSeverity severity, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">string_view</a> message_str) -&gt; <a class="el" href="group__firmware.html#gadc03a1b60d6cc9db665a9a9dd165b4e5">LogFlatbuffer</a></td></tr>
+<tr class="memitem:gac9e4be877af07f2a75c4e568cbae4256"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gac9e4be877af07f2a75c4e568cbae4256">generate_log</a> (const <a class="el" href="filesystem_8cpp.html#a23b57f0b98455f90118efd4a93ca0151">string_view</a> machine_id_str, const LogSeverity severity, const <a class="el" href="filesystem_8cpp.html#a23b57f0b98455f90118efd4a93ca0151">string_view</a> message_str) -&gt; <a class="el" href="group__firmware.html#gadc03a1b60d6cc9db665a9a9dd165b4e5">LogFlatbuffer</a></td></tr>
 <tr class="separator:gac9e4be877af07f2a75c4e568cbae4256"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga28b5fc4d82c56d917410536e83fb6ee9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga28b5fc4d82c56d917410536e83fb6ee9">generate_show_user_details_from_user</a> (const ACM::User *user) -&gt; <a class="el" href="group__firmware.html#gadd043916085304d80aaa1f7ecbfc5d8e">DisplayIntentFlatbuffer</a></td></tr>
 <tr class="separator:ga28b5fc4d82c56d917410536e83fb6ee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac8046e5ddb046b014e3ae1002a65f80d"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gac8046e5ddb046b014e3ae1002a65f80d">generate_progress_bar</a> (const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> message, const uint32_t progress, const TimeDuration duration, const <a class="el" href="display_8fbs.html#a2e818c73997312db943060f5f3016719">Icon</a> icon) -&gt; <a class="el" href="group__firmware.html#gadd043916085304d80aaa1f7ecbfc5d8e">DisplayIntentFlatbuffer</a></td></tr>
+<tr class="memitem:gac8046e5ddb046b014e3ae1002a65f80d"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gac8046e5ddb046b014e3ae1002a65f80d">generate_progress_bar</a> (const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> message, const uint32_t progress, const <a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a> duration, const <a class="el" href="display_8fbs.html#a2e818c73997312db943060f5f3016719">Icon</a> icon) -&gt; <a class="el" href="group__firmware.html#gadd043916085304d80aaa1f7ecbfc5d8e">DisplayIntentFlatbuffer</a></td></tr>
 <tr class="separator:gac8046e5ddb046b014e3ae1002a65f80d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3b82ff3a3d6577b5ed9588bf7aae2756"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga3b82ff3a3d6577b5ed9588bf7aae2756">generate_show_user_details</a> (const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> message, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> email, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> makerlabs_id, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> tag_id) -&gt; <a class="el" href="group__firmware.html#gadd043916085304d80aaa1f7ecbfc5d8e">DisplayIntentFlatbuffer</a></td></tr>
 <tr class="separator:ga3b82ff3a3d6577b5ed9588bf7aae2756"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -202,41 +210,39 @@ Global Functions</h2></td></tr>
 <tr class="separator:gac9d3483c43167d351b2b0d9989a3e587"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga04d2987521d80af3aec4fa9ede78411c"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga04d2987521d80af3aec4fa9ede78411c">generate_log</a> (const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> machine_id_str, const ACM::LogSeverity severity, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> message_str) -&gt; <a class="el" href="group__firmware.html#gadc03a1b60d6cc9db665a9a9dd165b4e5">LogFlatbuffer</a></td></tr>
 <tr class="separator:ga04d2987521d80af3aec4fa9ede78411c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab78952bec466d527c5023c0d66ec9dd2"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gab78952bec466d527c5023c0d66ec9dd2">generate_progress_bar</a> (const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> message, const uint32_t progress, const TimeDuration duration, const <a class="el" href="display_8fbs.html#a2e818c73997312db943060f5f3016719">Display::Icon</a> icon=<a class="el" href="display_8fbs.html#a2e818c73997312db943060f5f3016719a6adf97f83acf6453d4a6a4b1070f3754">Display::Icon::None</a>) -&gt; <a class="el" href="group__firmware.html#gadd043916085304d80aaa1f7ecbfc5d8e">DisplayIntentFlatbuffer</a></td></tr>
+<tr class="memitem:gab78952bec466d527c5023c0d66ec9dd2"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gab78952bec466d527c5023c0d66ec9dd2">generate_progress_bar</a> (const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> message, const uint32_t progress, const <a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a> duration, const <a class="el" href="display_8fbs.html#a2e818c73997312db943060f5f3016719">Display::Icon</a> icon=<a class="el" href="display_8fbs.html#a2e818c73997312db943060f5f3016719a6adf97f83acf6453d4a6a4b1070f3754">Display::Icon::None</a>) -&gt; <a class="el" href="group__firmware.html#gadd043916085304d80aaa1f7ecbfc5d8e">DisplayIntentFlatbuffer</a></td></tr>
 <tr class="separator:gab78952bec466d527c5023c0d66ec9dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga32cbe146c6f35d870248f5b921f35e78"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga32cbe146c6f35d870248f5b921f35e78">display_behaviour</a> (const ActorModel::Pid &amp;self, ActorModel::Mailbox &amp;mailbox) -&gt; ActorModel::ResultUnion</td></tr>
+<tr class="memitem:ga32cbe146c6f35d870248f5b921f35e78"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga32cbe146c6f35d870248f5b921f35e78">display_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;self, <a class="el" href="class_actor_model_1_1_mailbox.html">ActorModel::Mailbox</a> &amp;mailbox) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td></tr>
 <tr class="separator:ga32cbe146c6f35d870248f5b921f35e78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae528aa46f9c454ed1d50a7ed974b9075"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gae528aa46f9c454ed1d50a7ed974b9075">app_actor_behaviour</a> (const ActorModel::Pid &amp;self, ActorModel::StatePtr &amp;_state, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; ActorModel::ResultUnion</td></tr>
+<tr class="memitem:gae528aa46f9c454ed1d50a7ed974b9075"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gae528aa46f9c454ed1d50a7ed974b9075">app_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;_state, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td></tr>
 <tr class="separator:gae528aa46f9c454ed1d50a7ed974b9075"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabfa8352fbc37598c0e239932ff43e23e"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gabfa8352fbc37598c0e239932ff43e23e">auth_actor_behaviour</a> (const ActorModel::Pid &amp;self, ActorModel::StatePtr &amp;_state, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; ActorModel::ResultUnion</td></tr>
+<tr class="memitem:gabfa8352fbc37598c0e239932ff43e23e"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gabfa8352fbc37598c0e239932ff43e23e">auth_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;_state, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td></tr>
 <tr class="separator:gabfa8352fbc37598c0e239932ff43e23e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8980cdac7afb7bc0cc910b173e5240e3"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga8980cdac7afb7bc0cc910b173e5240e3">rfid_reader_actor_behaviour</a> (const ActorModel::Pid &amp;self, ActorModel::StatePtr &amp;_state, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; ActorModel::ResultUnion</td></tr>
+<tr class="memitem:ga8980cdac7afb7bc0cc910b173e5240e3"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga8980cdac7afb7bc0cc910b173e5240e3">rfid_reader_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;_state, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td></tr>
 <tr class="separator:ga8980cdac7afb7bc0cc910b173e5240e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2565ae2511f4c53e94ded34232cdcb6a"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga2565ae2511f4c53e94ded34232cdcb6a">machine_actor_behaviour</a> (const ActorModel::Pid &amp;self, ActorModel::StatePtr &amp;_state, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; ActorModel::ResultUnion</td></tr>
+<tr class="memitem:ga2565ae2511f4c53e94ded34232cdcb6a"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga2565ae2511f4c53e94ded34232cdcb6a">machine_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;_state, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td></tr>
 <tr class="separator:ga2565ae2511f4c53e94ded34232cdcb6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad41fbe5fac05b69ef45279c6a0112fa5"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gad41fbe5fac05b69ef45279c6a0112fa5">send_progress_bar</a> (const <a class="el" href="group__firmware.html#gadd043916085304d80aaa1f7ecbfc5d8e">DisplayIntentFlatbuffer</a> &amp;display_intent_flatbuf) -&gt; bool</td></tr>
 <tr class="separator:gad41fbe5fac05b69ef45279c6a0112fa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga921049120cbc046bc1ff6b3d1f703c4e"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga921049120cbc046bc1ff6b3d1f703c4e">send_activity</a> (const <a class="el" href="group__firmware.html#ga701a460b2c909f27e2655d18c4b6203f">ActivityFlatbuffer</a> &amp;activity_mutable_buf) -&gt; bool</td></tr>
 <tr class="separator:ga921049120cbc046bc1ff6b3d1f703c4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga19e9deb9e876a0646107c94c5eb7e7df"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga19e9deb9e876a0646107c94c5eb7e7df">app_actor_behaviour</a> (const Pid &amp;self, StatePtr &amp;_state, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; ResultUnion</td></tr>
+<tr class="memitem:ga19e9deb9e876a0646107c94c5eb7e7df"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga19e9deb9e876a0646107c94c5eb7e7df">app_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;_state, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
 <tr class="separator:ga19e9deb9e876a0646107c94c5eb7e7df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6a5b9b50c423651a0a9bcceabc6b26de"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga6a5b9b50c423651a0a9bcceabc6b26de">auth_actor_behaviour</a> (const Pid &amp;self, StatePtr &amp;_state, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; ResultUnion</td></tr>
+<tr class="memitem:ga6a5b9b50c423651a0a9bcceabc6b26de"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga6a5b9b50c423651a0a9bcceabc6b26de">auth_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;_state, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
 <tr class="separator:ga6a5b9b50c423651a0a9bcceabc6b26de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafa385f1054ae6c113aa67d51ad1969ae"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gafa385f1054ae6c113aa67d51ad1969ae">display_behaviour</a> (const Pid &amp;self, Mailbox &amp;mailbox) -&gt; ResultUnion</td></tr>
-<tr class="separator:gafa385f1054ae6c113aa67d51ad1969ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga91bf7209e205135f8df197d348e3d1ba"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga91bf7209e205135f8df197d348e3d1ba">motors_gpio_isr_handler</a> (void *arg)</td></tr>
 <tr class="separator:ga91bf7209e205135f8df197d348e3d1ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab449412ddd3912652b125573e90d8db1"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gab449412ddd3912652b125573e90d8db1">machine_actor_behaviour</a> (const Pid &amp;self, StatePtr &amp;_state, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; ResultUnion</td></tr>
+<tr class="memitem:gab449412ddd3912652b125573e90d8db1"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gab449412ddd3912652b125573e90d8db1">machine_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;_state, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
 <tr class="separator:gab449412ddd3912652b125573e90d8db1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabce06be17fc37d675118a678a8100a36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gabce06be17fc37d675118a678a8100a36">app_main</a> ()</td></tr>
 <tr class="separator:gabce06be17fc37d675118a678a8100a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1fd070e191561cf7166b9d17e161c940"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga1fd070e191561cf7166b9d17e161c940">rfid_reader_actor_behaviour</a> (const Pid &amp;self, StatePtr &amp;_state, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; ResultUnion</td></tr>
+<tr class="memitem:ga1fd070e191561cf7166b9d17e161c940"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga1fd070e191561cf7166b9d17e161c940">rfid_reader_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;_state, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
 <tr class="separator:ga1fd070e191561cf7166b9d17e161c940"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae8545dae37e173a12f23fcaaac960a21"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gae8545dae37e173a12f23fcaaac960a21">start_app</a> () -&gt; bool</td></tr>
 <tr class="separator:gae8545dae37e173a12f23fcaaac960a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7e4ffb20ac7a308e9693544d2837cdea"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga7e4ffb20ac7a308e9693544d2837cdea">start_request_manager</a> (const Pid &amp;sup_pid, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; ResultUnion</td></tr>
+<tr class="memitem:ga7e4ffb20ac7a308e9693544d2837cdea"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga7e4ffb20ac7a308e9693544d2837cdea">start_request_manager</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;sup_pid, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
 <tr class="separator:ga7e4ffb20ac7a308e9693544d2837cdea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac7395e733d11bf672623ce5b6ef43043"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gac7395e733d11bf672623ce5b6ef43043">start_request_manager</a> (const ActorModel::Pid &amp;sup_pid, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; ActorModel::ResultUnion</td></tr>
+<tr class="memitem:gac7395e733d11bf672623ce5b6ef43043"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gac7395e733d11bf672623ce5b6ef43043">start_request_manager</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;sup_pid, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td></tr>
 <tr class="separator:gac7395e733d11bf672623ce5b6ef43043"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga30a69ce847d3c189237930e9fc37961a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga30a69ce847d3c189237930e9fc37961a">HIDGlobalReader::HIDGlobalReader</a> (const <a class="el" href="struct_wiegand_reader_1_1_config.html">WiegandReader::Config</a> &amp;config) noexcept</td></tr>
 <tr class="separator:ga30a69ce847d3c189237930e9fc37961a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -244,7 +250,7 @@ Global Functions</h2></td></tr>
 <tr class="separator:ga02c79a6d3862e8987d412c545f5523a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf67b0ae8d9de234274d986231d496bf5"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gaf67b0ae8d9de234274d986231d496bf5">HIDGlobalReader::scan_tag</a> () -&gt; <a class="el" href="class_h_i_d_global_reader.html#af8c721746a1b6a26db972015e56f4bf3">MaybeTagId</a></td></tr>
 <tr class="separator:gaf67b0ae8d9de234274d986231d496bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf1f8892fc6a2558575889ff5e3cefb47"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gaf1f8892fc6a2558575889ff5e3cefb47">HIDGlobalReader::beep</a> (TimeDuration duration) -&gt; void</td></tr>
+<tr class="memitem:gaf1f8892fc6a2558575889ff5e3cefb47"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gaf1f8892fc6a2558575889ff5e3cefb47">HIDGlobalReader::beep</a> (<a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a> duration) -&gt; void</td></tr>
 <tr class="separator:gaf1f8892fc6a2558575889ff5e3cefb47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab400d17630e9fdd4321eae457c41b5c9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gab400d17630e9fdd4321eae457c41b5c9">HIDGlobalTagID::HIDGlobalTagID</a> (const std::bitset&lt; 26 &gt; &amp;bits) noexcept</td></tr>
 <tr class="memdesc:gab400d17630e9fdd4321eae457c41b5c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse a 26-bit HID Global iClass tag: validate parity, then decode <code>facility_code</code> and <code>card_number</code>  <a href="#gab400d17630e9fdd4321eae457c41b5c9">More...</a><br /></td></tr>
@@ -327,7 +333,7 @@ Files</h2></td></tr>
 <tr class="memdesc:auth__actor_8cpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of actor <a class="el" href="group__firmware.html#ga6a5b9b50c423651a0a9bcceabc6b26de">auth</a>. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:display__actor_8cpp"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="display__actor_8cpp.html">display_actor.cpp</a></td></tr>
-<tr class="memdesc:display__actor_8cpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of custom-loop actor <a class="el" href="group__firmware.html#gafa385f1054ae6c113aa67d51ad1969ae">display</a>. <br /></td></tr>
+<tr class="memdesc:display__actor_8cpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of custom-loop actor <a class="el" href="group__firmware.html#ga32cbe146c6f35d870248f5b921f35e78">display</a>. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:machine__actor_8cpp"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="machine__actor_8cpp.html">machine_actor.cpp</a></td></tr>
 <tr class="memdesc:machine__actor_8cpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of actor <a class="el" href="group__firmware.html#gab449412ddd3912652b125573e90d8db1">machine</a>. <br /></td></tr>
@@ -450,7 +456,7 @@ Files</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__firmware.html#gaca454f84dd198a937af6499dd758aa3d">string</a> =  std::string</td>
+          <td class="memname">using <a class="el" href="namespace_actor_model.html#af23602eb044966c44f3ff08d22ae86c3">string</a> =  std::string</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -464,7 +470,7 @@ Files</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__firmware.html#gaca454f84dd198a937af6499dd758aa3d">string</a> =  std::string</td>
+          <td class="memname">using <a class="el" href="namespace_actor_model.html#af23602eb044966c44f3ff08d22ae86c3">string</a> =  std::string</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -478,7 +484,7 @@ Files</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__firmware.html#gaca454f84dd198a937af6499dd758aa3d">string</a> =  std::string</td>
+          <td class="memname">using <a class="el" href="namespace_actor_model.html#af23602eb044966c44f3ff08d22ae86c3">string</a> =  std::string</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -492,7 +498,7 @@ Files</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__firmware.html#gaca454f84dd198a937af6499dd758aa3d">string</a> =  std::string</td>
+          <td class="memname">using <a class="el" href="namespace_actor_model.html#af23602eb044966c44f3ff08d22ae86c3">string</a> =  std::string</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -506,7 +512,7 @@ Files</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">string_view</a> =  std::experimental::string_view</td>
+          <td class="memname">using <a class="el" href="filesystem_8cpp.html#a23b57f0b98455f90118efd4a93ca0151">string_view</a> =  std::experimental::string_view</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -520,7 +526,7 @@ Files</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">string_view</a> =  std::experimental::string_view</td>
+          <td class="memname">using <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> =  std::experimental::string_view</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -534,7 +540,7 @@ Files</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">string_view</a> =  std::experimental::string_view</td>
+          <td class="memname">using <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> =  std::experimental::string_view</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -548,7 +554,7 @@ Files</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">string_view</a> =  std::experimental::string_view</td>
+          <td class="memname">using <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> =  std::experimental::string_view</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -562,7 +568,7 @@ Files</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">string_view</a> =  std::experimental::string_view</td>
+          <td class="memname">using <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> =  std::experimental::string_view</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -604,7 +610,7 @@ Files</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__firmware.html#ga3343c53b6d9bbe20ea9b9902c1d40265">Timestamp</a> =  std::chrono::time_point&lt;std::chrono::system_clock&gt;</td>
+          <td class="memname">using <a class="el" href="namespace_network_manager.html#a64d905f42a2d4bc2d6a7514a95114f9d">Timestamp</a> =  std::chrono::time_point&lt;std::chrono::system_clock&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -649,13 +655,13 @@ Files</h2></td></tr>
         <tr>
           <td class="memname">auto app_actor_behaviour </td>
           <td>(</td>
-          <td class="paramtype">const ActorModel::Pid &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>self</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ActorModel::StatePtr &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;&#160;</td>
           <td class="paramname"><em>_state</em>, </td>
         </tr>
         <tr>
@@ -667,7 +673,7 @@ Files</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> -&gt;  ActorModel::ResultUnion</td>
+          <td></td><td> -&gt;  <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -683,13 +689,13 @@ Files</h2></td></tr>
         <tr>
           <td class="memname">auto app_actor_behaviour </td>
           <td>(</td>
-          <td class="paramtype">const Pid &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>self</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">StatePtr &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;&#160;</td>
           <td class="paramname"><em>_state</em>, </td>
         </tr>
         <tr>
@@ -701,7 +707,7 @@ Files</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> -&gt; ResultUnion
+          <td></td><td> -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a>
 </td>
         </tr>
       </table>
@@ -711,12 +717,19 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__firmware_ga19e9deb9e876a0646107c94c5eb7e7df_cgraph.png" border="0" usemap="#group__firmware_ga19e9deb9e876a0646107c94c5eb7e7df_cgraph" alt=""/></div>
 <map name="group__firmware_ga19e9deb9e876a0646107c94c5eb7e7df_cgraph" id="group__firmware_ga19e9deb9e876a0646107c94c5eb7e7df_cgraph">
-<area shape="rect"  title=" " alt="" coords="5,104,152,129"/>
-<area shape="rect"  href="group__firmware.html#gad41fbe5fac05b69ef45279c6a0112fa5" title=" " alt="" coords="212,5,348,31"/>
-<area shape="rect"  href="group__firmware.html#gac8046e5ddb046b014e3ae1002a65f80d" title=" " alt="" coords="200,55,360,80"/>
-<area shape="rect"  href="group__firmware.html#ga8bf5f9a386f7a7d080fefca52359234f" title=" " alt="" coords="219,104,341,129"/>
-<area shape="rect"  href="group__firmware.html#ga28b5fc4d82c56d917410536e83fb6ee9" title=" " alt="" coords="207,153,353,192"/>
-<area shape="rect"  href="group__firmware.html#ga3b82ff3a3d6577b5ed9588bf7aae2756" title=" " alt="" coords="207,216,353,255"/>
+<area shape="rect"  title=" " alt="" coords="5,233,152,259"/>
+<area shape="rect"  href="namespace_actor_model.html#aefe347cf1fcd0d80dca3e517604ad625" title=" " alt="" coords="207,5,353,31"/>
+<area shape="rect"  href="group__firmware.html#gad41fbe5fac05b69ef45279c6a0112fa5" title=" " alt="" coords="212,107,348,132"/>
+<area shape="rect"  href="namespace_actor_model.html#a7464801c46fc09ddacf1b63b54e261e9" title=" " alt="" coords="408,83,550,108"/>
+<area shape="rect"  href="namespace_actor_model.html#a23bee2724f328f7fdf3af1d17d0492f9" title=" " alt="" coords="416,132,541,157"/>
+<area shape="rect"  href="group__firmware.html#gac8046e5ddb046b014e3ae1002a65f80d" title=" " alt="" coords="200,208,360,233"/>
+<area shape="rect"  href="group__firmware.html#ga8bf5f9a386f7a7d080fefca52359234f" title=" " alt="" coords="219,257,341,283"/>
+<area shape="rect"  href="namespace_u_u_i_d.html#a82f83d0db798b58169d51933e2c9760b" title=" " alt="" coords="213,307,347,332"/>
+<area shape="rect"  href="namespace_u_u_i_d.html#aeb49f4dd1950530a67c296a65e8a4292" title=" " alt="" coords="204,356,356,381"/>
+<area shape="rect"  href="group__firmware.html#ga28b5fc4d82c56d917410536e83fb6ee9" title=" " alt="" coords="207,405,353,444"/>
+<area shape="rect"  href="group__firmware.html#ga3b82ff3a3d6577b5ed9588bf7aae2756" title=" " alt="" coords="207,468,353,507"/>
+<area shape="rect"  href="class_actor_model_1_1_process.html#a7855ee2779ae4a48e56776be8ca20b87" title=" " alt="" coords="598,101,742,140"/>
+<area shape="rect"  href="namespace_u_u_i_d.html#ac0c664635f1b7d19b635b304bbfedfe5" title=" " alt="" coords="418,356,540,381"/>
 </map>
 </div>
 
@@ -741,14 +754,36 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__firmware_gabce06be17fc37d675118a678a8100a36_cgraph.png" border="0" usemap="#group__firmware_gabce06be17fc37d675118a678a8100a36_cgraph" alt=""/></div>
 <map name="group__firmware_gabce06be17fc37d675118a678a8100a36_cgraph" id="group__firmware_gabce06be17fc37d675118a678a8100a36_cgraph">
-<area shape="rect"  title=" " alt="" coords="5,129,85,155"/>
-<area shape="rect"  href="group__firmware.html#gae8545dae37e173a12f23fcaaac960a21" title=" " alt="" coords="133,129,210,155"/>
-<area shape="rect"  href="group__firmware.html#gabfa8352fbc37598c0e239932ff43e23e" title=" " alt="" coords="277,5,428,31"/>
-<area shape="rect"  href="group__firmware.html#ga8980cdac7afb7bc0cc910b173e5240e3" title=" " alt="" coords="258,55,447,80"/>
-<area shape="rect"  href="group__firmware.html#gae528aa46f9c454ed1d50a7ed974b9075" title=" " alt="" coords="279,104,426,129"/>
-<area shape="rect"  href="group__firmware.html#ga2565ae2511f4c53e94ded34232cdcb6a" title=" " alt="" coords="265,153,440,179"/>
-<area shape="rect"  href="group__firmware.html#ga32cbe146c6f35d870248f5b921f35e78" title=" " alt="" coords="288,203,417,228"/>
-<area shape="rect"  href="group__firmware.html#ga3b82ff3a3d6577b5ed9588bf7aae2756" title=" " alt="" coords="280,252,426,291"/>
+<area shape="rect"  title=" " alt="" coords="5,256,85,282"/>
+<area shape="rect"  href="namespace_network_manager.html#a3d518761a42fcf494749e4aaba8cd282" title=" " alt="" coords="133,31,296,70"/>
+<area shape="rect"  href="group__firmware.html#gae8545dae37e173a12f23fcaaac960a21" title=" " alt="" coords="176,443,253,468"/>
+<area shape="rect"  href="namespace_network_manager.html#af75a3c3e759320e861562c69632ef4b8" title=" " alt="" coords="599,91,747,130"/>
+<area shape="rect"  href="namespace_network_manager.html#acf688586f67f344579516e51c5d1e7c3" title=" " alt="" coords="359,31,518,70"/>
+<area shape="rect"  href="namespace_firmware_update.html#aefb673619da6b46b944a17e87f79021d" title=" " alt="" coords="349,594,528,632"/>
+<area shape="rect"  href="trace_8cpp.html#ab6464847751fcb8f7ea8b0127c0f0435" title=" " alt="" coords="626,396,719,422"/>
+<area shape="rect"  href="namespace_actor_model.html#a0c8ebf724874bed04a548e7ec8832f09" title=" " alt="" coords="371,304,506,330"/>
+<area shape="rect"  href="group__firmware.html#gabfa8352fbc37598c0e239932ff43e23e" title=" " alt="" coords="363,871,514,896"/>
+<area shape="rect"  href="group__firmware.html#ga8980cdac7afb7bc0cc910b173e5240e3" title=" " alt="" coords="344,94,533,119"/>
+<area shape="rect"  href="group__firmware.html#gae528aa46f9c454ed1d50a7ed974b9075" title=" " alt="" coords="365,143,512,168"/>
+<area shape="rect"  href="group__firmware.html#ga2565ae2511f4c53e94ded34232cdcb6a" title=" " alt="" coords="351,192,526,218"/>
+<area shape="rect"  href="namespace_network_manager.html#ae8a3f4372476b8f488e51305f86d3b96" title=" " alt="" coords="364,406,513,444"/>
+<area shape="rect"  href="namespace_network_manager.html#a4ab8251db7907101c288db76e556d59d" title=" " alt="" coords="364,531,513,570"/>
+<area shape="rect"  href="namespace_network_manager.html#a96a42641d0fc7d054d19687c7e5884d1" title=" " alt="" coords="350,656,527,695"/>
+<area shape="rect"  href="namespace_actor_model.html#a12aa1361ac0c0cc36b27141cba6828dc" title=" " alt="" coords="360,468,517,507"/>
+<area shape="rect"  href="namespace_actor_model.html#a9b33c60bd90096ad48a0cfc1c7035dcb" title=" " alt="" coords="582,819,763,844"/>
+<area shape="rect"  href="group__firmware.html#ga32cbe146c6f35d870248f5b921f35e78" title=" " alt="" coords="374,719,503,744"/>
+<area shape="rect"  href="namespace_actor_model.html#a23bee2724f328f7fdf3af1d17d0492f9" title=" " alt="" coords="610,768,735,794"/>
+<area shape="rect"  href="group__firmware.html#ga3b82ff3a3d6577b5ed9588bf7aae2756" title=" " alt="" coords="366,242,511,280"/>
+<area shape="rect"  href="trace_8cpp.html#a18b22f46f84106c739796f65eda17dd6" title=" " alt="" coords="816,396,954,422"/>
+<area shape="rect"  href="namespace_actor_model.html#ad2b28ed935af0477d2fe092936ce3585" title=" " alt="" coords="606,271,739,310"/>
+<area shape="rect"  href="class_actor_model_1_1_process.html#a7855ee2779ae4a48e56776be8ca20b87" title=" " alt="" coords="813,488,957,527"/>
+<area shape="rect"  href="namespace_actor_model.html#aefe347cf1fcd0d80dca3e517604ad625" title=" " alt="" coords="600,544,746,570"/>
+<area shape="rect"  href="namespace_actor_model.html#a882049e2d543ec7c690193fd8d5cee1d" title=" " alt="" coords="585,446,761,471"/>
+<area shape="rect"  href="namespace_network_manager.html#a929b20214cddfbd39d4b4f80ea2a7228" title=" " alt="" coords="603,334,743,372"/>
+<area shape="rect"  href="namespace_actor_model.html#a8458fc07dc4824c5b1b8599fcdd1f5ad" title=" " alt="" coords="605,495,740,520"/>
+<area shape="rect"  href="namespace_network_manager.html#a9ae8bb69a5acbcc649326b1201cfa435" title=" " alt="" coords="598,594,747,632"/>
+<area shape="rect"  href="namespace_network_manager.html#a38f3042147fe30e15015603c61384b65" title=" " alt="" coords="595,656,751,695"/>
+<area shape="rect"  href="timestamp_8cpp.html#adbcc277c5ccf848909843efd4a1f6e9f" title=" " alt="" coords="581,719,765,744"/>
 </map>
 </div>
 
@@ -763,13 +798,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto auth_actor_behaviour </td>
           <td>(</td>
-          <td class="paramtype">const ActorModel::Pid &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>self</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ActorModel::StatePtr &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;&#160;</td>
           <td class="paramname"><em>_state</em>, </td>
         </tr>
         <tr>
@@ -781,7 +816,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> -&gt;  ActorModel::ResultUnion</td>
+          <td></td><td> -&gt;  <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -797,13 +832,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto auth_actor_behaviour </td>
           <td>(</td>
-          <td class="paramtype">const Pid &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>self</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">StatePtr &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;&#160;</td>
           <td class="paramname"><em>_state</em>, </td>
         </tr>
         <tr>
@@ -815,11 +850,30 @@ Here is the call graph for this function:</div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> -&gt; ResultUnion
+          <td></td><td> -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a>
 </td>
         </tr>
       </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__firmware_ga6a5b9b50c423651a0a9bcceabc6b26de_cgraph.png" border="0" usemap="#group__firmware_ga6a5b9b50c423651a0a9bcceabc6b26de_cgraph" alt=""/></div>
+<map name="group__firmware_ga6a5b9b50c423651a0a9bcceabc6b26de_cgraph" id="group__firmware_ga6a5b9b50c423651a0a9bcceabc6b26de_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,143,156,168"/>
+<area shape="rect"  href="namespace_requests.html#a74f524cbf36960d2b690f020ca5a6014" title=" " alt="" coords="211,5,367,44"/>
+<area shape="rect"  href="namespace_actor_model.html#aefe347cf1fcd0d80dca3e517604ad625" title=" " alt="" coords="216,68,362,93"/>
+<area shape="rect"  href="namespace_actor_model.html#a7464801c46fc09ddacf1b63b54e261e9" title=" " alt="" coords="218,117,360,143"/>
+<area shape="rect"  href="namespace_actor_model.html#a23bee2724f328f7fdf3af1d17d0492f9" title=" " alt="" coords="226,167,351,192"/>
+<area shape="rect"  href="namespace_actor_model.html#a329109db6124f02d1f82c2a90d102e72" title=" " alt="" coords="209,216,368,241"/>
+<area shape="rect"  href="namespace_requests.html#a1c778e3226d7ec93e2351043c96088cd" title=" " alt="" coords="204,265,374,304"/>
+<area shape="rect"  href="class_actor_model_1_1_process.html#a7855ee2779ae4a48e56776be8ca20b87" title=" " alt="" coords="439,160,583,199"/>
+<area shape="rect"  href="namespace_requests.html#ade3304a270130400fb5c52c156c5814a" title=" " alt="" coords="422,265,600,304"/>
+<area shape="rect"  href="namespace_u_u_i_d.html#a3d783c953f3fa260d90004f6f904f6f4" title=" " alt="" coords="661,223,769,248"/>
+<area shape="rect"  href="namespace_u_u_i_d.html#ac0c664635f1b7d19b635b304bbfedfe5" title=" " alt="" coords="654,272,776,297"/>
+<area shape="rect"  href="namespace_u_u_i_d.html#ab7279f21e5f75d5baaed39e892d656d6" title=" " alt="" coords="648,321,782,347"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -832,7 +886,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto HIDGlobalReader::beep </td>
           <td>(</td>
-          <td class="paramtype">TimeDuration&#160;</td>
+          <td class="paramtype"><a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a>&#160;</td>
           <td class="paramname"><em>duration</em></td><td>)</td>
           <td> -&gt; void</td>
         </tr>
@@ -860,7 +914,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="ga32cbe146c6f35d870248f5b921f35e78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga32cbe146c6f35d870248f5b921f35e78">&#9670;&nbsp;</a></span>display_behaviour() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga32cbe146c6f35d870248f5b921f35e78">&#9670;&nbsp;</a></span>display_behaviour()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -868,58 +922,32 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto display_behaviour </td>
           <td>(</td>
-          <td class="paramtype">const ActorModel::Pid &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>self</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ActorModel::Mailbox &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="class_actor_model_1_1_mailbox.html">ActorModel::Mailbox</a> &amp;&#160;</td>
           <td class="paramname"><em>mailbox</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> -&gt;  ActorModel::ResultUnion</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="gafa385f1054ae6c113aa67d51ad1969ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gafa385f1054ae6c113aa67d51ad1969ae">&#9670;&nbsp;</a></span>display_behaviour() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto display_behaviour </td>
-          <td>(</td>
-          <td class="paramtype">const Pid &amp;&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Mailbox &amp;&#160;</td>
-          <td class="paramname"><em>mailbox</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> -&gt; ResultUnion
-</td>
+          <td></td><td> -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="group__firmware_gafa385f1054ae6c113aa67d51ad1969ae_cgraph.png" border="0" usemap="#group__firmware_gafa385f1054ae6c113aa67d51ad1969ae_cgraph" alt=""/></div>
-<map name="group__firmware_gafa385f1054ae6c113aa67d51ad1969ae_cgraph" id="group__firmware_gafa385f1054ae6c113aa67d51ad1969ae_cgraph">
-<area shape="rect"  title=" " alt="" coords="5,12,134,37"/>
-<area shape="rect"  href="struct_display_actor_state.html#a42038e6dd971dec69ca12aa1e64aedb9" title=" " alt="" coords="182,5,336,44"/>
+<div class="center"><img src="group__firmware_ga32cbe146c6f35d870248f5b921f35e78_cgraph.png" border="0" usemap="#group__firmware_ga32cbe146c6f35d870248f5b921f35e78_cgraph" alt=""/></div>
+<map name="group__firmware_ga32cbe146c6f35d870248f5b921f35e78_cgraph" id="group__firmware_ga32cbe146c6f35d870248f5b921f35e78_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,55,134,80"/>
+<area shape="rect"  href="namespace_actor_model.html#aefe347cf1fcd0d80dca3e517604ad625" title=" " alt="" coords="201,5,347,31"/>
+<area shape="rect"  href="timestamp_8cpp.html#adbcc277c5ccf848909843efd4a1f6e9f" title=" " alt="" coords="182,55,366,80"/>
+<area shape="rect"  href="namespace_actor_model.html#a23bee2724f328f7fdf3af1d17d0492f9" title=" " alt="" coords="211,104,337,129"/>
+<area shape="rect"  href="class_actor_model_1_1_process.html#a7855ee2779ae4a48e56776be8ca20b87" title=" " alt="" coords="414,97,558,136"/>
 </map>
 </div>
 
@@ -934,7 +962,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto generate_activity </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">string_view</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="filesystem_8cpp.html#a23b57f0b98455f90118efd4a93ca0151">string_view</a>&#160;</td>
           <td class="paramname"><em>machine_id_str</em>, </td>
         </tr>
         <tr>
@@ -946,7 +974,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">string_view</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="filesystem_8cpp.html#a23b57f0b98455f90118efd4a93ca0151">string_view</a>&#160;</td>
           <td class="paramname"><em>tag_id_str</em>, </td>
         </tr>
         <tr>
@@ -1049,7 +1077,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto generate_log </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">string_view</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="filesystem_8cpp.html#a23b57f0b98455f90118efd4a93ca0151">string_view</a>&#160;</td>
           <td class="paramname"><em>machine_id_str</em>, </td>
         </tr>
         <tr>
@@ -1061,7 +1089,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">string_view</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="filesystem_8cpp.html#a23b57f0b98455f90118efd4a93ca0151">string_view</a>&#160;</td>
           <td class="paramname"><em>message_str</em>&#160;</td>
         </tr>
         <tr>
@@ -1096,7 +1124,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const TimeDuration&#160;</td>
+          <td class="paramtype">const <a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a>&#160;</td>
           <td class="paramname"><em>duration</em>, </td>
         </tr>
         <tr>
@@ -1136,7 +1164,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const TimeDuration&#160;</td>
+          <td class="paramtype">const <a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a>&#160;</td>
           <td class="paramname"><em>duration</em>, </td>
         </tr>
         <tr>
@@ -1228,6 +1256,15 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__firmware_ga73ff7ccf542e664f378ea981a1091404_cgraph.png" border="0" usemap="#group__firmware_ga73ff7ccf542e664f378ea981a1091404_cgraph" alt=""/></div>
+<map name="group__firmware_ga73ff7ccf542e664f378ea981a1091404_cgraph" id="group__firmware_ga73ff7ccf542e664f378ea981a1091404_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,5,149,44"/>
+<area shape="rect"  href="timestamp_8cpp.html#adbcc277c5ccf848909843efd4a1f6e9f" title=" " alt="" coords="197,12,381,37"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -1298,7 +1335,7 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<p>Parsed according to "Standard" 26-Bit Wiegand Format" as defined in </p>
+<dl class="section note"><dt>Note</dt><dd>Parsed according to <code>"Standard" 26-Bit Wiegand Format</code> as defined in: <a href="https://www.hidglobal.com/sites/default/files/hid-understanding_card_data_formats-wp-en.pdf">https://www.hidglobal.com/sites/default/files/hid-understanding_card_data_formats-wp-en.pdf</a> </dd></dl>
 
 </div>
 </div>
@@ -1329,13 +1366,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto machine_actor_behaviour </td>
           <td>(</td>
-          <td class="paramtype">const ActorModel::Pid &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>self</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ActorModel::StatePtr &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;&#160;</td>
           <td class="paramname"><em>_state</em>, </td>
         </tr>
         <tr>
@@ -1347,7 +1384,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> -&gt;  ActorModel::ResultUnion</td>
+          <td></td><td> -&gt;  <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1363,13 +1400,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto machine_actor_behaviour </td>
           <td>(</td>
-          <td class="paramtype">const Pid &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>self</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">StatePtr &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;&#160;</td>
           <td class="paramname"><em>_state</em>, </td>
         </tr>
         <tr>
@@ -1381,11 +1418,27 @@ Here is the call graph for this function:</div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> -&gt; ResultUnion
+          <td></td><td> -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a>
 </td>
         </tr>
       </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__firmware_gab449412ddd3912652b125573e90d8db1_cgraph.png" border="0" usemap="#group__firmware_gab449412ddd3912652b125573e90d8db1_cgraph" alt=""/></div>
+<map name="group__firmware_gab449412ddd3912652b125573e90d8db1_cgraph" id="group__firmware_gab449412ddd3912652b125573e90d8db1_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,153,180,179"/>
+<area shape="rect"  href="namespace_actor_model.html#aefe347cf1fcd0d80dca3e517604ad625" title=" " alt="" coords="247,5,393,31"/>
+<area shape="rect"  href="namespace_actor_model.html#a8458fc07dc4824c5b1b8599fcdd1f5ad" title=" " alt="" coords="253,55,387,80"/>
+<area shape="rect"  href="namespace_actor_model.html#a882049e2d543ec7c690193fd8d5cee1d" title=" " alt="" coords="232,104,408,129"/>
+<area shape="rect"  href="namespace_actor_model.html#a23bee2724f328f7fdf3af1d17d0492f9" title=" " alt="" coords="257,153,382,179"/>
+<area shape="rect"  href="namespace_actor_model.html#a329109db6124f02d1f82c2a90d102e72" title=" " alt="" coords="240,203,400,228"/>
+<area shape="rect"  href="timestamp_8cpp.html#adbcc277c5ccf848909843efd4a1f6e9f" title=" " alt="" coords="228,252,412,277"/>
+<area shape="rect"  href="namespace_actor_model.html#a7464801c46fc09ddacf1b63b54e261e9" title=" " alt="" coords="249,301,391,327"/>
+<area shape="rect"  href="class_actor_model_1_1_process.html#a7855ee2779ae4a48e56776be8ca20b87" title=" " alt="" coords="460,147,604,185"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -1412,6 +1465,15 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__firmware_ga91bf7209e205135f8df197d348e3d1ba_cgraph.png" border="0" usemap="#group__firmware_ga91bf7209e205135f8df197d348e3d1ba_cgraph" alt=""/></div>
+<map name="group__firmware_ga91bf7209e205135f8df197d348e3d1ba_cgraph" id="group__firmware_ga91bf7209e205135f8df197d348e3d1ba_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,5,173,31"/>
+<area shape="rect"  href="timestamp_8cpp.html#adbcc277c5ccf848909843efd4a1f6e9f" title=" " alt="" coords="221,5,405,31"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -1460,13 +1522,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto rfid_reader_actor_behaviour </td>
           <td>(</td>
-          <td class="paramtype">const ActorModel::Pid &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>self</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ActorModel::StatePtr &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;&#160;</td>
           <td class="paramname"><em>_state</em>, </td>
         </tr>
         <tr>
@@ -1478,7 +1540,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> -&gt;  ActorModel::ResultUnion</td>
+          <td></td><td> -&gt;  <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1494,13 +1556,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto rfid_reader_actor_behaviour </td>
           <td>(</td>
-          <td class="paramtype">const Pid &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>self</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">StatePtr &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;&#160;</td>
           <td class="paramname"><em>_state</em>, </td>
         </tr>
         <tr>
@@ -1512,11 +1574,23 @@ Here is the call graph for this function:</div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> -&gt; ResultUnion
+          <td></td><td> -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a>
 </td>
         </tr>
       </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__firmware_ga1fd070e191561cf7166b9d17e161c940_cgraph.png" border="0" usemap="#group__firmware_ga1fd070e191561cf7166b9d17e161c940_cgraph" alt=""/></div>
+<map name="group__firmware_ga1fd070e191561cf7166b9d17e161c940_cgraph" id="group__firmware_ga1fd070e191561cf7166b9d17e161c940_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,55,194,80"/>
+<area shape="rect"  href="namespace_actor_model.html#aefe347cf1fcd0d80dca3e517604ad625" title=" " alt="" coords="242,5,389,31"/>
+<area shape="rect"  href="namespace_actor_model.html#a7464801c46fc09ddacf1b63b54e261e9" title=" " alt="" coords="244,55,387,80"/>
+<area shape="rect"  href="namespace_actor_model.html#a23bee2724f328f7fdf3af1d17d0492f9" title=" " alt="" coords="253,104,378,129"/>
+<area shape="rect"  href="class_actor_model_1_1_process.html#a7855ee2779ae4a48e56776be8ca20b87" title=" " alt="" coords="437,73,581,112"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -1587,6 +1661,17 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__firmware_gad41fbe5fac05b69ef45279c6a0112fa5_cgraph.png" border="0" usemap="#group__firmware_gad41fbe5fac05b69ef45279c6a0112fa5_cgraph" alt=""/></div>
+<map name="group__firmware_gad41fbe5fac05b69ef45279c6a0112fa5_cgraph" id="group__firmware_gad41fbe5fac05b69ef45279c6a0112fa5_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,31,142,56"/>
+<area shape="rect"  href="namespace_actor_model.html#a7464801c46fc09ddacf1b63b54e261e9" title=" " alt="" coords="190,5,332,31"/>
+<area shape="rect"  href="namespace_actor_model.html#a23bee2724f328f7fdf3af1d17d0492f9" title=" " alt="" coords="198,55,323,80"/>
+<area shape="rect"  href="class_actor_model_1_1_process.html#a7855ee2779ae4a48e56776be8ca20b87" title=" " alt="" coords="380,24,524,63"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -1712,13 +1797,33 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__firmware_gae8545dae37e173a12f23fcaaac960a21_cgraph.png" border="0" usemap="#group__firmware_gae8545dae37e173a12f23fcaaac960a21_cgraph" alt=""/></div>
 <map name="group__firmware_gae8545dae37e173a12f23fcaaac960a21_cgraph" id="group__firmware_gae8545dae37e173a12f23fcaaac960a21_cgraph">
-<area shape="rect"  title=" " alt="" coords="5,129,82,155"/>
-<area shape="rect"  href="group__firmware.html#gabfa8352fbc37598c0e239932ff43e23e" title=" " alt="" coords="150,5,300,31"/>
-<area shape="rect"  href="group__firmware.html#ga8980cdac7afb7bc0cc910b173e5240e3" title=" " alt="" coords="130,55,319,80"/>
-<area shape="rect"  href="group__firmware.html#gae528aa46f9c454ed1d50a7ed974b9075" title=" " alt="" coords="151,104,298,129"/>
-<area shape="rect"  href="group__firmware.html#ga2565ae2511f4c53e94ded34232cdcb6a" title=" " alt="" coords="137,153,312,179"/>
-<area shape="rect"  href="group__firmware.html#ga32cbe146c6f35d870248f5b921f35e78" title=" " alt="" coords="160,203,289,228"/>
-<area shape="rect"  href="group__firmware.html#ga3b82ff3a3d6577b5ed9588bf7aae2756" title=" " alt="" coords="152,252,298,291"/>
+<area shape="rect"  title=" " alt="" coords="5,373,82,399"/>
+<area shape="rect"  href="namespace_firmware_update.html#aefb673619da6b46b944a17e87f79021d" title=" " alt="" coords="135,5,314,44"/>
+<area shape="rect"  href="trace_8cpp.html#ab6464847751fcb8f7ea8b0127c0f0435" title=" " alt="" coords="412,172,506,197"/>
+<area shape="rect"  href="namespace_actor_model.html#a0c8ebf724874bed04a548e7ec8832f09" title=" " alt="" coords="157,68,292,93"/>
+<area shape="rect"  href="group__firmware.html#gabfa8352fbc37598c0e239932ff43e23e" title=" " alt="" coords="150,169,300,195"/>
+<area shape="rect"  href="group__firmware.html#ga8980cdac7afb7bc0cc910b173e5240e3" title=" " alt="" coords="130,219,319,244"/>
+<area shape="rect"  href="group__firmware.html#gae528aa46f9c454ed1d50a7ed974b9075" title=" " alt="" coords="151,268,298,293"/>
+<area shape="rect"  href="group__firmware.html#ga2565ae2511f4c53e94ded34232cdcb6a" title=" " alt="" coords="137,317,312,343"/>
+<area shape="rect"  href="namespace_network_manager.html#ae8a3f4372476b8f488e51305f86d3b96" title=" " alt="" coords="150,429,299,468"/>
+<area shape="rect"  href="namespace_network_manager.html#a4ab8251db7907101c288db76e556d59d" title=" " alt="" coords="150,492,299,531"/>
+<area shape="rect"  href="namespace_network_manager.html#a96a42641d0fc7d054d19687c7e5884d1" title=" " alt="" coords="136,555,313,593"/>
+<area shape="rect"  href="namespace_actor_model.html#a12aa1361ac0c0cc36b27141cba6828dc" title=" " alt="" coords="146,367,303,405"/>
+<area shape="rect"  href="namespace_actor_model.html#a9b33c60bd90096ad48a0cfc1c7035dcb" title=" " alt="" coords="368,644,550,669"/>
+<area shape="rect"  href="group__firmware.html#ga32cbe146c6f35d870248f5b921f35e78" title=" " alt="" coords="160,669,289,695"/>
+<area shape="rect"  href="namespace_actor_model.html#a23bee2724f328f7fdf3af1d17d0492f9" title=" " alt="" coords="396,743,521,768"/>
+<area shape="rect"  href="group__firmware.html#ga3b82ff3a3d6577b5ed9588bf7aae2756" title=" " alt="" coords="152,771,298,809"/>
+<area shape="rect"  href="trace_8cpp.html#a18b22f46f84106c739796f65eda17dd6" title=" " alt="" coords="602,172,740,197"/>
+<area shape="rect"  href="namespace_actor_model.html#ad2b28ed935af0477d2fe092936ce3585" title=" " alt="" coords="392,97,526,136"/>
+<area shape="rect"  href="class_actor_model_1_1_process.html#a7855ee2779ae4a48e56776be8ca20b87" title=" " alt="" coords="599,351,743,389"/>
+<area shape="rect"  href="namespace_actor_model.html#aefe347cf1fcd0d80dca3e517604ad625" title=" " alt="" coords="386,469,532,495"/>
+<area shape="rect"  href="namespace_actor_model.html#a882049e2d543ec7c690193fd8d5cee1d" title=" " alt="" coords="371,357,547,383"/>
+<area shape="rect"  href="namespace_network_manager.html#a929b20214cddfbd39d4b4f80ea2a7228" title=" " alt="" coords="389,407,529,445"/>
+<area shape="rect"  href="namespace_network_manager.html#af75a3c3e759320e861562c69632ef4b8" title=" " alt="" coords="385,245,533,284"/>
+<area shape="rect"  href="namespace_actor_model.html#a8458fc07dc4824c5b1b8599fcdd1f5ad" title=" " alt="" coords="392,308,526,333"/>
+<area shape="rect"  href="namespace_network_manager.html#a9ae8bb69a5acbcc649326b1201cfa435" title=" " alt="" coords="385,519,533,557"/>
+<area shape="rect"  href="namespace_network_manager.html#a38f3042147fe30e15015603c61384b65" title=" " alt="" coords="381,581,537,620"/>
+<area shape="rect"  href="timestamp_8cpp.html#adbcc277c5ccf848909843efd4a1f6e9f" title=" " alt="" coords="367,693,551,719"/>
 </map>
 </div>
 
@@ -1733,7 +1838,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto start_request_manager </td>
           <td>(</td>
-          <td class="paramtype">const ActorModel::Pid &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>sup_pid</em>, </td>
         </tr>
         <tr>
@@ -1745,7 +1850,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> -&gt;  ActorModel::ResultUnion</td>
+          <td></td><td> -&gt;  <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1761,7 +1866,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto start_request_manager </td>
           <td>(</td>
-          <td class="paramtype">const Pid &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>sup_pid</em>, </td>
         </tr>
         <tr>
@@ -1773,11 +1878,29 @@ Here is the call graph for this function:</div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> -&gt; ResultUnion
+          <td></td><td> -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a>
 </td>
         </tr>
       </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__firmware_ga7e4ffb20ac7a308e9693544d2837cdea_cgraph.png" border="0" usemap="#group__firmware_ga7e4ffb20ac7a308e9693544d2837cdea_cgraph" alt=""/></div>
+<map name="group__firmware_ga7e4ffb20ac7a308e9693544d2837cdea_cgraph" id="group__firmware_ga7e4ffb20ac7a308e9693544d2837cdea_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,111,165,136"/>
+<area shape="rect"  href="namespace_actor_model.html#ac7dc730cae479a911c96c83c9a77f3df" title=" " alt="" coords="226,60,388,85"/>
+<area shape="rect"  href="namespace_requests.html#ae909eaf437fa7044ff66e850f375c755" title=" " alt="" coords="213,161,402,200"/>
+<area shape="rect"  href="namespace_actor_model.html#a23bee2724f328f7fdf3af1d17d0492f9" title=" " alt="" coords="478,117,603,143"/>
+<area shape="rect"  href="namespace_actor_model.html#a9b33c60bd90096ad48a0cfc1c7035dcb" title=" " alt="" coords="450,5,632,31"/>
+<area shape="rect"  href="filesystem_8cpp.html#a8b5ce2c692f7bd271b3c629081357a79" title=" " alt="" coords="250,224,365,249"/>
+<area shape="rect"  href="namespace_actor_model.html#ad2b28ed935af0477d2fe092936ce3585" title=" " alt="" coords="474,55,607,93"/>
+<area shape="rect"  href="class_actor_model_1_1_process.html#a7855ee2779ae4a48e56776be8ca20b87" title=" " alt="" coords="684,55,828,93"/>
+<area shape="rect"  href="namespace_requests.html#a207bc1ffb5f90fb1e9a92a947a5a082e" title=" " alt="" coords="473,168,609,193"/>
+<area shape="rect"  href="namespace_actor_model.html#aefe347cf1fcd0d80dca3e517604ad625" title=" " alt="" coords="682,191,829,216"/>
+<area shape="rect"  href="namespace_u_u_i_d.html#aeb49f4dd1950530a67c296a65e8a4292" title=" " alt="" coords="680,141,832,167"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -1804,6 +1927,15 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__firmware_ga8707cd2c09ee8841859746e17633babc_cgraph.png" border="0" usemap="#group__firmware_ga8707cd2c09ee8841859746e17633babc_cgraph" alt=""/></div>
+<map name="group__firmware_ga8707cd2c09ee8841859746e17633babc_cgraph" id="group__firmware_ga8707cd2c09ee8841859746e17633babc_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,5,182,31"/>
+<area shape="rect"  href="timestamp_8cpp.html#adbcc277c5ccf848909843efd4a1f6e9f" title=" " alt="" coords="230,5,414,31"/>
+</map>
+</div>
 
 </div>
 </div>

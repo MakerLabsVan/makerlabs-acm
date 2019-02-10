@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -103,19 +111,20 @@ $(document).ready(function(){initNavTree('dev_setup.html','');});
 <div class="title">Dev Setup </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h2>How-to obtain this repo:</h2>
-<p># Clone this repo recursively: </p><div class="fragment"><div class="line">git clone --recursive https://github.com/MakerLabsVan/makerlabs-acm</div><div class="line">cd makerlabs-acm</div></div><!-- fragment --><h1><a class="anchor" id="autotoc_md0"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md0"></a>
+How-to obtain this repo:</h1>
+<p>## Clone this repo recursively: </p><div class="fragment"><div class="line">git clone --recursive https://github.com/MakerLabsVan/makerlabs-acm</div><div class="line">cd makerlabs-acm</div></div><!-- fragment --><h1><a class="anchor" id="autotoc_md1"></a>
 Pre-requisites (macOS):</h1>
 <ul>
-<li>Electrical: Install KiCad 5.0+: <a href="http://downloads.kicad-pcb.org/osx/nightly/">http://downloads.kicad-pcb.org/osx/nightly/</a></li>
-<li><p class="startli">Firmware/Software: Install homebrew macOS package manager: </p><div class="fragment"><div class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></div><!-- fragment --><p class="startli">Install <code>yarn</code>: </p><div class="fragment"><div class="line">brew install yarn</div></div><!-- fragment --><p class="startli">Install dependencies: </p><div class="fragment"><div class="line">yarn deps</div><div class="line">yarn install</div></div><!-- fragment --></li>
+<li><code>electrical/</code>: Install KiCad 5.0+: <a href="http://kicad-pcb.org/download/">http://kicad-pcb.org/download/</a></li>
+<li><p class="startli"><code>firmware/</code>, <code>functions/</code>, <code>scripts/</code>, <code>webcomponents/</code>: Install homebrew macOS package manager: </p><div class="fragment"><div class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></div><!-- fragment --><p class="startli">Install <code>yarn</code>: </p><div class="fragment"><div class="line">brew install yarn</div></div><!-- fragment --><p class="startli">Install dependencies: </p><div class="fragment"><div class="line">yarn deps</div><div class="line">yarn install</div></div><!-- fragment --></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1"></a>
+<h1><a class="anchor" id="autotoc_md2"></a>
 Electrical</h1>
 <ul>
 <li>Open the KiCad project: <div class="fragment"><div class="line">open -a kicad electrical/makerlabs-acm-reader-lock_v1.0.0.pro</div></div><!-- fragment --></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md2"></a>
+<h1><a class="anchor" id="autotoc_md3"></a>
 Firmware</h1>
 <ul>
 <li>Configure firmware settings (Wifi SSID/password, Google Spreadsheet ID, etc): <div class="fragment"><div class="line">yarn firmware menuconfig</div></div><!-- fragment --></li>
@@ -123,14 +132,14 @@ Firmware</h1>
 <li>Same as above, but also monitor the serial data and reboot after flashing: <div class="fragment"><div class="line">yarn firmware flash monitor</div></div><!-- fragment --></li>
 <li>Build binaries for OTA firmware updates, upload them to Google Drive: (<em>note: increment the number in the <code>firmware/VERSION</code> file to allow clients to download it</em>) <div class="fragment"><div class="line">yarn firmware all_binaries &amp;&amp; \</div><div class="line">  gdrive update &lt;firmware_image_id&gt; firmware/build/makerlabs-acm-reader-lock.bin &amp;&amp; \</div><div class="line">  gdrive update &lt;firmware_update_id&gt; firmware/build/latest.fw.fb</div></div><!-- fragment --></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md3"></a>
+<h1><a class="anchor" id="autotoc_md4"></a>
 WebComponents</h1>
 <ul>
 <li>Add WebComponent dependencies in webcomponents, via <code>bower</code>: <div class="fragment"><div class="line">yarn webcomponents-add &lt;component names&gt;</div></div><!-- fragment --></li>
 <li>Fetch/update WebComponent versions from latest packages: <div class="fragment"><div class="line">yarn webcomponents</div></div><!-- fragment --></li>
 </ul>
 <p>Commit and push the updated files in <code>webcomponents/</code> and <code>webcomponents/bower_components/</code></p>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md5"></a>
 Google Apps Script Webapp / Frontend</h1>
 <ul>
 <li><p class="startli">Login to the Google Apps Script / online UI: </p><div class="fragment"><div class="line">yarn login</div></div><!-- fragment --><p class="startli">Enable the Google Apps Script API for your personal Google Apps user: <a href="https://script.google.com/home/usersettings">https://script.google.com/home/usersettings</a></p>
@@ -140,19 +149,20 @@ Google Apps Script Webapp / Frontend</h1>
 <li>Push changes to Google Apps Script <div class="fragment"><div class="line">yarn push</div></div><!-- fragment --></li>
 <li>Deploy the latest changes as a webapp: <div class="fragment"><div class="line">yarn deploy</div></div><!-- fragment --></li>
 </ul>
-<h2>How-to obtain this repo:</h2>
-<p># Clone this repo recursively: </p><div class="fragment"><div class="line">git clone --recursive https://github.com/MakerLabsVan/makerlabs-acm</div><div class="line">cd makerlabs-acm</div></div><!-- fragment --><h1><a class="anchor" id="autotoc_md71"></a>
+<h1><a class="anchor" id="autotoc_md89"></a>
+How-to obtain this repo:</h1>
+<p>## Clone this repo recursively: </p><div class="fragment"><div class="line">git clone --recursive https://github.com/MakerLabsVan/makerlabs-acm</div><div class="line">cd makerlabs-acm</div></div><!-- fragment --><h1><a class="anchor" id="autotoc_md90"></a>
 Pre-requisites (macOS):</h1>
 <ul>
-<li>Electrical: Install KiCad 5.0+: <a href="http://downloads.kicad-pcb.org/osx/nightly/">http://downloads.kicad-pcb.org/osx/nightly/</a></li>
-<li><p class="startli">Firmware/Software: Install homebrew macOS package manager: </p><div class="fragment"><div class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></div><!-- fragment --><p class="startli">Install <code>yarn</code>: </p><div class="fragment"><div class="line">brew install yarn</div></div><!-- fragment --><p class="startli">Install dependencies: </p><div class="fragment"><div class="line">yarn deps</div><div class="line">yarn install</div></div><!-- fragment --></li>
+<li><code>electrical/</code>: Install KiCad 5.0+: <a href="http://kicad-pcb.org/download/">http://kicad-pcb.org/download/</a></li>
+<li><p class="startli"><code>firmware/</code>, <code>functions/</code>, <code>scripts/</code>, <code>webcomponents/</code>: Install homebrew macOS package manager: </p><div class="fragment"><div class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></div><!-- fragment --><p class="startli">Install <code>yarn</code>: </p><div class="fragment"><div class="line">brew install yarn</div></div><!-- fragment --><p class="startli">Install dependencies: </p><div class="fragment"><div class="line">yarn deps</div><div class="line">yarn install</div></div><!-- fragment --></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md72"></a>
+<h1><a class="anchor" id="autotoc_md91"></a>
 Electrical</h1>
 <ul>
 <li>Open the KiCad project: <div class="fragment"><div class="line">open -a kicad electrical/makerlabs-acm-reader-lock_v1.0.0.pro</div></div><!-- fragment --></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md73"></a>
+<h1><a class="anchor" id="autotoc_md92"></a>
 Firmware</h1>
 <ul>
 <li>Configure firmware settings (Wifi SSID/password, Google Spreadsheet ID, etc): <div class="fragment"><div class="line">yarn firmware menuconfig</div></div><!-- fragment --></li>
@@ -160,14 +170,14 @@ Firmware</h1>
 <li>Same as above, but also monitor the serial data and reboot after flashing: <div class="fragment"><div class="line">yarn firmware flash monitor</div></div><!-- fragment --></li>
 <li>Build binaries for OTA firmware updates, upload them to Google Drive: (<em>note: increment the number in the <code>firmware/VERSION</code> file to allow clients to download it</em>) <div class="fragment"><div class="line">yarn firmware all_binaries &amp;&amp; \</div><div class="line">  gdrive update &lt;firmware_image_id&gt; firmware/build/makerlabs-acm-reader-lock.bin &amp;&amp; \</div><div class="line">  gdrive update &lt;firmware_update_id&gt; firmware/build/latest.fw.fb</div></div><!-- fragment --></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md74"></a>
+<h1><a class="anchor" id="autotoc_md93"></a>
 WebComponents</h1>
 <ul>
 <li>Add WebComponent dependencies in webcomponents, via <code>bower</code>: <div class="fragment"><div class="line">yarn webcomponents-add &lt;component names&gt;</div></div><!-- fragment --></li>
 <li>Fetch/update WebComponent versions from latest packages: <div class="fragment"><div class="line">yarn webcomponents</div></div><!-- fragment --></li>
 </ul>
 <p>Commit and push the updated files in <code>webcomponents/</code> and <code>webcomponents/bower_components/</code></p>
-<h1><a class="anchor" id="autotoc_md75"></a>
+<h1><a class="anchor" id="autotoc_md94"></a>
 Google Apps Script Webapp / Frontend</h1>
 <ul>
 <li><p class="startli">Login to the Google Apps Script / online UI: </p><div class="fragment"><div class="line">yarn login</div></div><!-- fragment --><p class="startli">Enable the Google Apps Script API for your personal Google Apps user: <a href="https://script.google.com/home/usersettings">https://script.google.com/home/usersettings</a></p>

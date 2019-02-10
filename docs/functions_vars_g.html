@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -104,6 +112,9 @@ $(document).ready(function(){initNavTree('functions_vars_g.html','');});
 <h3><a id="index_g"></a>- g -</h3><ul>
 <li>green_led_pin
 : <a class="el" href="struct_wiegand_reader_1_1_config.html#ac14564ca1c3d9485b7b506d5fd485417">WiegandReader::Config</a>
+</li>
+<li>gw
+: <a class="el" href="struct_network_manager_1_1_network_interface_details.html#a40faaeb17829f73832040125a5092b27">NetworkManager::NetworkInterfaceDetails</a>
 </li>
 </ul>
 </div><!-- contents -->

@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -110,6 +118,12 @@ $(document).ready(function(){initNavTree('functions_b.html','');});
 </li>
 <li>BeginJobTimer
 : <a class="el" href="union_display_action.html#a963389978876420d1479cca861be8d18">DisplayAction</a>
+</li>
+<li>behaviour
+: <a class="el" href="class_actor_model_1_1_process.html#a3825bc7a69ed0fb7c22b380d60f8a31f">ActorModel::Process</a>
+</li>
+<li>buf
+: <a class="el" href="class_actor_model_1_1_timed_buffer_delivery.html#aa328999f1d7bdd0c0e13ade8c41852b1">ActorModel::TimedBufferDelivery</a>
 </li>
 </ul>
 </div><!-- contents -->

@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -108,7 +116,7 @@ $(document).ready(function(){initNavTree('acm__helpers_8h.html','');});
 <div class="contents">
 <div class="textblock"><code>#include &quot;acm_generated.h&quot;</code><br />
 <code>#include &quot;display_generated.h&quot;</code><br />
-<code>#include &quot;timestamp.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="timestamp_8h_source.html">timestamp.h</a>&quot;</code><br />
 <code>#include &lt;experimental/string_view&gt;</code><br />
 </div>
 <p><a href="acm__helpers_8h_source.html">Go to the source code of this file.</a></p>
@@ -132,7 +140,7 @@ Functions</h2></td></tr>
 <tr class="separator:ga04d2987521d80af3aec4fa9ede78411c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga28b5fc4d82c56d917410536e83fb6ee9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga28b5fc4d82c56d917410536e83fb6ee9">generate_show_user_details_from_user</a> (const ACM::User *user) -&gt; <a class="el" href="group__firmware.html#gadd043916085304d80aaa1f7ecbfc5d8e">DisplayIntentFlatbuffer</a></td></tr>
 <tr class="separator:ga28b5fc4d82c56d917410536e83fb6ee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab78952bec466d527c5023c0d66ec9dd2"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gab78952bec466d527c5023c0d66ec9dd2">generate_progress_bar</a> (const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> message, const uint32_t progress, const TimeDuration duration, const <a class="el" href="display_8fbs.html#a2e818c73997312db943060f5f3016719">Display::Icon</a> icon=<a class="el" href="display_8fbs.html#a2e818c73997312db943060f5f3016719a6adf97f83acf6453d4a6a4b1070f3754">Display::Icon::None</a>) -&gt; <a class="el" href="group__firmware.html#gadd043916085304d80aaa1f7ecbfc5d8e">DisplayIntentFlatbuffer</a></td></tr>
+<tr class="memitem:gab78952bec466d527c5023c0d66ec9dd2"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gab78952bec466d527c5023c0d66ec9dd2">generate_progress_bar</a> (const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> message, const uint32_t progress, const <a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a> duration, const <a class="el" href="display_8fbs.html#a2e818c73997312db943060f5f3016719">Display::Icon</a> icon=<a class="el" href="display_8fbs.html#a2e818c73997312db943060f5f3016719a6adf97f83acf6453d4a6a4b1070f3754">Display::Icon::None</a>) -&gt; <a class="el" href="group__firmware.html#gadd043916085304d80aaa1f7ecbfc5d8e">DisplayIntentFlatbuffer</a></td></tr>
 <tr class="separator:gab78952bec466d527c5023c0d66ec9dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3b82ff3a3d6577b5ed9588bf7aae2756"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga3b82ff3a3d6577b5ed9588bf7aae2756">generate_show_user_details</a> (const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> message, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> email, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> makerlabs_id, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> tag_id) -&gt; <a class="el" href="group__firmware.html#gadd043916085304d80aaa1f7ecbfc5d8e">DisplayIntentFlatbuffer</a></td></tr>
 <tr class="separator:ga3b82ff3a3d6577b5ed9588bf7aae2756"><td class="memSeparator" colspan="2">&#160;</td></tr>

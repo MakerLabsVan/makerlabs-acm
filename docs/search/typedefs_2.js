@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['inprogressrequestpayload',['InProgressRequestPayload',['../struct_app_actor_state.html#abd3db5e16b162bf74e822e34a209dba1',1,'AppActorState']]],
-  ['inprogressrequestpayloadlist',['InProgressRequestPayloadList',['../struct_app_actor_state.html#ae0904bc00ff0647a9f88b6791a5ba2a5',1,'AppActorState']]]
+  ['callback',['Callback',['../class_json_1_1_json_emitter.html#a36642a635fc0ca3bfe4132a2e48209fc',1,'Json::JsonEmitter::Callback()'],['../class_requests_1_1_server_sent_events_emitter.html#a00c3ac51fd1f1015f9a155d9516f6d7c',1,'Requests::ServerSentEventsEmitter::Callback()']]]
 ];

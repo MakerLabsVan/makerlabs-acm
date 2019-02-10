@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -238,6 +246,21 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_image_file_uploader_aaed875b6c4e7493ae5df3e81100b11ae_cgraph.png" border="0" usemap="#class_image_file_uploader_aaed875b6c4e7493ae5df3e81100b11ae_cgraph" alt=""/></div>
+<map name="class_image_file_uploader_aaed875b6c4e7493ae5df3e81100b11ae_cgraph" id="class_image_file_uploader_aaed875b6c4e7493ae5df3e81100b11ae_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,92,147,131"/>
+<area shape="rect"  href="class_image_file_uploader.html#a9250d2ff4ecce5d2cf74fb9772d924b9" title="dragover handler to set the drop effect." alt="" coords="213,5,354,44"/>
+<area shape="rect"  href="class_image_file_uploader.html#a25e1245e6dfb39c4ad948bb77125fb01" title="dragleave handler to clear the drop effect." alt="" coords="609,63,751,101"/>
+<area shape="rect"  href="class_image_file_uploader.html#ad6a8ac4baf8320f6158ef2babc122fdc" title="Called when files are uploaded via drag n&#39; drop." alt="" coords="195,120,371,159"/>
+<area shape="rect"  href="class_image_file_uploader.html#a9d5363e69043a44a8767571c86e3324e" title="Called when files are uploaded via the OS file picker dialog." alt="" coords="195,183,372,221"/>
+<area shape="rect"  href="class_image_file_uploader.html#a377b2786a98e7370e90bbaab39375ab9" title="Uploads the content to Drive &amp; displays the results when complete." alt="" coords="420,125,561,164"/>
+<area shape="rect"  href="class_image_file_uploader.html#a924ae3bc6442aad649b92e676969a241" title="Check if Google Auth user is currently logged&#45;in, and extract the OAuth accessToken for Google Drive ..." alt="" coords="609,125,751,164"/>
+<area shape="rect"  href="class_image_file_uploader.html#a47111323c521c20b0f6490f5fa2e370f" title="Clear the temporary data storage of the uploaded file." alt="" coords="609,188,751,227"/>
+</map>
+</div>
 
 </div>
 </div>

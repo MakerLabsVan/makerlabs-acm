@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['readme_2emd',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
-  ['requests_2efbs',['requests.fbs',['../requests_8fbs.html',1,'']]],
-  ['rfid_5freader_5factor_2ecpp',['rfid_reader_actor.cpp',['../rfid__reader__actor_8cpp.html',1,'']]]
+  ['oom_5fkiller_5factor_5fbehaviour_2ecpp',['oom_killer_actor_behaviour.cpp',['../oom__killer__actor__behaviour_8cpp.html',1,'']]]
 ];

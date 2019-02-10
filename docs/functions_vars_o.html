@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -104,6 +112,24 @@ $(document).ready(function(){initNavTree('functions_vars_o.html','');});
 <h3><a id="index_o"></a>- o -</h3><ul>
 <li>Ok
 : <a class="el" href="union_result.html#a653a9f39c8576c4ab53789153b465408">Result</a>
+</li>
+<li>ota_bytes_written
+: <a class="el" href="struct_firmware_update_1_1_firmware_update_actor_state.html#a5cb3cd41d8b972f8100ca5ea92bb7cb9">FirmwareUpdate::FirmwareUpdateActorState</a>
+</li>
+<li>ota_checksum_hex_str
+: <a class="el" href="struct_firmware_update_1_1_firmware_update_actor_state.html#a0bc4547426d4c3f82dc35ef421ff27f5">FirmwareUpdate::FirmwareUpdateActorState</a>
+</li>
+<li>ota_flash_started
+: <a class="el" href="struct_firmware_update_1_1_firmware_update_actor_state.html#ae3ab68f6a2621b034ff90a60353546a8">FirmwareUpdate::FirmwareUpdateActorState</a>
+</li>
+<li>ota_flash_valid
+: <a class="el" href="struct_firmware_update_1_1_firmware_update_actor_state.html#a9df1e6c1f2bf04b436bd1009aa33f1de">FirmwareUpdate::FirmwareUpdateActorState</a>
+</li>
+<li>ota_handle
+: <a class="el" href="struct_firmware_update_1_1_firmware_update_actor_state.html#a1deab28ab4a2e4f8d9868dfa839c302e">FirmwareUpdate::FirmwareUpdateActorState</a>
+</li>
+<li>ota_partition
+: <a class="el" href="struct_firmware_update_1_1_firmware_update_actor_state.html#ae7ae7f7acae121d19cf2df6f33f5c786">FirmwareUpdate::FirmwareUpdateActorState</a>
 </li>
 </ul>
 </div><!-- contents -->

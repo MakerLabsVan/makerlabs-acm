@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -113,11 +121,11 @@ $(document).ready(function(){initNavTree('app__actor_8cpp.html','');});
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="actors_8h_source.html">actors.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="acm__helpers_8h_source.html">acm_helpers.h</a>&quot;</code><br />
-<code>#include &quot;filesystem.h&quot;</code><br />
-<code>#include &quot;requests.h&quot;</code><br />
-<code>#include &quot;timestamp.h&quot;</code><br />
-<code>#include &quot;uuid.h&quot;</code><br />
-<code>#include &quot;trace.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="filesystem_8h_source.html">filesystem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="requests_8h_source.html">requests.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="timestamp_8h_source.html">timestamp.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="uuid_8h_source.html">uuid.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="trace_8h_source.html">trace.h</a>&quot;</code><br />
 <code>#include &quot;flatbuffers/minireflect.h&quot;</code><br />
 <code>#include &quot;esp_log.h&quot;</code><br />
 <code>#include &lt;chrono&gt;</code><br />
@@ -156,7 +164,7 @@ Functions</h2></td></tr>
 <tr class="separator:gad41fbe5fac05b69ef45279c6a0112fa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga921049120cbc046bc1ff6b3d1f703c4e"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga921049120cbc046bc1ff6b3d1f703c4e">send_activity</a> (const <a class="el" href="group__firmware.html#ga701a460b2c909f27e2655d18c4b6203f">ActivityFlatbuffer</a> &amp;activity_mutable_buf) -&gt; bool</td></tr>
 <tr class="separator:ga921049120cbc046bc1ff6b3d1f703c4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga19e9deb9e876a0646107c94c5eb7e7df"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga19e9deb9e876a0646107c94c5eb7e7df">app_actor_behaviour</a> (const Pid &amp;self, StatePtr &amp;_state, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; ResultUnion</td></tr>
+<tr class="memitem:ga19e9deb9e876a0646107c94c5eb7e7df"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga19e9deb9e876a0646107c94c5eb7e7df">app_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;_state, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
 <tr class="separator:ga19e9deb9e876a0646107c94c5eb7e7df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>

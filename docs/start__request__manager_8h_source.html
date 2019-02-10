@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -103,8 +111,11 @@ $(document).ready(function(){initNavTree('start__request__manager_8h_source.html
 <div class="title">start_request_manager.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="start__request__manager_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">// actor_model</span></div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;actor_model.h&quot;</span></div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">auto</span> <a class="code" href="group__firmware.html#gac7395e733d11bf672623ce5b6ef43043">start_request_manager</a>(</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <span class="keyword">const</span> ActorModel::Pid&amp; sup_pid,</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keyword">const</span> <a class="code" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a>&amp; message</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;) -&gt; ActorModel::ResultUnion;</div><div class="ttc" id="group__firmware_html_gac7395e733d11bf672623ce5b6ef43043"><div class="ttname"><a href="group__firmware.html#gac7395e733d11bf672623ce5b6ef43043">start_request_manager</a></div><div class="ttdeci">auto start_request_manager(const ActorModel::Pid &amp;sup_pid, const ActorModel::Message &amp;message) -&gt; ActorModel::ResultUnion</div></div>
+<a href="start__request__manager_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">// actor_model</span></div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="actor__model_8h.html">actor_model.h</a>&quot;</span></div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">auto</span> <a class="code" href="group__firmware.html#gac7395e733d11bf672623ce5b6ef43043">start_request_manager</a>(</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <span class="keyword">const</span> <a class="code" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a>&amp; sup_pid,</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keyword">const</span> <a class="code" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a>&amp; message</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;) -&gt; <a class="code" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a>;</div><div class="ttc" id="actor__model_8h_html"><div class="ttname"><a href="actor__model_8h.html">actor_model.h</a></div></div>
+<div class="ttc" id="struct_actor_model_1_1_result_union_html"><div class="ttname"><a href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></div><div class="ttdef"><b>Definition:</b> behaviour.h:30</div></div>
+<div class="ttc" id="group__firmware_html_gac7395e733d11bf672623ce5b6ef43043"><div class="ttname"><a href="group__firmware.html#gac7395e733d11bf672623ce5b6ef43043">start_request_manager</a></div><div class="ttdeci">auto start_request_manager(const ActorModel::Pid &amp;sup_pid, const ActorModel::Message &amp;message) -&gt; ActorModel::ResultUnion</div></div>
 <div class="ttc" id="actor__model_8fbs_html_a4376052480b7ccfb3cb9b3e8b4d15b5a"><div class="ttname"><a href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">Message</a></div><div class="ttdeci">root_type Message</div><div class="ttdef"><b>Definition:</b> actor_model.fbs:125</div></div>
+<div class="ttc" id="namespace_actor_model_html_a8d618bd3e11c44aa2dc0fb2f1f0a5aac"><div class="ttname"><a href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a></div><div class="ttdeci">UUID::UUID Pid</div><div class="ttdef"><b>Definition:</b> pid.h:19</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->

@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -102,8 +110,26 @@ $(document).ready(function(){initNavTree('functions_vars_h.html','');});
 &#160;
 
 <h3><a id="index_h"></a>- h -</h3><ul>
+<li>header_recv_cb
+: <a class="el" href="structsh2lib__callbacks.html#ab4cb513422a5016aafa34d896d30359d">sh2lib_callbacks</a>
+</li>
+<li>heap_alloc_count
+: <a class="el" href="struct_actor_model_1_1_task_memory_info.html#afd0ce8afc59cb4c99d9de47789e4d5e9">ActorModel::TaskMemoryInfo</a>
+</li>
+<li>heap_usage_bytes
+: <a class="el" href="struct_actor_model_1_1_task_memory_info.html#a3175a8b6d136be2ff7ed5ce49952da77">ActorModel::TaskMemoryInfo</a>
+</li>
 <li>hold_pin
 : <a class="el" href="struct_wiegand_reader_1_1_config.html#a8118514b818ae6ea5e758baee3850741">WiegandReader::Config</a>
+</li>
+<li>hostname
+: <a class="el" href="structsh2lib__handle.html#a0c9f77013443c93ec2dd108158baaec5">sh2lib_handle</a>
+</li>
+<li>http2_sess
+: <a class="el" href="structsh2lib__handle.html#acffc767173051ffb6d02cd0538d21cd7">sh2lib_handle</a>
+</li>
+<li>http2_tls
+: <a class="el" href="structsh2lib__handle.html#ad67e95cca2f6271c95b543a7e1236e86">sh2lib_handle</a>
 </li>
 </ul>
 </div><!-- contents -->

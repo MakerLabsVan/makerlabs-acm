@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -112,27 +120,27 @@ $(document).ready(function(){initNavTree('start__app_8cpp.html','');});
 <code>#include &quot;<a class="el" href="actors_8h_source.html">actors.h</a>&quot;</code><br />
 <code>#include &quot;display_generated.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="start__request__manager_8h_source.html">start_request_manager.h</a>&quot;</code><br />
-<code>#include &quot;actor_model.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="actor__model_8h_source.html">actor_model.h</a>&quot;</code><br />
 <code>#include &quot;oom_killer_actor_behaviour.h&quot;</code><br />
-<code>#include &quot;supervisor_actor_behaviour.h&quot;</code><br />
-<code>#include &quot;delay.h&quot;</code><br />
-<code>#include &quot;filesystem.h&quot;</code><br />
-<code>#include &quot;firmware_update.h&quot;</code><br />
-<code>#include &quot;firmware_update_actor.h&quot;</code><br />
-<code>#include &quot;network_check_actor.h&quot;</code><br />
-<code>#include &quot;network_manager.h&quot;</code><br />
-<code>#include &quot;ntp.h&quot;</code><br />
-<code>#include &quot;ntp_actor.h&quot;</code><br />
-<code>#include &quot;wifi_actor.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="supervisor__actor__behaviour_8h_source.html">supervisor_actor_behaviour.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="delay_8h_source.html">delay.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="filesystem_8h_source.html">filesystem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="firmware__update_8h_source.html">firmware_update.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="firmware__update__actor_8h_source.html">firmware_update_actor.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="network__check__actor_8h_source.html">network_check_actor.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="network__manager_8h_source.html">network_manager.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ntp_8h_source.html">ntp.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ntp__actor_8h_source.html">ntp_actor.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="wifi__actor_8h_source.html">wifi_actor.h</a>&quot;</code><br />
 <code>#include &quot;queued_endpoint_actor.h&quot;</code><br />
-<code>#include &quot;requests.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="requests_8h_source.html">requests.h</a>&quot;</code><br />
 <code>#include &lt;chrono&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &quot;esp_log.h&quot;</code><br />
 <code>#include &quot;freertos/FreeRTOS.h&quot;</code><br />
 <code>#include &quot;freertos/task.h&quot;</code><br />
-<code>#include &quot;trace.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="trace_8h_source.html">trace.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>

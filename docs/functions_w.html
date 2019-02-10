@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -102,8 +110,26 @@ $(document).ready(function(){initNavTree('functions_w.html','');});
 <div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_w"></a>- w -</h3><ul>
+<li>wait_all()
+: <a class="el" href="class_requests_1_1_request_manager.html#aecb9c5aef5b45746e90903e136129575">Requests::RequestManager</a>
+</li>
+<li>wait_any()
+: <a class="el" href="class_requests_1_1_request_manager.html#aa5857a52f0c0b22c37d7c092e4118123">Requests::RequestManager</a>
+</li>
+<li>whereis()
+: <a class="el" href="class_actor_model_1_1_node.html#ac44806fb321c7d4c9ae7aa907dd6c5af">ActorModel::Node</a>
+</li>
 <li>WiegandReader()
 : <a class="el" href="group__firmware.html#gaddfbeb16233008116c9b381190cbe2e1">WiegandReader</a>
+</li>
+<li>write
+: <a class="el" href="structesp__tls.html#ab69458e39b01ab1136fbb22029ec3761">esp_tls</a>
+</li>
+<li>write_callback()
+: <a class="el" href="struct_requests_1_1_request_handler.html#a30eb54ec8ecb5920a1e7667a5101daf9">Requests::RequestHandler</a>
+</li>
+<li>wset
+: <a class="el" href="structesp__tls.html#a2bb70818459a22525c64e04daa296f49">esp_tls</a>
 </li>
 </ul>
 </div><!-- contents -->

@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -105,6 +113,18 @@ $(document).ready(function(){initNavTree('functions_vars_f.html','');});
 <li>facility_code
 : <a class="el" href="struct_h_i_d_global_tag_i_d.html#af759c14a71f7f6ee9d3acc8bfd457d0d">HIDGlobalTagID</a>
 , <a class="el" href="struct_h_i_d_global_tag_i_d_1_1_tag_format_view.html#aa4a3d68ddddcebeda4b303792baefe3d">HIDGlobalTagID::TagFormatView</a>
+</li>
+<li>firmware_update_check_request_in_progress
+: <a class="el" href="struct_firmware_update_1_1_firmware_update_actor_state.html#a989b932afb937435f31ae2c6cbcccb49">FirmwareUpdate::FirmwareUpdateActorState</a>
+</li>
+<li>firmware_update_check_request_intent_id
+: <a class="el" href="struct_firmware_update_1_1_firmware_update_actor_state.html#a7fba058ebfd77ddc9fefc47ef8164c7e">FirmwareUpdate::FirmwareUpdateActorState</a>
+</li>
+<li>firmware_update_check_request_intent_mutable_buf
+: <a class="el" href="struct_firmware_update_1_1_firmware_update_actor_state.html#a6ca8ed5340eeaa14a9e270e872b9efe4">FirmwareUpdate::FirmwareUpdateActorState</a>
+</li>
+<li>function_registry
+: <a class="el" href="class_actor_model_1_1_node.html#a05a922eb42295f6bda1f58bc2a797dde">ActorModel::Node</a>
 </li>
 </ul>
 </div><!-- contents -->

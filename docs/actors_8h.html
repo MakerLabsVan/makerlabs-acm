@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -105,21 +113,21 @@ $(document).ready(function(){initNavTree('actors_8h.html','');});
 <div class="title">actors.h File Reference<div class="ingroups"><a class="el" href="group__firmware.html">firmware/</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;actor_model.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="actor__model_8h_source.html">actor_model.h</a>&quot;</code><br />
 </div>
 <p><a href="actors_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga32cbe146c6f35d870248f5b921f35e78"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga32cbe146c6f35d870248f5b921f35e78">display_behaviour</a> (const ActorModel::Pid &amp;self, ActorModel::Mailbox &amp;mailbox) -&gt; ActorModel::ResultUnion</td></tr>
+<tr class="memitem:ga32cbe146c6f35d870248f5b921f35e78"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga32cbe146c6f35d870248f5b921f35e78">display_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;self, <a class="el" href="class_actor_model_1_1_mailbox.html">ActorModel::Mailbox</a> &amp;mailbox) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td></tr>
 <tr class="separator:ga32cbe146c6f35d870248f5b921f35e78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae528aa46f9c454ed1d50a7ed974b9075"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gae528aa46f9c454ed1d50a7ed974b9075">app_actor_behaviour</a> (const ActorModel::Pid &amp;self, ActorModel::StatePtr &amp;_state, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; ActorModel::ResultUnion</td></tr>
+<tr class="memitem:gae528aa46f9c454ed1d50a7ed974b9075"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gae528aa46f9c454ed1d50a7ed974b9075">app_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;_state, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td></tr>
 <tr class="separator:gae528aa46f9c454ed1d50a7ed974b9075"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabfa8352fbc37598c0e239932ff43e23e"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gabfa8352fbc37598c0e239932ff43e23e">auth_actor_behaviour</a> (const ActorModel::Pid &amp;self, ActorModel::StatePtr &amp;_state, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; ActorModel::ResultUnion</td></tr>
+<tr class="memitem:gabfa8352fbc37598c0e239932ff43e23e"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gabfa8352fbc37598c0e239932ff43e23e">auth_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;_state, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td></tr>
 <tr class="separator:gabfa8352fbc37598c0e239932ff43e23e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8980cdac7afb7bc0cc910b173e5240e3"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga8980cdac7afb7bc0cc910b173e5240e3">rfid_reader_actor_behaviour</a> (const ActorModel::Pid &amp;self, ActorModel::StatePtr &amp;_state, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; ActorModel::ResultUnion</td></tr>
+<tr class="memitem:ga8980cdac7afb7bc0cc910b173e5240e3"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga8980cdac7afb7bc0cc910b173e5240e3">rfid_reader_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;_state, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td></tr>
 <tr class="separator:ga8980cdac7afb7bc0cc910b173e5240e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2565ae2511f4c53e94ded34232cdcb6a"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga2565ae2511f4c53e94ded34232cdcb6a">machine_actor_behaviour</a> (const ActorModel::Pid &amp;self, ActorModel::StatePtr &amp;_state, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; ActorModel::ResultUnion</td></tr>
+<tr class="memitem:ga2565ae2511f4c53e94ded34232cdcb6a"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga2565ae2511f4c53e94ded34232cdcb6a">machine_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;_state, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td></tr>
 <tr class="separator:ga2565ae2511f4c53e94ded34232cdcb6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

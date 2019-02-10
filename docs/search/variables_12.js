@@ -1,16 +1,19 @@
 var searchData=
 [
-  ['s_5fwl_5fhandle',['s_wl_handle',['../group__firmware.html#ga9d1f6636715d2cd2af21e20bc5e26afa',1,'main.cpp']]],
-  ['scan_5fstate',['scan_state',['../class_h_i_d_global_reader.html#ac31b6e36a34c1fe2521ce82978aef9eb',1,'HIDGlobalReader']]],
-  ['scanned_5ftag_5fprev',['scanned_tag_prev',['../struct_r_f_i_d_reader_actor_state.html#a6417e825dfe39f420763e7d0395ac51d',1,'RFIDReaderActorState']]],
-  ['sendfile_5f',['sendFile_',['../image-file-uploader_8js.html#a75c9bc5c290e18e07bec57e957cd3db6',1,'image-file-uploader.js']]],
-  ['serverless',['serverless',['../group__functions.html#ga0a842150f8705e9b85d88df412e68154',1,'index-aws.js']]],
-  ['showmessage',['ShowMessage',['../union_display_action.html#a352841a9a24dadaefaa9e65361292b5c',1,'DisplayAction']]],
-  ['showuserdetails',['ShowUserDetails',['../union_display_action.html#ab6145fb12cf50700e63e11912d03a81b',1,'DisplayAction']]],
-  ['spreadsheet_5factivity_5fsheet_5fname',['SPREADSHEET_ACTIVITY_SHEET_NAME',['../group__functions.html#ga7ec44fa42dbee527e73795421a8847ba',1,'permissions_check_http.dart']]],
-  ['spreadsheet_5fquery_5fauthority',['SPREADSHEET_QUERY_AUTHORITY',['../group__functions.html#gab55b990430e2d3cc5e7ceb85e832ee74',1,'permissions_check_http.dart']]],
-  ['spreadsheet_5fusers_5fsheet_5fname',['SPREADSHEET_USERS_SHEET_NAME',['../group__functions.html#ga1440739ea81d5e337d3ddad5cc4bda9c',1,'permissions_check_http.dart']]],
-  ['state',['state',['../struct_wiegand_reader_1_1_callback_info.html#a75416bd36787956b01d23881c358a25c',1,'WiegandReader::CallbackInfo::state()'],['../class_wiegand_reader.html#a1b3e7a8ac52a9139d38e4b194528d285',1,'WiegandReader::state()']]],
-  ['statuscode',['statusCode',['../class_exception.html#aa81a15abba5212e5c14eabd1829a0cf1',1,'Exception']]],
-  ['stopjobtimer',['StopJobTimer',['../union_display_action.html#ac0768a17d0ed7f1f23c8e5c39691cd21',1,'DisplayAction']]]
+  ['tag',['TAG',['../u8g2__esp32__hal_8cpp.html#a5a85b9c772bbeb480b209a3e6ea92b4c',1,'TAG():&#160;u8g2_esp32_hal.cpp'],['../namespace_actor_model.html#af6bc1de8bad3ff28d69407c95e443db4',1,'ActorModel::TAG()'],['../namespace_firmware_update.html#a45a234f09a844727e96a19fd36287014',1,'FirmwareUpdate::TAG()'],['../namespace_network_manager.html#a3e6d2e06eb97cdb2d14e3030d71c2c01',1,'NetworkManager::TAG()'],['../namespace_requests.html#a43eb140ab22289f29db60d02020bcde5',1,'Requests::TAG()'],['../filesystem_8cpp.html#abcc4a60700a62517b6a422059f87754c',1,'TAG():&#160;filesystem.cpp'],['../group__firmware.html#gabcc4a60700a62517b6a422059f87754c',1,'TAG():&#160;app_actor.cpp'],['../group__firmware.html#gabcc4a60700a62517b6a422059f87754c',1,'TAG():&#160;auth_actor.cpp'],['../group__firmware.html#gabcc4a60700a62517b6a422059f87754c',1,'TAG():&#160;display_actor.cpp'],['../group__firmware.html#gabcc4a60700a62517b6a422059f87754c',1,'TAG():&#160;machine_actor.cpp'],['../group__firmware.html#gabcc4a60700a62517b6a422059f87754c',1,'TAG():&#160;main.cpp'],['../group__firmware.html#gabcc4a60700a62517b6a422059f87754c',1,'TAG():&#160;rfid_reader_actor.cpp'],['../group__firmware.html#gabcc4a60700a62517b6a422059f87754c',1,'TAG():&#160;start_app.cpp']]],
+  ['tag_5fid',['tag_id',['../struct_tag_read.html#af45f3bd589ce94478b0cb6558839bf71',1,'TagRead']]],
+  ['tag_5fid_5fstr',['tag_id_str',['../struct_app_actor_state.html#ac9f95603ff7c01a1399868a0269f49c3',1,'AppActorState']]],
+  ['tag_5flost_5ftime',['tag_lost_time',['../struct_app_actor_state.html#ac6424cd6c82b9c0f8e86f03791489126',1,'AppActorState']]],
+  ['threshold_5fmotor_5fpulse_5fcount',['threshold_motor_pulse_count',['../struct_machine_actor_state.html#a7c6f1999ccef4d8a07bbab27ecb9654a',1,'MachineActorState']]],
+  ['tick_5ftimer_5fref',['tick_timer_ref',['../struct_firmware_update_1_1_firmware_update_actor_state.html#a628ff899d4f1a2449120ad65d2153540',1,'FirmwareUpdate::FirmwareUpdateActorState::tick_timer_ref()'],['../struct_network_manager_1_1_n_t_p_actor_state.html#a82a46555e14cf94443152d63f8feb74f',1,'NetworkManager::NTPActorState::tick_timer_ref()']]],
+  ['timed_5fmessages',['timed_messages',['../class_actor_model_1_1_node.html#a43a0cc3ad76f5fbe5b61b343728c8c0d',1,'ActorModel::Node']]],
+  ['timed_5fsignals',['timed_signals',['../class_actor_model_1_1_node.html#ab1d4e59ef03ed7f69f574c8d01407b11',1,'ActorModel::Node']]],
+  ['timeout',['timeout',['../delay_8h.html#a57632da462e253de34e917266a555c4e',1,'delay.h']]],
+  ['timeout_5fms',['timeout_ms',['../structesp__tls__cfg.html#ade85facf1bb21d01dc435cdcb2623f69',1,'esp_tls_cfg']]],
+  ['timer_5fdivider',['TIMER_DIVIDER',['../group__firmware.html#gabf33d635bf72a0f0bb9f6f81b45f513a',1,'hid_global_reader.cpp']]],
+  ['timer_5fhandle',['timer_handle',['../class_actor_model_1_1_timed_buffer_delivery.html#a4bd3d11886c14e5bd5143d824040c55d',1,'ActorModel::TimedBufferDelivery']]],
+  ['timestamp',['timestamp',['../struct_tag_read.html#a8f0067092c8b347407d3a964655084cc',1,'TagRead']]],
+  ['trailing_5fbits',['trailing_bits',['../struct_h_i_d_global_tag_i_d_1_1_parity_view.html#af7547a7a3ae7363e4cf9d1e9c70b1776',1,'HIDGlobalTagID::ParityView']]],
+  ['trailing_5fparity_5fbit',['trailing_parity_bit',['../struct_h_i_d_global_tag_i_d_1_1_tag_format_view.html#a0b8dcfc5774b537041abc01afab20850',1,'HIDGlobalTagID::TagFormatView']]],
+  ['type',['type',['../struct_actor_model_1_1_result_union.html#ac5ebec1bf2ea8cfa92007f87f3049b6e',1,'ActorModel::ResultUnion']]]
 ];

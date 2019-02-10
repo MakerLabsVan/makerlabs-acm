@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -140,7 +148,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ga30a69ce847d3c189237930e9fc37961a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf67b0ae8d9de234274d986231d496bf5"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gaf67b0ae8d9de234274d986231d496bf5">scan_tag</a> () -&gt; <a class="el" href="class_h_i_d_global_reader.html#af8c721746a1b6a26db972015e56f4bf3">MaybeTagId</a></td></tr>
 <tr class="separator:gaf67b0ae8d9de234274d986231d496bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf1f8892fc6a2558575889ff5e3cefb47"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gaf1f8892fc6a2558575889ff5e3cefb47">beep</a> (TimeDuration duration) -&gt; void</td></tr>
+<tr class="memitem:gaf1f8892fc6a2558575889ff5e3cefb47"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#gaf1f8892fc6a2558575889ff5e3cefb47">beep</a> (<a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a> duration) -&gt; void</td></tr>
 <tr class="separator:gaf1f8892fc6a2558575889ff5e3cefb47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga02c79a6d3862e8987d412c545f5523a3"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__firmware.html#ga02c79a6d3862e8987d412c545f5523a3">scanning_fsm</a> () -&gt; void</td></tr>
 <tr class="separator:ga02c79a6d3862e8987d412c545f5523a3"><td class="memSeparator" colspan="2">&#160;</td></tr>

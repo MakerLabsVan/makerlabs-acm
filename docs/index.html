@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -103,13 +111,22 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="title">docs/ </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md5"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md6"></a>
 MakerLabs Access Control Management (ACM) System</h1>
-<p><a class="el" href="dev_setup.html">Dev Setup</a></p>
 <p><a class="el" href="system_diagram.html">System Diagram</a></p>
+<p><a class="el" href="initial_project_setup.html">Initial Project Setup</a></p>
+<p><a class="el" href="dev_setup.html">Dev Setup</a></p>
 <p><a class="el" href="known_issues.html">Known Issues</a></p>
 <p><a class="el" href="migration_notes.html">Migration Notes</a></p>
-<p><a class="el" href="migration_checklist.html">Migration/Configuration Changes Checklist</a> </p>
+<p><a class="el" href="migration_checklist.html">Migration/Configuration Changes Checklist</a></p>
+<p>The following top-level directories are used to separate the different components/modules of the ACM system:</p><ul>
+<li><a class="el" href="index.html">_docs/</a>, this section &ndash; overview, dev setup/onboarding, operating procedures: ...</li>
+<li><a class="el" href="md__docs_electrical.html">electrical/</a> (<a class="el" href="group__electrical.html">API Documentation</a>) &ndash; KiCad: ...</li>
+<li><a class="el" href="md__docs_firmware.html">firmware/</a> (<a class="el" href="group__firmware.html">API Documentation</a>) &ndash; C++/esp-idf: ...</li>
+<li><a class="el" href="md__docs_functions.html">functions/</a> (<a class="el" href="group__functions.html">API Documentation</a>) &ndash; Dart/AWS Lambda/Firebase Functions: ...</li>
+<li><a class="el" href="md__docs_scripts.html">scripts/</a> (<a class="el" href="group__scripts.html">API Documentation</a>) &ndash; Javascript/Google Apps Script: ...</li>
+<li><a class="el" href="md__docs_webcomponents.html">webcomponents/</a> (<a class="el" href="group__webcomponents.html">API Documentation</a>) &ndash; Javascript/LitElement: ... </li>
+</ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->

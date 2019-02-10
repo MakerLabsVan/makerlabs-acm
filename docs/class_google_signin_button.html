@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -179,6 +187,18 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_google_signin_button_afaa94e707f519f443e6e73a7107095e4_cgraph.png" border="0" usemap="#class_google_signin_button_afaa94e707f519f443e6e73a7107095e4_cgraph" alt=""/></div>
+<map name="class_google_signin_button_afaa94e707f519f443e6e73a7107095e4_cgraph" id="class_google_signin_button_afaa94e707f519f443e6e73a7107095e4_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,68,145,107"/>
+<area shape="rect"  href="class_google_signin_button.html#a2f321cb132676fd1beb7607569faa582" title="Trigger a Google Auth popup." alt="" coords="214,5,354,44"/>
+<area shape="rect"  href="class_google_signin_button.html#a2a2a583a50fa6217517139ebd432eb5f" title="Trigger Google Auth sign&#45;out." alt="" coords="214,68,354,107"/>
+<area shape="rect"  href="class_google_signin_button.html#a0ef7ce92d7e0faa6328acca857ac67c1" title="Extract user details (name, email, photo) from logged&#45;in user." alt="" coords="193,131,375,169"/>
+<area shape="rect"  href="class_google_signin_button.html#a8808379fd0e37ca03be80d71478eaf0f" title="Create a dynamic &lt;script&gt; element to load Google gapi client library and wait for it to be loaded." alt="" coords="423,5,563,44"/>
+</map>
+</div>
 
 </div>
 </div>

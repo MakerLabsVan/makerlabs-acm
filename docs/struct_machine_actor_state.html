@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -126,27 +134,27 @@ Public Attributes</h2></td></tr>
 <tr class="separator:af1f9a2ad6a68ec224a0b3ec669ecec81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ee9f3bc4367c3e6fad19392cdc6a025"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#a3ee9f3bc4367c3e6fad19392cdc6a025">motor_y_pin</a></td></tr>
 <tr class="separator:a3ee9f3bc4367c3e6fad19392cdc6a025"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3535171df308f0e04069257af9ff171"><td class="memItemLeft" align="right" valign="top">TimeDuration&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#ab3535171df308f0e04069257af9ff171">last_motor_pulse_timestamp</a> = 0s</td></tr>
+<tr class="memitem:ab3535171df308f0e04069257af9ff171"><td class="memItemLeft" align="right" valign="top"><a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#ab3535171df308f0e04069257af9ff171">last_motor_pulse_timestamp</a> = 0s</td></tr>
 <tr class="separator:ab3535171df308f0e04069257af9ff171"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56f1deba231b2bd0884e74cf4cf5edcc"><td class="memItemLeft" align="right" valign="top">TimeDuration&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#a56f1deba231b2bd0884e74cf4cf5edcc">last_motor_activity_timestamp</a> = 0s</td></tr>
+<tr class="memitem:a56f1deba231b2bd0884e74cf4cf5edcc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#a56f1deba231b2bd0884e74cf4cf5edcc">last_motor_activity_timestamp</a> = 0s</td></tr>
 <tr class="separator:a56f1deba231b2bd0884e74cf4cf5edcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a827338a6083031a4fa1755415bf7317d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#a827338a6083031a4fa1755415bf7317d">last_motor_pulse_count</a> = 0</td></tr>
 <tr class="separator:a827338a6083031a4fa1755415bf7317d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab613c88f2b28ced0441996f660f6cd72"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#ab613c88f2b28ced0441996f660f6cd72">motor_activity_seconds</a> = 0</td></tr>
 <tr class="separator:ab613c88f2b28ced0441996f660f6cd72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07ce157b2ecda207ced443c076f556f2"><td class="memItemLeft" align="right" valign="top">TimeDuration&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#a07ce157b2ecda207ced443c076f556f2">max_job_start_interval</a> = 25s</td></tr>
+<tr class="memitem:a07ce157b2ecda207ced443c076f556f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#a07ce157b2ecda207ced443c076f556f2">max_job_start_interval</a> = 25s</td></tr>
 <tr class="separator:a07ce157b2ecda207ced443c076f556f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae26deb3a206ed272bc9f996f742cab5a"><td class="memItemLeft" align="right" valign="top">TimeDuration&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#ae26deb3a206ed272bc9f996f742cab5a">max_job_end_interval</a> = 5s</td></tr>
+<tr class="memitem:ae26deb3a206ed272bc9f996f742cab5a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#ae26deb3a206ed272bc9f996f742cab5a">max_job_end_interval</a> = 5s</td></tr>
 <tr class="separator:ae26deb3a206ed272bc9f996f742cab5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac314d8b5d79e81fdfdf8c2c09da66892"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#ac314d8b5d79e81fdfdf8c2c09da66892">max_motor_pulse_count</a> = 1024</td></tr>
 <tr class="separator:ac314d8b5d79e81fdfdf8c2c09da66892"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c6f1999ccef4d8a07bbab27ecb9654a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#a7c6f1999ccef4d8a07bbab27ecb9654a">threshold_motor_pulse_count</a> = 25</td></tr>
 <tr class="separator:a7c6f1999ccef4d8a07bbab27ecb9654a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d8c67d1af37ccad644913d8464f8ffc"><td class="memItemLeft" align="right" valign="top">TRef&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#a6d8c67d1af37ccad644913d8464f8ffc">motor_activity_check_tref</a> = NullTRef</td></tr>
+<tr class="memitem:a6d8c67d1af37ccad644913d8464f8ffc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#a6d8c67d1af37ccad644913d8464f8ffc">motor_activity_check_tref</a> = NullTRef</td></tr>
 <tr class="separator:a6d8c67d1af37ccad644913d8464f8ffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1542d94add4ac0203e619bf95abfcd07"><td class="memItemLeft" align="right" valign="top">TRef&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#a1542d94add4ac0203e619bf95abfcd07">disable_interlock_tref</a> = NullTRef</td></tr>
+<tr class="memitem:a1542d94add4ac0203e619bf95abfcd07"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#a1542d94add4ac0203e619bf95abfcd07">disable_interlock_tref</a> = NullTRef</td></tr>
 <tr class="separator:a1542d94add4ac0203e619bf95abfcd07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ae1c83fada54f7672e9c989d6b157c5"><td class="memItemLeft" align="right" valign="top">TRef&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#a8ae1c83fada54f7672e9c989d6b157c5">disable_relay_tref</a> = NullTRef</td></tr>
+<tr class="memitem:a8ae1c83fada54f7672e9c989d6b157c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_machine_actor_state.html#a8ae1c83fada54f7672e9c989d6b157c5">disable_relay_tref</a> = NullTRef</td></tr>
 <tr class="separator:a8ae1c83fada54f7672e9c989d6b157c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
@@ -213,6 +221,7 @@ Here is the call graph for this function:</div>
 <map name="struct_machine_actor_state_ac8909eed324a69918aff8d2d65c0770c_cgraph" id="struct_machine_actor_state_ac8909eed324a69918aff8d2d65c0770c_cgraph">
 <area shape="rect"  title=" " alt="" coords="5,5,147,44"/>
 <area shape="rect"  href="group__firmware.html#ga91bf7209e205135f8df197d348e3d1ba" title=" " alt="" coords="195,12,363,37"/>
+<area shape="rect"  href="timestamp_8cpp.html#adbcc277c5ccf848909843efd4a1f6e9f" title=" " alt="" coords="411,12,594,37"/>
 </map>
 </div>
 
@@ -263,7 +272,7 @@ Here is the call graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">TRef MachineActorState::disable_interlock_tref = NullTRef</td>
+          <td class="memname"><a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a> MachineActorState::disable_interlock_tref = NullTRef</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -277,7 +286,7 @@ Here is the call graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">TRef MachineActorState::disable_relay_tref = NullTRef</td>
+          <td class="memname"><a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a> MachineActorState::disable_relay_tref = NullTRef</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -349,7 +358,7 @@ Here is the call graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">TimeDuration MachineActorState::last_motor_activity_timestamp = 0s</td>
+          <td class="memname"><a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a> MachineActorState::last_motor_activity_timestamp = 0s</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -377,7 +386,7 @@ Here is the call graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">TimeDuration MachineActorState::last_motor_pulse_timestamp = 0s</td>
+          <td class="memname"><a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a> MachineActorState::last_motor_pulse_timestamp = 0s</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -391,7 +400,7 @@ Here is the call graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">TimeDuration MachineActorState::max_job_end_interval = 5s</td>
+          <td class="memname"><a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a> MachineActorState::max_job_end_interval = 5s</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -405,7 +414,7 @@ Here is the call graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">TimeDuration MachineActorState::max_job_start_interval = 25s</td>
+          <td class="memname"><a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a> MachineActorState::max_job_start_interval = 25s</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -433,7 +442,7 @@ Here is the call graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">TRef MachineActorState::motor_activity_check_tref = NullTRef</td>
+          <td class="memname"><a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a> MachineActorState::motor_activity_check_tref = NullTRef</td>
         </tr>
       </table>
 </div><div class="memdoc">

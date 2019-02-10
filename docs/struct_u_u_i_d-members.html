@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -107,6 +115,7 @@ $(document).ready(function(){initNavTree('struct_u_u_i_d.html','');});
 <p>This is the complete list of members for <a class="el" href="struct_u_u_i_d.html">UUID</a>, including all inherited members.</p>
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="struct_u_u_i_d.html#a5b133f33f94a9e502b6c90609026e949">__pad1__</a></td><td class="entry"><a class="el" href="struct_u_u_i_d.html">UUID</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="struct_u_u_i_d.html#a01528f58a71d425ba9fdcdb918229d9f">NullUUID</a></td><td class="entry"><a class="el" href="struct_u_u_i_d.html">UUID</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->

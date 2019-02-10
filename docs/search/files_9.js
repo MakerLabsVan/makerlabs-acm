@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['known_5fissues_2emd',['KNOWN_ISSUES.md',['../_k_n_o_w_n___i_s_s_u_e_s_8md.html',1,'']]]
+  ['json_5femitter_2ecpp',['json_emitter.cpp',['../json__emitter_8cpp.html',1,'']]],
+  ['json_5femitter_2eh',['json_emitter.h',['../json__emitter_8h.html',1,'']]]
 ];

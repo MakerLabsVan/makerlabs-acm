@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pubspec',['pubspec',['../namespacepubspec.html',1,'']]]
+  ['config',['config',['../namespaceconfig.html',1,'']]]
 ];

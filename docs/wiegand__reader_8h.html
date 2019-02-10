@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -109,7 +117,7 @@ $(document).ready(function(){initNavTree('wiegand__reader_8h.html','');});
 <div class="textblock"><code>#include &lt;atomic&gt;</code><br />
 <code>#include &lt;bitset&gt;</code><br />
 <code>#include &lt;experimental/optional&gt;</code><br />
-<code>#include &quot;timestamp.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="timestamp_8h_source.html">timestamp.h</a>&quot;</code><br />
 <code>#include &quot;esp_attr.h&quot;</code><br />
 </div>
 <p><a href="wiegand__reader_8h_source.html">Go to the source code of this file.</a></p>

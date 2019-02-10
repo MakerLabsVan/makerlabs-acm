@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -102,8 +110,23 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 <div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_g"></a>- g -</h3><ul>
+<li>get_current_node()
+: <a class="el" href="class_actor_model_1_1_process.html#afa405cc3521f48186ed3ec1f55f6a946">ActorModel::Process</a>
+</li>
 <li>get_current_tag()
 : <a class="el" href="group__firmware.html#ga73ff7ccf542e664f378ea981a1091404">WiegandReader</a>
+</li>
+<li>get_default_execution_config()
+: <a class="el" href="class_actor_model_1_1_process.html#ac1f9033a5cb25c01f3206ad54bb13ad4">ActorModel::Process</a>
+</li>
+<li>get_default_node()
+: <a class="el" href="class_actor_model_1_1_process.html#a7855ee2779ae4a48e56776be8ca20b87">ActorModel::Process</a>
+</li>
+<li>get_existing_request_handler()
+: <a class="el" href="class_requests_1_1_request_manager.html#ac4de230e31090dfab3202e2f79932dd9">Requests::RequestManager</a>
+</li>
+<li>get_process_flag()
+: <a class="el" href="class_actor_model_1_1_process.html#a37166280d8236675b0d07ae02ca69bba">ActorModel::Process</a>
 </li>
 <li>getFirstRowValuesFromDatatable()
 : <a class="el" href="class_view_user_form.html#a8ca0951e628e602c3200acb730ede1af">ViewUserForm</a>
@@ -113,6 +136,9 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 </li>
 <li>green_led_pin
 : <a class="el" href="struct_wiegand_reader_1_1_config.html#ac14564ca1c3d9485b7b506d5fd485417">WiegandReader::Config</a>
+</li>
+<li>gw
+: <a class="el" href="struct_network_manager_1_1_network_interface_details.html#a40faaeb17829f73832040125a5092b27">NetworkManager::NetworkInterfaceDetails</a>
 </li>
 </ul>
 </div><!-- contents -->

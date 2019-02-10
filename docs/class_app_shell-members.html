@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -110,14 +118,15 @@ $(document).ready(function(){initNavTree('class_app_shell.html','');});
   <tr><td class="entry"><a class="el" href="class_app_shell.html#a4c827163b7018777f88908b93c85b717">displayDialog</a>(dialogMetadata)</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_app_shell.html#a967c8b0207203d0dfdfbb1bf35eeb6a7">fetchUserFields</a>()</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_app_shell.html#ae9a4211065d3996fbb0018777672770b">firstUpdated</a>(changedProperties)</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_app_shell.html#af5399da2f4d8d4dd9aed4f7ccbb82cbb">handleAuthSignIn</a>()</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_app_shell.html#a5e4fa5553a9277d5f03faa0d1f3a61ea">handleAuthSignOut</a>()</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_app_shell.html#a3d2cc912d5b36e99426952c108e6629c">handleFirebaseAuthStateChange</a>(user)</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_app_shell.html#a2b18846e9c17a0fa25f574e8a536cf88">loginFirebase</a>()</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_app_shell.html#a3c40b03cc18bd0f9457f2d00c9f3f88a">populateAuthTokens</a>()</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_app_shell.html#a67624a920626248f90d82b62cf400990">properties</a>()</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_app_shell.html#a6bb2a7738c4fc7e96651e4757c90d339">render</a>()</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_app_shell.html#ad4097378f6f2e7569c9c5a8cd7f72b30">updated</a>(changedProperties)</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_app_shell.html#a0ba1b8cb19ff2d56a5eacad0af072980">handleActivityCallback</a>(data)</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_app_shell.html#af5399da2f4d8d4dd9aed4f7ccbb82cbb">handleAuthSignIn</a>()</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_app_shell.html#a5e4fa5553a9277d5f03faa0d1f3a61ea">handleAuthSignOut</a>()</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_app_shell.html#a3d2cc912d5b36e99426952c108e6629c">handleFirebaseAuthStateChange</a>(user)</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_app_shell.html#a2b18846e9c17a0fa25f574e8a536cf88">loginFirebase</a>()</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_app_shell.html#a3c40b03cc18bd0f9457f2d00c9f3f88a">populateAuthTokens</a>()</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_app_shell.html#a67624a920626248f90d82b62cf400990">properties</a>()</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_app_shell.html#a6bb2a7738c4fc7e96651e4757c90d339">render</a>()</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_app_shell.html#ad4097378f6f2e7569c9c5a8cd7f72b30">updated</a>(changedProperties)</td><td class="entry"><a class="el" href="class_app_shell.html">AppShell</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->

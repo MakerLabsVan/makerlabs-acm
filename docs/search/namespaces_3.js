@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['serverless',['serverless',['../namespaceserverless.html',1,'']]]
+  ['firmwareupdate',['FirmwareUpdate',['../namespace_firmware_update.html',1,'']]]
 ];

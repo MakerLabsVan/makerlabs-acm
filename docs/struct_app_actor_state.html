@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -127,13 +135,13 @@ Public Member Functions</h2></td></tr>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a0c117adba1dc320d1f10d5953426a192"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__firmware.html#ga4403e5d42a9e48030d397b9d523c2443">MutableUserFlatbuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_app_actor_state.html#a0c117adba1dc320d1f10d5953426a192">current_user_flatbuf</a></td></tr>
 <tr class="separator:a0c117adba1dc320d1f10d5953426a192"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2133058dd6bf3d6dab01db7de8835d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__firmware.html#gaca454f84dd198a937af6499dd758aa3d">string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_app_actor_state.html#aa2133058dd6bf3d6dab01db7de8835d9">machine_id_str</a> = CONFIG_ACM_PERMISSION_COLUMN_LABEL</td></tr>
+<tr class="memitem:aa2133058dd6bf3d6dab01db7de8835d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_actor_model.html#af23602eb044966c44f3ff08d22ae86c3">string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_app_actor_state.html#aa2133058dd6bf3d6dab01db7de8835d9">machine_id_str</a> = CONFIG_ACM_PERMISSION_COLUMN_LABEL</td></tr>
 <tr class="separator:aa2133058dd6bf3d6dab01db7de8835d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9f95603ff7c01a1399868a0269f49c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__firmware.html#gaca454f84dd198a937af6499dd758aa3d">string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_app_actor_state.html#ac9f95603ff7c01a1399868a0269f49c3">tag_id_str</a></td></tr>
+<tr class="memitem:ac9f95603ff7c01a1399868a0269f49c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_actor_model.html#af23602eb044966c44f3ff08d22ae86c3">string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_app_actor_state.html#ac9f95603ff7c01a1399868a0269f49c3">tag_id_str</a></td></tr>
 <tr class="separator:ac9f95603ff7c01a1399868a0269f49c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a601085dcffeabd9c3cb2f79a55a603f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__firmware.html#gaca454f84dd198a937af6499dd758aa3d">string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_app_actor_state.html#a601085dcffeabd9c3cb2f79a55a603f3">last_makerlabs_id_str</a></td></tr>
+<tr class="memitem:a601085dcffeabd9c3cb2f79a55a603f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_actor_model.html#af23602eb044966c44f3ff08d22ae86c3">string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_app_actor_state.html#a601085dcffeabd9c3cb2f79a55a603f3">last_makerlabs_id_str</a></td></tr>
 <tr class="separator:a601085dcffeabd9c3cb2f79a55a603f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6424cd6c82b9c0f8e86f03791489126"><td class="memItemLeft" align="right" valign="top">TimeDuration&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_app_actor_state.html#ac6424cd6c82b9c0f8e86f03791489126">tag_lost_time</a> = 0s</td></tr>
+<tr class="memitem:ac6424cd6c82b9c0f8e86f03791489126"><td class="memItemLeft" align="right" valign="top"><a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_app_actor_state.html#ac6424cd6c82b9c0f8e86f03791489126">tag_lost_time</a> = 0s</td></tr>
 <tr class="separator:ac6424cd6c82b9c0f8e86f03791489126"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18f88dd4d6b4e688b0ee2c61bb7a6fb8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_app_actor_state.html#a18f88dd4d6b4e688b0ee2c61bb7a6fb8">logged_in</a> = false</td></tr>
 <tr class="separator:a18f88dd4d6b4e688b0ee2c61bb7a6fb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -220,6 +228,17 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="struct_app_actor_state_a05a4423c3cd9f87337b82621b9718515_cgraph.png" border="0" usemap="#struct_app_actor_state_a05a4423c3cd9f87337b82621b9718515_cgraph" alt=""/></div>
+<map name="struct_app_actor_state_a05a4423c3cd9f87337b82621b9718515_cgraph" id="struct_app_actor_state_a05a4423c3cd9f87337b82621b9718515_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,24,149,63"/>
+<area shape="rect"  href="namespace_actor_model.html#a7464801c46fc09ddacf1b63b54e261e9" title=" " alt="" coords="197,5,339,31"/>
+<area shape="rect"  href="namespace_actor_model.html#a23bee2724f328f7fdf3af1d17d0492f9" title=" " alt="" coords="205,55,331,80"/>
+<area shape="rect"  href="class_actor_model_1_1_process.html#a7855ee2779ae4a48e56776be8ca20b87" title=" " alt="" coords="387,24,531,63"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -259,7 +278,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__firmware.html#gaca454f84dd198a937af6499dd758aa3d">string</a> AppActorState::last_makerlabs_id_str</td>
+          <td class="memname"><a class="el" href="namespace_actor_model.html#af23602eb044966c44f3ff08d22ae86c3">string</a> AppActorState::last_makerlabs_id_str</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -287,7 +306,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__firmware.html#gaca454f84dd198a937af6499dd758aa3d">string</a> AppActorState::machine_id_str = CONFIG_ACM_PERMISSION_COLUMN_LABEL</td>
+          <td class="memname"><a class="el" href="namespace_actor_model.html#af23602eb044966c44f3ff08d22ae86c3">string</a> AppActorState::machine_id_str = CONFIG_ACM_PERMISSION_COLUMN_LABEL</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -301,7 +320,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__firmware.html#gaca454f84dd198a937af6499dd758aa3d">string</a> AppActorState::tag_id_str</td>
+          <td class="memname"><a class="el" href="namespace_actor_model.html#af23602eb044966c44f3ff08d22ae86c3">string</a> AppActorState::tag_id_str</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -315,7 +334,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">TimeDuration AppActorState::tag_lost_time = 0s</td>
+          <td class="memname"><a class="el" href="timestamp_8h.html#a9908c31ee0ea1ede556af13fa1fd9360">TimeDuration</a> AppActorState::tag_lost_time = 0s</td>
         </tr>
       </table>
 </div><div class="memdoc">

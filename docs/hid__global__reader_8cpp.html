@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -111,7 +119,7 @@ $(document).ready(function(){initNavTree('hid__global__reader_8cpp.html','');});
 <p>Implementation of <code><a class="el" href="class_h_i_d_global_reader.html">HIDGlobalReader</a></code>.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="hid__global__reader_8h_source.html">hid_global_reader.h</a>&quot;</code><br />
-<code>#include &quot;delay.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="delay_8h_source.html">delay.h</a>&quot;</code><br />
 <code>#include &quot;driver/timer.h&quot;</code><br />
 <code>#include &quot;soc/timer_group_struct.h&quot;</code><br />
 <code>#include &quot;esp_log.h&quot;</code><br />

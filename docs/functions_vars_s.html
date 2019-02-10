@@ -11,7 +11,15 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    flowchart:{
+      useMaxWidth: true,
+      htmlLabels: true,
+    },
+  });
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -108,11 +116,35 @@ $(document).ready(function(){initNavTree('functions_vars_s.html','');});
 <li>scanned_tag_prev
 : <a class="el" href="struct_r_f_i_d_reader_actor_state.html#a6417e825dfe39f420763e7d0395ac51d">RFIDReaderActorState</a>
 </li>
+<li>schema
+: <a class="el" href="struct_requests_1_1_request_intent_reflection_state.html#a60fe30f090e76e080c0fb785e2d9becd">Requests::RequestIntentReflectionState</a>
+</li>
+<li>scl
+: <a class="el" href="structu8g2__esp32__hal__t.html#ab143cfdeeafebf36f69ac0e04ecd209d">u8g2_esp32_hal_t</a>
+</li>
+<li>sda
+: <a class="el" href="structu8g2__esp32__hal__t.html#a8cbd19506bbbea5b9ccea80a664c085a">u8g2_esp32_hal_t</a>
+</li>
+<li>send_cb
+: <a class="el" href="structsh2lib__callbacks.html#abe2f7dd0dffa3529f187f8659b02a312">sh2lib_callbacks</a>
+</li>
+<li>server_fd
+: <a class="el" href="structesp__tls.html#aecadd173d10cef660941e541b446997b">esp_tls</a>
+</li>
 <li>ShowMessage
 : <a class="el" href="union_display_action.html#a352841a9a24dadaefaa9e65361292b5c">DisplayAction</a>
 </li>
 <li>ShowUserDetails
 : <a class="el" href="union_display_action.html#ab6145fb12cf50700e63e11912d03a81b">DisplayAction</a>
+</li>
+<li>sockfd
+: <a class="el" href="structesp__tls.html#ab3d7a03f7ca09bd92b3a6a65a75dbe81">esp_tls</a>
+</li>
+<li>ssl
+: <a class="el" href="structesp__tls.html#a4158ad77938591cec646470c076b4536">esp_tls</a>
+</li>
+<li>stack_usage_bytes
+: <a class="el" href="struct_actor_model_1_1_task_memory_info.html#ad22ae1cd57cacac8f3f2f0958ef57195">ActorModel::TaskMemoryInfo</a>
 </li>
 <li>state
 : <a class="el" href="struct_wiegand_reader_1_1_callback_info.html#a75416bd36787956b01d23881c358a25c">WiegandReader::CallbackInfo</a>
@@ -123,6 +155,9 @@ $(document).ready(function(){initNavTree('functions_vars_s.html','');});
 </li>
 <li>StopJobTimer
 : <a class="el" href="union_display_action.html#ac0768a17d0ed7f1f23c8e5c39691cd21">DisplayAction</a>
+</li>
+<li>supervisor_args_mutable_buf
+: <a class="el" href="struct_actor_model_1_1_supervisor_actor_state.html#a2b4da4078efd3a94a3b12899a490743f">ActorModel::SupervisorActorState</a>
 </li>
 </ul>
 </div><!-- contents -->

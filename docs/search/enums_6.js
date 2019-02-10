@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['postcallbackaction',['PostCallbackAction',['../requests_8fbs.html#a862f01db7f642c4f4e0ba4c6b9ce1347',1,'requests.fbs']]],
-  ['processflag',['ProcessFlag',['../actor__model_8fbs.html#a7b7873a67188e97a7e85f8c021f128d7',1,'actor_model.fbs']]]
+  ['scanstate',['ScanState',['../class_h_i_d_global_reader.html#ac7982de634512494cfc25d04d2633b45',1,'HIDGlobalReader']]],
+  ['supervisionstrategy',['SupervisionStrategy',['../actor__model_8fbs.html#a7d1b3b3ea2ce6cad62af1110fa8c9f8f',1,'actor_model.fbs']]]
 ];
