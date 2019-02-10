@@ -34,7 +34,6 @@ const index = require("./build/node/index.dart.js");
 exports.google_apps_script_proxy = functions.https.onRequest((req, res) => {
   index.google_apps_script_proxy_http(req, res);
 });
-exports.activity_subscription = index.activity_subscription;
 
 /// @}
 
