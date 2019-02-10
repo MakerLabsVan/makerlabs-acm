@@ -31,8 +31,7 @@ function sendBrandedEmail(
     /// image can be embedded in an e-mail directly.
     var logoUrl =
       "https://static1.squarespace.com/static/5363f32ee4b0ebb1a7c84772/t/5643c511e4b024d1dbec1da9/1533096162821/?format=100w";
-    var logoBlob = UrlFetchApp
-      .fetch(logoUrl)
+    var logoBlob = UrlFetchApp.fetch(logoUrl)
       .getBlob()
       .setName("logoBlob");
 
@@ -59,7 +58,7 @@ function sendBrandedEmail(
       subject: emailSubject,
       htmlBody: finalEmailContent,
       inlineImages: {
-        logo: logoBlob
+        logo: logoBlob,
       },
     });
 

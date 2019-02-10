@@ -21,7 +21,7 @@ function triggerPopupOnUnsafeChangesOnChange(e) {
 
   // Only run on change events
   if (e && e.changeType && unsafeChangeTypes.indexOf(e.changeType) !== -1) {
-    return popupOnUnsafeChanges();
+    popupOnUnsafeChanges();
   }
 }
 

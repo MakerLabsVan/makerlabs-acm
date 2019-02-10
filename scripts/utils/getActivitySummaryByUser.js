@@ -18,7 +18,7 @@
 ///
 /// @return Object containing activity summary by `MakerLabs ID`.
 function getActivitySummaryByUser(range, batchSize, filter) {
-//  const sheetName = "Activity";
+  //const sheetName = "Activity";
   const sheetName = "Activity, De-duped";
 
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
