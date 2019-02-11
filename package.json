@@ -7,7 +7,7 @@
     "deps": "brew install yarn caddy cmake jq ninja python2 gdrive && brew install flatbuffers --head && python -m pip install --user -r firmware/esp-idf/requirements.txt",
     "docs": "rm -r docs/* && doxygen _docs/Doxyfile && cp electrical/*_BOM.csv docs/",
     "toolchain": "which xtensa-esp32-elf-gcc 2>/dev/null || (cd firmware && (ls xtensa-esp32-elf 2>/dev/null || (ls xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz 2>/dev/null || curl -LO https://dl.espressif.com/dl/xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz) && tar -xf xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz) && cd - && ln -sf `pwd`/firmware/xtensa-esp32-elf/bin/* node_modules/.bin)",
-    "postinstall": "yarn deps && yarn toolchain && cd \"functions\" && yarn install --ignore-engines && cd - && cd \"scripts\" && yarn install && cd - && cd \"webcomponents\" && yarn install && cd -",
+    "postinstall": "yarn deps && yarn toolchain && cd \"functions\" && yarn install && cd - && cd \"scripts\" && yarn install && cd - && cd \"webcomponents\" && yarn install && cd -",
     "firmware": "cd \"firmware\" && IDF_PATH=esp-idf make",
     "functions": "cd \"functions\" && yarn build",
     "webcomponents": "cd \"webcomponents\" && yarn build",
