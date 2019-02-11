@@ -109,7 +109,7 @@ struct Activity FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   static FLATBUFFERS_CONSTEXPR const char *GetFullyQualifiedName() {
     return "ACM.Activity";
   }
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_TIME = 4,
     VT_MACHINE_ID = 6,
     VT_ACTIVITY_TYPE = 8,
@@ -212,12 +212,14 @@ inline flatbuffers::Offset<Activity> CreateActivityDirect(
     ActivityType activity_type = ActivityType::Signed_In,
     const char *tag_id = nullptr,
     uint32_t usage_seconds = 0) {
+  auto machine_id__ = machine_id ? _fbb.CreateString(machine_id) : 0;
+  auto tag_id__ = tag_id ? _fbb.CreateString(tag_id) : 0;
   return ACM::CreateActivity(
       _fbb,
       time,
-      machine_id ? _fbb.CreateString(machine_id) : 0,
+      machine_id__,
       activity_type,
-      tag_id ? _fbb.CreateString(tag_id) : 0,
+      tag_id__,
       usage_seconds);
 }
 
@@ -228,7 +230,7 @@ struct CNC_Job FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   static FLATBUFFERS_CONSTEXPR const char *GetFullyQualifiedName() {
     return "ACM.CNC_Job";
   }
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_USAGE_SECONDS = 4
   };
   uint32_t usage_seconds() const {
@@ -277,7 +279,7 @@ struct User FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   static FLATBUFFERS_CONSTEXPR const char *GetFullyQualifiedName() {
     return "ACM.User";
   }
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NAME = 4,
     VT_EMAIL = 6,
     VT_MAKERLABS_ID = 8,
@@ -414,15 +416,22 @@ inline flatbuffers::Offset<User> CreateUserDirect(
     const char *tag_id = nullptr,
     const char *alerts = nullptr,
     const std::vector<flatbuffers::Offset<flatbuffers::String>> *permissions = nullptr) {
+  auto name__ = name ? _fbb.CreateString(name) : 0;
+  auto email__ = email ? _fbb.CreateString(email) : 0;
+  auto makerlabs_id__ = makerlabs_id ? _fbb.CreateString(makerlabs_id) : 0;
+  auto maker_status__ = maker_status ? _fbb.CreateString(maker_status) : 0;
+  auto tag_id__ = tag_id ? _fbb.CreateString(tag_id) : 0;
+  auto alerts__ = alerts ? _fbb.CreateString(alerts) : 0;
+  auto permissions__ = permissions ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*permissions) : 0;
   return ACM::CreateUser(
       _fbb,
-      name ? _fbb.CreateString(name) : 0,
-      email ? _fbb.CreateString(email) : 0,
-      makerlabs_id ? _fbb.CreateString(makerlabs_id) : 0,
-      maker_status ? _fbb.CreateString(maker_status) : 0,
-      tag_id ? _fbb.CreateString(tag_id) : 0,
-      alerts ? _fbb.CreateString(alerts) : 0,
-      permissions ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*permissions) : 0);
+      name__,
+      email__,
+      makerlabs_id__,
+      maker_status__,
+      tag_id__,
+      alerts__,
+      permissions__);
 }
 
 struct Log FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -432,7 +441,7 @@ struct Log FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   static FLATBUFFERS_CONSTEXPR const char *GetFullyQualifiedName() {
     return "ACM.Log";
   }
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_MACHINE_ID = 4,
     VT_SEVERITY = 6,
     VT_TIME = 8,
@@ -521,12 +530,14 @@ inline flatbuffers::Offset<Log> CreateLogDirect(
     LogSeverity severity = LogSeverity::Fatal,
     uint64_t time = 0,
     const char *message = nullptr) {
+  auto machine_id__ = machine_id ? _fbb.CreateString(machine_id) : 0;
+  auto message__ = message ? _fbb.CreateString(message) : 0;
   return ACM::CreateLog(
       _fbb,
-      machine_id ? _fbb.CreateString(machine_id) : 0,
+      machine_id__,
       severity,
       time,
-      message ? _fbb.CreateString(message) : 0);
+      message__);
 }
 
 inline const flatbuffers::TypeTable *ActivityTypeTypeTable() {

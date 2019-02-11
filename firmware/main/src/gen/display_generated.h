@@ -196,7 +196,7 @@ struct ShowUserDetails FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   static FLATBUFFERS_CONSTEXPR const char *GetFullyQualifiedName() {
     return "Display.ShowUserDetails";
   }
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NAME = 4,
     VT_EMAIL = 6,
     VT_MAKERLABS_ID = 8,
@@ -287,12 +287,16 @@ inline flatbuffers::Offset<ShowUserDetails> CreateShowUserDetailsDirect(
     const char *email = nullptr,
     const char *makerlabs_id = nullptr,
     const char *tag_id = nullptr) {
+  auto name__ = name ? _fbb.CreateString(name) : 0;
+  auto email__ = email ? _fbb.CreateString(email) : 0;
+  auto makerlabs_id__ = makerlabs_id ? _fbb.CreateString(makerlabs_id) : 0;
+  auto tag_id__ = tag_id ? _fbb.CreateString(tag_id) : 0;
   return Display::CreateShowUserDetails(
       _fbb,
-      name ? _fbb.CreateString(name) : 0,
-      email ? _fbb.CreateString(email) : 0,
-      makerlabs_id ? _fbb.CreateString(makerlabs_id) : 0,
-      tag_id ? _fbb.CreateString(tag_id) : 0);
+      name__,
+      email__,
+      makerlabs_id__,
+      tag_id__);
 }
 
 struct BeginJobTimer FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -404,7 +408,7 @@ struct ShowMessage FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   static FLATBUFFERS_CONSTEXPR const char *GetFullyQualifiedName() {
     return "Display.ShowMessage";
   }
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_TOP_LEFT_ICON = 4,
     VT_TOP_LEFT = 6,
     VT_TOP_LEFT_FONT_SIZE = 8,
@@ -607,19 +611,23 @@ inline flatbuffers::Offset<ShowMessage> CreateShowMessageDirect(
     Icon bottom_right_icon = Icon::None,
     const char *bottom_right = nullptr,
     int8_t bottom_right_font_size = 12) {
+  auto top_left__ = top_left ? _fbb.CreateString(top_left) : 0;
+  auto top_right__ = top_right ? _fbb.CreateString(top_right) : 0;
+  auto bottom_left__ = bottom_left ? _fbb.CreateString(bottom_left) : 0;
+  auto bottom_right__ = bottom_right ? _fbb.CreateString(bottom_right) : 0;
   return Display::CreateShowMessage(
       _fbb,
       top_left_icon,
-      top_left ? _fbb.CreateString(top_left) : 0,
+      top_left__,
       top_left_font_size,
       top_right_icon,
-      top_right ? _fbb.CreateString(top_right) : 0,
+      top_right__,
       top_right_font_size,
       bottom_left_icon,
-      bottom_left ? _fbb.CreateString(bottom_left) : 0,
+      bottom_left__,
       bottom_left_font_size,
       bottom_right_icon,
-      bottom_right ? _fbb.CreateString(bottom_right) : 0,
+      bottom_right__,
       bottom_right_font_size);
 }
 
@@ -630,7 +638,7 @@ struct ProgressBar FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   static FLATBUFFERS_CONSTEXPR const char *GetFullyQualifiedName() {
     return "Display.ProgressBar";
   }
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_MESSAGE = 4,
     VT_PROGRESS = 6,
     VT_DURATION_MICROSECONDS = 8,
@@ -718,9 +726,10 @@ inline flatbuffers::Offset<ProgressBar> CreateProgressBarDirect(
     uint32_t progress = 0,
     int64_t duration_microseconds = 0,
     Icon icon = Icon::None) {
+  auto message__ = message ? _fbb.CreateString(message) : 0;
   return Display::CreateProgressBar(
       _fbb,
-      message ? _fbb.CreateString(message) : 0,
+      message__,
       progress,
       duration_microseconds,
       icon);
@@ -733,7 +742,7 @@ struct DisplayIntent FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   static FLATBUFFERS_CONSTEXPR const char *GetFullyQualifiedName() {
     return "Display.DisplayIntent";
   }
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_DISPLAY_TYPE = 4,
     VT_DISPLAY = 6
   };
