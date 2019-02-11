@@ -29,8 +29,8 @@ set(
 
 register_component()
 
-set_property(TARGET "${COMPONENT_NAME}" PROPERTY CXX_STANDARD 14)
-set_property(TARGET "${COMPONENT_NAME}" PROPERTY CXX_STANDARD_REQUIRED ON)
+set_property(TARGET "${COMPONENT_TARGET}" PROPERTY CXX_STANDARD 14)
+set_property(TARGET "${COMPONENT_TARGET}" PROPERTY CXX_STANDARD_REQUIRED ON)
 
 set_property(
   SOURCE acm_helpers.cpp
@@ -58,14 +58,14 @@ set_property(
   APPEND PROPERTY
   OBJECT_DEPENDS "${acm_generated_h_TARGET}"
 )
-add_dependencies(${COMPONENT_NAME} acm_generated_h_TARGET)
+add_dependencies(${COMPONENT_TARGET} acm_generated_h_TARGET)
 
 set_property(
   SOURCE acm_helpers.cpp start_app.cpp display_actor.cpp
   APPEND PROPERTY
   OBJECT_DEPENDS "${display_generated_h_TARGET}"
 )
-add_dependencies(${COMPONENT_NAME} display_generated_h_TARGET)
+add_dependencies(${COMPONENT_TARGET} display_generated_h_TARGET)
 
 foreach(
   cacert
@@ -73,7 +73,7 @@ foreach(
   WILDCARD_execute_api_us_west_2_amazonaws_com_root_cacert
 )
   REQUESTS_EMBED_CERTIFICATE_DER(${cacert})
-  add_dependencies(${COMPONENT_NAME} ${cacert}_TARGET)
+  add_dependencies(${COMPONENT_TARGET} ${cacert}_TARGET)
 endforeach()
 
 set_property(
@@ -144,7 +144,7 @@ foreach(
   REQUESTS_EMBED_REQUEST_INTENT(${req_intent})
   # Add dependency for generated target on generated input file(s)
   add_dependencies(${req_intent}_TARGET ${req_intent}_INPUTS_TARGET)
-  add_dependencies(${COMPONENT_NAME} ${req_intent}_TARGET)
+  add_dependencies(${COMPONENT_TARGET} ${req_intent}_TARGET)
 endforeach()
 
 set_property(
