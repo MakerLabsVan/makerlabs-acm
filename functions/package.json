@@ -17,7 +17,7 @@
     "deploy.production": "sls deploy  --stage production && firebase deploy --only functions -P production"
   },
   "devDependencies": {
-    "firebase-tools": "^4.0.0",
+    "firebase-tools": "^4.2.1",
     "serverless": "^1.30.0",
     "serverless-apigw-binary": "^0.4.4",
     "serverless-apigwy-binary": "^0.1.0"
