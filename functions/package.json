@@ -20,7 +20,8 @@
     "firebase-tools": "^4.2.1",
     "serverless": "^1.30.0",
     "serverless-apigw-binary": "^0.4.4",
-    "serverless-apigwy-binary": "^0.1.0"
+    "serverless-apigwy-binary": "^0.1.0",
+    "yarn-run-all": "^3.1.1"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
