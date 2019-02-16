@@ -15,7 +15,7 @@
     "deploy.production": "cd \"webcomponents\" && yarn build.production && cd - && cd \"scripts\" && yarn deploy.production && cd - && cd \"functions\" && yarn deploy.production && cd - && firebase deploy -P production"
   },
   "devDependencies": {
-    "firebase-tools": "^4.0.0"
+    "firebase-tools": "^4.2.1"
   },
   "private": true
 }
