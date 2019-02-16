@@ -4,7 +4,8 @@
     "serve": "polymer serve --fragment __/",
     "build": "polymer build",
     "predeploy": "yarn run build",
-    "deploy": "firebase deploy --only hosting"
+    "deploy.test": "firebase deploy --only hosting -P test",
+    "deploy.production": "firebase deploy --only hosting -P production"
   },
   "dependencies": {
     "@material/layout-grid": "^0.39.0",
