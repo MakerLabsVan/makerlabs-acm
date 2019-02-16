@@ -1,9 +1,7 @@
 **/.DS_Store
-build/
-build-*/
+build-*/*
+!build-*/sdkconfig
 main/secrets/
-sdkconfig*
-!sdkconfig.defaults
 xtensa-esp32-elf*
 compile_commands.json
 fs/
