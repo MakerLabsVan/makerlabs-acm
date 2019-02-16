@@ -1,7 +1,7 @@
 {
   "projects": {
     "default": "makerlabs-acm-test",
-    "dev": "makerlabs-acm-test",
+    "test": "makerlabs-acm-test",
     "production": "makerlabs-acm"
   }
 }
