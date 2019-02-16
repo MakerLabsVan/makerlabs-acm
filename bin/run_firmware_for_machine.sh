@@ -13,6 +13,7 @@ BUILD_DIR="$(pwd)/build-${MACHINE_NAME}"
 
 if [ $# -eq 0 ]; then
   # No args runs this sequence
+  $0 ${MACHINE_NAME} build
   $0 ${MACHINE_NAME} erase_flash
   $0 ${MACHINE_NAME} flash
   $0 ${MACHINE_NAME} flash_fatfs
