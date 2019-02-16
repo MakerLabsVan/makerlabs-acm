@@ -37,7 +37,8 @@
   },
   "devDependencies": {
     "firebase-tools": "^4.2.1",
-    "polymer-cli": "^1.8.0"
+    "polymer-cli": "^1.8.0",
+    "replace-in-file": "^3.4.3"
   },
   "engines": {
     "node": ">=8.0"
