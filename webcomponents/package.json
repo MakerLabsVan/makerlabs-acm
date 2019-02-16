@@ -3,8 +3,13 @@
   "scripts": {
     "serve": "polymer serve --fragment __/",
     "build": "polymer build",
-    "predeploy": "yarn run build",
+    "build.test": "yarn run build",
+    "postbuild.test": "replace-in-file --configFile=replace-in-file.test.js",
+    "predeploy.test": "yarn run build.test",
     "deploy.test": "firebase deploy --only hosting -P test",
+    "build.production": "yarn run build",
+    "postbuild.production": "replace-in-file --configFile=replace-in-file.production.js",
+    "predeploy.production": "yarn run build.production",
     "deploy.production": "firebase deploy --only hosting -P production"
   },
   "dependencies": {
