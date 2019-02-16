@@ -6,7 +6,17 @@
     "pull": "clasp pull",
     "push": "clasp push",
     "predeploy": "yarn run push",
-    "deploy": "clasp deploy"
+    "deploy": "clasp deploy",
+    "scriptId.test": "clasp setting scriptId 1lo1WnY8WhlAXlj87uEu0FrX_Izu2v-8tnVs0WZyWSAx3-mPRRC4vYEsc",
+    "scriptId.production": "clasp setting scriptId 1DhOEgBWXk7iKV3DYkkimsszYp2_N1siVdmXH8w8Z2Q2Z5em5GApXE1Xy",
+    "pull.test": "yarn run scriptId.test && yarn run pull",
+    "push.test": "yarn run scriptId.test && yarn run push",
+    "predeploy.test": "yarn run push.test",
+    "deploy.test": "yarn run scriptId.test && yarn run deploy",
+    "pull.production": "yarn run scriptId.production && yarn run pull",
+    "push.production": "yarn run scriptId.production && yarn run push",
+    "predeploy.production": "yarn run push.production",
+    "deploy.production": "yarn run scriptId.production && yarn run deploy"
   },
   "devDependencies": {
     "@google/clasp": "^1.4.1"
