@@ -13,8 +13,12 @@
     "logs": "firebase functions:log",
     "predeploy.test": "yarn run build",
     "predeploy.production": "yarn run build",
-    "deploy.test": "sls deploy --stage test && firebase deploy --only functions -P test",
-    "deploy.production": "sls deploy  --stage production && firebase deploy --only functions -P production"
+    "deploy.test:aws": "sls deploy --stage test",
+    "deploy.production:aws": "sls deploy  --stage production",
+    "deploy.test:firebase": "firebase deploy --only functions -P test",
+    "deploy.production:firebase": "firebase deploy --only functions -P production",
+    "deploy.test": "yarn run-p --print-label deploy.test:*",
+    "deploy.production": "yarn run-p --print-label deploy.production:*"
   },
   "devDependencies": {
     "firebase-tools": "^4.2.1",
