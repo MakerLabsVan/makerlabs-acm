@@ -7,12 +7,14 @@
     "watch": "pub run build_runner watch --output=build/",
     "prebuild": "yarn run pub",
     "build": "pub run build_runner build --output=build/",
-    "predeploy": "yarn run build",
-    "deploy": "sls deploy && firebase deploy --only functions",
     "preserve": "yarn run build",
     "serve": "firebase serve --only functions",
     "shell": "firebase functions:shell",
-    "logs": "firebase functions:log"
+    "logs": "firebase functions:log",
+    "predeploy.test": "yarn run build",
+    "predeploy.production": "yarn run build",
+    "deploy.test": "sls deploy --stage test && firebase deploy --only functions -P test",
+    "deploy.production": "sls deploy  --stage production && firebase deploy --only functions -P production"
   },
   "devDependencies": {
     "firebase-tools": "^4.0.0",
