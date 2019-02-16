@@ -11,11 +11,9 @@
     "scriptId.production": "clasp setting scriptId 1DhOEgBWXk7iKV3DYkkimsszYp2_N1siVdmXH8w8Z2Q2Z5em5GApXE1Xy",
     "pull.test": "yarn run scriptId.test && yarn run pull",
     "push.test": "yarn run scriptId.test && yarn run push",
-    "predeploy.test": "yarn run push.test",
     "deploy.test": "yarn run scriptId.test && yarn run deploy",
     "pull.production": "yarn run scriptId.production && yarn run pull",
     "push.production": "yarn run scriptId.production && yarn run push",
-    "predeploy.production": "yarn run push.production",
     "deploy.production": "yarn run scriptId.production && yarn run deploy"
   },
   "devDependencies": {
