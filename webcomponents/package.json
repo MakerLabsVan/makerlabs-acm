@@ -4,11 +4,11 @@
     "serve": "polymer serve --fragment __/",
     "build": "polymer build",
     "build.test": "yarn run build",
-    "postbuild.test": "replace-in-file --configFile=replace-in-file.test.js",
+    "postbuild.test": "ACM_CONFIG_FILE=config.test.yml replace-in-file --configFile=replace-in-file.js",
     "predeploy.test": "yarn run build.test",
     "deploy.test": "firebase deploy --only hosting -P test",
     "build.production": "yarn run build",
-    "postbuild.production": "replace-in-file --configFile=replace-in-file.production.js",
+    "postbuild.production": "ACM_CONFIG_FILE=config.production.yml replace-in-file --configFile=replace-in-file.js",
     "predeploy.production": "yarn run build.production",
     "deploy.production": "firebase deploy --only hosting -P production"
   },
@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "firebase-tools": "^4.2.1",
+    "js-yaml": "^3.12.1",
     "polymer-cli": "^1.8.0",
     "replace-in-file": "^3.4.3"
   },

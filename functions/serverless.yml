@@ -33,11 +33,11 @@ functions:
     handler: index-aws.permissions_check
     timeout: 30
     environment:
-      SPREADSHEET_ID: ${file(./config.${self:provider.stage}.yml):SPREADSHEET_ID}
-      GCLOUD_PROJECT: ${file(./config.${self:provider.stage}.yml):GCLOUD_PROJECT}
-      FIREBASE_DATABASE_URL: ${file(./config.${self:provider.stage}.yml):FIREBASE_DATABASE_URL}
-      FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL: ${file(./config.${self:provider.stage}.yml):FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL}
-      FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY: ${file(./config.${self:provider.stage}.yml):FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY}
+      SPREADSHEET_ID: ${file(../config.${self:provider.stage}.yml):SPREADSHEET_ID}
+      GCLOUD_PROJECT: ${file(../config.${self:provider.stage}.yml):GCLOUD_PROJECT}
+      FIREBASE_DATABASE_URL: ${file(../config.${self:provider.stage}.yml):FIREBASE_DATABASE_URL}
+      FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL: ${file(../config.${self:provider.stage}.yml):FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL}
+      FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY: ${file(../config.${self:provider.stage}.yml):FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY}
       BINARY_CONTENT_TYPES: "application/octet-stream"
     events:
       - http:

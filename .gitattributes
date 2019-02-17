@@ -1,2 +1,2 @@
-functions/config.*.yml filter=git-crypt diff=git-crypt
+config.*.yml filter=git-crypt diff=git-crypt
 firmware/build-*/sdkconfig filter=git-crypt diff=git-crypt

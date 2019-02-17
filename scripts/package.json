@@ -7,8 +7,8 @@
     "push": "clasp push",
     "predeploy": "yarn run push",
     "deploy": "clasp deploy",
-    "config.test": "replace-in-file '/\"scriptId\":\\s*\"[^\"]*\"/' '\"scriptId\":\"1lo1WnY8WhlAXlj87uEu0FrX_Izu2v-8tnVs0WZyWSAx3-mPRRC4vYEsc\"' .clasp.json --isRegex && replace-in-file '/\"projectId\":\\s*\"[^\"]*\"/' '\"projectId\":\"makerlabs-acm-test\"' .clasp.json --isRegex",
-    "config.production": "replace-in-file '/\"scriptId\":\\s*\"[^\"]*\"/' '\"scriptId\":\"1DhOEgBWXk7iKV3DYkkimsszYp2_N1siVdmXH8w8Z2Q2Z5em5GApXE1Xy\"' .clasp.json --isRegex && replace-in-file '/\"projectId\":\\s*\"[^\"]*\"/' '\"projectId\":\"makerlabs-acm\"' .clasp.json --isRegex",
+    "config.test": "ACM_CONFIG_FILE=config.test.yml replace-in-file --configFile=replace-in-file.js",
+    "config.production": "ACM_CONFIG_FILE=config.production.yml replace-in-file --configFile=replace-in-file.js",
     "pull.test": "yarn run config.test && yarn run pull",
     "push.test": "yarn run config.test && yarn run push",
     "deploy.test": "yarn run config.test && yarn run deploy",
@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "@google/clasp": "^1.4.1",
+    "js-yaml": "^3.12.1",
     "replace-in-file": "^3.4.3"
   }
 }

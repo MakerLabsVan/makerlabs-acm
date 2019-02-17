@@ -9,6 +9,8 @@
     "toolchain": "command -v xtensa-esp32-elf-gcc >/dev/null || (cd firmware && (ls xtensa-esp32-elf 2>/dev/null || (ls xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz 2>/dev/null || curl -LO https://dl.espressif.com/dl/xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz) && tar -xf xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz) && cd - && ln -sf `pwd`/firmware/xtensa-esp32-elf/bin/* node_modules/.bin)",
     "postinstall": "yarn deps && yarn toolchain && cd \"functions\" && yarn install --ignore-engines && cd - && cd \"scripts\" && yarn install && cd - && cd \"webcomponents\" && yarn install && cd -",
     "firmware": "cd \"firmware\" && ../bin/run_firmware_for_machine.sh",
+    "token.test": "ACM_CONFIG_FILE=config.test.yml ./bin/oauth-server.js",
+    "token.production": "ACM_CONFIG_FILE=config.production.yml ./bin/oauth-server.js",
     "build.test:webcomponents": "cd \"webcomponents\" && yarn build.test",
     "build.test:functions": "cd \"functions\" && yarn build",
     "build.test:scripts": "cd \"scripts\" && yarn scriptId.test",
@@ -29,6 +31,7 @@
   "devDependencies": {
     "firebase-tools": "^4.2.1",
     "google-auth-library": "^3.1.0",
+    "js-yaml": "^3.12.1",
     "node-fetch": "^2.3.0",
     "opn": "^5.4.0",
     "server-destroy": "^1.0.1",
