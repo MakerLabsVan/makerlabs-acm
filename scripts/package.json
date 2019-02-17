@@ -7,14 +7,14 @@
     "push": "clasp push",
     "predeploy": "yarn run push",
     "deploy": "clasp deploy",
-    "scriptId.test": "clasp setting scriptId 1lo1WnY8WhlAXlj87uEu0FrX_Izu2v-8tnVs0WZyWSAx3-mPRRC4vYEsc",
-    "scriptId.production": "clasp setting scriptId 1DhOEgBWXk7iKV3DYkkimsszYp2_N1siVdmXH8w8Z2Q2Z5em5GApXE1Xy",
-    "pull.test": "yarn run scriptId.test && yarn run pull",
-    "push.test": "yarn run scriptId.test && yarn run push",
-    "deploy.test": "yarn run scriptId.test && yarn run deploy",
-    "pull.production": "yarn run scriptId.production && yarn run pull",
-    "push.production": "yarn run scriptId.production && yarn run push",
-    "deploy.production": "yarn run scriptId.production && yarn run deploy"
+    "config.test": "replace-in-file '/\"scriptId\":\\s*\"[^\"]*\"/' '\"scriptId\":\"1lo1WnY8WhlAXlj87uEu0FrX_Izu2v-8tnVs0WZyWSAx3-mPRRC4vYEsc\"' .clasp.json --isRegex && replace-in-file '/\"projectId\":\\s*\"[^\"]*\"/' '\"projectId\":\"makerlabs-acm-test\"' .clasp.json --isRegex",
+    "config.production": "replace-in-file '/\"scriptId\":\\s*\"[^\"]*\"/' '\"scriptId\":\"1DhOEgBWXk7iKV3DYkkimsszYp2_N1siVdmXH8w8Z2Q2Z5em5GApXE1Xy\"' .clasp.json --isRegex && replace-in-file '/\"projectId\":\\s*\"[^\"]*\"/' '\"projectId\":\"makerlabs-acm\"' .clasp.json --isRegex",
+    "pull.test": "yarn run config.test && yarn run pull",
+    "push.test": "yarn run config.test && yarn run push",
+    "deploy.test": "yarn run config.test && yarn run deploy",
+    "pull.production": "yarn run config.production && yarn run pull",
+    "push.production": "yarn run config.production && yarn run push",
+    "deploy.production": "yarn run config.production && yarn run deploy"
   },
   "devDependencies": {
     "@google/clasp": "^1.4.1",
