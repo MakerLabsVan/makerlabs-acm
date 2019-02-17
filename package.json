@@ -4,9 +4,9 @@
   "description": "MakerLabs Access Control Management (ACM) System",
   "license": "MIT",
   "scripts": {
-    "deps": "brew install yarn caddy cmake jq ninja python2 gdrive git-crypt && brew install flatbuffers --head && python -m pip install --user -r firmware/esp-idf/requirements.txt",
+    "deps": "(command -v yarn >/dev/null || brew install yarn) && (command -v caddy >/dev/null || brew install caddy) && (command -v cmake >/dev/null || brew install cmake) && (command -v jq >/dev/null || brew install jq) && (command -v ninja >/dev/null || brew install ninja) && (command -v python2 >/dev/null || brew install python2) && (command -v gdrive >/dev/null || brew install gdrive) && (command -v git-crypt >/dev/null || brew install git-crypt) && (command -v flatc >/dev/null || brew install flatbuffers --head) && python -m pip install --user -r firmware/esp-idf/requirements.txt",
     "docs": "rm -r docs/* && doxygen _docs/Doxyfile && cp electrical/*_BOM.csv docs/",
-    "toolchain": "which xtensa-esp32-elf-gcc 2>/dev/null || (cd firmware && (ls xtensa-esp32-elf 2>/dev/null || (ls xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz 2>/dev/null || curl -LO https://dl.espressif.com/dl/xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz) && tar -xf xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz) && cd - && ln -sf `pwd`/firmware/xtensa-esp32-elf/bin/* node_modules/.bin)",
+    "toolchain": "command -v xtensa-esp32-elf-gcc >/dev/null || (cd firmware && (ls xtensa-esp32-elf 2>/dev/null || (ls xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz 2>/dev/null || curl -LO https://dl.espressif.com/dl/xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz) && tar -xf xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz) && cd - && ln -sf `pwd`/firmware/xtensa-esp32-elf/bin/* node_modules/.bin)",
     "postinstall": "yarn deps && yarn toolchain && cd \"functions\" && yarn install --ignore-engines && cd - && cd \"scripts\" && yarn install && cd - && cd \"webcomponents\" && yarn install && cd -",
     "firmware": "cd \"firmware\" && ../bin/run_firmware_for_machine.sh",
     "build.test:webcomponents": "cd \"webcomponents\" && yarn build.test",
