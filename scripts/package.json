@@ -17,6 +17,7 @@
     "deploy.production": "yarn run scriptId.production && yarn run deploy"
   },
   "devDependencies": {
-    "@google/clasp": "^1.4.1"
+    "@google/clasp": "^1.4.1",
+    "replace-in-file": "^3.4.3"
   }
 }
