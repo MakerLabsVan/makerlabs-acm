@@ -2,6 +2,8 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
+    "login:aws": "sls login",
+    "login:firebase": "firebase login",
     "pub": "pub get",
     "prewatch": "yarn run pub",
     "watch": "pub run build_runner watch --output=build/",
@@ -11,7 +13,6 @@
     "serve": "firebase serve --only functions",
     "shell": "firebase functions:shell",
     "logs": "firebase functions:log",
-    "login": "sls login",
     "predeploy.test": "yarn run build",
     "predeploy.production": "yarn run build",
     "deploy.test:aws": "sls deploy --stage test",

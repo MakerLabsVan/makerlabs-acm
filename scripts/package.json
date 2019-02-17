@@ -1,8 +1,8 @@
 {
   "license": "MIT",
   "scripts": {
-    "apps-login": "clasp login",
-    "logout": "clasp logout",
+    "login:apps": "clasp login",
+    "logout:apps": "clasp logout",
     "pull": "clasp pull",
     "push": "clasp push",
     "predeploy": "yarn run push",
