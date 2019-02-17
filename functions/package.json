@@ -11,6 +11,7 @@
     "serve": "firebase serve --only functions",
     "shell": "firebase functions:shell",
     "logs": "firebase functions:log",
+    "login": "sls login",
     "predeploy.test": "yarn run build",
     "predeploy.production": "yarn run build",
     "deploy.test:aws": "sls deploy --stage test",
