@@ -2,7 +2,7 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "login:aws": "aws configure",
+    "login:aws": "read -p \"AWS Access Key ID: \" key && read -p \"AWS Secret Access Key: \" secret && sls config credentials --overwrite --provider aws --key \"${key}\" --secret \"${secret}\"",
     "login:firebase": "firebase login",
     "logout:firebase": "firebase logout",
     "pub": "pub get",
