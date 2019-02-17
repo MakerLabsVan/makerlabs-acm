@@ -18,8 +18,8 @@
     "deploy.production:aws": "sls deploy  --stage production",
     "deploy.test:firebase": "firebase deploy --only functions -P test",
     "deploy.production:firebase": "firebase deploy --only functions -P production",
-    "deploy.test": "yarn run-p --print-label deploy.test:*",
-    "deploy.production": "yarn run-p --print-label deploy.production:*"
+    "deploy.test": "run-p --print-label deploy.test:*",
+    "deploy.production": "run-p --print-label deploy.production:*"
   },
   "devDependencies": {
     "firebase-tools": "^4.2.1",
