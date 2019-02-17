@@ -2,6 +2,7 @@
   "license": "MIT",
   "scripts": {
     "login:firebase": "firebase login",
+    "logout:firebase": "firebase logout",
     "serve": "polymer serve --fragment __/",
     "build": "polymer build",
     "build.test": "yarn run build",

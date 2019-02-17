@@ -2,8 +2,9 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "login:aws": "sls login",
+    "login:aws": "aws configure",
     "login:firebase": "firebase login",
+    "logout:firebase": "firebase logout",
     "pub": "pub get",
     "prewatch": "yarn run pub",
     "watch": "pub run build_runner watch --output=build/",
