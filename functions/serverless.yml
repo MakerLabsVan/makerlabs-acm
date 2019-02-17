@@ -22,7 +22,7 @@ provider:
 
 # AWS Lambda
   name: aws
-  stage: ${opt:stage, "dev"}
+  stage: ${opt:stage, "test"}
   region: us-west-2
   timeout: 60
 
