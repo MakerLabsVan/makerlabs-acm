@@ -50,36 +50,6 @@ webcomponents/
 </div>
 @endhtmlonly
 
-### Search For Specific User
-@htmlonly
-<div class="mermaid">
-   sequenceDiagram
-      participant CM User
-      participant Web Frontend
-      participant Google Auth
-      participant Firebase
-      participant Google Proxy
-      participant Users Sheet
-      participant Activity Sheet
-      CM User->>Web Frontend: Search For Specific User Name
-</div>
-@endhtmlonly
-
-### Search For Front Desk / Specific Machine, Latest Scans
-@htmlonly
-<div class="mermaid">
-   sequenceDiagram
-      participant CM User
-      participant Web Frontend
-      participant Google Auth
-      participant Firebase
-      participant Google Proxy
-      participant Users Sheet
-      participant Activity Sheet
-      CM User->>Web Frontend: Search For Specific Machine (Front Desk)
-</div>
-@endhtmlonly
-
 # Design
 A single HTML page (`view-user-page.html`) provides the entrypoint for the main
 [ACM search/view/edit Maker page](https://makerlabs-acm.firebaseapp.com/view-user-page.html).
@@ -89,9 +59,10 @@ The page is composed of [WebComponents](https://www.webcomponents.org/introducti
 using Javascript classes which inherit from [LitElement](https://github.com/Polymer/lit-element).
 This allows registering and creating custom HTML elements (e.g. `<my-element>`)
 without needing a web framework (although the Polymer framework build tool is
-used here to minify all JS into a single bundle).
+used here to minify all JS into a single bundle for uploading to Firebase
+Hosting).
 
-## Custom WebComponents
+### Custom WebComponents
 The following WebComponents classes / elements are defined:
 - [AppShell / <app-shell>](@ref AppShell)
 - [GoogleSigninButton / <google-signin-button>](@ref GoogleSigninButton)
@@ -101,6 +72,40 @@ The following WebComponents classes / elements are defined:
 
 And highlighted on the following diagram:
 ![Color-highlighted HTML elements used on /view-user-page](view-user-page_annotated.png "HTML Elements used on /view-user-page")
+
+## Dynamic Maker Form / Fields
+The form displayed on `view-user-page.html` -- using the `<view-user-form>`
+WebComponent -- is based on the current columns in the "Users" sheet of the ACM
+spreadsheet. This data is loaded dynamically when the page is loaded and a valid
+user is signed-in. Each section title in the first row of the sheet creates a
+separate Material Design "panel" in the form. Each column within that section
+will render as a suitable form control, based on the type of
+formatting/validation applied to the spreadsheet column. This latest set of
+form fields is fetched via a request to the `?href=users-fields` handler in
+Google Apps Script, which runs the `viewUsersFields` view to create a JSON blob
+describing the fields.
+
+@note Accessing Google Apps Script endpoints requires a valid Google Auth, so no
+fields can be displayed if the user is not logged in. After logging in, and/or
+when refreshing the page, the latest set of fields should be rendered (e.g.
+after adding, removing, renaming or reordering columns).
+
+## Maker Search Bar
+The search bar is populated from via a Google Visualization API query which
+extracts all data rows from the "Users" sheet when the page is loaded.
+
+Whenever a new Maker is added or edited through the form, the corresponding user
+details should be changed in the search bar after saving has completed.
+
+@note Updates to the "Users" sheet directly through Google Sheets, and/or from
+other users making changes through the form, will not be updated automatically.
+A page refresh (via e.g. Cmd-Shift-R) is required to fully sync the search bar.
+
+## Automatic "Next MakerLabs ID"
+Clicking the "+" floating-action-button at the bottom-right of the screen
+will clear the form fields, and triggers populating the `MakerLabs ID` column
+with the next available `MakerLabs ID` based on a request to the
+`?href=next-makerlabs-id` handler in Google Apps Script.
 
 # Configuration
 ## Google Spreadsheet, Google Drive, Google Login details
@@ -148,6 +153,7 @@ The deployment process can be invoked (it will rebuild first) via:
 ```
 # Deploy to the test environment (https://makerlabs-acm-test.firebaseapp.com)
 yarn deploy -P dev
+
 # Deploy to the production environment (https://makerlabs-acm.firebaseapp.com)
 # yarn deploy -P production
 ```
@@ -157,6 +163,6 @@ yarn deploy -P dev
 
 @{
 @defgroup webcomponents webcomponents/
-See @ref md_docs_webcomponents "webcomponents/ Documentation"
+See @ref md__docs_webcomponents "webcomponents/ Documentation"
 @note Click on the classes below for more info about their private functions.
 @}
