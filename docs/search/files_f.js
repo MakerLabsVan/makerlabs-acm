@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['package_2ejson',['package.json',['../__docs_2unused_2package_8json.html',1,'(Global Namespace)'],['../functions_2package_8json.html',1,'(Global Namespace)'],['../package_8json.html',1,'(Global Namespace)'],['../scripts_2package_8json.html',1,'(Global Namespace)'],['../webcomponents_2package_8json.html',1,'(Global Namespace)']]],
+  ['package_2ejson',['package.json',['../functions_2package_8json.html',1,'(Global Namespace)'],['../package_8json.html',1,'(Global Namespace)'],['../scripts_2package_8json.html',1,'(Global Namespace)'],['../webcomponents_2package_8json.html',1,'(Global Namespace)']]],
   ['permissions_5fcheck_5fhttp_2edart',['permissions_check_http.dart',['../permissions__check__http_8dart.html',1,'']]],
   ['permissions_5fcheck_5frequest_5fintent_2ereq_2ejson',['permissions_check_request_intent.req.json',['../permissions__check__request__intent_8req_8json.html',1,'']]],
   ['permissions_5fcheck_5frequest_5fintent_2ereq_2ejson_2etpl',['permissions_check_request_intent.req.json.tpl',['../permissions__check__request__intent_8req_8json_8tpl.html',1,'']]],

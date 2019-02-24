@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['obtain_20the_20following_20pieces_20of_20information_3a',['Obtain the following pieces of information:',['../md__docs_unused_ota.html',1,'']]],
   ['oauth_2dserver_2ejs',['oauth-server.js',['../oauth-server_8js.html',1,'']]],
   ['oauth_5ftoken_5faccess_5ftype',['OAUTH_TOKEN_ACCESS_TYPE',['../oauth-server_8js.html#a61a1c3329f3537c38009dd158981741a',1,'oauth-server.js']]],
   ['oauth_5ftoken_5fprompt_5ftype',['OAUTH_TOKEN_PROMPT_TYPE',['../oauth-server_8js.html#a2294a19e133a2ffbb217fd33b894c1d9',1,'oauth-server.js']]],
@@ -28,7 +27,6 @@ var searchData=
   ['operator_3d',['operator=',['../struct_requests_1_1_request_handler.html#a253b9970e3afe31bede5877deec37f1d',1,'Requests::RequestHandler::operator=(RequestHandler &amp;&amp;)=default'],['../struct_requests_1_1_request_handler.html#a05739e7e41054bf58631972377c56eb8',1,'Requests::RequestHandler::operator=(const RequestHandler &amp;)=delete']]],
   ['operator_3d_3d',['operator==',['../group__firmware.html#gaf24480ac916188ffb4d86cfff7735260',1,'hid_global_tag_id.h']]],
   ['opn',['opn',['../oauth-server_8js.html#a74c1a83aca7f23ba3567e376bf33f71d',1,'oauth-server.js']]],
-  ['ota_2emd',['ota.md',['../ota_8md.html',1,'']]],
   ['ota_5fbytes_5fwritten',['ota_bytes_written',['../struct_firmware_update_1_1_firmware_update_actor_state.html#a5cb3cd41d8b972f8100ca5ea92bb7cb9',1,'FirmwareUpdate::FirmwareUpdateActorState']]],
   ['ota_5fchecksum_5fhex_5fstr',['ota_checksum_hex_str',['../struct_firmware_update_1_1_firmware_update_actor_state.html#a0bc4547426d4c3f82dc35ef421ff27f5',1,'FirmwareUpdate::FirmwareUpdateActorState']]],
   ['ota_5fflash_5fstarted',['ota_flash_started',['../struct_firmware_update_1_1_firmware_update_actor_state.html#ae3ab68f6a2621b034ff90a60353546a8',1,'FirmwareUpdate::FirmwareUpdateActorState']]],

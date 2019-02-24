@@ -89,7 +89,7 @@ var searchData=
   ['start_5frequest_5fmanager_2ecpp',['start_request_manager.cpp',['../start__request__manager_8cpp.html',1,'']]],
   ['start_5frequest_5fmanager_2eh',['start_request_manager.h',['../start__request__manager_8h.html',1,'']]],
   ['start_5ftimer',['start_timer',['../class_actor_model_1_1_node.html#a80a513f6a3d70dcb326fcb6e4a0f1782',1,'ActorModel::Node']]],
-  ['state',['State',['../struct_wiegand_reader_1_1_state.html',1,'WiegandReader::State'],['../struct_wiegand_reader_1_1_callback_info.html#a75416bd36787956b01d23881c358a25c',1,'WiegandReader::CallbackInfo::state()'],['../class_wiegand_reader.html#a1b3e7a8ac52a9139d38e4b194528d285',1,'WiegandReader::state()'],['../namespace_actor_model.html#a5e13528eeea2f9ac082620edb06adc1d',1,'ActorModel::State()'],['../namespace_requests.html#acbac32b52c8f994f34412de8aa68d833',1,'Requests::state()']]],
+  ['state',['State',['../struct_wiegand_reader_1_1_state.html',1,'WiegandReader::State'],['../struct_wiegand_reader_1_1_callback_info.html#a75416bd36787956b01d23881c358a25c',1,'WiegandReader::CallbackInfo::state()'],['../class_wiegand_reader.html#a1b3e7a8ac52a9139d38e4b194528d285',1,'WiegandReader::state()'],['../namespace_requests.html#acbac32b52c8f994f34412de8aa68d833',1,'Requests::state()'],['../namespace_actor_model.html#a5e13528eeea2f9ac082620edb06adc1d',1,'ActorModel::State()']]],
   ['stateptr',['StatePtr',['../namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6',1,'ActorModel']]],
   ['statuscode',['statusCode',['../class_exception.html#aa81a15abba5212e5c14eabd1829a0cf1',1,'Exception']]],
   ['stopjobtimer',['StopJobTimer',['../struct_stop_job_timer.html',1,'StopJobTimer'],['../union_display_action.html#ac0768a17d0ed7f1f23c8e5c39691cd21',1,'DisplayAction.StopJobTimer()']]],

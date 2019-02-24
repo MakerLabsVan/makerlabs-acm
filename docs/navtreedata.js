@@ -58,7 +58,6 @@ var NAVTREE =
       [ "Deployment", "md__docs_scripts.html#autotoc_md64", null ],
       [ "API Reference", "md__docs_scripts.html#autotoc_md65", null ]
     ] ],
-    [ "Obtain the following pieces of information:", "md__docs_unused_ota.html", null ],
     [ "webcomponents/", "md__docs_webcomponents.html", [
       [ "Overview", "md__docs_webcomponents.html#autotoc_md76", null ],
       [ "Design", "md__docs_webcomponents.html#autotoc_md77", null ],
@@ -75,11 +74,11 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_8clasp_8json.html",
-"class_view_user_form.html#a88480cf685ec71871f0965692624a0dd",
-"group__firmware.html#ga292d1100c9cdb3e5fb1a97c09ede3d17",
-"initial_project_setup.html",
-"requests_8cpp.html#acbac32b52c8f994f34412de8aa68d833",
-"uuid_8cpp.html#aa2bedeea181de8417961b4fd93ce36b3"
+"class_view_user_form.html#a8c9dc4a871280f03c88f9bcc4216d3fe",
+"group__firmware.html#ga32cbe146c6f35d870248f5b921f35e78",
+"json__emitter_8cpp.html#a221863dd64648e3a981794a450070f19",
+"requests_8fbs.html#a073e41b12c51742e2600e64d979fa96fa7a0be8bfc95a59f0916750aa5190627f",
+"uuid_8h.html#a05cca21004dd568016e531fadfbf0306"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

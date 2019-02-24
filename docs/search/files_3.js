@@ -6,6 +6,5 @@ var searchData=
   ['dev_5fsetup_2emd',['dev_setup.md',['../dev__setup_8md.html',1,'']]],
   ['display_2efbs',['display.fbs',['../display_8fbs.html',1,'']]],
   ['display_5factor_2ecpp',['display_actor.cpp',['../display__actor_8cpp.html',1,'']]],
-  ['docs_2emd',['docs.md',['../docs_8md.html',1,'']]],
-  ['doxy_2dboot_2ejs',['doxy-boot.js',['../doxy-boot_8js.html',1,'']]]
+  ['docs_2emd',['docs.md',['../docs_8md.html',1,'']]]
 ];

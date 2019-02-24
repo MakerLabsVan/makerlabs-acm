@@ -12,7 +12,7 @@ var indexSectionsWithContent =
   9: "npr",
   10: "adeisu",
   11: "efsw",
-  12: "defikmosw"
+  12: "defikmsw"
 };
 
 var indexSectionNames =

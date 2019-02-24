@@ -8,9 +8,9 @@ var files =
     [ "scripts", "dir_53e6fa9553ac22a5646d2a2b2d7b97a1.html", "dir_53e6fa9553ac22a5646d2a2b2d7b97a1" ],
     [ "webcomponents", "dir_d8f55a4673d676fbcbccbf823850bb08.html", "dir_d8f55a4673d676fbcbccbf823850bb08" ],
     [ ".firebaserc", "_8firebaserc.html", null ],
-    [ "package.json", "package_8json.html", null ],
     [ "config.production.yml", "config_8production_8yml.html", null ],
     [ "config.test.yml", "config_8test_8yml.html", null ],
     [ "database-rules.json", "database-rules_8json.html", null ],
-    [ "firebase.json", "firebase_8json.html", null ]
+    [ "firebase.json", "firebase_8json.html", null ],
+    [ "package.json", "package_8json.html", null ]
 ];

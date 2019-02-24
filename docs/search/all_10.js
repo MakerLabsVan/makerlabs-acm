@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['package_2ejson',['package.json',['../__docs_2unused_2package_8json.html',1,'(Global Namespace)'],['../functions_2package_8json.html',1,'(Global Namespace)'],['../package_8json.html',1,'(Global Namespace)'],['../scripts_2package_8json.html',1,'(Global Namespace)'],['../webcomponents_2package_8json.html',1,'(Global Namespace)']]],
+  ['package_2ejson',['package.json',['../functions_2package_8json.html',1,'(Global Namespace)'],['../package_8json.html',1,'(Global Namespace)'],['../scripts_2package_8json.html',1,'(Global Namespace)'],['../webcomponents_2package_8json.html',1,'(Global Namespace)']]],
   ['parityview',['ParityView',['../struct_h_i_d_global_tag_i_d_1_1_parity_view.html',1,'HIDGlobalTagID']]],
   ['parse',['parse',['../class_json_1_1_json_emitter.html#a5fc278427e8896c090791538ede33d6c',1,'Json::JsonEmitter::parse()'],['../class_requests_1_1_server_sent_events_emitter.html#abbd8ae73d2a1ca9f60ad66732680b038',1,'Requests::ServerSentEventsEmitter::parse()']]],
   ['parse_5fhttp_5fstatus_5fline',['parse_http_status_line',['../namespace_requests.html#a6674c0706bea5488159b4f29d99a3df5',1,'Requests']]],
