@@ -113,11 +113,18 @@ $(document).ready(function(){initNavTree('dev_setup.html','');});
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="autotoc_md0"></a>
 How-to obtain this repo:</h1>
-<p>## Clone this repo recursively: </p><div class="fragment"><div class="line">git clone --recursive https://github.com/MakerLabsVan/makerlabs-acm</div><div class="line">cd makerlabs-acm</div></div><!-- fragment --><h1><a class="anchor" id="autotoc_md1"></a>
-Pre-requisites (macOS):</h1>
+<h2>Clone this repo recursively:</h2>
+<div class="fragment"><div class="line">git clone --recursive https://github.com/MakerLabsVan/makerlabs-acm</div><div class="line">cd makerlabs-acm</div></div><!-- fragment --><h3>Unlock encrypted configuration files</h3>
+<p>The config files in <code>functions/config.*.yml</code> contain private credentials to access Google Cloud resources from AWS. The files are stored encrypted in the repository via <a href="https://github.com/AGWA/git-crypt">git-crypt</a>, and will appear as normal files after the repository has been "unlocked".</p>
+<p>First, obtain the secret password file <code>MakerLabsVan_makerlabs-acm_git-crypt-key</code> from a trusted administrator, then provide the full path of this file to the <code>git-crypt</code> command, and promptly delete the key file as it is no longer needed:</p>
+<div class="fragment"><div class="line">git-crypt unlock ~/Downloads/MakerLabsVan_makerlabs-acm_git-crypt-key</div><div class="line">rm ~/Downloads/MakerLabsVan_makerlabs-acm_git-crypt-key</div></div><!-- fragment --><h1><a class="anchor" id="autotoc_md1"></a>
+Dependencies &amp; Pre-requisites (macOS):</h1>
 <ul>
 <li><code>electrical/</code>: Install KiCad 5.0+: <a href="http://kicad-pcb.org/download/">http://kicad-pcb.org/download/</a></li>
-<li><p class="startli"><code>firmware/</code>, <code>functions/</code>, <code>scripts/</code>, <code>webcomponents/</code>: Install homebrew macOS package manager: </p><div class="fragment"><div class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></div><!-- fragment --><p class="startli">Install <code>yarn</code>: </p><div class="fragment"><div class="line">brew install yarn</div></div><!-- fragment --><p class="startli">Install dependencies: </p><div class="fragment"><div class="line">yarn deps</div><div class="line">yarn install</div></div><!-- fragment --></li>
+<li><p class="startli"><code>firmware/</code>, <code>functions/</code>, <code>scripts/</code>, <code>webcomponents/</code>: Install homebrew macOS package manager: </p><div class="fragment"><div class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></div><!-- fragment --><p class="startli">Install <code>yarn</code>: </p><div class="fragment"><div class="line">brew install yarn</div></div><!-- fragment --><p class="startli">Install dependencies (including fetching packages from <code>npm</code>, <code>brew</code>, and downloading an xtensa ESP32 toolchain): </p><div class="fragment"><div class="line">yarn</div></div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>If you receive the following error while installing package dependencies: <div class="fragment"><div class="line">Error: Permission denied @ dir_s_mkdir - /usr/local/Frameworks</div></div><!-- fragment --> You may need to run the following commands to resolve the issue: <div class="fragment"><div class="line">sudo mkdir /usr/local/Frameworks</div><div class="line">sudo chown $(whoami):admin /usr/local/Frameworks</div></div><!-- fragment --></dd>
+<dd>
+If you receive the following error while installing package dependencies: <div class="fragment"><div class="line">/usr/bin/python: No module named pip</div><div class="line">error Command failed with exit code 1</div></div><!-- fragment --> You may need to run the following commands to resolve the issue: <div class="fragment"><div class="line">brew postinstall python@2</div></div><!-- fragment --></dd></dl>
+</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Electrical</h1>
@@ -127,62 +134,53 @@ Electrical</h1>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Firmware</h1>
 <ul>
-<li>Configure firmware settings (Wifi SSID/password, Google Spreadsheet ID, etc): <div class="fragment"><div class="line">yarn firmware menuconfig</div></div><!-- fragment --></li>
-<li>Build a firmware image, flash it to the connected board: <div class="fragment"><div class="line">yarn firmware flash</div></div><!-- fragment --></li>
-<li>Same as above, but also monitor the serial data and reboot after flashing: <div class="fragment"><div class="line">yarn firmware flash monitor</div></div><!-- fragment --></li>
-<li>Build binaries for OTA firmware updates, upload them to Google Drive: (<em>note: increment the number in the <code>firmware/VERSION</code> file to allow clients to download it</em>) <div class="fragment"><div class="line">yarn firmware all_binaries &amp;&amp; \</div><div class="line">  gdrive update &lt;firmware_image_id&gt; firmware/build/makerlabs-acm-reader-lock.bin &amp;&amp; \</div><div class="line">  gdrive update &lt;firmware_update_id&gt; firmware/build/latest.fw.fb</div></div><!-- fragment --></li>
+<li>Configure firmware settings for a specific machine (i.e. TARS). This includes Wifi SSID/password, Google Spreadsheet ID, etc.: <div class="fragment"><div class="line">yarn firmware TARS menuconfig</div></div><!-- fragment --></li>
+<li>Build a firmware image, flash it to the connected board: <div class="fragment"><div class="line">yarn firmware TARS flash</div></div><!-- fragment --></li>
+<li>Same as above, but also monitor the serial data and reboot after flashing: <div class="fragment"><div class="line">yarn firmware TARS</div></div><!-- fragment --></li>
 </ul>
 <h1><a class="anchor" id="autotoc_md4"></a>
-WebComponents</h1>
-<ul>
-<li>Add WebComponent dependencies in webcomponents, via <code>bower</code>: <div class="fragment"><div class="line">yarn webcomponents-add &lt;component names&gt;</div></div><!-- fragment --></li>
-<li>Fetch/update WebComponent versions from latest packages: <div class="fragment"><div class="line">yarn webcomponents</div></div><!-- fragment --></li>
-</ul>
-<p>Commit and push the updated files in <code>webcomponents/</code> and <code>webcomponents/bower_components/</code></p>
-<h1><a class="anchor" id="autotoc_md5"></a>
 Google Apps Script Webapp / Frontend</h1>
 <ul>
 <li><p class="startli">Login to the Google Apps Script / online UI: </p><div class="fragment"><div class="line">yarn login</div></div><!-- fragment --><p class="startli">Enable the Google Apps Script API for your personal Google Apps user: <a href="https://script.google.com/home/usersettings">https://script.google.com/home/usersettings</a></p>
 </li>
-<li>Pull changes from Google Apps Script / online UI: <div class="fragment"><div class="line">yarn pull</div></div><!-- fragment --></li>
+<li>(optional, when changes in the Script Editor have been made) Pull changes from Google Apps Script / online UI: <div class="fragment"><div class="line">yarn pull</div></div><!-- fragment --></li>
 <li>(Make desired changes to files in <code>webapp/</code>)</li>
 <li>Push changes to Google Apps Script <div class="fragment"><div class="line">yarn push</div></div><!-- fragment --></li>
 <li>Deploy the latest changes as a webapp: <div class="fragment"><div class="line">yarn deploy</div></div><!-- fragment --></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md89"></a>
+<h1><a class="anchor" id="autotoc_md91"></a>
 How-to obtain this repo:</h1>
-<p>## Clone this repo recursively: </p><div class="fragment"><div class="line">git clone --recursive https://github.com/MakerLabsVan/makerlabs-acm</div><div class="line">cd makerlabs-acm</div></div><!-- fragment --><h1><a class="anchor" id="autotoc_md90"></a>
-Pre-requisites (macOS):</h1>
+<h2>Clone this repo recursively:</h2>
+<div class="fragment"><div class="line">git clone --recursive https://github.com/MakerLabsVan/makerlabs-acm</div><div class="line">cd makerlabs-acm</div></div><!-- fragment --><h3>Unlock encrypted configuration files</h3>
+<p>The config files in <code>functions/config.*.yml</code> contain private credentials to access Google Cloud resources from AWS. The files are stored encrypted in the repository via <a href="https://github.com/AGWA/git-crypt">git-crypt</a>, and will appear as normal files after the repository has been "unlocked".</p>
+<p>First, obtain the secret password file <code>MakerLabsVan_makerlabs-acm_git-crypt-key</code> from a trusted administrator, then provide the full path of this file to the <code>git-crypt</code> command, and promptly delete the key file as it is no longer needed:</p>
+<div class="fragment"><div class="line">git-crypt unlock ~/Downloads/MakerLabsVan_makerlabs-acm_git-crypt-key</div><div class="line">rm ~/Downloads/MakerLabsVan_makerlabs-acm_git-crypt-key</div></div><!-- fragment --><h1><a class="anchor" id="autotoc_md92"></a>
+Dependencies &amp; Pre-requisites (macOS):</h1>
 <ul>
 <li><code>electrical/</code>: Install KiCad 5.0+: <a href="http://kicad-pcb.org/download/">http://kicad-pcb.org/download/</a></li>
-<li><p class="startli"><code>firmware/</code>, <code>functions/</code>, <code>scripts/</code>, <code>webcomponents/</code>: Install homebrew macOS package manager: </p><div class="fragment"><div class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></div><!-- fragment --><p class="startli">Install <code>yarn</code>: </p><div class="fragment"><div class="line">brew install yarn</div></div><!-- fragment --><p class="startli">Install dependencies: </p><div class="fragment"><div class="line">yarn deps</div><div class="line">yarn install</div></div><!-- fragment --></li>
+<li><p class="startli"><code>firmware/</code>, <code>functions/</code>, <code>scripts/</code>, <code>webcomponents/</code>: Install homebrew macOS package manager: </p><div class="fragment"><div class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></div><!-- fragment --><p class="startli">Install <code>yarn</code>: </p><div class="fragment"><div class="line">brew install yarn</div></div><!-- fragment --><p class="startli">Install dependencies (including fetching packages from <code>npm</code>, <code>brew</code>, and downloading an xtensa ESP32 toolchain): </p><div class="fragment"><div class="line">yarn</div></div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>If you receive the following error while installing package dependencies: <div class="fragment"><div class="line">Error: Permission denied @ dir_s_mkdir - /usr/local/Frameworks</div></div><!-- fragment --> You may need to run the following commands to resolve the issue: <div class="fragment"><div class="line">sudo mkdir /usr/local/Frameworks</div><div class="line">sudo chown $(whoami):admin /usr/local/Frameworks</div></div><!-- fragment --></dd>
+<dd>
+If you receive the following error while installing package dependencies: <div class="fragment"><div class="line">/usr/bin/python: No module named pip</div><div class="line">error Command failed with exit code 1</div></div><!-- fragment --> You may need to run the following commands to resolve the issue: <div class="fragment"><div class="line">brew postinstall python@2</div></div><!-- fragment --></dd></dl>
+</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md91"></a>
+<h1><a class="anchor" id="autotoc_md93"></a>
 Electrical</h1>
 <ul>
 <li>Open the KiCad project: <div class="fragment"><div class="line">open -a kicad electrical/makerlabs-acm-reader-lock_v1.0.0.pro</div></div><!-- fragment --></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md92"></a>
+<h1><a class="anchor" id="autotoc_md94"></a>
 Firmware</h1>
 <ul>
-<li>Configure firmware settings (Wifi SSID/password, Google Spreadsheet ID, etc): <div class="fragment"><div class="line">yarn firmware menuconfig</div></div><!-- fragment --></li>
-<li>Build a firmware image, flash it to the connected board: <div class="fragment"><div class="line">yarn firmware flash</div></div><!-- fragment --></li>
-<li>Same as above, but also monitor the serial data and reboot after flashing: <div class="fragment"><div class="line">yarn firmware flash monitor</div></div><!-- fragment --></li>
-<li>Build binaries for OTA firmware updates, upload them to Google Drive: (<em>note: increment the number in the <code>firmware/VERSION</code> file to allow clients to download it</em>) <div class="fragment"><div class="line">yarn firmware all_binaries &amp;&amp; \</div><div class="line">  gdrive update &lt;firmware_image_id&gt; firmware/build/makerlabs-acm-reader-lock.bin &amp;&amp; \</div><div class="line">  gdrive update &lt;firmware_update_id&gt; firmware/build/latest.fw.fb</div></div><!-- fragment --></li>
+<li>Configure firmware settings for a specific machine (i.e. TARS). This includes Wifi SSID/password, Google Spreadsheet ID, etc.: <div class="fragment"><div class="line">yarn firmware TARS menuconfig</div></div><!-- fragment --></li>
+<li>Build a firmware image, flash it to the connected board: <div class="fragment"><div class="line">yarn firmware TARS flash</div></div><!-- fragment --></li>
+<li>Same as above, but also monitor the serial data and reboot after flashing: <div class="fragment"><div class="line">yarn firmware TARS</div></div><!-- fragment --></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md93"></a>
-WebComponents</h1>
-<ul>
-<li>Add WebComponent dependencies in webcomponents, via <code>bower</code>: <div class="fragment"><div class="line">yarn webcomponents-add &lt;component names&gt;</div></div><!-- fragment --></li>
-<li>Fetch/update WebComponent versions from latest packages: <div class="fragment"><div class="line">yarn webcomponents</div></div><!-- fragment --></li>
-</ul>
-<p>Commit and push the updated files in <code>webcomponents/</code> and <code>webcomponents/bower_components/</code></p>
-<h1><a class="anchor" id="autotoc_md94"></a>
+<h1><a class="anchor" id="autotoc_md95"></a>
 Google Apps Script Webapp / Frontend</h1>
 <ul>
 <li><p class="startli">Login to the Google Apps Script / online UI: </p><div class="fragment"><div class="line">yarn login</div></div><!-- fragment --><p class="startli">Enable the Google Apps Script API for your personal Google Apps user: <a href="https://script.google.com/home/usersettings">https://script.google.com/home/usersettings</a></p>
 </li>
-<li>Pull changes from Google Apps Script / online UI: <div class="fragment"><div class="line">yarn pull</div></div><!-- fragment --></li>
+<li>(optional, when changes in the Script Editor have been made) Pull changes from Google Apps Script / online UI: <div class="fragment"><div class="line">yarn pull</div></div><!-- fragment --></li>
 <li>(Make desired changes to files in <code>webapp/</code>)</li>
 <li>Push changes to Google Apps Script <div class="fragment"><div class="line">yarn push</div></div><!-- fragment --></li>
 <li>Deploy the latest changes as a webapp: <div class="fragment"><div class="line">yarn deploy</div></div><!-- fragment --> </li>

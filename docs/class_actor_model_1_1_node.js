@@ -37,7 +37,6 @@ var class_actor_model_1_1_node =
     [ "unregister", "class_actor_model_1_1_node.html#a4de91a5e95e4fb5a64aba4c4a5232628", null ],
     [ "whereis", "class_actor_model_1_1_node.html#ac44806fb321c7d4c9ae7aa907dd6c5af", null ],
     [ "Process", "class_actor_model_1_1_node.html#a7a4d413df5afafea63a3532759beeaa7", null ],
-    [ "cancelled_trefs", "class_actor_model_1_1_node.html#a2b45d00cd2f7dcead9b2e688ccc05be5", null ],
     [ "function_registry", "class_actor_model_1_1_node.html#a05a922eb42295f6bda1f58bc2a797dde", null ],
     [ "module_registry", "class_actor_model_1_1_node.html#a64ce8f47c9c789f3f9f90558e0145e14", null ],
     [ "named_process_registry", "class_actor_model_1_1_node.html#afad6c2e868154d2f48ff4a1949a4433e", null ],

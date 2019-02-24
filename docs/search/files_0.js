@@ -15,5 +15,6 @@ var searchData=
   ['append_5factivity_5fto_5fspreadsheet_2edart',['append_activity_to_spreadsheet.dart',['../append__activity__to__spreadsheet_8dart.html',1,'']]],
   ['appsscript_2ejson',['appsscript.json',['../appsscript_8json.html',1,'']]],
   ['auth_5factor_2ecpp',['auth_actor.cpp',['../auth__actor_8cpp.html',1,'']]],
-  ['auth_5frequest_5fintent_2ereq_2ejson',['auth_request_intent.req.json',['../auth__request__intent_8req_8json.html',1,'']]]
+  ['auth_5frequest_5fintent_2ereq_2ejson',['auth_request_intent.req.json',['../auth__request__intent_8req_8json.html',1,'']]],
+  ['auth_5frequest_5fintent_2ereq_2ejson_2etpl',['auth_request_intent.req.json.tpl',['../auth__request__intent_8req_8json_8tpl.html',1,'']]]
 ];

@@ -1,0 +1,9 @@
+<map id="triggersForUsersSheetOnEdit" name="triggersForUsersSheetOnEdit">
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,202,56"/>
+<area shape="rect" id="node2" href="$triggers_for_users_sheet_8js.html#a6e1ddc0d7b7eefe6b4d8dd23e04b05ef" title=" " alt="" coords="250,24,453,63"/>
+<area shape="rect" id="node3" href="$exclude_headers_from_range_8js.html#a4419ef7f246848c1e619fb97bb08fef5" title=" " alt="" coords="501,5,689,31"/>
+<area shape="rect" id="node4" href="$enforce_formatting_in_range_8js.html#accccb69110472d3a7861b2d198345425" title=" " alt="" coords="505,55,685,80"/>
+<area shape="rect" id="node5" href="$get_data_rows_for_sheet_8js.html#a014df1a552412aa52e96a0ce20c44eca" title=" " alt="" coords="747,5,903,31"/>
+<area shape="rect" id="node6" href="$get_range_intersection_8js.html#a08019da022e667efa4e2541b0ed4aa1f" title=" " alt="" coords="751,55,899,80"/>
+<area shape="rect" id="node7" href="$get_template_row_for_sheet_8js.html#a6ca2f66aa89e291716707d80c8f8f9d2" title=" " alt="" coords="737,104,913,129"/>
+</map>

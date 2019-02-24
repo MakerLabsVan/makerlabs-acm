@@ -116,7 +116,7 @@ $(document).ready(function(){initNavTree('sh2lib_8h.html','');});
 <div class="title">sh2lib.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="esp__tls_8h_source.html">esp_tls.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;esp_tls.h&quot;</code><br />
 <code>#include &lt;nghttp2/nghttp2.h&gt;</code><br />
 </div>
 <p><a href="sh2lib_8h_source.html">Go to the source code of this file.</a></p>
@@ -140,10 +140,10 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a9e7263410a2985ad6ceb7ca5f678a75d"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#a9e7263410a2985ad6ceb7ca5f678a75d">sh2lib_frame_data_header_cb_t</a>) (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *<a class="el" href="u8g2__esp32__hal_8cpp.html#ae280e9f4670c46b616127091ed042b7c">handle</a>, const char *name, size_t namelen, const char *value, size_t valuelen, int flags)</td></tr>
+<tr class="memitem:a9e7263410a2985ad6ceb7ca5f678a75d"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#a9e7263410a2985ad6ceb7ca5f678a75d">sh2lib_frame_data_header_cb_t</a>) (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *<a class="el" href="u8g2__esp32__hal_8cpp.html#ae280e9f4670c46b616127091ed042b7c">handle</a>, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> char *name, size_t namelen, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> char *value, size_t valuelen, int flags)</td></tr>
 <tr class="memdesc:a9e7263410a2985ad6ceb7ca5f678a75d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="struct_function.html">Function</a> Prototype for data receive callback.  <a href="#a9e7263410a2985ad6ceb7ca5f678a75d">More...</a><br /></td></tr>
 <tr class="separator:a9e7263410a2985ad6ceb7ca5f678a75d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a377939338ad7d410bf6c35c602c7359c"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#a377939338ad7d410bf6c35c602c7359c">sh2lib_frame_data_recv_cb_t</a>) (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *<a class="el" href="u8g2__esp32__hal_8cpp.html#ae280e9f4670c46b616127091ed042b7c">handle</a>, const char *data, size_t len, int flags)</td></tr>
+<tr class="memitem:a377939338ad7d410bf6c35c602c7359c"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#a377939338ad7d410bf6c35c602c7359c">sh2lib_frame_data_recv_cb_t</a>) (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *<a class="el" href="u8g2__esp32__hal_8cpp.html#ae280e9f4670c46b616127091ed042b7c">handle</a>, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> char *data, size_t len, int flags)</td></tr>
 <tr class="separator:a377939338ad7d410bf6c35c602c7359c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98113c28f3a0847a5aba195338ad814a"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#a98113c28f3a0847a5aba195338ad814a">sh2lib_putpost_data_cb_t</a>) (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *<a class="el" href="u8g2__esp32__hal_8cpp.html#ae280e9f4670c46b616127091ed042b7c">handle</a>, char *data, size_t len, uint32_t *data_flags)</td></tr>
 <tr class="memdesc:a98113c28f3a0847a5aba195338ad814a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="struct_function.html">Function</a> Prototype for callback to send data in PUT/POST.  <a href="#a98113c28f3a0847a5aba195338ad814a">More...</a><br /></td></tr>
@@ -151,28 +151,28 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a350dcb1b2ad1b16e9b47f8f4c2917f39"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#a350dcb1b2ad1b16e9b47f8f4c2917f39">sh2lib_connect</a> (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *hd, const char *uri, mbedtls_x509_crt *cacerts)</td></tr>
+<tr class="memitem:a350dcb1b2ad1b16e9b47f8f4c2917f39"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#a350dcb1b2ad1b16e9b47f8f4c2917f39">sh2lib_connect</a> (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *hd, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> char *uri, mbedtls_x509_crt *cacerts)</td></tr>
 <tr class="memdesc:a350dcb1b2ad1b16e9b47f8f4c2917f39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connect to a URI using HTTP/2.  <a href="#a350dcb1b2ad1b16e9b47f8f4c2917f39">More...</a><br /></td></tr>
 <tr class="separator:a350dcb1b2ad1b16e9b47f8f4c2917f39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee7d527030a0becf4dac5c33226c5bad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#aee7d527030a0becf4dac5c33226c5bad">sh2lib_free</a> (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *hd)</td></tr>
 <tr class="memdesc:aee7d527030a0becf4dac5c33226c5bad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free a sh2lib handle.  <a href="#aee7d527030a0becf4dac5c33226c5bad">More...</a><br /></td></tr>
 <tr class="separator:aee7d527030a0becf4dac5c33226c5bad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83606f1bbdea8f5e2e64f3741efa3ea2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#a83606f1bbdea8f5e2e64f3741efa3ea2">sh2lib_do_get</a> (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *hd, const char *path, <a class="el" href="structsh2lib__callbacks.html">sh2lib_callbacks</a> *callbacks)</td></tr>
+<tr class="memitem:a83606f1bbdea8f5e2e64f3741efa3ea2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#a83606f1bbdea8f5e2e64f3741efa3ea2">sh2lib_do_get</a> (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *hd, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> char *<a class="el" href="webcomponents_2replace-in-file_8js.html#a1fdc7709faf62dce60620fb3f9d3453c">path</a>, <a class="el" href="structsh2lib__callbacks.html">sh2lib_callbacks</a> *callbacks)</td></tr>
 <tr class="memdesc:a83606f1bbdea8f5e2e64f3741efa3ea2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup an HTTP GET request stream.  <a href="#a83606f1bbdea8f5e2e64f3741efa3ea2">More...</a><br /></td></tr>
 <tr class="separator:a83606f1bbdea8f5e2e64f3741efa3ea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39b30413270690e7dab9330e0dfabea9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#a39b30413270690e7dab9330e0dfabea9">sh2lib_do_post</a> (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *hd, const char *path, <a class="el" href="structsh2lib__callbacks.html">sh2lib_callbacks</a> *callbacks)</td></tr>
+<tr class="memitem:a39b30413270690e7dab9330e0dfabea9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#a39b30413270690e7dab9330e0dfabea9">sh2lib_do_post</a> (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *hd, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> char *<a class="el" href="webcomponents_2replace-in-file_8js.html#a1fdc7709faf62dce60620fb3f9d3453c">path</a>, <a class="el" href="structsh2lib__callbacks.html">sh2lib_callbacks</a> *callbacks)</td></tr>
 <tr class="memdesc:a39b30413270690e7dab9330e0dfabea9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup an HTTP POST request stream.  <a href="#a39b30413270690e7dab9330e0dfabea9">More...</a><br /></td></tr>
 <tr class="separator:a39b30413270690e7dab9330e0dfabea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c9af23225229ad99397c25d12bf855c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#a3c9af23225229ad99397c25d12bf855c">sh2lib_do_put</a> (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *hd, const char *path, <a class="el" href="structsh2lib__callbacks.html">sh2lib_callbacks</a> *callbacks)</td></tr>
+<tr class="memitem:a3c9af23225229ad99397c25d12bf855c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#a3c9af23225229ad99397c25d12bf855c">sh2lib_do_put</a> (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *hd, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> char *<a class="el" href="webcomponents_2replace-in-file_8js.html#a1fdc7709faf62dce60620fb3f9d3453c">path</a>, <a class="el" href="structsh2lib__callbacks.html">sh2lib_callbacks</a> *callbacks)</td></tr>
 <tr class="memdesc:a3c9af23225229ad99397c25d12bf855c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup an HTTP PUT request stream.  <a href="#a3c9af23225229ad99397c25d12bf855c">More...</a><br /></td></tr>
 <tr class="separator:a3c9af23225229ad99397c25d12bf855c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a95dee2ff38009ba63a40c6ca959a01"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#a6a95dee2ff38009ba63a40c6ca959a01">sh2lib_execute</a> (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *hd)</td></tr>
 <tr class="memdesc:a6a95dee2ff38009ba63a40c6ca959a01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute send/receive on an HTTP/2 connection.  <a href="#a6a95dee2ff38009ba63a40c6ca959a01">More...</a><br /></td></tr>
 <tr class="separator:a6a95dee2ff38009ba63a40c6ca959a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2272c58a25964cf854926b7f4d33ca2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#ac2272c58a25964cf854926b7f4d33ca2">sh2lib_do_get_with_nv</a> (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *hd, const nghttp2_nv *nva, size_t nvlen, <a class="el" href="structsh2lib__callbacks.html">sh2lib_callbacks</a> *callbacks)</td></tr>
+<tr class="memitem:ac2272c58a25964cf854926b7f4d33ca2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#ac2272c58a25964cf854926b7f4d33ca2">sh2lib_do_get_with_nv</a> (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *hd, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> nghttp2_nv *nva, size_t nvlen, <a class="el" href="structsh2lib__callbacks.html">sh2lib_callbacks</a> *callbacks)</td></tr>
 <tr class="memdesc:ac2272c58a25964cf854926b7f4d33ca2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup an HTTP GET request stream with custom name-value pairs.  <a href="#ac2272c58a25964cf854926b7f4d33ca2">More...</a><br /></td></tr>
 <tr class="separator:ac2272c58a25964cf854926b7f4d33ca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2437a5a07ad4cc4e06dcc7acb8bb41d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#a2437a5a07ad4cc4e06dcc7acb8bb41d4">sh2lib_do_putpost_with_nv</a> (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *hd, const nghttp2_nv *nva, size_t nvlen, <a class="el" href="structsh2lib__callbacks.html">sh2lib_callbacks</a> *callbacks)</td></tr>
+<tr class="memitem:a2437a5a07ad4cc4e06dcc7acb8bb41d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sh2lib_8h.html#a2437a5a07ad4cc4e06dcc7acb8bb41d4">sh2lib_do_putpost_with_nv</a> (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *hd, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> nghttp2_nv *nva, size_t nvlen, <a class="el" href="structsh2lib__callbacks.html">sh2lib_callbacks</a> *callbacks)</td></tr>
 <tr class="memdesc:a2437a5a07ad4cc4e06dcc7acb8bb41d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup an HTTP PUT/POST request stream with custom name-value pairs.  <a href="#a2437a5a07ad4cc4e06dcc7acb8bb41d4">More...</a><br /></td></tr>
 <tr class="separator:a2437a5a07ad4cc4e06dcc7acb8bb41d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -249,7 +249,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef int(* sh2lib_frame_data_header_cb_t) (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *<a class="el" href="u8g2__esp32__hal_8cpp.html#ae280e9f4670c46b616127091ed042b7c">handle</a>, const char *name, size_t namelen, const char *value, size_t valuelen, int flags)</td>
+          <td class="memname">typedef int(* sh2lib_frame_data_header_cb_t) (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *<a class="el" href="u8g2__esp32__hal_8cpp.html#ae280e9f4670c46b616127091ed042b7c">handle</a>, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> char *name, size_t namelen, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> char *value, size_t valuelen, int flags)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -276,7 +276,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef int(* sh2lib_frame_data_recv_cb_t) (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *<a class="el" href="u8g2__esp32__hal_8cpp.html#ae280e9f4670c46b616127091ed042b7c">handle</a>, const char *data, size_t len, int flags)</td>
+          <td class="memname">typedef int(* sh2lib_frame_data_recv_cb_t) (struct <a class="el" href="structsh2lib__handle.html">sh2lib_handle</a> *<a class="el" href="u8g2__esp32__hal_8cpp.html#ae280e9f4670c46b616127091ed042b7c">handle</a>, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> char *data, size_t len, int flags)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -326,7 +326,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> char *&#160;</td>
           <td class="paramname"><em>uri</em>, </td>
         </tr>
         <tr>
@@ -376,7 +376,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> char *&#160;</td>
           <td class="paramname"><em>path</em>, </td>
         </tr>
         <tr>
@@ -426,7 +426,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const nghttp2_nv *&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> nghttp2_nv *&#160;</td>
           <td class="paramname"><em>nva</em>, </td>
         </tr>
         <tr>
@@ -490,7 +490,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> char *&#160;</td>
           <td class="paramname"><em>path</em>, </td>
         </tr>
         <tr>
@@ -541,7 +541,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> char *&#160;</td>
           <td class="paramname"><em>path</em>, </td>
         </tr>
         <tr>
@@ -592,7 +592,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const nghttp2_nv *&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> nghttp2_nv *&#160;</td>
           <td class="paramname"><em>nva</em>, </td>
         </tr>
         <tr>

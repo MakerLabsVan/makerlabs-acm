@@ -6,6 +6,8 @@ var requests_8fbs =
     [ "Response", "struct_response.html", "struct_response" ],
     [ "ServerSentEvent", "struct_server_sent_event.html", "struct_server_sent_event" ],
     [ "RequestIntent", "struct_request_intent.html", "struct_request_intent" ],
+    [ "RequestPayload", "struct_request_payload.html", "struct_request_payload" ],
+    [ "ResponsePayload", "struct_response_payload.html", "struct_response_payload" ],
     [ "PostCallbackAction", "requests_8fbs.html#a862f01db7f642c4f4e0ba4c6b9ce1347", [
       [ "AbortProcessing", "requests_8fbs.html#a862f01db7f642c4f4e0ba4c6b9ce1347a482d06aade7bf563a2ec7d5cf8435fdb", null ],
       [ "ContinueProcessing", "requests_8fbs.html#a862f01db7f642c4f4e0ba4c6b9ce1347aab6bb60f51b25ae0f7ec450173e3348e", null ]

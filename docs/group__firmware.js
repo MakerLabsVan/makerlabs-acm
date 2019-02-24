@@ -25,6 +25,7 @@ var group__firmware =
         [ "leading_parity_bit", "struct_h_i_d_global_tag_i_d_1_1_tag_format_view.html#ae2a02e118b8581138d493d4c23478708", null ],
         [ "trailing_parity_bit", "struct_h_i_d_global_tag_i_d_1_1_tag_format_view.html#a0b8dcfc5774b537041abc01afab20850", null ]
       ] ],
+      [ "HIDGlobalTagID", "group__firmware.html#ga96306a1d6858da1b171b3257ee97e2a6", null ],
       [ "HIDGlobalTagID", "group__firmware.html#gab400d17630e9fdd4321eae457c41b5c9", null ],
       [ "card_number", "struct_h_i_d_global_tag_i_d.html#a7dc6d1ddc0c65583ee29de622b7c0a13", null ],
       [ "facility_code", "struct_h_i_d_global_tag_i_d.html#af759c14a71f7f6ee9d3acc8bfd457d0d", null ],
@@ -180,6 +181,7 @@ var group__firmware =
     [ "generate_show_user_details_from_user", "group__firmware.html#ga28b5fc4d82c56d917410536e83fb6ee9", null ],
     [ "get_current_tag", "group__firmware.html#ga73ff7ccf542e664f378ea981a1091404", null ],
     [ "HIDGlobalReader", "group__firmware.html#ga30a69ce847d3c189237930e9fc37961a", null ],
+    [ "HIDGlobalTagID", "group__firmware.html#ga96306a1d6858da1b171b3257ee97e2a6", null ],
     [ "HIDGlobalTagID", "group__firmware.html#gab400d17630e9fdd4321eae457c41b5c9", null ],
     [ "hold_timer_isr", "group__firmware.html#ga4acc7ccfc398615e2bdef0cc9ea191d1", null ],
     [ "machine_actor_behaviour", "group__firmware.html#ga2565ae2511f4c53e94ded34232cdcb6a", null ],

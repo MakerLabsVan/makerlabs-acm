@@ -111,25 +111,27 @@ $(document).ready(function(){initNavTree('md__docs_firmware.html','');});
 <div class="title">firmware/ </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md22"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md21"></a>
 Overview</h1>
-<p>The ESP32 <a href="https://github.com/espressif/esp-idf">Espressif IoT Development Framework / <code>esp-idf</code></a> based on FreeRTOS is used for the Reader unit firmware.</p>
-<h1><a class="anchor" id="autotoc_md23"></a>
+<p>The ESP32 <a href="https://github.com/espressif/esp-idf">Espressif IoT Development Framework / <code>esp-idf</code></a> (based on FreeRTOS) is used for the Reader unit firmware. The Reader unit connects to the MakerLabs wi-fi network(s), and sends RFID tag IDs events to an HTTPS endpoint (currently in AWS), which returns the matching MakerLabs maker details for that tag (if any), including their permissions for the specific Reader unit making the request.</p>
+<p>The format of data exchanged via the HTTPS request / response (as well as for messages within the firmware) uses <a href="https://google.github.io/flatbuffers/">flatbuffers</a> encoding. New message types are introduced in <code>*.fbs</code> files, used throughout the repo. Specific "canned" flatbuffer messages are generated from JSON templates (at build-time) and flashed to the device filesystem during programming. These flatbuffer files contain the details of the HTTPS requests to be sent.</p>
+<p>The Reader authenticates itself via an OAuth access token which is refreshed every 20 minutes (the token is only valid for 1 hour maximum) from a hard-coded OAuth refresh token.</p>
+<p>An additional background process checks for periodic over-the-air (OTA) firmware updates from hard-coded Google Drive folder every minute.</p>
+<h1><a class="anchor" id="autotoc_md22"></a>
 Design</h1>
 <h2><code>esp32-network-lib</code> Support Library</h2>
+<h3>actor_model</h3>
 <h2>Pinned <code>esp-idf</code> version, component versions</h2>
 <p>A <a href="https://github.com/paulreimer/mbedtls/tree/new-esp-idf">custom mbedtls component (@paulreimer/mbedtls#new-esp-idf)</a> is used based on a fork that uses dynamic memory allocation for the TLS contexts. This allows multiple concurrent TLS sessions on the ESP32, which would otherwise trigger an out-of-memory condition.</p>
-<p>As a result, the <code>esp-idf</code> repository and several components are pinned to the latest version which supports the custom <code>mbedtls</code> component.</p>
 <p>The following versions are the last-known good ones:</p><ul>
-<li><code>esp-idf</code> @ <a href="https://github.com/espressif/esp-idf/tree/d56a400709a4f6c3c76550da74d61400ba78db8e">d56a400</a></li>
-<li><code>components/mbedtls</code> @ <a href="https://github.com/paulreimer/mbedtls/tree/4a027f797914d33c6046c6c17839ebc8b996c7bc">4a027f7</a></li>
-<li><code>components/esp32</code></li>
-<li><code>components/nvs_flash</code></li>
+<li><code>esp-idf</code> @ <a href="https://github.com/espressif/esp-idf/tree/abea9e4c02bb17e86298aec4e299780399e4789f">abea9e4</a></li>
+<li><code>components/mbedtls</code> @ <a href="https://github.com/paulreimer/mbedtls/tree/7655738a3c2b3e5a02b5a93db2f83b3d6042e045">7655738</a></li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>Where possible, <code>esp-idf</code>'s <code>CMake</code> integration (using <code>CMakeLists.txt</code>) should be used. <code>Makefile</code>s (using <code>component.mk</code>) are still supported but otherwise deprecated.</dd></dl>
 <h2>Custom <code>esp-idf</code> Components</h2>
 <h3><code>u8g2</code> OLED Screen Library</h3>
 <p>The <a href="https://github.com/olikraus/u8g2">u8g2</a> library is used to display text on the OLED display screen. The custom interface between the library and the ESP32 I2C driver is implemented in the <code><a class="el" href="u8g2__esp32__hal_8cpp.html">u8g2_esp32_hal.cpp</a></code> file.</p>
+<dl class="section note"><dt>Note</dt><dd>The <code>display_behaviour</code> actor process operates the display using this component with its own runloop, accepting messages from the <code>display.fbs</code> flatbuffer schema definition file.</dd></dl>
 <h3><code>wiegand_reader</code> HID Global iClass RFID Reader</h3>
 <p>A custom component for extracting the RFID tag bits from an HID Global iClass series reader. These readers use the 2-wire Wiegand protocol, which is mapped to two ESP32 GPIOs.</p>
 <p>The <code>wiegand_reader</code> component is split into three classes:</p><ul>
@@ -137,15 +139,16 @@ Design</h1>
 <li>An <code><a class="el" href="class_h_i_d_global_reader.html">HIDGlobalReader</a></code> class extending <code><a class="el" href="class_wiegand_reader.html">WiegandReader</a></code> to support a tag scanning state-machine which uses the HOLD pin to re-trigger a periodic tag read. Also supports toggling the beeper and green/red LEDs through additional GPIO pins.</li>
 <li>An <code><a class="el" href="struct_h_i_d_global_tag_i_d.html">HIDGlobalTagID</a></code> helper class which validates the 26-bit tag read data (via parity check), and extracts the <code>facility_code</code> and <code>card_number</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md24"></a>
+<dl class="section note"><dt>Note</dt><dd>the rfid_reader_actor process responds to periodic <code>scan</code> messages, and uses this component to toggle the hold line to see if a tag is still present, and report the tag ID when it is first seen/lost.</dd></dl>
+<h1><a class="anchor" id="autotoc_md23"></a>
 Configuration</h1>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h2>Generate a Google OAuth Refresh Token</h2>
+<h2>Configure Wi-Fi network details</h2>
+<h2>Configure ACM Reader-specific settings</h2>
+<h1><a class="anchor" id="autotoc_md24"></a>
 Deployment</h1>
-<p> 
-<div class="mermaid">
-</div>
-</p>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<h2>Generate a Google OAuth Refresh Token</h2>
+<h1><a class="anchor" id="autotoc_md25"></a>
 API Reference</h1>
 <p><a class="el" href="group__firmware.html">firmware/ API Documentation</a> </p>
 </div></div><!-- PageDoc -->

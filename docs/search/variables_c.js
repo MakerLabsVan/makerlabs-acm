@@ -3,6 +3,7 @@ var searchData=
   ['machine_5fid_5fstr',['machine_id_str',['../struct_app_actor_state.html#aa2133058dd6bf3d6dab01db7de8835d9',1,'AppActorState']]],
   ['mailbox',['mailbox',['../class_actor_model_1_1_process.html#ae1c4a2e3987522fe1a8984797ac4168b',1,'ActorModel::Process::mailbox()'],['../class_actor_model_1_1_received_message.html#a8656746259e55cb56dd7eeea8c1100a4',1,'ActorModel::ReceivedMessage::mailbox()']]],
   ['max_5fbit_5finterval',['max_bit_interval',['../group__firmware.html#gaf2e2ae0a21ce0b3eb0c40b5d05b8611a',1,'wiegand_reader.cpp']]],
+  ['max_5finflight_5frequests_5fcount',['max_inflight_requests_count',['../struct_requests_1_1_queued_endpoint_actor_state.html#a57247448d69b66233ba62a13fe858d75',1,'Requests::QueuedEndpointActorState']]],
   ['max_5fjob_5fend_5finterval',['max_job_end_interval',['../struct_machine_actor_state.html#ae26deb3a206ed272bc9f996f742cab5a',1,'MachineActorState']]],
   ['max_5fjob_5fstart_5finterval',['max_job_start_interval',['../struct_machine_actor_state.html#a07ce157b2ecda207ced443c076f556f2',1,'MachineActorState']]],
   ['max_5fmotor_5fpulse_5fcount',['max_motor_pulse_count',['../struct_machine_actor_state.html#ac314d8b5d79e81fdfdf8c2c09da66892',1,'MachineActorState']]],

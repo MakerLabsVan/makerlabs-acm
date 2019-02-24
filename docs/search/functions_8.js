@@ -18,7 +18,7 @@ var searchData=
   ['heap_5fcheck',['heap_check',['../trace_8cpp.html#ab6464847751fcb8f7ea8b0127c0f0435',1,'heap_check(const std::experimental::string_view msg) -&gt; void:&#160;trace.cpp'],['../trace_8h.html#ab6464847751fcb8f7ea8b0127c0f0435',1,'heap_check(const std::experimental::string_view msg) -&gt; void:&#160;trace.cpp']]],
   ['hiddensectionnames',['hiddenSectionNames',['../class_view_user_form.html#a4383787c97983ab78440416035dae4ab',1,'ViewUserForm']]],
   ['hidglobalreader',['HIDGlobalReader',['../group__firmware.html#ga30a69ce847d3c189237930e9fc37961a',1,'HIDGlobalReader']]],
-  ['hidglobaltagid',['HIDGlobalTagID',['../group__firmware.html#gab400d17630e9fdd4321eae457c41b5c9',1,'HIDGlobalTagID']]],
+  ['hidglobaltagid',['HIDGlobalTagID',['../group__firmware.html#ga96306a1d6858da1b171b3257ee97e2a6',1,'HIDGlobalTagID::HIDGlobalTagID() noexcept'],['../group__firmware.html#gab400d17630e9fdd4321eae457c41b5c9',1,'HIDGlobalTagID::HIDGlobalTagID(const std::bitset&lt; 26 &gt; &amp;bits) noexcept']]],
   ['hold_5ftimer_5fisr',['hold_timer_isr',['../group__firmware.html#ga4acc7ccfc398615e2bdef0cc9ea191d1',1,'hid_global_reader.cpp']]],
   ['httpresponseexception',['HttpResponseException',['../class_exception.html#a8bb72166034bc2566a4736885b657bcd',1,'Exception::HttpResponseException(this.reasonPhrase, {this.statusCode=500, this.uri})'],['../class_exception.html#a8bb72166034bc2566a4736885b657bcd',1,'Exception::HttpResponseException(this.reasonPhrase, {this.statusCode=500, this.uri})']]]
 ];

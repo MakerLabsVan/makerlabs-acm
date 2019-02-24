@@ -1,13 +1,4 @@
 <map id="AppShell::render" name="AppShell::render">
-<area shape="rect" id="node1" title="LitElement lifecycle hook. Re&#45;rendered after any update()." alt="" coords="5,188,126,213"/>
-<area shape="rect" id="node2" href="$group__functions.html#gacdef7a1fd863a6d3770c1268cb06add3" title="Establish Dart &#45;&gt; JS module exports." alt="" coords="174,188,224,213"/>
-<area shape="rect" id="node3" href="$group__functions.html#ga3a34d1983ca24bf3375f128701142f4a" title="HTTPS handler to query Google Spreadsheet for ACM.User which matches ACM.Activity flatbuffer supplied..." alt="" coords="272,160,437,185"/>
-<area shape="rect" id="node11" href="$group__functions.html#gacdc4b56953435dee1ff6ffa58a4c00e7" title="Firebase Function HTTPS handler." alt="" coords="286,209,423,248"/>
-<area shape="rect" id="node4" href="$group__functions.html#gaccb181c53562c248eb6aca1b5df212f4" title="Parse HTTP Authorization header to extract an OAuth access token." alt="" coords="486,5,636,31"/>
-<area shape="rect" id="node5" href="$group__functions.html#gac4dd7ed724e462e3f71781ea9ba39465" title="Create a Google SheetsApi handle using a provided OAuth access token." alt="" coords="494,55,627,80"/>
-<area shape="rect" id="node6" href="$group__functions.html#ga376b2844c6a0a91ac0378a5a75f46c3b" title="Fetch IDs/labels of Google Spreadsheet columns for specified sheet." alt="" coords="487,104,635,129"/>
-<area shape="rect" id="node7" href="$group__functions.html#ga90994699c57941ef4b06de42a3aa9c3a" title="Generate a query to return all permissions (and optional additional columns) for a specific user by T..." alt="" coords="485,153,637,192"/>
-<area shape="rect" id="node8" href="$group__functions.html#ga5e5c4379c380bfb5e430516293a397db" title="Convert DataTable from result of Users query to ACM.User flatbuffer." alt="" coords="497,216,625,241"/>
-<area shape="rect" id="node9" href="$group__functions.html#gacfbd61c98301248898acaaf0b1bfa3b9" title="Write User details to Firebase at provided Database Reference." alt="" coords="490,265,632,304"/>
-<area shape="rect" id="node10" href="$group__functions.html#gab19b1051be255e07c164622126e7e6a2" title="Use Google Sheets API to append a new Activity row from provided Activity and User." alt="" coords="495,328,627,367"/>
+<area shape="rect" id="node1" title="LitElement lifecycle hook. Re&#45;rendered after any update()." alt="" coords="5,5,126,31"/>
+<area shape="rect" id="node2" href="$oauth-server_8js.html#a51af30a60f9f02777c6396b8247e356f" title=" " alt="" coords="174,5,224,31"/>
 </map>

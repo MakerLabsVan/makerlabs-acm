@@ -110,24 +110,82 @@ $(document).ready(function(){initNavTree('triggers_for_activity_sheet_8js.html',
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">triggersForActivitySheet.js File Reference<div class="ingroups"><a class="el" href="group__scripts.html">scripts/</a></div></div>  </div>
+<div class="title">triggersForActivitySheet.js File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Trigger functions (based on time-intervals) for sending MakerLabs branded e-mails based on the "Activity, De-duped" sheet.  
-<a href="#details">More...</a></p>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Trigger functions (based on time-intervals) for sending MakerLabs branded e-mails based on the "Activity, De-duped" sheet. </p>
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gac6a29586ba9b7e14be41736617385f98"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scripts.html#gac6a29586ba9b7e14be41736617385f98">triggerActivitySendUsageEmails</a> (e)</td></tr>
-<tr class="memdesc:gac6a29586ba9b7e14be41736617385f98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use the <code>activity_usage_email_sent_time</code> <code>NamedRange</code> on the "Activity, De-duped" sheet to determine the list of activity rows which have not been used in a usage e-mail, and send a summary e-mail to the member's e-mail address from their row in "Users", and CC the e-mail to <code>hello@makerlabs.com</code>.  <a href="group__scripts.html#gac6a29586ba9b7e14be41736617385f98">More...</a><br /></td></tr>
-<tr class="separator:gac6a29586ba9b7e14be41736617385f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7c72f3c10360ea0f10c5fda8f831baf6"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scripts.html#ga7c72f3c10360ea0f10c5fda8f831baf6">triggerActivitySendBillingEmails</a> (e)</td></tr>
-<tr class="memdesc:ga7c72f3c10360ea0f10c5fda8f831baf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use the <code>activity_billing_email_sent_time</code> <code>NamedRange</code> on the "Activity, De-duped" sheet to determine the list of activity rows which have not been used in a billing e-mail, and which match this week's billing date, and send a summary e-mail to <code>hello@makerlabs.com</code>.  <a href="group__scripts.html#ga7c72f3c10360ea0f10c5fda8f831baf6">More...</a><br /></td></tr>
-<tr class="separator:ga7c72f3c10360ea0f10c5fda8f831baf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6a29586ba9b7e14be41736617385f98"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="triggers_for_activity_sheet_8js.html#ac6a29586ba9b7e14be41736617385f98">triggerActivitySendUsageEmails</a> (e)</td></tr>
+<tr class="separator:ac6a29586ba9b7e14be41736617385f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c72f3c10360ea0f10c5fda8f831baf6"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="triggers_for_activity_sheet_8js.html#a7c72f3c10360ea0f10c5fda8f831baf6">triggerActivitySendBillingEmails</a> (e)</td></tr>
+<tr class="separator:a7c72f3c10360ea0f10c5fda8f831baf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a7c72f3c10360ea0f10c5fda8f831baf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c72f3c10360ea0f10c5fda8f831baf6">&#9670;&nbsp;</a></span>triggerActivitySendBillingEmails()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">function triggerActivitySendBillingEmails </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="triggers_for_activity_sheet_8js_a7c72f3c10360ea0f10c5fda8f831baf6_cgraph.png" border="0" usemap="#triggers_for_activity_sheet_8js_a7c72f3c10360ea0f10c5fda8f831baf6_cgraph" alt=""/></div>
+<map name="triggers_for_activity_sheet_8js_a7c72f3c10360ea0f10c5fda8f831baf6_cgraph" id="triggers_for_activity_sheet_8js_a7c72f3c10360ea0f10c5fda8f831baf6_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,97,173,136"/>
+<area shape="rect"  href="get_named_range_8js.html#a653136624c4c54208d89d7dfc82bc21f" title=" " alt="" coords="254,5,377,31"/>
+<area shape="rect"  href="exclude_headers_from_range_8js.html#a4419ef7f246848c1e619fb97bb08fef5" title=" " alt="" coords="221,55,409,80"/>
+<area shape="rect"  href="get_first_empty_row_8js.html#a90a63329e1f9a6f8849b4f1676658718" title=" " alt="" coords="250,104,381,129"/>
+<area shape="rect"  href="get_activity_summary_by_user_8js.html#ab029c49927a3965730f144e6171617b6" title=" " alt="" coords="224,153,407,179"/>
+<area shape="rect"  href="send_activity_summary_email_8js.html#a8ec0c5ee29de83874b77286202257296" title=" " alt="" coords="224,203,407,228"/>
+<area shape="rect"  href="send_branded_email_8js.html#a8cbd8991d7171d1a80db88287fe200b6" title=" " alt="" coords="457,203,591,228"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ac6a29586ba9b7e14be41736617385f98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6a29586ba9b7e14be41736617385f98">&#9670;&nbsp;</a></span>triggerActivitySendUsageEmails()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">function triggerActivitySendUsageEmails </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="triggers_for_activity_sheet_8js_ac6a29586ba9b7e14be41736617385f98_cgraph.png" border="0" usemap="#triggers_for_activity_sheet_8js_ac6a29586ba9b7e14be41736617385f98_cgraph" alt=""/></div>
+<map name="triggers_for_activity_sheet_8js_ac6a29586ba9b7e14be41736617385f98_cgraph" id="triggers_for_activity_sheet_8js_ac6a29586ba9b7e14be41736617385f98_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,97,176,136"/>
+<area shape="rect"  href="get_named_range_8js.html#a653136624c4c54208d89d7dfc82bc21f" title=" " alt="" coords="257,5,379,31"/>
+<area shape="rect"  href="exclude_headers_from_range_8js.html#a4419ef7f246848c1e619fb97bb08fef5" title=" " alt="" coords="224,55,412,80"/>
+<area shape="rect"  href="get_first_empty_row_8js.html#a90a63329e1f9a6f8849b4f1676658718" title=" " alt="" coords="253,104,384,129"/>
+<area shape="rect"  href="get_activity_summary_by_user_8js.html#ab029c49927a3965730f144e6171617b6" title=" " alt="" coords="227,153,410,179"/>
+<area shape="rect"  href="send_activity_summary_email_8js.html#a8ec0c5ee29de83874b77286202257296" title=" " alt="" coords="227,203,410,228"/>
+<area shape="rect"  href="send_branded_email_8js.html#a8cbd8991d7171d1a80db88287fe200b6" title=" " alt="" coords="460,203,594,228"/>
+</map>
+</div>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.15-->

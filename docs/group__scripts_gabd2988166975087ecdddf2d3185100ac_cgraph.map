@@ -1,4 +1,0 @@
-<map id="getNextMakerLabsId" name="getNextMakerLabsId">
-<area shape="rect" id="node1" title="Search through the &quot;users_makerlabs_id&quot; NamedRange in the &quot;Users&quot; sheet, parse the MakerLabs IDs (e...." alt="" coords="5,5,150,31"/>
-<area shape="rect" id="node2" href="$group__scripts.html#ga653136624c4c54208d89d7dfc82bc21f" title="Return the Range corresponding to the specified NamedRange name in a specific Google Spreadsheet shee..." alt="" coords="198,5,320,31"/>
-</map>

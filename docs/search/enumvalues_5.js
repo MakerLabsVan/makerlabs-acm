@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['isscanningcomplete',['IsScanningComplete',['../class_h_i_d_global_reader.html#ac7982de634512494cfc25d04d2633b45abd6b2272b57a4a2e7f39546bb6be27bb',1,'HIDGlobalReader']]],
-  ['isscanninghold',['IsScanningHold',['../class_h_i_d_global_reader.html#ac7982de634512494cfc25d04d2633b45a1e095411c02a273604c0ce4190f36b1a',1,'HIDGlobalReader']]],
-  ['isscanningtag',['IsScanningTag',['../class_h_i_d_global_reader.html#ac7982de634512494cfc25d04d2633b45aa766db4fe7f694ad316830a1ffe731fa',1,'HIDGlobalReader']]]
+  ['healthy',['Healthy',['../display_8fbs.html#a2e818c73997312db943060f5f3016719a396d45b57c2fbe3318e7b93272a2686b',1,'display.fbs']]],
+  ['heavycheckmark',['HeavyCheckmark',['../display_8fbs.html#a2e818c73997312db943060f5f3016719a6c8cecd16da7dbdfa95301f52ed24824',1,'display.fbs']]]
 ];

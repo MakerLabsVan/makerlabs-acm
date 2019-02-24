@@ -4,6 +4,7 @@ var searchData=
   ['wait_5fall',['wait_all',['../class_requests_1_1_request_manager.html#aecb9c5aef5b45746e90903e136129575',1,'Requests::RequestManager']]],
   ['wait_5fany',['wait_any',['../class_requests_1_1_request_manager.html#aa5857a52f0c0b22c37d7c092e4118123',1,'Requests::RequestManager']]],
   ['wait_5ffor_5fnetwork',['wait_for_network',['../namespace_network_manager.html#a89c13a88e36b0f77f1710f6d617fcfb5',1,'NetworkManager']]],
+  ['warn',['Warn',['../acm_8fbs.html#a5ff30f32ec7110d67381716509291136a56525ae64d370c0b448ac0d60710ef17',1,'acm.fbs']]],
   ['warning',['Warning',['../display_8fbs.html#a2e818c73997312db943060f5f3016719a0eaadb4fcb48a0a0ed7bc9868be9fbaa',1,'display.fbs']]],
   ['webcomponents_2f',['webcomponents/',['../group__webcomponents.html',1,'']]],
   ['webcomponents_2emd',['webcomponents.md',['../webcomponents_8md.html',1,'']]],
@@ -19,7 +20,5 @@ var searchData=
   ['wifiactorstate',['WifiActorState',['../struct_network_manager_1_1_wifi_actor_state.html',1,'NetworkManager']]],
   ['wificonfiguration',['WifiConfiguration',['../struct_wifi_configuration.html',1,'']]],
   ['worker',['worker',['../actor__model_8fbs.html#ab2e95617831debea044ae4066e4dd6b0ab61822e8357dcaff77eaaccf348d9134',1,'actor_model.fbs']]],
-  ['write',['write',['../structesp__tls.html#ab69458e39b01ab1136fbb22029ec3761',1,'esp_tls']]],
-  ['write_5fcallback',['write_callback',['../struct_requests_1_1_request_handler.html#a30eb54ec8ecb5920a1e7667a5101daf9',1,'Requests::RequestHandler']]],
-  ['wset',['wset',['../structesp__tls.html#a2bb70818459a22525c64e04daa296f49',1,'esp_tls']]]
+  ['write_5fcallback',['write_callback',['../struct_requests_1_1_request_handler.html#a30eb54ec8ecb5920a1e7667a5101daf9',1,'Requests::RequestHandler']]]
 ];

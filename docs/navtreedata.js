@@ -26,43 +26,45 @@ var NAVTREE =
   [ "MakerLabs ACM", "index.html", [
     [ "docs/", "index.html", "index" ],
     [ "electrical/", "md__docs_electrical.html", [
-      [ "Assembly Notes", "md__docs_electrical.html#autotoc_md7", null ],
-      [ "Schematic", "md__docs_electrical.html#autotoc_md8", null ],
-      [ "PCB", "md__docs_electrical.html#autotoc_md9", null ],
-      [ "Bill of Materials (BOM)", "md__docs_electrical.html#autotoc_md10", [
+      [ "Assembly Notes", "md__docs_electrical.html#autotoc_md6", null ],
+      [ "Schematic", "md__docs_electrical.html#autotoc_md7", null ],
+      [ "PCB", "md__docs_electrical.html#autotoc_md8", null ],
+      [ "Bill of Materials (BOM)", "md__docs_electrical.html#autotoc_md9", [
         [ "makerlabs-acm-reader-lock-v1.0.0 - BOM", "md__docs_electrical.html#bom_csv", null ]
       ] ],
-      [ "API Reference", "md__docs_electrical.html#autotoc_md11", null ]
+      [ "API Reference", "md__docs_electrical.html#autotoc_md10", null ]
     ] ],
     [ "firmware/", "md__docs_firmware.html", [
-      [ "Overview", "md__docs_firmware.html#autotoc_md22", null ],
-      [ "Design", "md__docs_firmware.html#autotoc_md23", null ],
-      [ "Configuration", "md__docs_firmware.html#autotoc_md24", null ],
-      [ "Deployment", "md__docs_firmware.html#autotoc_md25", null ],
-      [ "API Reference", "md__docs_firmware.html#autotoc_md26", null ]
+      [ "Overview", "md__docs_firmware.html#autotoc_md21", null ],
+      [ "Design", "md__docs_firmware.html#autotoc_md22", null ],
+      [ "Configuration", "md__docs_firmware.html#autotoc_md23", null ],
+      [ "Deployment", "md__docs_firmware.html#autotoc_md24", null ],
+      [ "API Reference", "md__docs_firmware.html#autotoc_md25", null ]
     ] ],
     [ "functions/", "md__docs_functions.html", [
-      [ "Overview", "md__docs_functions.html#autotoc_md37", null ],
-      [ "Design", "md__docs_functions.html#autotoc_md38", null ],
-      [ "Configuration", "md__docs_functions.html#autotoc_md39", null ],
-      [ "Deployment", "md__docs_functions.html#autotoc_md40", null ],
+      [ "Overview", "md__docs_functions.html#autotoc_md36", null ],
+      [ "Design", "md__docs_functions.html#autotoc_md37", null ],
+      [ "Configuration", "md__docs_functions.html#autotoc_md38", null ],
+      [ "Deployment", "md__docs_functions.html#autotoc_md39", null ],
+      [ "Observability", "md__docs_functions.html#autotoc_md40", null ],
       [ "API Reference", "md__docs_functions.html#autotoc_md41", null ]
     ] ],
     [ "scripts/", "md__docs_scripts.html", [
-      [ "Overview", "md__docs_scripts.html#autotoc_md59", null ],
-      [ "Design", "md__docs_scripts.html#autotoc_md60", null ],
-      [ "Configuration", "md__docs_scripts.html#autotoc_md61", [
+      [ "Overview", "md__docs_scripts.html#autotoc_md61", null ],
+      [ "Design", "md__docs_scripts.html#autotoc_md62", null ],
+      [ "Configuration", "md__docs_scripts.html#autotoc_md63", [
         [ "Branded E-mail Templates", "md__docs_scripts.html#branded_email_templates", null ]
       ] ],
-      [ "Deployment", "md__docs_scripts.html#autotoc_md62", null ],
-      [ "API Reference", "md__docs_scripts.html#autotoc_md63", null ]
+      [ "Deployment", "md__docs_scripts.html#autotoc_md64", null ],
+      [ "API Reference", "md__docs_scripts.html#autotoc_md65", null ]
     ] ],
+    [ "Obtain the following pieces of information:", "md__docs_unused_ota.html", null ],
     [ "webcomponents/", "md__docs_webcomponents.html", [
-      [ "Overview", "md__docs_webcomponents.html#autotoc_md74", null ],
-      [ "Design", "md__docs_webcomponents.html#autotoc_md75", null ],
-      [ "Configuration", "md__docs_webcomponents.html#autotoc_md76", null ],
-      [ "Deployment", "md__docs_webcomponents.html#autotoc_md77", null ],
-      [ "API Reference", "md__docs_webcomponents.html#autotoc_md78", null ]
+      [ "Overview", "md__docs_webcomponents.html#autotoc_md76", null ],
+      [ "Design", "md__docs_webcomponents.html#autotoc_md77", null ],
+      [ "Configuration", "md__docs_webcomponents.html#autotoc_md78", null ],
+      [ "Deployment", "md__docs_webcomponents.html#autotoc_md79", null ],
+      [ "API Reference", "md__docs_webcomponents.html#autotoc_md80", null ]
     ] ],
     [ "Deprecated List", "deprecated.html", null ],
     [ "API Documentation", "modules.html", "modules" ],
@@ -73,11 +75,11 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_8clasp_8json.html",
-"class_view_user_form.html#ab1b4800af006ed08e2f94bdb2fc1950b",
-"group__firmware.html#ga3b82ff3a3d6577b5ed9588bf7aae2756",
-"group__scripts.html#gaed3fe29954a9d95a8c15d462e127722d",
-"request__manager__actor_8h.html",
-"uuid_8h.html#aa3ef34d1a083b31303d80f365beac22b"
+"class_view_user_form.html#a88480cf685ec71871f0965692624a0dd",
+"group__firmware.html#ga292d1100c9cdb3e5fb1a97c09ede3d17",
+"initial_project_setup.html",
+"requests_8cpp.html#acbac32b52c8f994f34412de8aa68d833",
+"uuid_8cpp.html#aa2bedeea181de8417961b4fd93ce36b3"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

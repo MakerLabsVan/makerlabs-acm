@@ -1,5 +1,0 @@
-<map id="triggersForAllSheetsOnChange" name="triggersForAllSheetsOnChange">
-<area shape="rect" id="node1" title="Main &quot;onChange&quot; trigger entrypoint for all sheets." alt="" coords="5,12,212,37"/>
-<area shape="rect" id="node2" href="$group__scripts.html#gae0e1bfed45b257486cc56c2bdf4a3c37" title="Trigger a popup/toast in the Google Spreadsheet UI when changes in structure (e.g...." alt="" coords="260,5,471,44"/>
-<area shape="rect" id="node3" href="$group__scripts.html#ga19b411d53b77f892dd848c30f3e0c5d7" title="Display a popup/toast message in the Spreadsheet website UI, suggesting to undo a previous change." alt="" coords="519,12,691,37"/>
-</map>

@@ -152,11 +152,11 @@ Typedefs</h2></td></tr>
 <tr class="separator:a5e13528eeea2f9ac082620edb06adc1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a578df42f70fcc9caa4f62b20edfa07b6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> = std::shared_ptr&lt; <a class="el" href="namespace_actor_model.html#a5e13528eeea2f9ac082620edb06adc1d">State</a> &gt;</td></tr>
 <tr class="separator:a578df42f70fcc9caa4f62b20edfa07b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91f108e6b8b6df2042a6689baa981bd8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a91f108e6b8b6df2042a6689baa981bd8">ActorBehaviour</a> = delegate&lt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a>(const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;state, const <a class="el" href="struct_message.html">Message</a> &amp;)&gt;</td></tr>
+<tr class="memitem:a91f108e6b8b6df2042a6689baa981bd8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a91f108e6b8b6df2042a6689baa981bd8">ActorBehaviour</a> = delegate&lt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a>(<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;state, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_message.html">Message</a> &amp;)&gt;</td></tr>
 <tr class="separator:a91f108e6b8b6df2042a6689baa981bd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01df7e00e16e1e997f7a3a5ebbca2d45"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a01df7e00e16e1e997f7a3a5ebbca2d45">ActorBehaviours</a> = std::vector&lt; <a class="el" href="namespace_actor_model.html#a91f108e6b8b6df2042a6689baa981bd8">ActorBehaviour</a> &gt;</td></tr>
 <tr class="separator:a01df7e00e16e1e997f7a3a5ebbca2d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ecdf33afb81eb282e2cf28d1fde7db2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a5ecdf33afb81eb282e2cf28d1fde7db2">Behaviour</a> = delegate&lt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a>(const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;, <a class="el" href="class_actor_model_1_1_mailbox.html">Mailbox</a> &amp;)&gt;</td></tr>
+<tr class="memitem:a5ecdf33afb81eb282e2cf28d1fde7db2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a5ecdf33afb81eb282e2cf28d1fde7db2">Behaviour</a> = delegate&lt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a>(<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;, <a class="el" href="class_actor_model_1_1_mailbox.html">Mailbox</a> &amp;)&gt;</td></tr>
 <tr class="separator:a5ecdf33afb81eb282e2cf28d1fde7db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a192bb0bccc59bc9cc724e2d959a6cca7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> = delegate&lt; void(ProcessExecutionConfigBuilder &amp;)&gt;</td></tr>
 <tr class="separator:a192bb0bccc59bc9cc724e2d959a6cca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,93 +185,95 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad2b28ed935af0477d2fe092936ce3585"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#ad2b28ed935af0477d2fe092936ce3585">_actor_spawn</a> (const <a class="el" href="namespace_actor_model.html#a01df7e00e16e1e997f7a3a5ebbca2d45">ActorBehaviours</a> &amp;&amp;_actor_behaviours, const <a class="el" href="namespace_actor_model.html#a3b28c988fba77c8ac60093303eb554f4">MaybePid</a> &amp;_initial_link_pid=std::experimental::nullopt, const <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;_exec_config_callback=nullptr) -&gt; <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a></td></tr>
+<tr class="memitem:ad2b28ed935af0477d2fe092936ce3585"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#ad2b28ed935af0477d2fe092936ce3585">_actor_spawn</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a01df7e00e16e1e997f7a3a5ebbca2d45">ActorBehaviours</a> &amp;&amp;_actor_behaviours, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a3b28c988fba77c8ac60093303eb554f4">MaybePid</a> &amp;_initial_link_pid=std::experimental::nullopt, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;_exec_config_callback=nullptr) -&gt; <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a></td></tr>
 <tr class="separator:ad2b28ed935af0477d2fe092936ce3585"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c8ebf724874bed04a548e7ec8832f09"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a0c8ebf724874bed04a548e7ec8832f09">spawn</a> (const <a class="el" href="namespace_actor_model.html#a91f108e6b8b6df2042a6689baa981bd8">ActorBehaviour</a> &amp;&amp;_actor_behaviour, const <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;_exec_config_callback) -&gt; <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a></td></tr>
+<tr class="memitem:a0c8ebf724874bed04a548e7ec8832f09"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a0c8ebf724874bed04a548e7ec8832f09">spawn</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a91f108e6b8b6df2042a6689baa981bd8">ActorBehaviour</a> &amp;&amp;_actor_behaviour, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;_exec_config_callback) -&gt; <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a></td></tr>
 <tr class="separator:a0c8ebf724874bed04a548e7ec8832f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7dc730cae479a911c96c83c9a77f3df"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#ac7dc730cae479a911c96c83c9a77f3df">spawn_link</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;_initial_link_pid, const <a class="el" href="namespace_actor_model.html#a91f108e6b8b6df2042a6689baa981bd8">ActorBehaviour</a> &amp;&amp;_actor_behaviour, const <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;_exec_config_callback) -&gt; <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a></td></tr>
+<tr class="memitem:ac7dc730cae479a911c96c83c9a77f3df"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#ac7dc730cae479a911c96c83c9a77f3df">spawn_link</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;_initial_link_pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a91f108e6b8b6df2042a6689baa981bd8">ActorBehaviour</a> &amp;&amp;_actor_behaviour, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;_exec_config_callback) -&gt; <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a></td></tr>
 <tr class="separator:ac7dc730cae479a911c96c83c9a77f3df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54472ebf884623f4f4507a76a1b3a04d"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a54472ebf884623f4f4507a76a1b3a04d">spawn</a> (const <a class="el" href="namespace_actor_model.html#a01df7e00e16e1e997f7a3a5ebbca2d45">ActorBehaviours</a> &amp;&amp;_actor_behaviours, const <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;_exec_config_callback) -&gt; <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a></td></tr>
+<tr class="memitem:a54472ebf884623f4f4507a76a1b3a04d"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a54472ebf884623f4f4507a76a1b3a04d">spawn</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a01df7e00e16e1e997f7a3a5ebbca2d45">ActorBehaviours</a> &amp;&amp;_actor_behaviours, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;_exec_config_callback) -&gt; <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a></td></tr>
 <tr class="separator:a54472ebf884623f4f4507a76a1b3a04d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95c8237226b54a6340660e9e4e182927"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a95c8237226b54a6340660e9e4e182927">spawn_link</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;_initial_link_pid, const <a class="el" href="namespace_actor_model.html#a01df7e00e16e1e997f7a3a5ebbca2d45">ActorBehaviours</a> &amp;&amp;_actor_behaviours, const <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;_exec_config_callback) -&gt; <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a></td></tr>
+<tr class="memitem:a95c8237226b54a6340660e9e4e182927"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a95c8237226b54a6340660e9e4e182927">spawn_link</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;_initial_link_pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a01df7e00e16e1e997f7a3a5ebbca2d45">ActorBehaviours</a> &amp;&amp;_actor_behaviours, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;_exec_config_callback) -&gt; <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a></td></tr>
 <tr class="separator:a95c8237226b54a6340660e9e4e182927"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6b0c1bd06c920153399ef4e24cef7b6"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#ab6b0c1bd06c920153399ef4e24cef7b6">spawn</a> (const <a class="el" href="namespace_actor_model.html#a5ecdf33afb81eb282e2cf28d1fde7db2">Behaviour</a> &amp;&amp;_behaviour, const <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;_exec_config_callback) -&gt; <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a></td></tr>
+<tr class="memitem:ab6b0c1bd06c920153399ef4e24cef7b6"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#ab6b0c1bd06c920153399ef4e24cef7b6">spawn</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a5ecdf33afb81eb282e2cf28d1fde7db2">Behaviour</a> &amp;&amp;_behaviour, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;_exec_config_callback) -&gt; <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a></td></tr>
 <tr class="separator:ab6b0c1bd06c920153399ef4e24cef7b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c513744ceabd75c9f14cdb28dbcbece"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a6c513744ceabd75c9f14cdb28dbcbece">spawn_link</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;_initial_link_pid, const <a class="el" href="namespace_actor_model.html#a5ecdf33afb81eb282e2cf28d1fde7db2">Behaviour</a> &amp;&amp;_behaviour, const <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;_exec_config_callback) -&gt; <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a></td></tr>
+<tr class="memitem:a6c513744ceabd75c9f14cdb28dbcbece"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a6c513744ceabd75c9f14cdb28dbcbece">spawn_link</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;_initial_link_pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a5ecdf33afb81eb282e2cf28d1fde7db2">Behaviour</a> &amp;&amp;_behaviour, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;_exec_config_callback) -&gt; <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a></td></tr>
 <tr class="separator:a6c513744ceabd75c9f14cdb28dbcbece"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac30636b636d313950f00dafa885132b7"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#ac30636b636d313950f00dafa885132b7">process_flag</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, const <a class="el" href="actor__model_8fbs.html#a7b7873a67188e97a7e85f8c021f128d7">ProcessFlag</a> flag, const bool flag_setting) -&gt; bool</td></tr>
+<tr class="memitem:ac30636b636d313950f00dafa885132b7"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#ac30636b636d313950f00dafa885132b7">process_flag</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a7b7873a67188e97a7e85f8c021f128d7">ProcessFlag</a> flag, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> bool flag_setting) -&gt; bool</td></tr>
 <tr class="separator:ac30636b636d313950f00dafa885132b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23bee2724f328f7fdf3af1d17d0492f9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a23bee2724f328f7fdf3af1d17d0492f9">send</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; bool</td></tr>
+<tr class="memitem:a23bee2724f328f7fdf3af1d17d0492f9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a23bee2724f328f7fdf3af1d17d0492f9">send</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; bool</td></tr>
 <tr class="separator:a23bee2724f328f7fdf3af1d17d0492f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8874d09ea4574b179c0ad9773ebd737"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#ae8874d09ea4574b179c0ad9773ebd737">send</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> payload) -&gt; bool</td></tr>
+<tr class="memitem:ae8874d09ea4574b179c0ad9773ebd737"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#ae8874d09ea4574b179c0ad9773ebd737">send</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> payload) -&gt; bool</td></tr>
 <tr class="separator:ae8874d09ea4574b179c0ad9773ebd737"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86cad0d8b026169dc94fe37a06398d03"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a86cad0d8b026169dc94fe37a06398d03">send</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, const std::vector&lt; uint8_t &gt; &amp;payload_vec) -&gt; bool</td></tr>
+<tr class="memitem:a86cad0d8b026169dc94fe37a06398d03"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a86cad0d8b026169dc94fe37a06398d03">send</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; uint8_t &gt; &amp;payload_vec) -&gt; bool</td></tr>
 <tr class="separator:a86cad0d8b026169dc94fe37a06398d03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a484a73b90bbff19209c55cb42b1871d6"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a484a73b90bbff19209c55cb42b1871d6">send</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, const flatbuffers::Vector&lt; uint8_t &gt; &amp;payload_fbvec) -&gt; bool</td></tr>
+<tr class="memitem:a484a73b90bbff19209c55cb42b1871d6"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a484a73b90bbff19209c55cb42b1871d6">send</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> flatbuffers::Vector&lt; uint8_t &gt; &amp;payload_fbvec) -&gt; bool</td></tr>
 <tr class="separator:a484a73b90bbff19209c55cb42b1871d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27fd08513b3a90170ce5afa8fca710d7"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a27fd08513b3a90170ce5afa8fca710d7">send</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, const <a class="el" href="namespace_actor_model.html#a14cc88e7a1073cee225d6b79ada7d6e2">MessageFlatbuffer</a> &amp;payload_flatbuffer) -&gt; bool</td></tr>
+<tr class="memitem:a27fd08513b3a90170ce5afa8fca710d7"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a27fd08513b3a90170ce5afa8fca710d7">send</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a14cc88e7a1073cee225d6b79ada7d6e2">MessageFlatbuffer</a> &amp;payload_flatbuffer) -&gt; bool</td></tr>
 <tr class="separator:a27fd08513b3a90170ce5afa8fca710d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a329109db6124f02d1f82c2a90d102e72"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a329109db6124f02d1f82c2a90d102e72">send_after</a> (const <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a> time, const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a></td></tr>
+<tr class="memitem:a329109db6124f02d1f82c2a90d102e72"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a329109db6124f02d1f82c2a90d102e72">send_after</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a> time, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a></td></tr>
 <tr class="separator:a329109db6124f02d1f82c2a90d102e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4856f6404bc43b778318ff55c6a679b9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a4856f6404bc43b778318ff55c6a679b9">send_after</a> (const <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a> time, const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> payload) -&gt; <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a></td></tr>
+<tr class="memitem:a4856f6404bc43b778318ff55c6a679b9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a4856f6404bc43b778318ff55c6a679b9">send_after</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a> time, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> payload) -&gt; <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a></td></tr>
 <tr class="separator:a4856f6404bc43b778318ff55c6a679b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fe7cfc1d7418b0a510c55900a294fc5"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a3fe7cfc1d7418b0a510c55900a294fc5">send_after</a> (const <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a> time, const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, const std::vector&lt; uint8_t &gt; &amp;payload_vec) -&gt; <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a></td></tr>
+<tr class="memitem:a3fe7cfc1d7418b0a510c55900a294fc5"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a3fe7cfc1d7418b0a510c55900a294fc5">send_after</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a> time, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; uint8_t &gt; &amp;payload_vec) -&gt; <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a></td></tr>
 <tr class="separator:a3fe7cfc1d7418b0a510c55900a294fc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f0fe61303b6ad7fcab685f6ecf2a82d"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a9f0fe61303b6ad7fcab685f6ecf2a82d">send_after</a> (const <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a> time, const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, const <a class="el" href="namespace_actor_model.html#a14cc88e7a1073cee225d6b79ada7d6e2">MessageFlatbuffer</a> &amp;payload_flatbuffer) -&gt; <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a></td></tr>
+<tr class="memitem:a9f0fe61303b6ad7fcab685f6ecf2a82d"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a9f0fe61303b6ad7fcab685f6ecf2a82d">send_after</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a> time, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a14cc88e7a1073cee225d6b79ada7d6e2">MessageFlatbuffer</a> &amp;payload_flatbuffer) -&gt; <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a></td></tr>
 <tr class="separator:a9f0fe61303b6ad7fcab685f6ecf2a82d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a882049e2d543ec7c690193fd8d5cee1d"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a882049e2d543ec7c690193fd8d5cee1d">send_interval</a> (const <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a> time, const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a></td></tr>
+<tr class="memitem:a882049e2d543ec7c690193fd8d5cee1d"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a882049e2d543ec7c690193fd8d5cee1d">send_interval</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a> time, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a></td></tr>
 <tr class="separator:a882049e2d543ec7c690193fd8d5cee1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f65bbffa0aca2103b8d4c4c860d2b5f"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a9f65bbffa0aca2103b8d4c4c860d2b5f">send_interval</a> (const <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a> time, const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> payload) -&gt; <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a></td></tr>
+<tr class="memitem:a9f65bbffa0aca2103b8d4c4c860d2b5f"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a9f65bbffa0aca2103b8d4c4c860d2b5f">send_interval</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a> time, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> payload) -&gt; <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a></td></tr>
 <tr class="separator:a9f65bbffa0aca2103b8d4c4c860d2b5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77fef369e9f404843a2344b1d53ca802"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a77fef369e9f404843a2344b1d53ca802">send_interval</a> (const <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a> time, const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, const std::vector&lt; uint8_t &gt; &amp;payload_vec) -&gt; <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a></td></tr>
+<tr class="memitem:a77fef369e9f404843a2344b1d53ca802"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a77fef369e9f404843a2344b1d53ca802">send_interval</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a> time, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; uint8_t &gt; &amp;payload_vec) -&gt; <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a></td></tr>
 <tr class="separator:a77fef369e9f404843a2344b1d53ca802"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49b5c72fcc7464649c370fa793166aa9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a49b5c72fcc7464649c370fa793166aa9">send_interval</a> (const <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a> time, const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, const <a class="el" href="namespace_actor_model.html#a14cc88e7a1073cee225d6b79ada7d6e2">MessageFlatbuffer</a> &amp;payload_flatbuffer) -&gt; <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a></td></tr>
+<tr class="memitem:a49b5c72fcc7464649c370fa793166aa9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a49b5c72fcc7464649c370fa793166aa9">send_interval</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a> time, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> type, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a14cc88e7a1073cee225d6b79ada7d6e2">MessageFlatbuffer</a> &amp;payload_flatbuffer) -&gt; <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a></td></tr>
 <tr class="separator:a49b5c72fcc7464649c370fa793166aa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8458fc07dc4824c5b1b8599fcdd1f5ad"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a8458fc07dc4824c5b1b8599fcdd1f5ad">cancel</a> (const <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a> tref) -&gt; bool</td></tr>
+<tr class="memitem:a8458fc07dc4824c5b1b8599fcdd1f5ad"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a8458fc07dc4824c5b1b8599fcdd1f5ad">cancel</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a> tref) -&gt; bool</td></tr>
 <tr class="separator:a8458fc07dc4824c5b1b8599fcdd1f5ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b33c60bd90096ad48a0cfc1c7035dcb"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a9b33c60bd90096ad48a0cfc1c7035dcb">register_name</a> (const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> name, const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid) -&gt; bool</td></tr>
+<tr class="memitem:a9b33c60bd90096ad48a0cfc1c7035dcb"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a9b33c60bd90096ad48a0cfc1c7035dcb">register_name</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> name, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid) -&gt; bool</td></tr>
 <tr class="separator:a9b33c60bd90096ad48a0cfc1c7035dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00b417931eefcabdcebf7e920de98147"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a00b417931eefcabdcebf7e920de98147">unregister</a> (const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> name) -&gt; bool</td></tr>
+<tr class="memitem:a00b417931eefcabdcebf7e920de98147"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a00b417931eefcabdcebf7e920de98147">unregister</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> name) -&gt; bool</td></tr>
 <tr class="separator:a00b417931eefcabdcebf7e920de98147"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba9615c04cd404b983a960fb01cfc043"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#aba9615c04cd404b983a960fb01cfc043">registered</a> () -&gt; const <a class="el" href="class_actor_model_1_1_node.html#a338ccda4560cfe426ae36895dc5a7954">Node::NamedProcessRegistry</a></td></tr>
+<tr class="memitem:aba9615c04cd404b983a960fb01cfc043"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#aba9615c04cd404b983a960fb01cfc043">registered</a> () -&gt; <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="class_actor_model_1_1_node.html#a338ccda4560cfe426ae36895dc5a7954">Node::NamedProcessRegistry</a></td></tr>
 <tr class="separator:aba9615c04cd404b983a960fb01cfc043"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7464801c46fc09ddacf1b63b54e261e9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a7464801c46fc09ddacf1b63b54e261e9">whereis</a> (const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> name) -&gt; <a class="el" href="namespace_actor_model.html#a3b28c988fba77c8ac60093303eb554f4">MaybePid</a></td></tr>
+<tr class="memitem:a7464801c46fc09ddacf1b63b54e261e9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a7464801c46fc09ddacf1b63b54e261e9">whereis</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> name) -&gt; <a class="el" href="namespace_actor_model.html#a3b28c988fba77c8ac60093303eb554f4">MaybePid</a></td></tr>
 <tr class="separator:a7464801c46fc09ddacf1b63b54e261e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bd71c4d9611776d97828ba551b0fdf9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a4bd71c4d9611776d97828ba551b0fdf9">exit</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid2, const <a class="el" href="namespace_actor_model.html#a0a466cc533a8da2e8ae14fee103dd8de">Reason</a> exit_reason) -&gt; bool</td></tr>
+<tr class="memitem:a4bd71c4d9611776d97828ba551b0fdf9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a4bd71c4d9611776d97828ba551b0fdf9">exit</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid2, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a0a466cc533a8da2e8ae14fee103dd8de">Reason</a> exit_reason) -&gt; bool</td></tr>
 <tr class="separator:a4bd71c4d9611776d97828ba551b0fdf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25874695cd985e9982e571b1e1555838"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a25874695cd985e9982e571b1e1555838">module</a> (const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> module_flatbuffer) -&gt; bool</td></tr>
+<tr class="memitem:a25874695cd985e9982e571b1e1555838"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a25874695cd985e9982e571b1e1555838">module</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> module_flatbuffer) -&gt; bool</td></tr>
 <tr class="separator:a25874695cd985e9982e571b1e1555838"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8223ebd753c3f4b7c049061794fbcf7"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#ac8223ebd753c3f4b7c049061794fbcf7">apply</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> function_name, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> args) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
+<tr class="memitem:ac8223ebd753c3f4b7c049061794fbcf7"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#ac8223ebd753c3f4b7c049061794fbcf7">apply</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> function_name, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> args) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
 <tr class="separator:ac8223ebd753c3f4b7c049061794fbcf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa665a0299e8d74767ef6584197ea4a1"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#afa665a0299e8d74767ef6584197ea4a1">apply</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> module_name, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> function_name, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> args) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
+<tr class="memitem:afa665a0299e8d74767ef6584197ea4a1"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#afa665a0299e8d74767ef6584197ea4a1">apply</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> module_name, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> function_name, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> args) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
 <tr class="separator:afa665a0299e8d74767ef6584197ea4a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefe347cf1fcd0d80dca3e517604ad625"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#aefe347cf1fcd0d80dca3e517604ad625">matches</a> (const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; bool</td></tr>
+<tr class="memitem:aefe347cf1fcd0d80dca3e517604ad625"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#aefe347cf1fcd0d80dca3e517604ad625">matches</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; bool</td></tr>
 <tr class="separator:aefe347cf1fcd0d80dca3e517604ad625"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdd43b54d9ae02e6188b4f4f122b2b18"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#afdd43b54d9ae02e6188b4f4f122b2b18">matches</a> (const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> type) -&gt; bool</td></tr>
+<tr class="memitem:afdd43b54d9ae02e6188b4f4f122b2b18"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#afdd43b54d9ae02e6188b4f4f122b2b18">matches</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> type) -&gt; bool</td></tr>
 <tr class="separator:afdd43b54d9ae02e6188b4f4f122b2b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53d2b62a278ac0ac55e14c41d1bb376e"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a53d2b62a278ac0ac55e14c41d1bb376e">matches</a> (const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> type, <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> &amp;payload) -&gt; bool</td></tr>
+<tr class="memitem:a53d2b62a278ac0ac55e14c41d1bb376e"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a53d2b62a278ac0ac55e14c41d1bb376e">matches</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> type, <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> &amp;payload) -&gt; bool</td></tr>
 <tr class="separator:a53d2b62a278ac0ac55e14c41d1bb376e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67e904da25380273a343d0f4289b2da5"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a67e904da25380273a343d0f4289b2da5">matches</a> (const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> type, <a class="el" href="group__firmware.html#gaca454f84dd198a937af6499dd758aa3d">std::string</a> &amp;payload) -&gt; bool</td></tr>
+<tr class="memitem:a67e904da25380273a343d0f4289b2da5"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a67e904da25380273a343d0f4289b2da5">matches</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> type, <a class="el" href="group__firmware.html#gaca454f84dd198a937af6499dd758aa3d">std::string</a> &amp;payload) -&gt; bool</td></tr>
 <tr class="separator:a67e904da25380273a343d0f4289b2da5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1514e584bb5dbaa75eac2de6c5850d2c"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a1514e584bb5dbaa75eac2de6c5850d2c">matches</a> (const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> type, <a class="el" href="namespace_actor_model.html#ac46f41f1d39044d5ed110e92c424f6eb">MutableFlatbuffer</a> &amp;payload) -&gt; bool</td></tr>
+<tr class="memitem:a1514e584bb5dbaa75eac2de6c5850d2c"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a1514e584bb5dbaa75eac2de6c5850d2c">matches</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> type, <a class="el" href="namespace_actor_model.html#ac46f41f1d39044d5ed110e92c424f6eb">MutableFlatbuffer</a> &amp;payload) -&gt; bool</td></tr>
 <tr class="separator:a1514e584bb5dbaa75eac2de6c5850d2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad48d72537a551c7e6bb052b03f5fe0b1"><td class="memTemplParams" colspan="2">template&lt;typename TableT &gt; </td></tr>
-<tr class="memitem:ad48d72537a551c7e6bb052b03f5fe0b1"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#ad48d72537a551c7e6bb052b03f5fe0b1">matches</a> (const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> type, const TableT *&amp;payload_ptr) -&gt; bool</td></tr>
+<tr class="memitem:ad48d72537a551c7e6bb052b03f5fe0b1"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#ad48d72537a551c7e6bb052b03f5fe0b1">matches</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> type, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> TableT *&amp;payload_ptr) -&gt; bool</td></tr>
 <tr class="separator:ad48d72537a551c7e6bb052b03f5fe0b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe4ccc4eee01137a399c54f36fcf5c4b"><td class="memTemplParams" colspan="2">template&lt;typename TableObjT , class  = typename TableObjT::TableType&gt; </td></tr>
-<tr class="memitem:abe4ccc4eee01137a399c54f36fcf5c4b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#abe4ccc4eee01137a399c54f36fcf5c4b">matches</a> (const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> type, TableObjT &amp;obj) -&gt; bool</td></tr>
+<tr class="memitem:abe4ccc4eee01137a399c54f36fcf5c4b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#abe4ccc4eee01137a399c54f36fcf5c4b">matches</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> type, TableObjT &amp;obj) -&gt; bool</td></tr>
 <tr class="separator:abe4ccc4eee01137a399c54f36fcf5c4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a756b74fa4d1fddccb0b9eb9ef22d5dcb"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a756b74fa4d1fddccb0b9eb9ef22d5dcb">_timer_callback</a> (TimerHandle_t timer_handle) -&gt; void</td></tr>
 <tr class="separator:a756b74fa4d1fddccb0b9eb9ef22d5dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fc2c8a6a539365dffa724cecdda0710"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a1fc2c8a6a539365dffa724cecdda0710">_signal_timer_callback</a> (TimerHandle_t timer_handle) -&gt; void</td></tr>
 <tr class="separator:a1fc2c8a6a539365dffa724cecdda0710"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12aa1361ac0c0cc36b27141cba6828dc"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a12aa1361ac0c0cc36b27141cba6828dc">oom_killer_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;_state, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
+<tr class="memitem:a12aa1361ac0c0cc36b27141cba6828dc"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#a12aa1361ac0c0cc36b27141cba6828dc">oom_killer_actor_behaviour</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;_state, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
 <tr class="separator:a12aa1361ac0c0cc36b27141cba6828dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa783b8795b7e5e199b297eda66ec411a"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#aa783b8795b7e5e199b297eda66ec411a">oom_killer_actor_behaviour</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;state, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td></tr>
+<tr class="separator:aa783b8795b7e5e199b297eda66ec411a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada5d2fdd4e9fb9ad0067af9882a105c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#ada5d2fdd4e9fb9ad0067af9882a105c3">process_task</a> (void *user_data=nullptr)</td></tr>
 <tr class="separator:ada5d2fdd4e9fb9ad0067af9882a105c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9163ab1868f3319cffedddc5056f84b"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#af9163ab1868f3319cffedddc5056f84b">supervisor_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;_state, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
+<tr class="memitem:af9163ab1868f3319cffedddc5056f84b"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#af9163ab1868f3319cffedddc5056f84b">supervisor_actor_behaviour</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;_state, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
 <tr class="separator:af9163ab1868f3319cffedddc5056f84b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcd5c76d66fba0aee06a99a4b5551eb6"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#afcd5c76d66fba0aee06a99a4b5551eb6">supervisor_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;state, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td></tr>
+<tr class="memitem:afcd5c76d66fba0aee06a99a4b5551eb6"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_actor_model.html#afcd5c76d66fba0aee06a99a4b5551eb6">supervisor_actor_behaviour</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;state, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td></tr>
 <tr class="separator:afcd5c76d66fba0aee06a99a4b5551eb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -301,7 +303,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="namespace_actor_model.html#a91f108e6b8b6df2042a6689baa981bd8">ActorModel::ActorBehaviour</a> = typedef delegate&lt;<a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a>( const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a>&amp;, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a>&amp; state, const <a class="el" href="struct_message.html">Message</a>&amp; )&gt;</td>
+          <td class="memname">using <a class="el" href="namespace_actor_model.html#a91f108e6b8b6df2042a6689baa981bd8">ActorModel::ActorBehaviour</a> = typedef delegate&lt;<a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a>( <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a>&amp;, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a>&amp; state, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_message.html">Message</a>&amp; )&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -329,7 +331,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="namespace_actor_model.html#a5ecdf33afb81eb282e2cf28d1fde7db2">ActorModel::Behaviour</a> = typedef delegate&lt;<a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a>( const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a>&amp;, <a class="el" href="class_actor_model_1_1_mailbox.html">Mailbox</a>&amp; )&gt;</td>
+          <td class="memname">using <a class="el" href="namespace_actor_model.html#a5ecdf33afb81eb282e2cf28d1fde7db2">ActorModel::Behaviour</a> = typedef delegate&lt;<a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a>( <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a>&amp;, <a class="el" href="class_actor_model_1_1_mailbox.html">Mailbox</a>&amp; )&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -598,19 +600,19 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">auto ActorModel::_actor_spawn </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a01df7e00e16e1e997f7a3a5ebbca2d45">ActorBehaviours</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a01df7e00e16e1e997f7a3a5ebbca2d45">ActorBehaviours</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>_actor_behaviours</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a3b28c988fba77c8ac60093303eb554f4">MaybePid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a3b28c988fba77c8ac60093303eb554f4">MaybePid</a> &amp;&#160;</td>
           <td class="paramname"><em>_initial_link_pid</em> = <code>std::experimental::nullopt</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>_exec_config_callback</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
@@ -643,8 +645,7 @@ Here is the call graph for this function:</div>
           <td>(</td>
           <td class="paramtype">TimerHandle_t&#160;</td>
           <td class="paramname"><em>timer_handle</em></td><td>)</td>
-          <td> -&gt; void
-</td>
+          <td> -&gt; void</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -671,8 +672,7 @@ Here is the call graph for this function:</div>
           <td>(</td>
           <td class="paramtype">TimerHandle_t&#160;</td>
           <td class="paramname"><em>timer_handle</em></td><td>)</td>
-          <td> -&gt; void
-</td>
+          <td> -&gt; void</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -697,19 +697,19 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::apply </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>function_name</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>args</em>&#160;</td>
         </tr>
         <tr>
@@ -740,25 +740,25 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::apply </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>module_name</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>function_name</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>args</em>&#160;</td>
         </tr>
         <tr>
@@ -789,7 +789,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::cancel </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#aab1e9f6758b482c6df78b1fc86fbbbe0">TRef</a>&#160;</td>
           <td class="paramname"><em>tref</em></td><td>)</td>
           <td> -&gt;  bool</td>
         </tr>
@@ -816,19 +816,19 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::exit </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid2</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a0a466cc533a8da2e8ae14fee103dd8de">Reason</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a0a466cc533a8da2e8ae14fee103dd8de">Reason</a>&#160;</td>
           <td class="paramname"><em>exit_reason</em>&#160;</td>
         </tr>
         <tr>
@@ -862,7 +862,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::matches </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
           <td class="paramname"><em>message</em></td><td>)</td>
           <td> -&gt; bool
 </td>
@@ -889,13 +889,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::matches </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
           <td class="paramname"><em>message</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>type</em>&#160;</td>
         </tr>
         <tr>
@@ -926,13 +926,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::matches </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
           <td class="paramname"><em>message</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
@@ -978,13 +978,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::matches </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
           <td class="paramname"><em>message</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
@@ -1030,13 +1030,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::matches </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
           <td class="paramname"><em>message</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
@@ -1084,19 +1084,19 @@ template&lt;typename TableT &gt; </div>
         <tr>
           <td class="memname">auto ActorModel::matches </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
           <td class="paramname"><em>message</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const TableT *&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> TableT *&amp;&#160;</td>
           <td class="paramname"><em>payload_ptr</em>&#160;</td>
         </tr>
         <tr>
@@ -1138,13 +1138,13 @@ template&lt;typename TableObjT , class  = typename TableObjT::TableType&gt; </di
         <tr>
           <td class="memname">auto ActorModel::matches </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
           <td class="paramname"><em>message</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
@@ -1187,7 +1187,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::module </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>module_flatbuffer</em></td><td>)</td>
           <td> -&gt;  bool</td>
         </tr>
@@ -1205,8 +1205,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a12aa1361ac0c0cc36b27141cba6828dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12aa1361ac0c0cc36b27141cba6828dc">&#9670;&nbsp;</a></span>oom_killer_actor_behaviour()</h2>
+<a id="aa783b8795b7e5e199b297eda66ec411a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa783b8795b7e5e199b297eda66ec411a">&#9670;&nbsp;</a></span>oom_killer_actor_behaviour() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1214,7 +1214,41 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::oom_killer_actor_behaviour </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
+          <td class="paramname"><em>message</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a12aa1361ac0c0cc36b27141cba6828dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12aa1361ac0c0cc36b27141cba6828dc">&#9670;&nbsp;</a></span>oom_killer_actor_behaviour() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto ActorModel::oom_killer_actor_behaviour </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>self</em>, </td>
         </tr>
         <tr>
@@ -1226,7 +1260,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="struct_message.html">Message</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_message.html">Message</a> &amp;&#160;</td>
           <td class="paramname"><em>message</em>&#160;</td>
         </tr>
         <tr>
@@ -1260,19 +1294,19 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::process_flag </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="actor__model_8fbs.html#a7b7873a67188e97a7e85f8c021f128d7">ProcessFlag</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a7b7873a67188e97a7e85f8c021f128d7">ProcessFlag</a>&#160;</td>
           <td class="paramname"><em>flag</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const bool&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> bool&#160;</td>
           <td class="paramname"><em>flag_setting</em>&#160;</td>
         </tr>
         <tr>
@@ -1321,13 +1355,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::register_name </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>name</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid</em>&#160;</td>
         </tr>
         <tr>
@@ -1359,7 +1393,7 @@ Here is the call graph for this function:</div>
           <td class="memname">auto ActorModel::registered </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> -&gt;  const <a class="el" href="class_actor_model_1_1_node.html#a338ccda4560cfe426ae36895dc5a7954">Node::NamedProcessRegistry</a></td>
+          <td> -&gt;  <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="class_actor_model_1_1_node.html#a338ccda4560cfe426ae36895dc5a7954">Node::NamedProcessRegistry</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1384,13 +1418,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::send </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="struct_message.html">Message</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_message.html">Message</a> &amp;&#160;</td>
           <td class="paramname"><em>message</em>&#160;</td>
         </tr>
         <tr>
@@ -1421,19 +1455,19 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::send </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>payload</em>&#160;</td>
         </tr>
         <tr>
@@ -1464,19 +1498,19 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::send </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; uint8_t &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; uint8_t &gt; &amp;&#160;</td>
           <td class="paramname"><em>payload_vec</em>&#160;</td>
         </tr>
         <tr>
@@ -1507,19 +1541,19 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::send </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const flatbuffers::Vector&lt; uint8_t &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> flatbuffers::Vector&lt; uint8_t &gt; &amp;&#160;</td>
           <td class="paramname"><em>payload_fbvec</em>&#160;</td>
         </tr>
         <tr>
@@ -1550,19 +1584,19 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::send </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a14cc88e7a1073cee225d6b79ada7d6e2">MessageFlatbuffer</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a14cc88e7a1073cee225d6b79ada7d6e2">MessageFlatbuffer</a> &amp;&#160;</td>
           <td class="paramname"><em>payload_flatbuffer</em>&#160;</td>
         </tr>
         <tr>
@@ -1593,19 +1627,19 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::send_after </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a>&#160;</td>
           <td class="paramname"><em>time</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="struct_message.html">Message</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_message.html">Message</a> &amp;&#160;</td>
           <td class="paramname"><em>message</em>&#160;</td>
         </tr>
         <tr>
@@ -1636,25 +1670,25 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::send_after </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a>&#160;</td>
           <td class="paramname"><em>time</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>payload</em>&#160;</td>
         </tr>
         <tr>
@@ -1685,25 +1719,25 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::send_after </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a>&#160;</td>
           <td class="paramname"><em>time</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; uint8_t &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; uint8_t &gt; &amp;&#160;</td>
           <td class="paramname"><em>payload_vec</em>&#160;</td>
         </tr>
         <tr>
@@ -1734,25 +1768,25 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::send_after </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a>&#160;</td>
           <td class="paramname"><em>time</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a14cc88e7a1073cee225d6b79ada7d6e2">MessageFlatbuffer</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a14cc88e7a1073cee225d6b79ada7d6e2">MessageFlatbuffer</a> &amp;&#160;</td>
           <td class="paramname"><em>payload_flatbuffer</em>&#160;</td>
         </tr>
         <tr>
@@ -1783,19 +1817,19 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::send_interval </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a>&#160;</td>
           <td class="paramname"><em>time</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="struct_message.html">Message</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_message.html">Message</a> &amp;&#160;</td>
           <td class="paramname"><em>message</em>&#160;</td>
         </tr>
         <tr>
@@ -1826,25 +1860,25 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::send_interval </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a>&#160;</td>
           <td class="paramname"><em>time</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>payload</em>&#160;</td>
         </tr>
         <tr>
@@ -1875,25 +1909,25 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::send_interval </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a>&#160;</td>
           <td class="paramname"><em>time</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; uint8_t &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; uint8_t &gt; &amp;&#160;</td>
           <td class="paramname"><em>payload_vec</em>&#160;</td>
         </tr>
         <tr>
@@ -1924,25 +1958,25 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::send_interval </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#afd9cce4ee5cf7c49e4a8e72ceac22ae4">Time</a>&#160;</td>
           <td class="paramname"><em>time</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a14cc88e7a1073cee225d6b79ada7d6e2">MessageFlatbuffer</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a14cc88e7a1073cee225d6b79ada7d6e2">MessageFlatbuffer</a> &amp;&#160;</td>
           <td class="paramname"><em>payload_flatbuffer</em>&#160;</td>
         </tr>
         <tr>
@@ -1973,13 +2007,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::spawn </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a5ecdf33afb81eb282e2cf28d1fde7db2">Behaviour</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a5ecdf33afb81eb282e2cf28d1fde7db2">Behaviour</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>_behaviour</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>_exec_config_callback</em>&#160;</td>
         </tr>
         <tr>
@@ -2010,13 +2044,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::spawn </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a91f108e6b8b6df2042a6689baa981bd8">ActorBehaviour</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a91f108e6b8b6df2042a6689baa981bd8">ActorBehaviour</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>_actor_behaviour</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>_exec_config_callback</em>&#160;</td>
         </tr>
         <tr>
@@ -2048,13 +2082,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::spawn </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a01df7e00e16e1e997f7a3a5ebbca2d45">ActorBehaviours</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a01df7e00e16e1e997f7a3a5ebbca2d45">ActorBehaviours</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>_actor_behaviours</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>_exec_config_callback</em>&#160;</td>
         </tr>
         <tr>
@@ -2086,19 +2120,19 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::spawn_link </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>_initial_link_pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a5ecdf33afb81eb282e2cf28d1fde7db2">Behaviour</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a5ecdf33afb81eb282e2cf28d1fde7db2">Behaviour</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>_behaviour</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>_exec_config_callback</em>&#160;</td>
         </tr>
         <tr>
@@ -2129,19 +2163,19 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::spawn_link </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>_initial_link_pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a91f108e6b8b6df2042a6689baa981bd8">ActorBehaviour</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a91f108e6b8b6df2042a6689baa981bd8">ActorBehaviour</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>_actor_behaviour</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>_exec_config_callback</em>&#160;</td>
         </tr>
         <tr>
@@ -2173,19 +2207,19 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::spawn_link </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>_initial_link_pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a01df7e00e16e1e997f7a3a5ebbca2d45">ActorBehaviours</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a01df7e00e16e1e997f7a3a5ebbca2d45">ActorBehaviours</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>_actor_behaviours</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a192bb0bccc59bc9cc724e2d959a6cca7">ExecConfigCallback</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>_exec_config_callback</em>&#160;</td>
         </tr>
         <tr>
@@ -2217,7 +2251,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::supervisor_actor_behaviour </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>self</em>, </td>
         </tr>
         <tr>
@@ -2229,7 +2263,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
           <td class="paramname"><em>message</em>&#160;</td>
         </tr>
         <tr>
@@ -2251,7 +2285,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::supervisor_actor_behaviour </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>self</em>, </td>
         </tr>
         <tr>
@@ -2263,7 +2297,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="struct_message.html">Message</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_message.html">Message</a> &amp;&#160;</td>
           <td class="paramname"><em>message</em>&#160;</td>
         </tr>
         <tr>
@@ -2279,10 +2313,9 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespace_actor_model_af9163ab1868f3319cffedddc5056f84b_cgraph.png" border="0" usemap="#namespace_actor_model_af9163ab1868f3319cffedddc5056f84b_cgraph" alt=""/></div>
 <map name="namespace_actor_model_af9163ab1868f3319cffedddc5056f84b_cgraph" id="namespace_actor_model_af9163ab1868f3319cffedddc5056f84b_cgraph">
-<area shape="rect"  title=" " alt="" coords="5,48,163,87"/>
+<area shape="rect"  title=" " alt="" coords="5,24,163,63"/>
 <area shape="rect"  href="namespace_actor_model.html#aefe347cf1fcd0d80dca3e517604ad625" title=" " alt="" coords="224,5,370,31"/>
 <area shape="rect"  href="namespace_actor_model.html#ac30636b636d313950f00dafa885132b7" title=" " alt="" coords="211,55,383,80"/>
-<area shape="rect"  href="namespace_u_u_i_d.html#a82f83d0db798b58169d51933e2c9760b" title=" " alt="" coords="230,104,364,129"/>
 <area shape="rect"  href="class_actor_model_1_1_process.html#a7855ee2779ae4a48e56776be8ca20b87" title=" " alt="" coords="431,48,575,87"/>
 </map>
 </div>
@@ -2298,7 +2331,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::unregister </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
           <td> -&gt;  bool</td>
         </tr>
@@ -2325,7 +2358,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto ActorModel::whereis </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
           <td> -&gt;  <a class="el" href="namespace_actor_model.html#a3b28c988fba77c8ac60093303eb554f4">MaybePid</a></td>
         </tr>

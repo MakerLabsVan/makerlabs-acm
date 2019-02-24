@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['serversentevent',['ServerSentEvent',['../struct_server_sent_event.html',1,'']]],
-  ['serversenteventsemitter',['ServerSentEventsEmitter',['../class_requests_1_1_server_sent_events_emitter.html',1,'Requests']]],
-  ['sh2lib_5fcallbacks',['sh2lib_callbacks',['../structsh2lib__callbacks.html',1,'']]],
-  ['sh2lib_5fhandle',['sh2lib_handle',['../structsh2lib__handle.html',1,'']]],
-  ['showmessage',['ShowMessage',['../struct_show_message.html',1,'']]],
-  ['showuserdetails',['ShowUserDetails',['../struct_show_user_details.html',1,'']]],
-  ['signal',['Signal',['../struct_signal.html',1,'']]],
-  ['state',['State',['../struct_wiegand_reader_1_1_state.html',1,'WiegandReader']]],
-  ['stopjobtimer',['StopJobTimer',['../struct_stop_job_timer.html',1,'']]],
-  ['supervisoractorstate',['SupervisorActorState',['../struct_actor_model_1_1_supervisor_actor_state.html',1,'ActorModel']]],
-  ['supervisorargs',['SupervisorArgs',['../struct_supervisor_args.html',1,'']]],
-  ['supervisorflags',['SupervisorFlags',['../struct_supervisor_flags.html',1,'']]]
+  ['receivedmessage',['ReceivedMessage',['../class_actor_model_1_1_received_message.html',1,'ActorModel']]],
+  ['request',['Request',['../struct_request.html',1,'']]],
+  ['requesthandler',['RequestHandler',['../struct_requests_1_1_request_handler.html',1,'Requests']]],
+  ['requestintent',['RequestIntent',['../struct_request_intent.html',1,'']]],
+  ['requestintentreflectionstate',['RequestIntentReflectionState',['../struct_requests_1_1_request_intent_reflection_state.html',1,'Requests']]],
+  ['requestmanager',['RequestManager',['../class_requests_1_1_request_manager.html',1,'Requests']]],
+  ['requestpayload',['RequestPayload',['../struct_request_payload.html',1,'']]],
+  ['response',['Response',['../struct_response.html',1,'']]],
+  ['responsepayload',['ResponsePayload',['../struct_response_payload.html',1,'']]],
+  ['result',['Result',['../union_result.html',1,'']]],
+  ['resultunion',['ResultUnion',['../struct_actor_model_1_1_result_union.html',1,'ActorModel']]],
+  ['rfidreaderactorstate',['RFIDReaderActorState',['../struct_r_f_i_d_reader_actor_state.html',1,'']]]
 ];

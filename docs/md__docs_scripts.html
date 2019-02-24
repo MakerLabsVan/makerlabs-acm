@@ -111,12 +111,12 @@ $(document).ready(function(){initNavTree('md__docs_scripts.html','');});
 <div class="title">scripts/ </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md59"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md61"></a>
 Overview</h1>
 <p><a href="https://developers.google.com/apps-script/">Google Apps Script</a> is used by the ACM to extend the functionality of Google Spreadsheets for the ACM spreadsheet.</p>
 <p>The files in the <code>scripts/</code> directory are synced to the Google Apps Script project using the <a href="https://github.com/google/clasp"><code>clasp</code> command line tool</a>.</p>
 <p>The Google Apps Script project should have time-based triggers enabled in order to send e-mails, and must be published as a web app in order for the ACM website to be able to interact with spreadsheet data.</p>
-<h1><a class="anchor" id="autotoc_md60"></a>
+<h1><a class="anchor" id="autotoc_md62"></a>
 Design</h1>
 <p>The Javascript functions in <code>scripts/</code> perform three main tasks based on the Google Spreadsheet data:</p><ul>
 <li>send daily usage and weekly billing e-mails,</li>
@@ -132,20 +132,20 @@ Design</h1>
 <li>"billing" e-mails, processed weekly on Friday afternoons, which are sent to <code>hello@makerlabs.com</code> and summarize the monthly usage for multiple Makers, across all machines, for all Makers which have their <code>Billing Date</code> in that week.</li>
 </ul>
 <p>Sending of e-mails is performed by the following two trigger functions in <code>scripts/trigger</code>:</p><ul>
-<li><a class="el" href="group__scripts.html#gac6a29586ba9b7e14be41736617385f98">triggerActivitySendUsageEmails</a> sends possibly multiple usage e-mails.</li>
-<li><a class="el" href="group__scripts.html#ga7c72f3c10360ea0f10c5fda8f831baf6">triggerActivitySendBillingEmails</a> sends the billing e-mail.</li>
+<li><a class="el" href="triggers_for_activity_sheet_8js.html#ac6a29586ba9b7e14be41736617385f98">triggerActivitySendUsageEmails</a> sends possibly multiple usage e-mails.</li>
+<li><a class="el" href="triggers_for_activity_sheet_8js.html#a7c72f3c10360ea0f10c5fda8f831baf6">triggerActivitySendBillingEmails</a> sends the billing e-mail.</li>
 </ul>
-<p>Both of these trigger functions rely on the same templates and rendering function <a class="el" href="group__scripts.html#ga8ec0c5ee29de83874b77286202257296">sendActivitySummaryEmail</a>.</p>
+<p>Both of these trigger functions rely on the same templates and rendering function <a class="el" href="send_activity_summary_email_8js.html#a8ec0c5ee29de83874b77286202257296">sendActivitySummaryEmail</a>.</p>
 <p>The HTML content for the e-mail is configured in the HTML files in the <code>scripts/templates/</code> directory, as described in the <a href="#branded_email_templates"><code>Branded E-mail Templates</code> configuration section</a>.</p>
 <h2>Web App Handlers To Access Spreadsheet Data From Website</h2>
-<p>In order to provide access to the Google Spreadsheet data from the ACM Website, the <a href="https://developers.google.com/apps-script/guides/web">Web Apps</a> Google Apps Script functionality is used. The <a class="el" href="group__scripts.html#ga690324a39e29f40ffac88f9941274045">doGet</a> function is the entrypoint to all HTTP requests to the handler. Only a single URL path is allowed, so the <code>?href=</code> query string argument is checked to determine which specific view to use.</p>
+<p>In order to provide access to the Google Spreadsheet data from the ACM Website, the <a href="https://developers.google.com/apps-script/guides/web">Web Apps</a> Google Apps Script functionality is used. The <a class="el" href="scripts_2views_2index_8js.html#a690324a39e29f40ffac88f9941274045">doGet</a> function is the entrypoint to all HTTP requests to the handler. Only a single URL path is allowed, so the <code>?href=</code> query string argument is checked to determine which specific view to use.</p>
 <p>The following two views are currently used:</p><ul>
-<li><code>?href=next-makerlabs-id</code>: <a class="el" href="group__scripts.html#ga1563c567e0a569ba0b76a1eae80eb030">viewNextMakerLabsId</a> returns the next available <code>MakerLabs ID</code>.</li>
-<li><code>?href=users-fields</code>: <a class="el" href="group__scripts.html#ga49cf645db900e4b3091b8e21332bbb81">viewUsersFields</a> returns the "Users" sheet section headers, column headers and validation/widget type in JSON format.</li>
+<li><code>?href=next-makerlabs-id</code>: <a class="el" href="view_next_maker_labs_id_8js.html#a1563c567e0a569ba0b76a1eae80eb030">viewNextMakerLabsId</a> returns the next available <code>MakerLabs ID</code>.</li>
+<li><code>?href=users-fields</code>: <a class="el" href="view_users_fields_8js.html#a49cf645db900e4b3091b8e21332bbb81">viewUsersFields</a> returns the "Users" sheet section headers, column headers and validation/widget type in JSON format.</li>
 </ul>
 <h2>(Optional) Enforce Formatting In "Users" Sheet</h2>
-<p>The <a class="el" href="group__scripts.html#gaccccb69110472d3a7861b2d198345425">enforceFormattingInRange</a> function checks the formatting for the first data row (non-header/frozen row) in the "Users" sheet, and ensures that formatting changes in other rows are reverted. If this function is configured with the <a class="el" href="group__scripts.html#gaed3fe29954a9d95a8c15d462e127722d">onChange trigger function</a> and/or the <a class="el" href="group__scripts.html#ga6e1ddc0d7b7eefe6b4d8dd23e04b05ef">onEdit trigger function</a> then changing the first data row is the only way to affect formatting and any changes will be applied to all other data rows.</p>
-<h1><a class="anchor" id="autotoc_md61"></a>
+<p>The <a class="el" href="enforce_formatting_in_range_8js.html#accccb69110472d3a7861b2d198345425">enforceFormattingInRange</a> function checks the formatting for the first data row (non-header/frozen row) in the "Users" sheet, and ensures that formatting changes in other rows are reverted. If this function is configured with the <a class="el" href="triggers_for_users_sheet_8js.html#aed3fe29954a9d95a8c15d462e127722d">onChange trigger function</a> and/or the <a class="el" href="triggers_for_users_sheet_8js.html#a6e1ddc0d7b7eefe6b4d8dd23e04b05ef">onEdit trigger function</a> then changing the first data row is the only way to affect formatting and any changes will be applied to all other data rows.</p>
+<h1><a class="anchor" id="autotoc_md63"></a>
 Configuration</h1>
 <h2><a class="anchor" id="branded_email_templates"></a>
 Branded E-mail Templates</h2>
@@ -189,7 +189,7 @@ Screenshot of Selecting `Deploy as web app` in `Script Editor`</div></div>
 </ol>
 <h2>Hard-coded Spreadsheet Details</h2>
 <p>The Google Apps Script <code>projectId</code> is stored in the <code>.clasp.json</code> file.</p>
-<h1><a class="anchor" id="autotoc_md62"></a>
+<h1><a class="anchor" id="autotoc_md64"></a>
 Deployment</h1>
 <p>The <a href="https://github.com/google/clasp"><code>clasp</code> command line tool</a> is used to sync files from the <code>scripts/</code> directory to Google Apps Script.</p>
 <dl class="section note"><dt>Note</dt><dd>The <code>*.gs</code> files should NOT be modified from within the <code>Script Editor</code> UI as they are overwritten by the repo files when using the <code>clasp push</code> command.</dd></dl>
@@ -197,7 +197,7 @@ Deployment</h1>
 <p><code>clasp</code> uses Google credentials to upload files to the Google Apps Script project, so a one-time login process must be performed to login with your Google Account and grant access to <code>clasp</code>.</p>
 <p>To login, run the following: </p><div class="fragment"><div class="line">yarn apps-login</div></div><!-- fragment --><h2>Deploy</h2>
 <p>To sync the current <code>script/</code> files to the Google Apps Script project, run the following: </p><div class="fragment"><div class="line">yarn deploy</div></div><!-- fragment --><dl class="section note"><dt>Note</dt><dd><code>clasp</code> will upload to the Google Apps Script <code>scriptID</code> configured in the <code>.clasp.json</code> config file.</dd></dl>
-<h1><a class="anchor" id="autotoc_md63"></a>
+<h1><a class="anchor" id="autotoc_md65"></a>
 API Reference</h1>
 <p><a class="el" href="group__scripts.html">scripts/ API Documentation</a> </p>
 </div></div><!-- PageDoc -->

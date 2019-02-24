@@ -1,0 +1,9 @@
+<map id="triggerActivitySendBillingEmails" name="triggerActivitySendBillingEmails">
+<area shape="rect" id="node1" title=" " alt="" coords="5,97,173,136"/>
+<area shape="rect" id="node2" href="$get_named_range_8js.html#a653136624c4c54208d89d7dfc82bc21f" title=" " alt="" coords="254,5,377,31"/>
+<area shape="rect" id="node3" href="$exclude_headers_from_range_8js.html#a4419ef7f246848c1e619fb97bb08fef5" title=" " alt="" coords="221,55,409,80"/>
+<area shape="rect" id="node4" href="$get_first_empty_row_8js.html#a90a63329e1f9a6f8849b4f1676658718" title=" " alt="" coords="250,104,381,129"/>
+<area shape="rect" id="node5" href="$get_activity_summary_by_user_8js.html#ab029c49927a3965730f144e6171617b6" title=" " alt="" coords="224,153,407,179"/>
+<area shape="rect" id="node6" href="$send_activity_summary_email_8js.html#a8ec0c5ee29de83874b77286202257296" title=" " alt="" coords="224,203,407,228"/>
+<area shape="rect" id="node7" href="$send_branded_email_8js.html#a8cbd8991d7171d1a80db88287fe200b6" title=" " alt="" coords="457,203,591,228"/>
+</map>

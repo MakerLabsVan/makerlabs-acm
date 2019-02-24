@@ -111,15 +111,39 @@ $(document).ready(function(){initNavTree('migration_checklist.html','');});
 <div class="title">Migration/Configuration Changes Checklist </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md56"></a>
-Google Sheets, Drive, Cloud Integration Setup Steps</h1>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md57"></a>
+Firebase / Google Cloud Project Setup Steps</h1>
+<dl class="section note"><dt>Note</dt><dd>Be logged in with the target Google Apps user which should own the Google Apps /Firebase resources, and logged out of all other Google users. A Chrome incognito window works well for this if the target Google user is not your normal login account.</dd></dl>
 <ul>
-<li>Be logged in with the target Google Apps user, and logged out of all other users. A Chrome incognito window works best.</li>
+<li>Add a new Firebase project, use a convenient name (e.g. <code>makerlabs-acm-example</code>) and UNcheck all "Analytics" checkboxes: <blockquote class="doxtable">
+<p><a href="https://console.firebase.google.com/">https://console.firebase.google.com/</a> </p>
+</blockquote>
+<ul>
+<li>Under "Customise data sharing for your new project", do not check any checkboxes.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md57"></a>
-Developer / Workstation Setup Steps</h1>
+</li>
+<li>Upgrade the Firebase project from the "Spark plan" to the "Blaze plan" (Pay as you go). This requires a credit card attached to the Google Cloud Project, but the free limits are generous and should never be exceeded.<ul>
+<li>Click the "Spark plan" button to the right of the project name on the main page.</li>
+<li>This process will attach the Firebase project with a Google Cloud project.</li>
+</ul>
+</li>
+<li>Navigate to "Project settings" by clicking the gear icon next to "Project Overview". Select the "Service Accounts" tab and click "Generate
+  new private key" for <code>Firebase Admin SDK</code> usage.<ul>
+<li>Accept the security notice, and save the JSON file in a secure location.</li>
+</ul>
+</li>
+<li>Navigate to "Users and permissions" settings by clicking the gear icon next to "Project Overview". Additional users can be added to the Firebase project here.</li>
+<li>From the "Users and permissions" page, click the "Advanced permissions
+  settings" link at the bottom right. This will open the project in the Google Cloud Platform Console.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md58"></a>
+AWS Project Setup Steps</h1>
+<dl class="section note"><dt>Note</dt><dd>Be logged in with the target Amazon user which should own the AWS resources, and logged out of all other Amazon users. An incognito window works well for this if the target Google user is not your normal login account.</dd></dl>
 <ul>
-<li>Make sure you have followed the steps in the <a class="el" href="_r_e_a_d_m_e_8md.html">README.md</a>, at the minimum installing <code>brew</code>, <code>yarn</code>, and running <code>make deps</code>.</li>
+<li>Create a new AWS Account: <blockquote class="doxtable">
+<p><a href="https://portal.aws.amazon.com/billing/signup">https://portal.aws.amazon.com/billing/signup</a> </p>
+</blockquote>
+</li>
 </ul>
 <h2>Google APIs Enable Steps</h2>
 <ul>
@@ -155,6 +179,11 @@ Developer / Workstation Setup Steps</h1>
 </li>
 </ul>
 </li>
+</ul>
+<h1><a class="anchor" id="autotoc_md59"></a>
+Developer / Workstation Setup Steps</h1>
+<dl class="section note"><dt>Note</dt><dd>Make sure you have followed the steps in the <a class="el" href="_r_e_a_d_m_e_8md.html">README.md</a>, at the minimum installing <code>brew</code>, <code>yarn</code>, and running <code>make deps</code>.</dd></dl>
+<ul>
 <li>Obtain a refresh token (for the user whose Google Drive credentials will be used by the firmware)<ul>
 <li>Run the local script: &gt; <code>./bin/oauth_server.sh</code></li>
 <li>When prompted, provide the <code>OAuth Client ID</code> and <code>OAuth Client Secret</code> from the credentials created above.</li>
@@ -166,19 +195,9 @@ Developer / Workstation Setup Steps</h1>
 </ul>
 </li>
 </ul>
-<h2>Google Drive OTA Firmware Folder Creation Steps</h2>
+<h2>Google Drive "Maker Profile Photos" Folder Creation Steps</h2>
 <ul>
-<li>Create or re-use a Google Drive folder within the organization's Drive to hold the firmware files (e.g A new folder named "MakerLabs ACM Firmware")</li>
-<li>Open the <code>firmware/build</code> directory from this repo:<ul>
-<li><code>open firmware/build</code></li>
-</ul>
-</li>
-<li>Upload two (empty) files from within the <code>firmware/build/</code> directory to the Drive folder used above:<ul>
-<li><code>firmware/build/latest.fw.fb</code></li>
-<li><code>firmware/build/makerlabs-acm-reader-lock.bin</code></li>
-</ul>
-</li>
-<li>Right-click each file uploaded above, select 'Get Shareable Link`, and click the toggle to enable sharing that file.<ul>
+<li>Create or re-use a Google Drive folder within the organization's Drive to hold the uploaded Maker Profile Photo files (e.g A new folder named "Maker Profile Photos")<ul>
 <li>Click the 'Sharing settings' link and make sure the permissions are set appropriately (e.g. Organization-only viewing)</li>
 </ul>
 </li>
@@ -194,19 +213,13 @@ Developer / Workstation Setup Steps</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md58"></a>
+<h1><a class="anchor" id="autotoc_md60"></a>
 Configuration Steps</h1>
 <h2>Obtain the following pieces of information:</h2>
 <ul>
 <li>From the MakerLabs wifi network:<ul>
 <li><code>Wifi SSID</code> (2.4GHz-only)</li>
 <li><code>Wifi Password</code></li>
-</ul>
-</li>
-<li>From the GitHub repo:<ul>
-<li><code>GitHub organization/user name</code></li>
-<li><code>GitHub repo name</code></li>
-<li><code>GitHub repo branch</code></li>
 </ul>
 </li>
 <li>From the OAuth client ID credentials: <blockquote class="doxtable">
@@ -226,9 +239,8 @@ Configuration Steps</h1>
 <li><code>Script ID</code> (from <code>File -&gt; Project Properties -&gt; Script ID</code>)</li>
 </ul>
 </li>
-<li>From the Google Drive firmware folder:<ul>
-<li>Drive <code>id</code> of <code>latest.fw.fb</code> file (In Google Drive, right-click the file -&gt; <code>Get Sharable Link</code>. copy the portion <em>after</em> "https://drive.google.com/open?id=")</li>
-<li>Drive <code>id</code> of <code>makerlabs-acm-reader-lock.bin</code> file</li>
+<li>From the Google Drive "Profile Photos" folder:<ul>
+<li>Folder <code>id</code> of "Profile Photos" folder</li>
 </ul>
 </li>
 </ul>
@@ -250,27 +262,9 @@ Configuration Steps</h1>
 <li>Update the Google OAuth client info where it is used:<ul>
 <li><code>MakerLabs ACM Configuration -&gt; OAuth Client ID</code></li>
 <li><code>MakerLabs ACM Configuration -&gt; OAuth Client Secret</code></li>
-<li><code>MakerLabs ACM Configuration -&gt; OAuth Refresh Token</code></li>
+<li><code>MakerLabs ACM Configuration -&gt; OAuth Refresh Token</code> </li>
 </ul>
 </li>
-<li>Update the Google Drive OTA firmware info where it is used:<ul>
-<li><code>Firmware Update / OTA Configuration -&gt; Firmware Update Latest Version URL</code> The full HTTPS download URL to the Google Drive file <code>id</code> for <code>latest.fw.fb</code> found as: <code><a href="https://www.googleapis.com/drive/v3/files/">https://www.googleapis.com/drive/v3/files/</a>&lt;id&gt;?alt=media</code></li>
-<li><code>Firmware Update / OTA Configuration -&gt; Firmware Update Check URL</code> The full HTTPS download URL to the Google Drive file <code>id</code> for <code>makerlabs-acm-reader-lock.bin</code> found as: <code><a href="https://www.googleapis.com/drive/v3/files/">https://www.googleapis.com/drive/v3/files/</a>&lt;id&gt;?alt=media</code></li>
-</ul>
-</li>
-</ul>
-<h2>Configure the webapp with the information above:</h2>
-<ul>
-<li>Update the GitHub repo info where it is used:<ul>
-<li><code>webapp/views/AppLayoutTemplate.html</code> <div class="fragment"><div class="line">&lt;base href=&quot;https://cdn.rawgit.com/&lt;GITHUB_ORG&gt;/&lt;REPO_NAME&gt;/&lt;BRANCH_NAME&gt;/webcomponents/bower_components/&quot;&gt;</div></div><!-- fragment --></li>
-<li><code>git add webapp/views/AppLayoutTemplate.html &amp;&amp; git commit</code></li>
-</ul>
-</li>
-</ul>
-<h2>Build and upload the firmware</h2>
-<ul>
-<li>Build the firmware with the above configuration applied: &gt; yarn make erash_flash flash monitor</li>
-<li>Replace the uploaded firmware files in Google Drive </li>
 </ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->

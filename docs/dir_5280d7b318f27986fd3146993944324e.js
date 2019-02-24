@@ -13,6 +13,7 @@ var dir_5280d7b318f27986fd3146993944324e =
     [ "getUsersFields.js", "get_users_fields_8js.html", "get_users_fields_8js" ],
     [ "sendActivitySummaryEmail.js", "send_activity_summary_email_8js.html", "send_activity_summary_email_8js" ],
     [ "sendBrandedEmail.js", "send_branded_email_8js.html", "send_branded_email_8js" ],
+    [ "sendMemberOffboardingEmail.js", "send_member_offboarding_email_8js.html", "send_member_offboarding_email_8js" ],
     [ "toColumnName.js", "to_column_name_8js.html", "to_column_name_8js" ],
     [ "toColumnNum.js", "to_column_num_8js.html", "to_column_num_8js" ]
 ];

@@ -1,7 +1,0 @@
-<map id="triggerUsersEnforceFormattingOnChange" name="triggerUsersEnforceFormattingOnChange">
-<area shape="rect" id="node1" title="Inspect data rows (all non&#45;frozen rows) from the &quot;Users&quot; sheet and apply the formatting from the &quot;Use..." alt="" coords="5,24,209,63"/>
-<area shape="rect" id="node2" href="$group__scripts.html#ga014df1a552412aa52e96a0ce20c44eca" title="Given the name of a sheet in the Google Spreadsheet, return a Range which represents all non&#45;header r..." alt="" coords="495,5,651,31"/>
-<area shape="rect" id="node3" href="$group__scripts.html#gaccccb69110472d3a7861b2d198345425" title="Given a Range in any sheet, extract the template row (first non&#45;header row) from that sheet and copy ..." alt="" coords="257,56,437,81"/>
-<area shape="rect" id="node4" href="$group__scripts.html#ga08019da022e667efa4e2541b0ed4aa1f" title="Given two Ranges, return their intersection (the rows and columns they share in common)." alt="" coords="499,55,647,80"/>
-<area shape="rect" id="node5" href="$group__scripts.html#ga6ca2f66aa89e291716707d80c8f8f9d2" title="Given the name of a sheet within the Google Spreadsheet, return a Range which represents the template..." alt="" coords="485,104,660,129"/>
-</map>

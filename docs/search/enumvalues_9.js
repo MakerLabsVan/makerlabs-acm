@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['partialresponsechunks',['PartialResponseChunks',['../requests_8fbs.html#a073e41b12c51742e2600e64d979fa96fa09505d2bced86092a73eda0aac399620',1,'requests.fbs']]],
-  ['permanent',['permanent',['../actor__model_8fbs.html#afce865c536c99000444a44052fb5f6c2ab0b701fff3d01c5b515f9293cb4ede4d',1,'actor_model.fbs']]]
+  ['one_5ffor_5fall',['one_for_all',['../actor__model_8fbs.html#a7d1b3b3ea2ce6cad62af1110fa8c9f8fae566bea47b702eca83b9efa6b4a1e190',1,'actor_model.fbs']]],
+  ['one_5ffor_5fone',['one_for_one',['../actor__model_8fbs.html#a7d1b3b3ea2ce6cad62af1110fa8c9f8fac2408d554871ad2b9a57703d8d93643c',1,'actor_model.fbs']]]
 ];

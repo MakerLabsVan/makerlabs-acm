@@ -13,13 +13,16 @@ var searchData=
   ['last_5freset_5fpressed',['last_reset_pressed',['../struct_firmware_update_1_1_firmware_update_actor_state.html#add0be3b1e64245f66c43ca7688e4ea73',1,'FirmwareUpdate::FirmwareUpdateActorState']]],
   ['last_5freset_5fpressed_5finterval',['last_reset_pressed_interval',['../struct_firmware_update_1_1_firmware_update_actor_state.html#ad72ae254d204f74e1c958e8839b313ff',1,'FirmwareUpdate::FirmwareUpdateActorState']]],
   ['last_5fscanned_5ftag',['last_scanned_tag',['../class_h_i_d_global_reader.html#a778e732b9e037355cd1eff73a0ee7970',1,'HIDGlobalReader']]],
+  ['latest_2efw_2ejson_2etpl',['latest.fw.json.tpl',['../latest_8fw_8json_8tpl.html',1,'']]],
   ['leading_5fbits',['leading_bits',['../struct_h_i_d_global_tag_i_d_1_1_parity_view.html#a680e3e0ac137ba8a53153f624516bf03',1,'HIDGlobalTagID::ParityView']]],
   ['leading_5fparity_5fbit',['leading_parity_bit',['../struct_h_i_d_global_tag_i_d_1_1_tag_format_view.html#ae2a02e118b8581138d493d4c23478708',1,'HIDGlobalTagID::TagFormatView']]],
   ['link',['link',['../class_actor_model_1_1_process.html#ad8354ae0aba8007ff1f502feffe73590',1,'ActorModel::Process']]],
   ['linklist',['LinkList',['../class_actor_model_1_1_process.html#a42ff613ddc7e41c32d94730e3879b9a1',1,'ActorModel::Process']]],
   ['links',['links',['../class_actor_model_1_1_process.html#ada64a3482c98c9bbc720a2e836c1bbdd',1,'ActorModel::Process']]],
   ['loadgapi',['loadGapi',['../class_google_signin_button.html#a8808379fd0e37ca03be80d71478eaf0f',1,'GoogleSigninButton']]],
+  ['log',['Log',['../struct_log.html',1,'']]],
   ['logflatbuffer',['LogFlatbuffer',['../group__firmware.html#gadc03a1b60d6cc9db665a9a9dd165b4e5',1,'acm_helpers.h']]],
   ['logged_5fin',['logged_in',['../struct_app_actor_state.html#a18f88dd4d6b4e688b0ee2c61bb7a6fb8',1,'AppActorState']]],
-  ['loginfirebase',['loginFirebase',['../class_app_shell.html#a2b18846e9c17a0fa25f574e8a536cf88',1,'AppShell']]]
+  ['loginfirebase',['loginFirebase',['../class_app_shell.html#a2b18846e9c17a0fa25f574e8a536cf88',1,'AppShell']]],
+  ['logseverity',['LogSeverity',['../acm_8fbs.html#a5ff30f32ec7110d67381716509291136',1,'acm.fbs']]]
 ];

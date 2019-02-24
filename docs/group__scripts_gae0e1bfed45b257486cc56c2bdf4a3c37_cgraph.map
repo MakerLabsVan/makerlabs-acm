@@ -1,4 +1,0 @@
-<map id="triggerPopupOnUnsafeChangesOnChange" name="triggerPopupOnUnsafeChangesOnChange">
-<area shape="rect" id="node1" title="Trigger a popup/toast in the Google Spreadsheet UI when changes in structure (e.g...." alt="" coords="5,5,216,44"/>
-<area shape="rect" id="node2" href="$group__scripts.html#ga19b411d53b77f892dd848c30f3e0c5d7" title="Display a popup/toast message in the Spreadsheet website UI, suggesting to undo a previous change." alt="" coords="264,12,436,37"/>
-</map>

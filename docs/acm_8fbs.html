@@ -129,6 +129,10 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_user.html">User</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flatbuffer which represents metadata from a user.  <a href="struct_user.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_n_c___job.html">CNC_Job</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_log.html">Log</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -137,6 +141,18 @@ Enumerations</h2></td></tr>
 <a class="el" href="acm_8fbs.html#ab7798968e0c7238d32b1c719d7dd08cda92d9028aabdfdfc883e9b2bd2e1a559b">ActivityType.CNC_Job</a>
  }</td></tr>
 <tr class="separator:ab7798968e0c7238d32b1c719d7dd08cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ff30f32ec7110d67381716509291136"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="acm_8fbs.html#a5ff30f32ec7110d67381716509291136">LogSeverity</a> : byte { <br />
+&#160;&#160;<a class="el" href="acm_8fbs.html#a5ff30f32ec7110d67381716509291136a882384ec38ce8d9582b57e70861730e4">LogSeverity.Fatal</a>, 
+<a class="el" href="acm_8fbs.html#a5ff30f32ec7110d67381716509291136a902b0d55fddef6f8d651fe1035b7d4bd">LogSeverity.Error</a>, 
+<a class="el" href="acm_8fbs.html#a5ff30f32ec7110d67381716509291136a56525ae64d370c0b448ac0d60710ef17">LogSeverity.Warn</a>, 
+<a class="el" href="acm_8fbs.html#a5ff30f32ec7110d67381716509291136a24efa7ee4511563b16144f39706d594f">LogSeverity.Notice</a>, 
+<br />
+&#160;&#160;<a class="el" href="acm_8fbs.html#a5ff30f32ec7110d67381716509291136a4059b0251f66a18cb56f544728796875">LogSeverity.Info</a>, 
+<a class="el" href="acm_8fbs.html#a5ff30f32ec7110d67381716509291136aa603905470e2a5b8c13e96b579ef0dba">LogSeverity.Debug</a>, 
+<a class="el" href="acm_8fbs.html#a5ff30f32ec7110d67381716509291136add4ec0ac4e58f7c32a01244ae91150b1">LogSeverity.Trace</a>
+<br />
+ }</td></tr>
+<tr class="separator:a5ff30f32ec7110d67381716509291136"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -174,6 +190,37 @@ Variables</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab7798968e0c7238d32b1c719d7dd08cda73a2f193ffc9bbf833a8730619816a88"></a>Signed_In&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab7798968e0c7238d32b1c719d7dd08cda66e7a058829281f462e71d63a640211f"></a>Signed_Out&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab7798968e0c7238d32b1c719d7dd08cda92d9028aabdfdfc883e9b2bd2e1a559b"></a>CNC_Job&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a5ff30f32ec7110d67381716509291136"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ff30f32ec7110d67381716509291136">&#9670;&nbsp;</a></span>LogSeverity</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="acm_8fbs.html#a5ff30f32ec7110d67381716509291136">LogSeverity</a> : byte</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a5ff30f32ec7110d67381716509291136a882384ec38ce8d9582b57e70861730e4"></a>Fatal&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5ff30f32ec7110d67381716509291136a902b0d55fddef6f8d651fe1035b7d4bd"></a>Error&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5ff30f32ec7110d67381716509291136a56525ae64d370c0b448ac0d60710ef17"></a>Warn&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5ff30f32ec7110d67381716509291136a24efa7ee4511563b16144f39706d594f"></a>Notice&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5ff30f32ec7110d67381716509291136a4059b0251f66a18cb56f544728796875"></a>Info&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5ff30f32ec7110d67381716509291136aa603905470e2a5b8c13e96b579ef0dba"></a>Debug&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5ff30f32ec7110d67381716509291136add4ec0ac4e58f7c32a01244ae91150b1"></a>Trace&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>

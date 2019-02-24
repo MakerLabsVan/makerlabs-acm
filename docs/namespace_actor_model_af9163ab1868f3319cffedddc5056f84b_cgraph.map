@@ -1,7 +1,6 @@
 <map id="ActorModel::supervisor_actor_behaviour" name="ActorModel::supervisor_actor_behaviour">
-<area shape="rect" id="node1" title=" " alt="" coords="5,48,163,87"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,24,163,63"/>
 <area shape="rect" id="node2" href="$namespace_actor_model.html#aefe347cf1fcd0d80dca3e517604ad625" title=" " alt="" coords="224,5,370,31"/>
 <area shape="rect" id="node3" href="$namespace_actor_model.html#ac30636b636d313950f00dafa885132b7" title=" " alt="" coords="211,55,383,80"/>
-<area shape="rect" id="node5" href="$namespace_u_u_i_d.html#a82f83d0db798b58169d51933e2c9760b" title=" " alt="" coords="230,104,364,129"/>
 <area shape="rect" id="node4" href="$class_actor_model_1_1_process.html#a7855ee2779ae4a48e56776be8ca20b87" title=" " alt="" coords="431,48,575,87"/>
 </map>

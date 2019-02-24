@@ -1,4 +1,0 @@
-<map id="excludeTemplateRowFromRange" name="excludeTemplateRowFromRange">
-<area shape="rect" id="node1" title="Given an arbitrary Range, return an adjusted range so that no header/frozen rows or template row (fir..." alt="" coords="5,5,224,31"/>
-<area shape="rect" id="node2" href="$group__scripts.html#ga6ca2f66aa89e291716707d80c8f8f9d2" title="Given the name of a sheet within the Google Spreadsheet, return a Range which represents the template..." alt="" coords="272,5,447,31"/>
-</map>

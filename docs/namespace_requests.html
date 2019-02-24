@@ -119,6 +119,8 @@ $(document).ready(function(){initNavTree('namespace_requests.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_requests_1_1_queued_endpoint_actor_state.html">QueuedEndpointActorState</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_requests_1_1_request_handler.html">RequestHandler</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_requests_1_1_request_intent_reflection_state.html">RequestIntentReflectionState</a></td></tr>
@@ -134,6 +136,10 @@ Typedefs</h2></td></tr>
 <tr class="separator:afefb12c78c86f296b23063daa907aa75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56879b76bf74267da5926f83473126b2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a56879b76bf74267da5926f83473126b2">string</a> = std::string</td></tr>
 <tr class="separator:a56879b76bf74267da5926f83473126b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1074a090783a662d32033c2b65737387"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a1074a090783a662d32033c2b65737387">MutableRequestPayload</a> = std::vector&lt; uint8_t &gt;</td></tr>
+<tr class="separator:a1074a090783a662d32033c2b65737387"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5fc08bd93411f5de770b5b162b9494e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#ab5fc08bd93411f5de770b5b162b9494e">RequestPayloadFlatbuffer</a> = flatbuffers::DetachedBuffer</td></tr>
+<tr class="separator:ab5fc08bd93411f5de770b5b162b9494e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0143cba9bdca3295a273a0e09f1161f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#ac0143cba9bdca3295a273a0e09f1161f">ResponseFlatbuffer</a> = flatbuffers::DetachedBuffer</td></tr>
 <tr class="separator:ac0143cba9bdca3295a273a0e09f1161f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ac722d475c02cf7fc7c89839d7daa34"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a0ac722d475c02cf7fc7c89839d7daa34">ServerSentEventFlatbuffer</a> = flatbuffers::DetachedBuffer</td></tr>
@@ -142,6 +148,8 @@ Typedefs</h2></td></tr>
 <tr class="separator:a0f393fb4e5fabd9ba3192902a5621f53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6cc4eecc90cc9cd5ed9714b0bceedaab"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a6cc4eecc90cc9cd5ed9714b0bceedaab">RequestIntentFields</a> = flatbuffers::Vector&lt; flatbuffers::Offset&lt; reflection::Field &gt; &gt;</td></tr>
 <tr class="separator:a6cc4eecc90cc9cd5ed9714b0bceedaab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f3b0b06b65ad244f9d85aaeadaa9927"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a2f3b0b06b65ad244f9d85aaeadaa9927">ResponsePayloadFlatbuffer</a> = flatbuffers::DetachedBuffer</td></tr>
+<tr class="separator:a2f3b0b06b65ad244f9d85aaeadaa9927"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c45f16d6db70845eb01788ed965ab19"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a> = flatbuffers::DetachedBuffer</td></tr>
 <tr class="separator:a9c45f16d6db70845eb01788ed965ab19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac217d1cf543575774db38eae83fc5b02"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#ac217d1cf543575774db38eae83fc5b02">RequestIntentFlatbufferRef</a> = flatbuffers::BufferRef&lt; <a class="el" href="struct_request_intent.html">RequestIntent</a> &gt;</td></tr>
@@ -153,51 +161,73 @@ Typedefs</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a0e234abe5a512dd19c6bbb83b5f0d940"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a0e234abe5a512dd19c6bbb83b5f0d940">print_curl_library_info</a> () -&gt; void</td></tr>
 <tr class="separator:a0e234abe5a512dd19c6bbb83b5f0d940"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6674c0706bea5488159b4f29d99a3df5"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a6674c0706bea5488159b4f29d99a3df5">parse_http_status_line</a> (const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> chunk) -&gt; int</td></tr>
+<tr class="memitem:a6674c0706bea5488159b4f29d99a3df5"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a6674c0706bea5488159b4f29d99a3df5">parse_http_status_line</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> chunk) -&gt; int</td></tr>
 <tr class="separator:a6674c0706bea5488159b4f29d99a3df5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fb04347e52f903d098e884f2d7dc5a0"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a3fb04347e52f903d098e884f2d7dc5a0">is_char_url_safe</a> (const char c) -&gt; bool</td></tr>
+<tr class="memitem:a3fb04347e52f903d098e884f2d7dc5a0"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a3fb04347e52f903d098e884f2d7dc5a0">is_char_url_safe</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> char c) -&gt; bool</td></tr>
 <tr class="separator:a3fb04347e52f903d098e884f2d7dc5a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac236e7c2ecb5e6cc89fa0a7ffa1444ab"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#ac236e7c2ecb5e6cc89fa0a7ffa1444ab">urlencode</a> (const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> raw_str) -&gt; <a class="el" href="group__firmware.html#gaca454f84dd198a937af6499dd758aa3d">std::string</a></td></tr>
+<tr class="memitem:ac236e7c2ecb5e6cc89fa0a7ffa1444ab"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#ac236e7c2ecb5e6cc89fa0a7ffa1444ab">urlencode</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> raw_str) -&gt; <a class="el" href="group__firmware.html#gaca454f84dd198a937af6499dd758aa3d">std::string</a></td></tr>
 <tr class="separator:ac236e7c2ecb5e6cc89fa0a7ffa1444ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae909eaf437fa7044ff66e850f375c755"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#ae909eaf437fa7044ff66e850f375c755">request_manager_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;<a class="el" href="namespace_requests.html#acbac32b52c8f994f34412de8aa68d833">state</a>, const <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
+<tr class="memitem:a0b27139ee590439c77a5ecce758cbfb9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a0b27139ee590439c77a5ecce758cbfb9">queued_endpoint_actor_behaviour</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;_state, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
+<tr class="separator:a0b27139ee590439c77a5ecce758cbfb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a809929a1252538842a5abb44237a8d74"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a809929a1252538842a5abb44237a8d74">queued_endpoint_actor_behaviour</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;<a class="el" href="namespace_requests.html#acbac32b52c8f994f34412de8aa68d833">state</a>, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td></tr>
+<tr class="separator:a809929a1252538842a5abb44237a8d74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae909eaf437fa7044ff66e850f375c755"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#ae909eaf437fa7044ff66e850f375c755">request_manager_actor_behaviour</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;<a class="el" href="namespace_requests.html#acbac32b52c8f994f34412de8aa68d833">state</a>, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_message.html">Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a></td></tr>
 <tr class="separator:ae909eaf437fa7044ff66e850f375c755"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c56c9469e3ee43d55807f21c32e47c7"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a9c56c9469e3ee43d55807f21c32e47c7">request_manager_actor_behaviour</a> (const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;<a class="el" href="namespace_requests.html#acbac32b52c8f994f34412de8aa68d833">state</a>, const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td></tr>
+<tr class="memitem:a9c56c9469e3ee43d55807f21c32e47c7"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a9c56c9469e3ee43d55807f21c32e47c7">request_manager_actor_behaviour</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;self, <a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;<a class="el" href="namespace_requests.html#acbac32b52c8f994f34412de8aa68d833">state</a>, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message) -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td></tr>
 <tr class="separator:a9c56c9469e3ee43d55807f21c32e47c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b79ad4a24c8538998c04cc5f8e0f5cf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a6b79ad4a24c8538998c04cc5f8e0f5cf">DECLARE_STRING_VIEW_WRAPPER</a> (requests_bfbs)</td></tr>
 <tr class="separator:a6b79ad4a24c8538998c04cc5f8e0f5cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e8c5ba9096c9cc15446b692f18aab51"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a7e8c5ba9096c9cc15446b692f18aab51">_set_request_field_by_name</a> (<a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a> &amp;request_intent_mutable_buf, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> field_name, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> str) -&gt; bool</td></tr>
+<tr class="memitem:a7e8c5ba9096c9cc15446b692f18aab51"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a7e8c5ba9096c9cc15446b692f18aab51">_set_request_field_by_name</a> (<a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a> &amp;request_intent_mutable_buf, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> field_name, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> str) -&gt; bool</td></tr>
 <tr class="separator:a7e8c5ba9096c9cc15446b692f18aab51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9469420f1699e05d25a4b6f69c3832e8"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a9469420f1699e05d25a4b6f69c3832e8">_parse_requests_schema</a> () -&gt; bool</td></tr>
 <tr class="separator:a9469420f1699e05d25a4b6f69c3832e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d0af78b64a1296b71ae57c03c20aa79"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a9d0af78b64a1296b71ae57c03c20aa79">make_request_intent</a> (const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> method, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> uri, const std::vector&lt; std::pair&lt; <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>, <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> &gt;&gt; &amp;query, const std::vector&lt; std::pair&lt; <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>, <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> &gt;&gt; &amp;headers, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> body, const <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a> &amp;to_pid, const <a class="el" href="requests_8fbs.html#a073e41b12c51742e2600e64d979fa96f">ResponseFilter</a> desired_format, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> object_path, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> root_type, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> schema_text, const bool include_headers, const bool streaming) -&gt; <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td></tr>
+<tr class="memitem:a7b0fccdaa2f207ff564999617df04227"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a7b0fccdaa2f207ff564999617df04227">make_request_payload</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; uint8_t &gt; &amp;payload) -&gt; <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td></tr>
+<tr class="separator:a7b0fccdaa2f207ff564999617df04227"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cc6b31b5087df339b8714bb6e3cbc9b"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a6cc6b31b5087df339b8714bb6e3cbc9b">make_request_payload</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> flatbuffers::DetachedBuffer &amp;payload) -&gt; <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td></tr>
+<tr class="separator:a6cc6b31b5087df339b8714bb6e3cbc9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa65e82b2a5c05b8263ed73cdca2fda0b"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#aa65e82b2a5c05b8263ed73cdca2fda0b">make_request_payload</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> payload) -&gt; <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td></tr>
+<tr class="separator:aa65e82b2a5c05b8263ed73cdca2fda0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac17e9b0e0694dfcf9c924ec970ccd18"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#aac17e9b0e0694dfcf9c924ec970ccd18">make_response_payload</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a> &amp;request_id, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; uint8_t &gt; &amp;payload) -&gt; <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td></tr>
+<tr class="separator:aac17e9b0e0694dfcf9c924ec970ccd18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5894df7db37c2e7227a27e6bc525cd5"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#aa5894df7db37c2e7227a27e6bc525cd5">make_response_payload</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a> &amp;request_id, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> flatbuffers::DetachedBuffer &amp;payload) -&gt; <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td></tr>
+<tr class="separator:aa5894df7db37c2e7227a27e6bc525cd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d19856ff5977cb207e364d2d72679d7"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a6d19856ff5977cb207e364d2d72679d7">make_response_payload</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a> &amp;request_id, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> payload) -&gt; <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td></tr>
+<tr class="separator:a6d19856ff5977cb207e364d2d72679d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d0af78b64a1296b71ae57c03c20aa79"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a9d0af78b64a1296b71ae57c03c20aa79">make_request_intent</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> method, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> uri, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; std::pair&lt; <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>, <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> &gt;&gt; &amp;query, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; std::pair&lt; <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>, <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> &gt;&gt; &amp;headers, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> body, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a> &amp;to_pid, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="requests_8fbs.html#a073e41b12c51742e2600e64d979fa96f">ResponseFilter</a> desired_format, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> object_path, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> root_type, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> schema_text, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> bool include_headers, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> bool streaming) -&gt; <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td></tr>
 <tr class="separator:a9d0af78b64a1296b71ae57c03c20aa79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6640cef674ca2c2d5a4f66e4ac2a175"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#ab6640cef674ca2c2d5a4f66e4ac2a175">set_request_header</a> (<a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a> &amp;request_intent_mutable_buf, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> k, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> v) -&gt; bool</td></tr>
+<tr class="memitem:ab6640cef674ca2c2d5a4f66e4ac2a175"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#ab6640cef674ca2c2d5a4f66e4ac2a175">set_request_header</a> (<a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a> &amp;request_intent_mutable_buf, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> k, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> v) -&gt; bool</td></tr>
 <tr class="separator:ab6640cef674ca2c2d5a4f66e4ac2a175"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af673a78f2d32b786002168ae87237870"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#af673a78f2d32b786002168ae87237870">set_request_query_arg</a> (<a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a> &amp;request_intent_mutable_buf, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> k, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> v) -&gt; bool</td></tr>
+<tr class="memitem:af673a78f2d32b786002168ae87237870"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#af673a78f2d32b786002168ae87237870">set_request_query_arg</a> (<a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a> &amp;request_intent_mutable_buf, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> k, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> v) -&gt; bool</td></tr>
 <tr class="separator:af673a78f2d32b786002168ae87237870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba1926c05e39fc79b36cd024d0e96e1b"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#aba1926c05e39fc79b36cd024d0e96e1b">set_request_method</a> (<a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a> &amp;request_intent_mutable_buf, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> method) -&gt; bool</td></tr>
+<tr class="memitem:aba1926c05e39fc79b36cd024d0e96e1b"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#aba1926c05e39fc79b36cd024d0e96e1b">set_request_method</a> (<a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a> &amp;request_intent_mutable_buf, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> method) -&gt; bool</td></tr>
 <tr class="separator:aba1926c05e39fc79b36cd024d0e96e1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55f5b24c9a1e05ba3a3a795075cc25e3"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a55f5b24c9a1e05ba3a3a795075cc25e3">set_request_uri</a> (<a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a> &amp;request_intent_mutable_buf, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> uri) -&gt; bool</td></tr>
+<tr class="memitem:a55f5b24c9a1e05ba3a3a795075cc25e3"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a55f5b24c9a1e05ba3a3a795075cc25e3">set_request_uri</a> (<a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a> &amp;request_intent_mutable_buf, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> uri) -&gt; bool</td></tr>
 <tr class="separator:a55f5b24c9a1e05ba3a3a795075cc25e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a836d7b6b759ee1bd7a8c600acec0b9f4"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a836d7b6b759ee1bd7a8c600acec0b9f4">set_request_body</a> (<a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a> &amp;request_intent_mutable_buf, const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> body) -&gt; bool</td></tr>
+<tr class="memitem:a836d7b6b759ee1bd7a8c600acec0b9f4"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a836d7b6b759ee1bd7a8c600acec0b9f4">set_request_body</a> (<a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a> &amp;request_intent_mutable_buf, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> body) -&gt; bool</td></tr>
 <tr class="separator:a836d7b6b759ee1bd7a8c600acec0b9f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a207bc1ffb5f90fb1e9a92a947a5a082e"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a207bc1ffb5f90fb1e9a92a947a5a082e">matches</a> (const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> type, const <a class="el" href="struct_response.html">Response</a> *&amp;response, const <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a> &amp;request_intent_id) -&gt; bool</td></tr>
+<tr class="memitem:a207bc1ffb5f90fb1e9a92a947a5a082e"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a207bc1ffb5f90fb1e9a92a947a5a082e">matches</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> type, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_response.html">Response</a> *&amp;response, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a> &amp;request_intent_id) -&gt; bool</td></tr>
 <tr class="separator:a207bc1ffb5f90fb1e9a92a947a5a082e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade3304a270130400fb5c52c156c5814a"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#ade3304a270130400fb5c52c156c5814a">update_request_intent_ids</a> (<a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a> &amp;request_intent_mutable_buf, const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;to_pid) -&gt; bool</td></tr>
+<tr class="memitem:ade3304a270130400fb5c52c156c5814a"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#ade3304a270130400fb5c52c156c5814a">update_request_intent_ids</a> (<a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a> &amp;request_intent_mutable_buf, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;to_pid) -&gt; bool</td></tr>
 <tr class="separator:ade3304a270130400fb5c52c156c5814a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c778e3226d7ec93e2351043c96088cd"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a1c778e3226d7ec93e2351043c96088cd">parse_request_intent</a> (const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> req_fb, const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;to_pid) -&gt; <a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a></td></tr>
+<tr class="memitem:a1c778e3226d7ec93e2351043c96088cd"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a1c778e3226d7ec93e2351043c96088cd">parse_request_intent</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> req_fb, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;to_pid) -&gt; <a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a></td></tr>
 <tr class="separator:a1c778e3226d7ec93e2351043c96088cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74f524cbf36960d2b690f020ca5a6014"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a74f524cbf36960d2b690f020ca5a6014">get_request_intent_id</a> (const <a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a> &amp;request_intent_mutable_buf) -&gt; const <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a></td></tr>
+<tr class="memitem:a74f524cbf36960d2b690f020ca5a6014"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a74f524cbf36960d2b690f020ca5a6014">get_request_intent_id</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a> &amp;request_intent_mutable_buf) -&gt; <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a></td></tr>
 <tr class="separator:a74f524cbf36960d2b690f020ca5a6014"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac783f9083e2e6b5c7c9c6fb9ac2cad17"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#ac783f9083e2e6b5c7c9c6fb9ac2cad17">get_request_intent_id</a> (const <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a> &amp;request_intent_buf) -&gt; const <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a></td></tr>
+<tr class="memitem:ac783f9083e2e6b5c7c9c6fb9ac2cad17"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#ac783f9083e2e6b5c7c9c6fb9ac2cad17">get_request_intent_id</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a> &amp;request_intent_buf) -&gt; <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a></td></tr>
 <tr class="separator:ac783f9083e2e6b5c7c9c6fb9ac2cad17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe34d8505ad0d383b28dd6fce40c25a3"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#afe34d8505ad0d383b28dd6fce40c25a3">make_request_intent</a> (const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> method, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> uri, const std::vector&lt; std::pair&lt; <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>, <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> &gt; &gt; &amp;query={}, const std::vector&lt; std::pair&lt; <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>, <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> &gt; &gt; &amp;headers={}, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> body=&quot;&quot;, const UUID::UUID &amp;to_pid=<a class="el" href="struct_u_u_i_d.html#a01528f58a71d425ba9fdcdb918229d9f">UUID::NullUUID</a>, const <a class="el" href="requests_8fbs.html#a073e41b12c51742e2600e64d979fa96f">ResponseFilter</a> desired_format=<a class="el" href="requests_8fbs.html#a073e41b12c51742e2600e64d979fa96fae9a03b478791e40351b3e515da4a1b37">ResponseFilter::FullResponseBody</a>, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> object_path=&quot;&quot;, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> root_type=&quot;&quot;, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> schema_text=&quot;&quot;, const bool include_headers=false, const bool streaming=false) -&gt; <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td></tr>
+<tr class="memitem:aab4b28c4484c4a657e3e63b881f78baa"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#aab4b28c4484c4a657e3e63b881f78baa">make_response_payload</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> UUID::UUID &amp;request_id, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; uint8_t &gt; &amp;payload) -&gt; <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td></tr>
+<tr class="separator:aab4b28c4484c4a657e3e63b881f78baa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a126878506f154c555286192978eed888"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a126878506f154c555286192978eed888">make_response_payload</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> UUID::UUID &amp;request_id, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> flatbuffers::DetachedBuffer &amp;payload) -&gt; <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td></tr>
+<tr class="separator:a126878506f154c555286192978eed888"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a4b021134d8b422daf1b5ac7f1d890d"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a6a4b021134d8b422daf1b5ac7f1d890d">make_response_payload</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> UUID::UUID &amp;request_id, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> payload) -&gt; <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td></tr>
+<tr class="separator:a6a4b021134d8b422daf1b5ac7f1d890d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe34d8505ad0d383b28dd6fce40c25a3"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#afe34d8505ad0d383b28dd6fce40c25a3">make_request_intent</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> method, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> uri, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; std::pair&lt; <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>, <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> &gt; &gt; &amp;query={}, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; std::pair&lt; <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>, <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> &gt; &gt; &amp;headers={}, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> body=&quot;&quot;, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> UUID::UUID &amp;to_pid=<a class="el" href="struct_u_u_i_d.html#a01528f58a71d425ba9fdcdb918229d9f">UUID::NullUUID</a>, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="requests_8fbs.html#a073e41b12c51742e2600e64d979fa96f">ResponseFilter</a> desired_format=<a class="el" href="requests_8fbs.html#a073e41b12c51742e2600e64d979fa96fae9a03b478791e40351b3e515da4a1b37">ResponseFilter::FullResponseBody</a>, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> object_path=&quot;&quot;, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> root_type=&quot;&quot;, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> schema_text=&quot;&quot;, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> bool include_headers=false, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> bool streaming=false) -&gt; <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td></tr>
 <tr class="separator:afe34d8505ad0d383b28dd6fce40c25a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4611ba20fc81b4c8f4a47d011ee7d3b0"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a4611ba20fc81b4c8f4a47d011ee7d3b0">matches</a> (const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message, const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> type, const <a class="el" href="struct_response.html">Response</a> *&amp;response, const UUID::UUID &amp;request_intent_id) -&gt; bool</td></tr>
+<tr class="memitem:a4611ba20fc81b4c8f4a47d011ee7d3b0"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a4611ba20fc81b4c8f4a47d011ee7d3b0">matches</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;message, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> type, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_response.html">Response</a> *&amp;response, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> UUID::UUID &amp;request_intent_id) -&gt; bool</td></tr>
 <tr class="separator:a4611ba20fc81b4c8f4a47d011ee7d3b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeef1d028d8c0284588279af5e1497f92"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#aeef1d028d8c0284588279af5e1497f92">find_next_line_ending</a> (const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> chunk, const size_t start) -&gt; std::pair&lt; size_t, size_t &gt;</td></tr>
+<tr class="memitem:aeef1d028d8c0284588279af5e1497f92"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#aeef1d028d8c0284588279af5e1497f92">find_next_line_ending</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> chunk, <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> size_t start) -&gt; std::pair&lt; size_t, size_t &gt;</td></tr>
 <tr class="separator:aeef1d028d8c0284588279af5e1497f92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e5b6cbf6cdcd1cff326309da03f2d79"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a9e5b6cbf6cdcd1cff326309da03f2d79">find_last_blank_line</a> (const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> chunk) -&gt; std::pair&lt; size_t, size_t &gt;</td></tr>
+<tr class="memitem:a9e5b6cbf6cdcd1cff326309da03f2d79"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a9e5b6cbf6cdcd1cff326309da03f2d79">find_last_blank_line</a> (<a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> chunk) -&gt; std::pair&lt; size_t, size_t &gt;</td></tr>
 <tr class="separator:a9e5b6cbf6cdcd1cff326309da03f2d79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -206,10 +236,8 @@ Variables</h2></td></tr>
 <tr class="separator:a941ccc94b8018989edb07336ffba90eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81b32bb395eb923143148ea20980e860"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a81b32bb395eb923143148ea20980e860">print_check_feature</a></td></tr>
 <tr class="separator:a81b32bb395eb923143148ea20980e860"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad728ced0131baec829d23cc17958d517"><td class="memItemLeft" align="right" valign="top">mbedtls_x509_crt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#ad728ced0131baec829d23cc17958d517">cacerts</a></td></tr>
-<tr class="separator:ad728ced0131baec829d23cc17958d517"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43eb140ab22289f29db60d02020bcde5"><td class="memItemLeft" align="right" valign="top">constexpr char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#a43eb140ab22289f29db60d02020bcde5">TAG</a> [] = &quot;RequestManager&quot;</td></tr>
-<tr class="separator:a43eb140ab22289f29db60d02020bcde5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace7a5f17f66b9537bba89fd68db089d6"><td class="memItemLeft" align="right" valign="top">constexpr char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#ace7a5f17f66b9537bba89fd68db089d6">TAG</a> [] = &quot;queued_endpoint_actor&quot;</td></tr>
+<tr class="separator:ace7a5f17f66b9537bba89fd68db089d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acbac32b52c8f994f34412de8aa68d833"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_requests_1_1_request_intent_reflection_state.html">RequestIntentReflectionState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_requests.html#acbac32b52c8f994f34412de8aa68d833">state</a></td></tr>
 <tr class="separator:acbac32b52c8f994f34412de8aa68d833"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -222,6 +250,20 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">Requests::MutableRequestIntentFlatbuffer</a> = typedef std::vector&lt;uint8_t&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1074a090783a662d32033c2b65737387"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1074a090783a662d32033c2b65737387">&#9670;&nbsp;</a></span>MutableRequestPayload</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespace_requests.html#a1074a090783a662d32033c2b65737387">Requests::MutableRequestPayload</a> = typedef std::vector&lt;uint8_t&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -270,6 +312,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ab5fc08bd93411f5de770b5b162b9494e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5fc08bd93411f5de770b5b162b9494e">&#9670;&nbsp;</a></span>RequestPayloadFlatbuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef flatbuffers::DetachedBuffer <a class="el" href="namespace_requests.html#ab5fc08bd93411f5de770b5b162b9494e">Requests::RequestPayloadFlatbuffer</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac0143cba9bdca3295a273a0e09f1161f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac0143cba9bdca3295a273a0e09f1161f">&#9670;&nbsp;</a></span>ResponseFlatbuffer</h2>
 
@@ -278,6 +334,20 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="namespace_requests.html#ac0143cba9bdca3295a273a0e09f1161f">Requests::ResponseFlatbuffer</a> = typedef flatbuffers::DetachedBuffer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2f3b0b06b65ad244f9d85aaeadaa9927"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f3b0b06b65ad244f9d85aaeadaa9927">&#9670;&nbsp;</a></span>ResponsePayloadFlatbuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespace_requests.html#a2f3b0b06b65ad244f9d85aaeadaa9927">Requests::ResponsePayloadFlatbuffer</a> = typedef flatbuffers::DetachedBuffer</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -373,13 +443,13 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>field_name</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>str</em>&#160;</td>
         </tr>
         <tr>
@@ -428,7 +498,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto Requests::find_last_blank_line </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>chunk</em></td><td>)</td>
           <td> -&gt; std::pair&lt;size_t, size_t&gt;</td>
         </tr>
@@ -446,13 +516,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto Requests::find_next_line_ending </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>chunk</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const size_t&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> size_t&#160;</td>
           <td class="paramname"><em>start</em>&#160;</td>
         </tr>
         <tr>
@@ -474,9 +544,9 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto Requests::get_request_intent_id </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_requests.html#aec8256a7de9df16f753e6eeca08d3ed4">MutableRequestIntentFlatbuffer</a> &amp;&#160;</td>
           <td class="paramname"><em>request_intent_mutable_buf</em></td><td>)</td>
-          <td> -&gt;  const <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a></td>
+          <td> -&gt;  <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -492,9 +562,9 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto Requests::get_request_intent_id </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a> &amp;&#160;</td>
           <td class="paramname"><em>request_intent_buf</em></td><td>)</td>
-          <td> -&gt;  const <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a></td>
+          <td> -&gt;  <a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -510,7 +580,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto Requests::is_char_url_safe </td>
           <td>(</td>
-          <td class="paramtype">const char&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> char&#160;</td>
           <td class="paramname"><em>c</em></td><td>)</td>
           <td> -&gt;  bool</td>
         </tr>
@@ -528,73 +598,73 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto Requests::make_request_intent </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>method</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>uri</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; std::pair&lt; <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>, <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> &gt; &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; std::pair&lt; <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>, <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> &gt; &gt; &amp;&#160;</td>
           <td class="paramname"><em>query</em> = <code>{}</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; std::pair&lt; <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>, <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> &gt; &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; std::pair&lt; <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>, <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a> &gt; &gt; &amp;&#160;</td>
           <td class="paramname"><em>headers</em> = <code>{}</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>body</em> = <code>&quot;&quot;</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const UUID::UUID &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> UUID::UUID &amp;&#160;</td>
           <td class="paramname"><em>to_pid</em> = <code><a class="el" href="struct_u_u_i_d.html#a01528f58a71d425ba9fdcdb918229d9f">UUID::NullUUID</a></code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="requests_8fbs.html#a073e41b12c51742e2600e64d979fa96f">ResponseFilter</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="requests_8fbs.html#a073e41b12c51742e2600e64d979fa96f">ResponseFilter</a>&#160;</td>
           <td class="paramname"><em>desired_format</em> = <code><a class="el" href="requests_8fbs.html#a073e41b12c51742e2600e64d979fa96fae9a03b478791e40351b3e515da4a1b37">ResponseFilter::FullResponseBody</a></code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>object_path</em> = <code>&quot;&quot;</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>root_type</em> = <code>&quot;&quot;</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>schema_text</em> = <code>&quot;&quot;</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const bool&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> bool&#160;</td>
           <td class="paramname"><em>include_headers</em> = <code>false</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const bool&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> bool&#160;</td>
           <td class="paramname"><em>streaming</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
@@ -616,73 +686,73 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto Requests::make_request_intent </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>method</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>uri</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; std::pair&lt; <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>, <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> &gt;&gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; std::pair&lt; <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>, <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> &gt;&gt; &amp;&#160;</td>
           <td class="paramname"><em>query</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; std::pair&lt; <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>, <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> &gt;&gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; std::pair&lt; <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>, <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a> &gt;&gt; &amp;&#160;</td>
           <td class="paramname"><em>headers</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>body</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a> &amp;&#160;</td>
           <td class="paramname"><em>to_pid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="requests_8fbs.html#a073e41b12c51742e2600e64d979fa96f">ResponseFilter</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="requests_8fbs.html#a073e41b12c51742e2600e64d979fa96f">ResponseFilter</a>&#160;</td>
           <td class="paramname"><em>desired_format</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>object_path</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>root_type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>schema_text</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const bool&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> bool&#160;</td>
           <td class="paramname"><em>include_headers</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const bool&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> bool&#160;</td>
           <td class="paramname"><em>streaming</em>&#160;</td>
         </tr>
         <tr>
@@ -705,6 +775,267 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<a id="a7b0fccdaa2f207ff564999617df04227"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b0fccdaa2f207ff564999617df04227">&#9670;&nbsp;</a></span>make_request_payload() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto Requests::make_request_payload </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; uint8_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>payload</em></td><td>)</td>
+          <td> -&gt;  <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6cc6b31b5087df339b8714bb6e3cbc9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cc6b31b5087df339b8714bb6e3cbc9b">&#9670;&nbsp;</a></span>make_request_payload() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto Requests::make_request_payload </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> flatbuffers::DetachedBuffer &amp;&#160;</td>
+          <td class="paramname"><em>payload</em></td><td>)</td>
+          <td> -&gt;  <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespace_requests_a6cc6b31b5087df339b8714bb6e3cbc9b_cgraph.png" border="0" usemap="#namespace_requests_a6cc6b31b5087df339b8714bb6e3cbc9b_cgraph" alt=""/></div>
+<map name="namespace_requests_a6cc6b31b5087df339b8714bb6e3cbc9b_cgraph" id="namespace_requests_a6cc6b31b5087df339b8714bb6e3cbc9b_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,5,175,44"/>
+<area shape="rect"  href="namespace_requests.html#a7b0fccdaa2f207ff564999617df04227" title=" " alt="" coords="223,5,392,44"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aa65e82b2a5c05b8263ed73cdca2fda0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa65e82b2a5c05b8263ed73cdca2fda0b">&#9670;&nbsp;</a></span>make_request_payload() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto Requests::make_request_payload </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramname"><em>payload</em></td><td>)</td>
+          <td> -&gt;  <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespace_requests_aa65e82b2a5c05b8263ed73cdca2fda0b_cgraph.png" border="0" usemap="#namespace_requests_aa65e82b2a5c05b8263ed73cdca2fda0b_cgraph" alt=""/></div>
+<map name="namespace_requests_aa65e82b2a5c05b8263ed73cdca2fda0b_cgraph" id="namespace_requests_aa65e82b2a5c05b8263ed73cdca2fda0b_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,5,175,44"/>
+<area shape="rect"  href="namespace_u_u_i_d.html#a3d783c953f3fa260d90004f6f904f6f4" title=" " alt="" coords="223,12,332,37"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aab4b28c4484c4a657e3e63b881f78baa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab4b28c4484c4a657e3e63b881f78baa">&#9670;&nbsp;</a></span>make_response_payload() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto Requests::make_response_payload </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> UUID::UUID &amp;&#160;</td>
+          <td class="paramname"><em>request_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; uint8_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>payload</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a126878506f154c555286192978eed888"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a126878506f154c555286192978eed888">&#9670;&nbsp;</a></span>make_response_payload() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto Requests::make_response_payload </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> UUID::UUID &amp;&#160;</td>
+          <td class="paramname"><em>request_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> flatbuffers::DetachedBuffer &amp;&#160;</td>
+          <td class="paramname"><em>payload</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6a4b021134d8b422daf1b5ac7f1d890d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a4b021134d8b422daf1b5ac7f1d890d">&#9670;&nbsp;</a></span>make_response_payload() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto Requests::make_response_payload </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> UUID::UUID &amp;&#160;</td>
+          <td class="paramname"><em>request_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramname"><em>payload</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aac17e9b0e0694dfcf9c924ec970ccd18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac17e9b0e0694dfcf9c924ec970ccd18">&#9670;&nbsp;</a></span>make_response_payload() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto Requests::make_response_payload </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a> &amp;&#160;</td>
+          <td class="paramname"><em>request_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> std::vector&lt; uint8_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>payload</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt; <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a>
+</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa5894df7db37c2e7227a27e6bc525cd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5894df7db37c2e7227a27e6bc525cd5">&#9670;&nbsp;</a></span>make_response_payload() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto Requests::make_response_payload </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a> &amp;&#160;</td>
+          <td class="paramname"><em>request_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> flatbuffers::DetachedBuffer &amp;&#160;</td>
+          <td class="paramname"><em>payload</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt; <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a>
+</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespace_requests_aa5894df7db37c2e7227a27e6bc525cd5_cgraph.png" border="0" usemap="#namespace_requests_aa5894df7db37c2e7227a27e6bc525cd5_cgraph" alt=""/></div>
+<map name="namespace_requests_aa5894df7db37c2e7227a27e6bc525cd5_cgraph" id="namespace_requests_aa5894df7db37c2e7227a27e6bc525cd5_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,5,185,44"/>
+<area shape="rect"  href="namespace_requests.html#aac17e9b0e0694dfcf9c924ec970ccd18" title=" " alt="" coords="233,5,413,44"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a6d19856ff5977cb207e364d2d72679d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d19856ff5977cb207e364d2d72679d7">&#9670;&nbsp;</a></span>make_response_payload() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto Requests::make_response_payload </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a> &amp;&#160;</td>
+          <td class="paramname"><em>request_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramname"><em>payload</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt; <a class="el" href="namespace_requests.html#a9c45f16d6db70845eb01788ed965ab19">RequestIntentFlatbuffer</a>
+</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespace_requests_a6d19856ff5977cb207e364d2d72679d7_cgraph.png" border="0" usemap="#namespace_requests_a6d19856ff5977cb207e364d2d72679d7_cgraph" alt=""/></div>
+<map name="namespace_requests_a6d19856ff5977cb207e364d2d72679d7_cgraph" id="namespace_requests_a6d19856ff5977cb207e364d2d72679d7_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,5,185,44"/>
+<area shape="rect"  href="namespace_u_u_i_d.html#a3d783c953f3fa260d90004f6f904f6f4" title=" " alt="" coords="233,12,342,37"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a4611ba20fc81b4c8f4a47d011ee7d3b0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4611ba20fc81b4c8f4a47d011ee7d3b0">&#9670;&nbsp;</a></span>matches() <span class="overload">[1/2]</span></h2>
 
@@ -714,25 +1045,25 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto Requests::matches </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
           <td class="paramname"><em>message</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="struct_response.html">Response</a> *&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_response.html">Response</a> *&amp;&#160;</td>
           <td class="paramname"><em>response</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const UUID::UUID &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> UUID::UUID &amp;&#160;</td>
           <td class="paramname"><em>request_intent_id</em>&#160;</td>
         </tr>
         <tr>
@@ -754,25 +1085,25 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto Requests::matches </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
           <td class="paramname"><em>message</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="struct_response.html">Response</a> *&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_response.html">Response</a> *&amp;&#160;</td>
           <td class="paramname"><em>response</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_requests.html#a0f393fb4e5fabd9ba3192902a5621f53">UUID</a> &amp;&#160;</td>
           <td class="paramname"><em>request_intent_id</em>&#160;</td>
         </tr>
         <tr>
@@ -806,7 +1137,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto Requests::parse_http_status_line </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>chunk</em></td><td>)</td>
           <td> -&gt;  int</td>
         </tr>
@@ -824,13 +1155,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto Requests::parse_request_intent </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>req_fb</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>to_pid</em>&#160;</td>
         </tr>
         <tr>
@@ -849,7 +1180,7 @@ Here is the call graph for this function:</div>
 <area shape="rect"  href="namespace_requests.html#ade3304a270130400fb5c52c156c5814a" title=" " alt="" coords="224,48,401,87"/>
 <area shape="rect"  href="namespace_u_u_i_d.html#a3d783c953f3fa260d90004f6f904f6f4" title=" " alt="" coords="462,5,571,31"/>
 <area shape="rect"  href="namespace_u_u_i_d.html#ac0c664635f1b7d19b635b304bbfedfe5" title=" " alt="" coords="456,55,577,80"/>
-<area shape="rect"  href="namespace_u_u_i_d.html#ab7279f21e5f75d5baaed39e892d656d6" title=" " alt="" coords="449,104,584,129"/>
+<area shape="rect"  href="namespace_u_u_i_d.html#a9614ae4afecac3df5c762d296f0b5d71" title=" " alt="" coords="449,104,584,129"/>
 </map>
 </div>
 
@@ -872,16 +1203,16 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a9c56c9469e3ee43d55807f21c32e47c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c56c9469e3ee43d55807f21c32e47c7">&#9670;&nbsp;</a></span>request_manager_actor_behaviour() <span class="overload">[1/2]</span></h2>
+<a id="a809929a1252538842a5abb44237a8d74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a809929a1252538842a5abb44237a8d74">&#9670;&nbsp;</a></span>queued_endpoint_actor_behaviour() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">auto Requests::request_manager_actor_behaviour </td>
+          <td class="memname">auto Requests::queued_endpoint_actor_behaviour </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>self</em>, </td>
         </tr>
         <tr>
@@ -893,7 +1224,94 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
+          <td class="paramname"><em>message</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="struct_actor_model_1_1_result_union.html">ActorModel::ResultUnion</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0b27139ee590439c77a5ecce758cbfb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b27139ee590439c77a5ecce758cbfb9">&#9670;&nbsp;</a></span>queued_endpoint_actor_behaviour() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto Requests::queued_endpoint_actor_behaviour </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">StatePtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>_state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_message.html">Message</a> &amp;&#160;</td>
+          <td class="paramname"><em>message</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt; <a class="el" href="struct_actor_model_1_1_result_union.html">ResultUnion</a>
+</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespace_requests_a0b27139ee590439c77a5ecce758cbfb9_cgraph.png" border="0" usemap="#namespace_requests_a0b27139ee590439c77a5ecce758cbfb9_cgraph" alt=""/></div>
+<map name="namespace_requests_a0b27139ee590439c77a5ecce758cbfb9_cgraph" id="namespace_requests_a0b27139ee590439c77a5ecce758cbfb9_cgraph">
+<area shape="rect"  title=" " alt="" coords="5,205,193,244"/>
+<area shape="rect"  href="namespace_requests.html#a207bc1ffb5f90fb1e9a92a947a5a082e" title=" " alt="" coords="264,55,399,80"/>
+<area shape="rect"  href="namespace_u_u_i_d.html#ac0c664635f1b7d19b635b304bbfedfe5" title=" " alt="" coords="670,80,791,105"/>
+<area shape="rect"  href="namespace_actor_model.html#a882049e2d543ec7c690193fd8d5cee1d" title=" " alt="" coords="244,156,419,181"/>
+<area shape="rect"  href="namespace_requests.html#aac17e9b0e0694dfcf9c924ec970ccd18" title=" " alt="" coords="241,205,421,244"/>
+<area shape="rect"  href="namespace_actor_model.html#a23bee2724f328f7fdf3af1d17d0492f9" title=" " alt="" coords="269,268,394,293"/>
+<area shape="rect"  href="namespace_actor_model.html#a8458fc07dc4824c5b1b8599fcdd1f5ad" title=" " alt="" coords="264,317,399,343"/>
+<area shape="rect"  href="namespace_actor_model.html#a7464801c46fc09ddacf1b63b54e261e9" title=" " alt="" coords="260,367,403,392"/>
+<area shape="rect"  href="namespace_actor_model.html#aefe347cf1fcd0d80dca3e517604ad625" title=" " alt="" coords="472,5,619,31"/>
+<area shape="rect"  href="namespace_u_u_i_d.html#aeb49f4dd1950530a67c296a65e8a4292" title=" " alt="" coords="469,55,622,80"/>
+<area shape="rect"  href="class_actor_model_1_1_process.html#a7855ee2779ae4a48e56776be8ca20b87" title=" " alt="" coords="473,285,618,324"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a9c56c9469e3ee43d55807f21c32e47c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c56c9469e3ee43d55807f21c32e47c7">&#9670;&nbsp;</a></span>request_manager_actor_behaviour() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto Requests::request_manager_actor_behaviour </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_actor_model.html#a578df42f70fcc9caa4f62b20edfa07b6">ActorModel::StatePtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="actor__model_8fbs.html#a4376052480b7ccfb3cb9b3e8b4d15b5a">ActorModel::Message</a> &amp;&#160;</td>
           <td class="paramname"><em>message</em>&#160;</td>
         </tr>
         <tr>
@@ -915,7 +1333,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto Requests::request_manager_actor_behaviour </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>self</em>, </td>
         </tr>
         <tr>
@@ -927,7 +1345,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="struct_message.html">Message</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="struct_message.html">Message</a> &amp;&#160;</td>
           <td class="paramname"><em>message</em>&#160;</td>
         </tr>
         <tr>
@@ -970,7 +1388,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>body</em>&#160;</td>
         </tr>
         <tr>
@@ -1007,13 +1425,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>k</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>v</em>&#160;</td>
         </tr>
         <tr>
@@ -1050,7 +1468,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>method</em>&#160;</td>
         </tr>
         <tr>
@@ -1088,13 +1506,13 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>k</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>v</em>&#160;</td>
         </tr>
         <tr>
@@ -1131,7 +1549,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a2f5f923f06c2b85e0dc2a1b4d75c6bdf">string_view</a>&#160;</td>
           <td class="paramname"><em>uri</em>&#160;</td>
         </tr>
         <tr>
@@ -1169,7 +1587,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="namespace_actor_model.html#a8d618bd3e11c44aa2dc0fb2f1f0a5aac">ActorModel::Pid</a> &amp;&#160;</td>
           <td class="paramname"><em>to_pid</em>&#160;</td>
         </tr>
         <tr>
@@ -1187,7 +1605,7 @@ Here is the call graph for this function:</div>
 <area shape="rect"  title=" " alt="" coords="5,48,183,87"/>
 <area shape="rect"  href="namespace_u_u_i_d.html#a3d783c953f3fa260d90004f6f904f6f4" title=" " alt="" coords="244,5,353,31"/>
 <area shape="rect"  href="namespace_u_u_i_d.html#ac0c664635f1b7d19b635b304bbfedfe5" title=" " alt="" coords="238,55,359,80"/>
-<area shape="rect"  href="namespace_u_u_i_d.html#ab7279f21e5f75d5baaed39e892d656d6" title=" " alt="" coords="231,104,366,129"/>
+<area shape="rect"  href="namespace_u_u_i_d.html#a9614ae4afecac3df5c762d296f0b5d71" title=" " alt="" coords="231,104,366,129"/>
 </map>
 </div>
 
@@ -1202,7 +1620,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">auto Requests::urlencode </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="oauth-server_8js.html#a92b303b76a3f942ea819498907d5e83c">const</a> <a class="el" href="group__firmware.html#ga23b57f0b98455f90118efd4a93ca0151">std::experimental::string_view</a>&#160;</td>
           <td class="paramname"><em>raw_str</em></td><td>)</td>
           <td> -&gt;  <a class="el" href="group__firmware.html#gaca454f84dd198a937af6499dd758aa3d">std::string</a></td>
         </tr>
@@ -1221,20 +1639,6 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="ad728ced0131baec829d23cc17958d517"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad728ced0131baec829d23cc17958d517">&#9670;&nbsp;</a></span>cacerts</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">mbedtls_x509_crt Requests::cacerts</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a941ccc94b8018989edb07336ffba90eb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a941ccc94b8018989edb07336ffba90eb">&#9670;&nbsp;</a></span>has_feature</h2>
 
@@ -1287,14 +1691,14 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a43eb140ab22289f29db60d02020bcde5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43eb140ab22289f29db60d02020bcde5">&#9670;&nbsp;</a></span>TAG</h2>
+<a id="ace7a5f17f66b9537bba89fd68db089d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace7a5f17f66b9537bba89fd68db089d6">&#9670;&nbsp;</a></span>TAG</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr char Requests::TAG[] = &quot;RequestManager&quot;</td>
+          <td class="memname">constexpr char Requests::TAG = &quot;queued_endpoint_actor&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">

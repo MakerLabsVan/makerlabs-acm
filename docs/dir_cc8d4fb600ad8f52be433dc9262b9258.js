@@ -4,6 +4,8 @@ var dir_cc8d4fb600ad8f52be433dc9262b9258 =
     [ "curl_library_info.h", "curl__library__info_8h.html", "curl__library__info_8h" ],
     [ "http_utils.cpp", "http__utils_8cpp.html", "http__utils_8cpp" ],
     [ "http_utils.h", "http__utils_8h.html", "http__utils_8h" ],
+    [ "queued_endpoint_actor.cpp", "queued__endpoint__actor_8cpp.html", "queued__endpoint__actor_8cpp" ],
+    [ "queued_endpoint_actor.h", "queued__endpoint__actor_8h.html", "queued__endpoint__actor_8h" ],
     [ "request_handler.cpp", "request__handler_8cpp.html", null ],
     [ "request_handler.h", "request__handler_8h.html", "request__handler_8h" ],
     [ "request_manager.cpp", "request__manager_8cpp.html", "request__manager_8cpp" ],

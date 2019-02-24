@@ -13,7 +13,7 @@ var struct_requests_1_1_request_handler =
     [ "write_callback", "struct_requests_1_1_request_handler.html#a30eb54ec8ecb5920a1e7667a5101daf9", null ],
     [ "RequestManager", "struct_requests_1_1_request_handler.html#a15101ecce05f7dfae38dc1ea6627b549", null ],
     [ "errbuf", "struct_requests_1_1_request_handler.html#aeee97d256702d7a84bd03e4561414c0e", null ],
-    [ "request_intent", "struct_requests_1_1_request_handler.html#ac512bd28e9b49c721704691b173a5cd8", null ],
+    [ "request_intent", "struct_requests_1_1_request_handler.html#a0040c886c1a350b9a4e4fd6dc9456942", null ],
     [ "request_intent_mutable_buf", "struct_requests_1_1_request_handler.html#aa6fe94ff59b1c4cb770e07237b7ff9a0", null ],
     [ "response_buffer", "struct_requests_1_1_request_handler.html#a1604e40c0db081cfa7952dfb06614dc6", null ],
     [ "response_code", "struct_requests_1_1_request_handler.html#a0f2a2589241d928c5944d01464586f73", null ]

@@ -9,5 +9,6 @@ var dir_53e6fa9553ac22a5646d2a2b2d7b97a1 =
     [ ".claspignore", "_8claspignore.html", null ],
     [ "appsscript.json", "appsscript_8json.html", null ],
     [ "files.js", "scripts_2files_8js.html", null ],
-    [ "package.json", "scripts_2package_8json.html", null ]
+    [ "package.json", "scripts_2package_8json.html", null ],
+    [ "replace-in-file.js", "scripts_2replace-in-file_8js.html", "scripts_2replace-in-file_8js" ]
 ];

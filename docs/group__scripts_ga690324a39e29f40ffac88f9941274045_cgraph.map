@@ -1,9 +1,0 @@
-<map id="doGet" name="doGet">
-<area shape="rect" id="node1" title="Google Apps Script HTTP handler. Checks the ?href= parameter and returns the result from the selected..." alt="" coords="5,31,63,56"/>
-<area shape="rect" id="node2" href="$group__scripts.html#ga49cf645db900e4b3091b8e21332bbb81" title="Google Apps Script HTTP handler view which gets the latest fields (using getUsersFields),..." alt="" coords="128,5,246,31"/>
-<area shape="rect" id="node6" href="$group__scripts.html#ga1563c567e0a569ba0b76a1eae80eb030" title="Google Apps Script HTTP handler view which searches the &quot;Users&quot; sheet for the next available MakerLab..." alt="" coords="111,55,263,80"/>
-<area shape="rect" id="node3" href="$group__scripts.html#ga6f698b330238aebcd4ecf50761417a25" title="Use NamedRanges on the &quot;Users&quot; sheet to determine the section title and column title for each column/..." alt="" coords="329,5,439,31"/>
-<area shape="rect" id="node4" href="$group__scripts.html#ga653136624c4c54208d89d7dfc82bc21f" title="Return the Range corresponding to the specified NamedRange name in a specific Google Spreadsheet shee..." alt="" coords="504,55,626,80"/>
-<area shape="rect" id="node5" href="$group__functions.html#ga4a3bcfe69f739417055f12eecb9ad9d5" title="Get column letter from column index." alt="" coords="508,5,622,31"/>
-<area shape="rect" id="node7" href="$group__scripts.html#gabd2988166975087ecdddf2d3185100ac" title="Search through the &quot;users_makerlabs_id&quot; NamedRange in the &quot;Users&quot; sheet, parse the MakerLabs IDs (e...." alt="" coords="311,55,456,80"/>
-</map>
