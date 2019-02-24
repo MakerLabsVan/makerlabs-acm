@@ -1,8 +1,6 @@
 var index =
 [
     [ "Overview", "index.html#autotoc_md5", null ],
-    [ "System Diagram", "system_diagram.html", null ],
-    [ "Initial Project Setup", "initial_project_setup.html", null ],
     [ "Dev Setup", "dev_setup.html", [
       [ "How-to obtain this repo:", "dev_setup.html#autotoc_md0", null ],
       [ "Dependencies & Pre-requisites (macOS):", "dev_setup.html#autotoc_md1", null ],
@@ -15,6 +13,8 @@ var index =
       [ "Firmware", "dev_setup.html#autotoc_md94", null ],
       [ "Google Apps Script Webapp / Frontend", "dev_setup.html#autotoc_md95", null ]
     ] ],
+    [ "System Diagram", "system_diagram.html", null ],
+    [ "Initial Project Setup", "initial_project_setup.html", null ],
     [ "Known Issues", "known_issues.html", [
       [ "Electrical", "known_issues.html#autotoc_md54", null ],
       [ "Firmware", "known_issues.html#autotoc_md55", null ],
